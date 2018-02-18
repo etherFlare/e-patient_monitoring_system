@@ -20,10 +20,11 @@
     },
     "dependencies": {
         "moment": "^2.20.1",
+        "uiv": "^0.18.0",
         "v-toaster": "^1.0.3",
         "vue-axios": "^2.0.2",
         "vue-moment": "^3.1.0",
-        "   ": "^3.0.1",
+        "vue-router": "^3.0.1",
         "vuex": "^3.0.1"
     }
 }

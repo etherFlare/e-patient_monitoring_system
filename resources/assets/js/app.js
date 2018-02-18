@@ -1,5 +1,6 @@
 require('./bootstrap');
 
+
 window.Vue = require('vue');
 window.Vuex = require('vuex');
 
@@ -9,27 +10,31 @@ window.VueAxios=require('vue-axios').default;
  
 import Toaster from 'v-toaster'
 
+import * as uiv from 'uiv'
+
 // You need a specific loader for CSS files like https://github.com/webpack/css-loader
 import 'v-toaster/dist/v-toaster.css'
+import NewPostModalComponent from './components/post/new-post-modal.vue'
 
 window.Axios=require('axios').default;
 
 let AppLayout= require('./components/post/App.vue');
+ 
 
 // show the list post template
 const Listposts=Vue.component('Listposts', require('./components/post/Listposts.vue'));
 
 // add post template
-const Addpost =Vue.component('Addpost', require('./components/post/Addpost.vue'));
+//const Addpost =Vue.component('Addpost', require('./components/post/Addpost.vue'));
 
 // edite post template
-const Editpost =Vue.component('Editpost', require('./components/post/Editpost.vue'));
+//const Editpost =Vue.component('Editpost', require('./components/post/Editpost.vue'));
 
 // delete post template
-const Deletepost =Vue.component('Deletepost', require('./components/post/Deletepost.vue'));
+//const Deletepost =Vue.component('Deletepost', require('./components/post/Deletepost.vue'));
 
 // view single post template
-const Viewpost =Vue.component('Viewpost', require('./components/post/Viewpost.vue'));
+//const Viewpost =Vue.component('Viewpost', require('./components/post/Viewpost.vue'));
 
 const heartBeat =Vue.component('heart-beat', require('./components/heart-beat.vue'));
 const vmodal =Vue.component('v-modal', require('./components/modal.vue'));
@@ -38,10 +43,13 @@ const vmodal =Vue.component('v-modal', require('./components/modal.vue'));
 // optional set default imeout, the default is 10000 (10 seconds).
 Vue.use(Toaster, {timeout: 5000})
 
+Vue.use(uiv)
 
 // registering Modules
 Vue.use(VueRouter,VueAxios, axios, Vuex);
 Vue.use(require('vue-moment'));
+
+Vue.component('new-post-modal', NewPostModalComponent)
 
 const routes = [
 {
@@ -49,6 +57,7 @@ const routes = [
   path: '/post',
   component: Listposts
 },
+/*
 {
   name: 'Addpost',
   path: '/post/add-post',
@@ -69,6 +78,7 @@ const routes = [
   path: '/post/view/:id',
   component: Viewpost
 }
+*/
 ];
 
 const router = new VueRouter({ mode: 'history', routes: routes});
@@ -94,7 +104,7 @@ const store = new Vuex.Store({
    async getPosts({commit, dispatch, state}, data) {
     data = data || {}
     const axiosOptions = {
-      'url': '/post/posts/',
+      'url': '/post/posts',
       'method': 'get',
       'params': data
     }
@@ -102,10 +112,10 @@ const store = new Vuex.Store({
     let nullData = Object.assign(state.posts, {data: []})
     await dispatch('newPosts', nullData)
 
-    await axios(axiosOptions).then(async (response) => {
+    return await axios(axiosOptions).then(async (response) => {
       await console.log('getPosts:', response)
       await dispatch('newPosts', response.data)
-          setTimeout(()=> commit('setLoading', false), 3000)
+       commit('setLoading', false)
 
     }).catch(error => { 
       console.log('error', error); 

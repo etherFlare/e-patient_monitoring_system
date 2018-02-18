@@ -17,8 +17,7 @@
 <div class="container">
  <h3>posts</h3>
 </div>
-tadaracda
-<section id="app">... tada
+<section id="app">.....
 </section>
 
 <script>

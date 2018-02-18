@@ -20,7 +20,7 @@
         </div>
         <p>{{searchTerm}}</p>
       </form>
-      <heart-beat v-if="loading"></heart-beat>
+      <heart-beat v-if="on_load"></heart-beat>
       <div v-if="!loading"> 
         <table class="table">
           <thead>
@@ -74,6 +74,7 @@
 export default {
   data() {
     return {
+      on_load: true,
       post: null,
       showCreatePostModal: false,
       showEditPostModal: false,
@@ -84,7 +85,9 @@ export default {
   },
   mounted() {
     this.$nextTick(()=>{
-      this.getPosts()
+      this.getPosts().then((response)=>{
+      this.on_load = false
+      })
     })
   }, 
   computed: {
@@ -126,74 +129,10 @@ export default {
       })
     },
     getPosts(event) {
-      this.$store.dispatch('getPosts', { 'search': this.searchTerm })
+      return this.$store.dispatch('getPosts', { 'search': this.searchTerm })
     }
   },
   components: {
-    'new-post-modal': {
-      template: `<v-modal v-on:close="$emit('close')">
-      <h3 slot="header">New Post</h3> 
-      <div slot="body">
-      <form ref="vForm" v-on:submit.prevent="postNewPost($event)">
-      <template v-if="posting">...posting</template>
-      <template v-else>
-      <div class="form-group" :class="{'has-error': !post.title}">
-      <label>title</label>
-      <input type="text" class="form-control" placeholder="..." v-model="post.title"/>
-      </div>
-      <div class="form-group" :class="{'has-error': !post.body}">
-      <label>body</label>
-      <textarea cols="30" rows="10" class="form-control" placeholder="..." v-model="post.body"></textarea>
-      </div>
-      <div class="text-right">
-      <button class="btn" :class="{'btn-default': canPost, 'btn-danger': !canPost}" type="submit">SUBMIT</button>
-      </div>
-      </template>
-      </form>
-      </div> 
-      </v-modal>`,
-      data() {
-        return {
-          posting: false, 
-          post: {
-            title: '',
-            body: ''
-          }
-        }
-      },
-      computed: { 
-        canPost(){
-          let result = true
-          Object.entries(this.post).forEach(([attrIdx, attr])=>{
-            if(attr === '') result = false  
-          })
-          return result
-        }
-      },
-      methods: { 
-        async postNewPost(event){  
-         const axiosOptions = {
-          'url': '/post/posts',
-          'method': 'post',
-          'data': this.post
-        }
-        this.posting = true 
-        this.result = {}
-        this.message = {}
-        await axios(axiosOptions).then(async (response) => {
-          this.$toaster.success(response.data.msg)
-          this.post = {title: '', body: ''} 
-          this.$emit('post-created') 
-          console.log(response)
-          console.log('adding data')
-          setTimeout(() => this.$emit('close'), 500)  
-        }).catch(error => { 
-          this.$toaster.error(error.response.data.message) 
-        })
-        this.posting = false
-      }
-    }
-  },
   'edit-post-modal': {
     template: `<v-modal v-on:close="$emit('close')">
     <h3 slot="header">Edit Post</h3> 
