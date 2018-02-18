@@ -14,7 +14,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app1">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -75,6 +75,15 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+   
+
+<script>
+ window.Laravel = <?php echo json_encode([
+ 'csrfToken' => csrf_token(),
+ ]); ?>
+</script>
+
+ <script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 </html>

@@ -16,9 +16,21 @@ class PostController extends Controller
       return view('vueApp');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return Post::orderBy('id','DESC')->get();
+ 
+        $post = Post::where(function($query) use($request) {
+
+            if($request->has('search')){
+                $search = trim($request->get('search')); 
+                $query->where('title', 'LIKE', '%'. $search .'%')->orWhere('body', 'LIKE', '%'. $search .'%');
+            }
+
+        })
+        ->orderBy('created_at', 'desc')
+        ->paginate(10);
+
+        return $post;
     }
 
     /**
@@ -47,6 +59,16 @@ class PostController extends Controller
         $create = Post::create($request->all());
         return response()->json(['status' => 'success','msg'=>'post created successfully']);
 
+    }
+    public function get_store(Request $request)
+    {
+        $this->validate($request, [
+          'title' => 'required',
+          'body' => 'required',
+        ]);
+
+        $create = Post::create($request->all());
+        return response()->json(['status' => 'success','msg'=>'post created successfully']);
     }
 
     /**

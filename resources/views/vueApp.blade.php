@@ -15,9 +15,9 @@
 </head>
 <body>
 <div class="container">
- <h3>Vue.js CRUD With Laravel 5.5 application</h3>
+ <h3>posts</h3>
 </div>
-
+tadaracda
 <section id="app">... tada
 </section>
 
