@@ -1,28 +1,3 @@
-<template>
-	<div>
-		<transition name="modal">
-		<div class="modal-mask">
-			<div class="modal-wrapper">
-				<div class="modal-container">
-					<div class="modal-header">
-						<div class="pull-right"> 
-							<button class="btn btn-default" type="button" v-on:click="$emit('close')"><i class="fa fa-times"></i></button> 
-						</div>
-						<slot name="header">
-							default header
-						</slot>
-					</div>
-					<div class="modal-body">
-						<slot name="body">
-							default body
-						</slot>
-					</div> 
-				</div>
-			</div>
-		</div>
-	</transition>
-	</div>
-</template>
 <style scoped>
 .modal-mask {
 	position: fixed;
@@ -71,6 +46,32 @@
 	transform: scale(1.1);
 }
 </style>
+
+<template>
+	<div>
+		<transition name="modal">
+		<div class="modal-mask">
+			<div class="modal-wrapper">
+				<div class="modal-container">
+					<div class="modal-header">
+						<div class="pull-right"> 
+							<button class="btn btn-default" type="button" v-on:click="$emit('close')"><i class="fa fa-times"></i></button> 
+						</div>
+						<slot name="header">
+							default header
+						</slot>
+					</div>
+					<div class="modal-body">
+						<slot name="body">
+							default body
+						</slot>
+					</div> 
+				</div>
+			</div>
+		</div>
+	</transition>
+	</div>
+</template>
 
 <script>
 	export default {

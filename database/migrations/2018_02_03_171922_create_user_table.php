@@ -18,14 +18,12 @@ class CreateUserTable extends Migration
             $table->string('first_name',20);
             $table->string('middle_name',20);
             $table->string('last_name',20);
+            $table->unsignedinteger('contact_number');
             $table->string('email',20)->unique();
             $table->string('password');
-            $table->string('contact_number',12);
-            $table->boolean('is_active');
-            $table->boolean('is_archive');
-            $table->string('comment',255);
             $table->rememberToken();
             $table->timestamps();
+            // add description
         });
     }
 

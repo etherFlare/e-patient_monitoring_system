@@ -28,5 +28,24 @@ class DatabaseSeeder extends Seeder
 	            'updated_at' => Carbon\Carbon::now()
 	        ]);
 	    }
+	    
+	        App\Role::create([
+	            'title'=> 'Admin',
+	            'description'=> 'Admin',
+	            'created_at' => Carbon\Carbon::now() , 
+	            'updated_at' => Carbon\Carbon::now()
+	        ]);
+	      App\Role::create([
+	            'title'=> 'SuperAdmin',
+	            'description'=> 'SuperAdmin',
+	            'created_at' => Carbon\Carbon::now() , 
+	            'updated_at' => Carbon\Carbon::now()
+	        ]);
+	       App\Role::create([
+	            'title'=> 'Guest',
+	            'description'=> 'Guest',
+	            'created_at' => Carbon\Carbon::now() , 
+	            'updated_at' => Carbon\Carbon::now()
+	        ]);
 	}
 }

@@ -16,6 +16,7 @@ class Unit extends Model
         'thermometer_is_active',
         'oximeter_delay',
         'bp_delay',
-        'thermometer_delay'
+        'thermometer_delay',
+        'comment'
     ];
 }
