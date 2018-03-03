@@ -1,3 +1,10 @@
 # e-patient
-this shit does'nt work
-LOL
+
+this project has a dead line..... 
+
+
+mmodifieng content
+
+current progress:
+
+wifi mod conecting to db
