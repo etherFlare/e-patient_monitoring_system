@@ -6,6 +6,7 @@
 	</div>
 </template>
 
+<!--
 <script>
 export default {
 	mounted() {
@@ -22,3 +23,4 @@ export default {
 	}
 }
 </script>
+-->

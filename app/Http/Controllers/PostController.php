@@ -13,7 +13,7 @@ class PostController extends Controller
      */
 
     public function home(){
-      return view('vueApp');
+      return view('post.index');
     }
 
     public function index(Request $request)

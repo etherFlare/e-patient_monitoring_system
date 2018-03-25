@@ -1,4 +1,4 @@
-require('./bootstrap');
+require('./bootstrap'); 
 
 
 window.Vue = require('vue');
@@ -137,7 +137,7 @@ const store = new Vuex.Store({
     users(state, getters) {
       return getters.usersCollection.data
     },
-    //-------------------------role
+    //-------------------------
   },
   actions: {
     

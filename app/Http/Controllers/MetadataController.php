@@ -45,33 +45,6 @@ class MetadataController extends Controller
 	{
 		return UnitPatientMetadata::find($id);
 	}
-	public function edit($id)
-	{
-		return UnitPatientMetadata::find($id);
-	}
-	public function update(Request $request, $id)
-	{
-		$this->validate($request, [
-			'uniy_id' => 'required',
-			'sensor_type' => 'required',
-			'sensor_value' => 'required',
-		]);
-		$metadata = UnitPatientMetadata::find($id);
-		if($metadata->count()){
-			$metadata->update($request->all());
-			return response()->json(['statur'=>'success','msg'=>'UnitPatientMetadata updated successfully']);
-		} else {
-			return response()->json(['statur'=>'error','msg'=>'error in updating post']);
-		}
-	}
-	public function destroy($id)
-	{
-		$metadata = UnitPatientMetadata::find($id);
-		if($metadata->count()){
-			$metadata->delete();
-			return response()->json(['statur'=>'success','msg'=>'UnitPatientMetadata deleted successfully']);
-		} else {
-			return response()->json(['statur'=>'error','msg'=>'error in deleting post']);
-		}
-	}
+	
+	
 }

@@ -1,34 +1,27 @@
-<!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-<head>
- <meta charset="utf-8">
- <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <meta name="viewport" content="width=device-width, initial-scale=1">
- <!-- CSRF Token -->
- <meta name="csrf-token" content="{{ csrf_token() }}">
- <title>{{ config('app.name', 'Laravel') }}</title>
- <!-- Styles -->
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
- {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
-</head>
-<body>
-<div class="container">
- <h3>Units</h3>
-</div>
-<section id="app">.....
-</section>
-
-<script>
- window.Laravel = <?php echo json_encode([
- 'csrfToken' => csrf_token(),
- ]); ?>
-</script>
-
- <script src="{{ asset('js/app.js') }}"></script>
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
- <!-- Include all compiled plugins (below), or include individual files as needed -->
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-</body>
-</html>
+@push('before_style')
+<style>
+	.container{width: auto !important ;}
+</style>
+<link rel="stylesheet" href="{{ asset('assets/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+@endpush
+@extends('layouts.dashboard')
+@section('content-header')
+<h1>
+        Accounts
+        <small>e-patient nurses, doctors , administrators and developer accounts</small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i>e-Patient</a></li>
+        <li><a href="#">Accounts</a></li>
+        <li class="active">List</li>
+      </ol>
+@endsection
+@section('main-content')
+<div id="app"></div>	
+@endsection
+@push('footer_scripts')
+<script src="{{ asset('assets/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js') }}"> </script>
+<script src="{{ asset('assets/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"> </script>
+<script src="{{ asset('assets/adminlte/bower_components/jquery-slimscroll/jquery.slimscroll.min.js') }}"> </script>
+<script src="{{ asset('assets/adminlte/bower_components/fastclick/lib/fastclick.js') }}"> </script>
+@endpush

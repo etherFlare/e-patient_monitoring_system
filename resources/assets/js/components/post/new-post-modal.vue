@@ -1,7 +1,10 @@
 <template>
-  <v-modal v-on:close="$emit('close')">
-    <h3 slot="header">New Post</h3>
-    <div slot="body">
+  <modal  
+  v-model="showModal" 
+  v-on:hide="$emit('close')"
+   title="New Post"
+   :footer="false"
+  >
       <form ref="vForm" v-on:submit.prevent="postNewPost($event)">
         <template v-if="posting">...posting</template>
         <template v-else>
@@ -11,21 +14,24 @@
           </div>
           <div class="form-group" :class="{'has-error': !post.body}">
             <label>body</label>
-            <textarea cols="30" rows="10" class="form-control" placeholder="..." v-model="post.body"></textarea>
+            <textarea cols="30" rows="5" class="form-control" placeholder="..." v-model="post.body"></textarea>
           </div>
-          <div class="text-right">
-            <button class="btn" :class="{'btn-default': canPost, 'btn-danger': !canPost}" type="submit">SUBMIT</button>
+          <div class="modal-footer text-right" >
+            <div class="row">
+              <button class="btn btn-default pull-left col-md-4" type="button" v-on:click="showModal=false">CANCEL</button>
+               <button class="btn btn-success pull-right col-md-4" :class="{'btn-default': canPost, 'btn-danger': !canPost}" type="submit">SUBMIT</button>
+            </div>
           </div>
         </template>
       </form>
-    </div>
-  </v-modal>
+  </modal>
 </template>
 <script>
 export default {
   name: 'new-post-modal',
   data() {
     return {
+      showModal: true,
       posting: false,
       post: {
         title: '',
@@ -59,6 +65,7 @@ export default {
         setTimeout(() => this.$emit('close'), 500)
       }).catch(error => {
         this.$toaster.error(error.response.data.message)
+         this.posting = false
       })
       this.posting = false
     }

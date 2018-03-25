@@ -107,8 +107,8 @@ public function store(Request $request)
       ]);
 
       $role = Role::find($id);
-      if($post->count()){
-        $post->update($request->all());
+      if($role->count()){
+        $role->update($request->all());
         return response()->json(['statur'=>'success','msg'=>'Role updated successfully']);
       } else {
         return response()->json(['statur'=>'error','msg'=>'error in updating role']);
@@ -123,9 +123,9 @@ public function store(Request $request)
      */
     public function destroy($id)
     {
-        $post = Role::find($id);
-        if($post->count()){
-          $post->delete();
+        $role = Role::find($id);
+        if($role->count()){
+          $role->delete();
           return response()->json(['statur'=>'success','msg'=>'Role deleted successfully']);
         } else {
           return response()->json(['statur'=>'error','msg'=>'error in deleting role']);

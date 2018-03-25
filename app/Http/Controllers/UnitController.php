@@ -5,7 +5,7 @@ use App\Unit;
 class UnitController extends Controller
 {
 	public function home(){
-		return view('unit.index');
+		return view('vueApp');
 	}
 	public function index(Request $request)
 	{
