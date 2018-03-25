@@ -28596,7 +28596,7 @@ var store = new Vuex.Store({
       return state.posts;
     },
     posts: function posts(state, getters) {
-      return getters.postsCollection.data;
+      return getters.postsCollection;
     },
 
     //-------------------------units
@@ -70445,15 +70445,59 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'new-unit-modal',
   data: function data() {
     return {
+      showModal: true,
       posting: false,
       unit: {
-        mac_address: ''
-
+        mac_address: '',
+        unit_is_active: '',
+        unit_is_inuse: '',
+        oximeter_is_active: '',
+        bp_is_active: '',
+        thermometer_is_active: '',
+        oximeter_delay: '',
+        bp_delay: '',
+        thermometer_delay: '',
+        comment: ''
       }
     };
   },
@@ -70498,7 +70542,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                         switch (_context.prev = _context.next) {
                           case 0:
                             _this.$toaster.success(response.data.msg);
-                            _this.unit = { mac_address: '' };
+                            _this.unit = {
+                              mac_address: '',
+                              unit_is_active: '',
+                              unit_is_inuse: '',
+                              oximeter_is_active: '',
+                              bp_is_active: '',
+                              thermometer_is_active: '',
+                              oximeter_delay: '',
+                              bp_delay: '',
+                              thermometer_delay: '',
+                              comment: ''
+                            };
                             _this.$emit('unit-created');
                             setTimeout(function () {
                               return _this.$emit('close');
@@ -70517,6 +70572,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                   };
                 }()).catch(function (error) {
                   _this.$toaster.error(error.response.data.message);
+                  _this.posting = false;
                 });
 
               case 6:
@@ -70548,77 +70604,188 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-modal",
+    "modal",
     {
+      attrs: { title: "New Unit", footer: false },
       on: {
-        close: function($event) {
+        hide: function($event) {
           _vm.$emit("close")
         }
+      },
+      model: {
+        value: _vm.showModal,
+        callback: function($$v) {
+          _vm.showModal = $$v
+        },
+        expression: "showModal"
       }
     },
     [
-      _c("h3", { attrs: { slot: "header" }, slot: "header" }, [
-        _vm._v("New Unit")
-      ]),
-      _vm._v(" "),
-      _c("div", { attrs: { slot: "body" }, slot: "body" }, [
-        _c(
-          "form",
-          {
-            ref: "vForm",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                _vm.postNewUnit($event)
-              }
+      _c(
+        "form",
+        {
+          ref: "vForm",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              _vm.postNewUnit($event)
             }
-          },
-          [
-            _vm.posting
-              ? [_vm._v("...posting")]
-              : [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "form-group",
-                      class: { "has-error": !_vm.unit.mac_address }
-                    },
-                    [
-                      _c("label", [_vm._v("Mac Address")]),
+          }
+        },
+        [
+          _vm.posting
+            ? [_vm._v("...posting")]
+            : [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": !_vm.unit.mac_address }
+                  },
+                  [
+                    _c("label", [_vm._v("title")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.unit.mac_address,
+                          expression: "unit.mac_address"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "..." },
+                      domProps: { value: _vm.unit.mac_address },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.unit, "mac_address", $event.target.value)
+                        }
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": !_vm.unit.oximeter_delay }
+                  },
+                  [
+                    _c("div", { staticClass: "input-group" }, [
+                      _c("span", { staticClass: "input-group-addon" }, [
+                        _c("input", { attrs: { type: "checkbox" } })
+                      ]),
                       _vm._v(" "),
                       _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.unit.mac_address,
-                            expression: "unit.mac_address"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "..." },
-                        domProps: { value: _vm.unit.mac_address },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.unit,
-                              "mac_address",
-                              $event.target.value
-                            )
-                          }
-                        }
+                        staticClass: "form-control timepicker",
+                        attrs: { type: "text" }
                       })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "text-right" }, [
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": !_vm.unit.oximeter_delay }
+                  },
+                  [
+                    _c("div", { staticClass: "input-group" }, [
+                      _c("span", { staticClass: "input-group-addon" }, [
+                        _c("input", { attrs: { type: "checkbox" } })
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text" }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": !_vm.unit.oximeter_delay }
+                  },
+                  [
+                    _c("div", { staticClass: "input-group" }, [
+                      _c("span", { staticClass: "input-group-addon" }, [
+                        _c("input", { attrs: { type: "checkbox" } })
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "form-control",
+                        attrs: { type: "text" }
+                      })
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": !_vm.unit.oximeter_delay }
+                  },
+                  [
+                    _c("label", [_vm._v("body")]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.unit.oximeter_delay,
+                          expression: "unit.oximeter_delay"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { cols: "30", rows: "5", placeholder: "..." },
+                      domProps: { value: _vm.unit.oximeter_delay },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.unit,
+                            "oximeter_delay",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer text-right" }, [
+                  _c("div", { staticClass: "row" }, [
                     _c(
                       "button",
                       {
-                        staticClass: "btn",
+                        staticClass: "btn btn-default pull-left col-md-4",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.showModal = false
+                          }
+                        }
+                      },
+                      [_vm._v("CANCEL")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success pull-right col-md-4",
                         class: {
                           "btn-default": _vm.canPost,
                           "btn-danger": !_vm.canPost
@@ -70628,11 +70795,11 @@ var render = function() {
                       [_vm._v("SUBMIT")]
                     )
                   ])
-                ]
-          ],
-          2
-        )
-      ])
+                ])
+              ]
+        ],
+        2
+      )
     ]
   )
 }
@@ -73355,10 +73522,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      per_page: 10,
       on_load: true,
       post: null,
       showCreatePostModal: false,
@@ -73370,6 +73556,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mounted: function mounted() {
     var _this = this;
+
+    setInterval(function () {
+
+      this.getPosts();
+    }.bind(this), 2000);
 
     this.$nextTick(function () {
       _this.getPosts().then(function (response) {
@@ -73426,8 +73617,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         _this4.showPostModal = true;
       });
     },
-    getPosts: function getPosts(event) {
-      return this.$store.dispatch('getPosts', { 'search': this.searchTerm });
+    onPagination: function onPagination(page) {
+      return this.$store.dispatch('getPosts', { 'search': this.searchTerm, 'per_page': this.per_page, 'page': page });
+    },
+    getPosts: function getPosts(event, params) {
+      params = params || {};
+      return this.$store.dispatch('getPosts', Object.assign({}, { 'search': this.searchTerm, 'per_page': this.per_page }, params));
     }
   }
 });
@@ -73462,7 +73657,7 @@ var render = function() {
                   },
                   [
                     _c("span", { staticClass: "glyphicon glyphicon-plus" }),
-                    _vm._v("\n            Add new Post")
+                    _vm._v("\n              Add new Post")
                   ]
                 )
               ])
@@ -73521,131 +73716,235 @@ var render = function() {
               _vm.on_load ? _c("heart-beat") : _vm._e(),
               _vm._v(" "),
               !_vm.loading
-                ? _c("div", [
-                    _c(
-                      "table",
-                      {
-                        staticClass: "table table-bordered table-hover",
-                        attrs: { id: "ex1" }
-                      },
-                      [
-                        _vm._m(1),
-                        _vm._v(" "),
-                        _c(
-                          "tbody",
-                          _vm._l(_vm.posts, function(post, index) {
-                            return _c("tr", [
-                              _c("td", [_vm._v(_vm._s(index + 1))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(post.title))]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(
-                                    _vm._f("moment")(post.created_at, "LLLL")
-                                  ) + " "
-                                ),
-                                _c("code", [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm._f("moment")(post.created_at, "from")
-                                    )
+                ? _c(
+                    "div",
+                    [
+                      _c(
+                        "table",
+                        {
+                          staticClass: "table table-bordered table-hover",
+                          attrs: { id: "ex1" }
+                        },
+                        [
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _c(
+                            "tbody",
+                            [
+                              _vm._l(_vm.posts.data, function(post, index) {
+                                return _c("tr", [
+                                  _c("td", [_vm._v(_vm._s(index + 1))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(post.title))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("moment")(
+                                          post.created_at,
+                                          "LLLL"
+                                        )
+                                      ) + " "
+                                    ),
+                                    _c("code", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("moment")(
+                                            post.created_at,
+                                            "from"
+                                          )
+                                        )
+                                      )
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(post.updated_at))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    { staticClass: "row" },
+                                    [
+                                      _c(
+                                        "btn",
+                                        {
+                                          staticClass: "col-xs-3",
+                                          staticStyle: {
+                                            "margin-left": "3px",
+                                            "margin-right": "3px"
+                                          },
+                                          attrs: {
+                                            size: "xs",
+                                            type: "primary"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showPostModalComponent(
+                                                $event,
+                                                post
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", { staticClass: "fa fa-eye" }),
+                                          _vm._v(" Show")
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "btn",
+                                        {
+                                          staticClass: "col-xs-3",
+                                          staticStyle: {
+                                            "margin-left": "3px",
+                                            "margin-right": "3px"
+                                          },
+                                          attrs: {
+                                            size: "xs",
+                                            type: "warning"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showEditPostModalComponent(
+                                                $event,
+                                                post
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-pencil",
+                                            attrs: { "aria-hidden": "true" }
+                                          }),
+                                          _vm._v(" Edit")
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "btn",
+                                        {
+                                          staticClass: "col-xs-3",
+                                          staticStyle: {
+                                            "margin-left": "3px",
+                                            "margin-right": "3px"
+                                          },
+                                          attrs: { size: "xs", type: "danger" },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.showDeletePostModalComponent(
+                                                $event,
+                                                post
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-trash-o",
+                                            attrs: { "aria-hidden": "true" }
+                                          }),
+                                          _vm._v(" Delete")
+                                        ]
+                                      )
+                                    ],
+                                    1
                                   )
                                 ])
-                              ]),
+                              }),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(post.updated_at))]),
-                              _vm._v(" "),
+                              !_vm.posts.total
+                                ? _c("tr", [
+                                    _c("td", { attrs: { colspan: "5" } }, [
+                                      _vm._v("...0")
+                                    ])
+                                  ])
+                                : _vm._e()
+                            ],
+                            2
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "dropdown",
+                        { attrs: { "menu-right": "" } },
+                        [
+                          _c("btn", { staticClass: "dropdown-toggle" }, [
+                            _vm._v(_vm._s(_vm.posts.per_page) + " / per page "),
+                            _c("span", { staticClass: "caret" })
+                          ]),
+                          _vm._v(" "),
+                          _c("template", { slot: "dropdown" }, [
+                            _c("li", [
                               _c(
-                                "td",
-                                { staticClass: "row" },
-                                [
-                                  _c(
-                                    "btn",
-                                    {
-                                      staticClass: "col-xs-3",
-                                      staticStyle: {
-                                        "margin-left": "3px",
-                                        "margin-right": "3px"
-                                      },
-                                      attrs: { size: "xs", type: "primary" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showPostModalComponent(
-                                            $event,
-                                            post
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", { staticClass: "fa fa-eye" }),
-                                      _vm._v(" Show")
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "btn",
-                                    {
-                                      staticClass: "col-xs-3",
-                                      staticStyle: {
-                                        "margin-left": "3px",
-                                        "margin-right": "3px"
-                                      },
-                                      attrs: { size: "xs", type: "warning" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showEditPostModalComponent(
-                                            $event,
-                                            post
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-pencil",
-                                        attrs: { "aria-hidden": "true" }
-                                      }),
-                                      _vm._v(" Edit")
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "btn",
-                                    {
-                                      staticClass: "col-xs-3",
-                                      staticStyle: {
-                                        "margin-left": "3px",
-                                        "margin-right": "3px"
-                                      },
-                                      attrs: { size: "xs", type: "danger" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showDeletePostModalComponent(
-                                            $event,
-                                            post
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-trash-o",
-                                        attrs: { "aria-hidden": "true" }
-                                      }),
-                                      _vm._v(" Delete")
-                                    ]
-                                  )
-                                ],
-                                1
+                                "a",
+                                {
+                                  attrs: { role: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.getPosts($event, { per_page: 5 })
+                                    }
+                                  }
+                                },
+                                [_vm._v("5")]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { role: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.getPosts($event, { per_page: 10 })
+                                    }
+                                  }
+                                },
+                                [_vm._v("10")]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { role: "button" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.getPosts($event, { per_page: 15 })
+                                    }
+                                  }
+                                },
+                                [_vm._v("15")]
                               )
                             ])
+                          ])
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      _vm.posts
+                        ? _c("pagination", {
+                            attrs: {
+                              "total-page": _vm.posts.last_page,
+                              "max-size": 3,
+                              align: "center"
+                            },
+                            on: { change: _vm.onPagination },
+                            model: {
+                              value: _vm.posts.current_page,
+                              callback: function($$v) {
+                                _vm.$set(_vm.posts, "current_page", $$v)
+                              },
+                              expression: "posts.current_page"
+                            }
                           })
-                        )
-                      ]
-                    )
-                  ])
+                        : _vm._e()
+                    ],
+                    1
+                  )
                 : _vm._e()
             ],
             1
@@ -73972,86 +74271,81 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-	data: function data() {
-		return {
-			on_load: true,
-			showCreateUnitModal: false,
-			showEditUnitModal: false,
-			showDeleteUnitModal: false,
-			showUnitModal: false,
-			unit: null,
-			searchTerm: ''
-		};
-	},
-	mounted: function mounted() {
-		var _this = this;
+  data: function data() {
+    return {
+      on_load: true,
+      unit: null,
+      showCreateUnitModal: false,
+      showEditUnitModal: false,
+      showDeleteUnitModal: false,
+      showUnitModal: false,
+      searchTerm: ''
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
 
-		this.$nextTick(function () {
-			_this.getUnits().then(function (response) {
-				_this.on_load = false;
-			});
-		});
-	},
+    this.$nextTick(function () {
+      _this.getUnits().then(function (response) {
+        _this.on_load = false;
+      });
+    });
+  },
 
-	computed: {
-		loading: function loading() {
-			return this.$store.getters.loading;
-		},
-		units: function units() {
-			return this.$store.getters.units;
-		},
+  computed: {
+    loading: function loading() {
+      return this.$store.getters.loading;
+    },
+    units: function units() {
+      return this.$store.getters.units;
+    },
 
-		filteredUnits: function filteredUnits() {
-			if (this.units.length) {
-				return this.units;
-			}
-		}
-	},
-	methods: {
-		unitCreated: function unitCreated() {
-			this.getUnits();
-		},
-		showCreateUnitModalComponent: function showCreateUnitModalComponent(event) {
-			this.showCreateUnitModal = true;
-		},
-		showEditUnitModalComponent: function showEditUnitModalComponent(event, unit) {
-			var _this2 = this;
+    filteredUnits: function filteredUnits() {
+      if (this.units.length) {
+        return this.units;
+      }
+    }
+  },
+  methods: {
+    callback: function callback(msg) {
+      this.$notify('Modal dismissed with msg \'' + msg + '\'.');
+    },
+    unitCreated: function unitCreated() {
+      this.getUnits();
+    },
+    showCreateUnitModalComponent: function showCreateUnitModalComponent(event) {
+      this.showCreateUnitModal = true;
+    },
+    showEditUnitModalComponent: function showEditUnitModalComponent(event, unit) {
+      var _this2 = this;
 
-			this.unit = unit;
-			this.$nextTick(function () {
-				_this2.showEditUnitModal = true;
-			});
-		},
-		showDeleteUnitModalComponent: function showDeleteUnitModalComponent(event, unit) {
-			var _this3 = this;
+      this.unit = unit;
+      this.$nextTick(function () {
+        _this2.showEditUnitModal = true;
+      });
+    },
+    showDeleteUnitModalComponent: function showDeleteUnitModalComponent(event, unit) {
+      var _this3 = this;
 
-			this.unit = unit;
-			this.$nextTick(function () {
-				_this3.showDeleteUnitModal = true;
-			});
-		},
-		showUnitModalComponent: function showUnitModalComponent(event, unit) {
-			var _this4 = this;
+      this.unit = unit;
+      this.$nextTick(function () {
+        _this3.showDeleteUnitModal = true;
+      });
+    },
+    showUnitModalComponent: function showUnitModalComponent(event, unit) {
+      var _this4 = this;
 
-			this.unit = unit;
-			this.$nextTick(function () {
-				_this4.showUnitModal = true;
-			});
-		},
-		getUnits: function getUnits(event) {
-			return this.$store.dispatch('getUnits', { 'search': this.searchTerm });
-		}
-	}
+      this.unit = unit;
+      this.$nextTick(function () {
+        _this4.showUnitModal = true;
+      });
+    },
+    getUnits: function getUnits(event) {
+      return this.$store.dispatch('getUnits', { 'search': this.searchTerm });
+    }
+  }
 });
 
 /***/ }),
@@ -74062,257 +74356,369 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-xs-12" }, [
       _c(
         "div",
-        { staticClass: "row" },
+        { staticClass: "box" },
         [
-          _c("div", { staticClass: "pull-right" }, [
-            _c("div", { staticClass: "form-group" }, [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-xs btn-primary",
-                  attrs: { href: "javascript:;" },
-                  on: {
-                    click: function($event) {
-                      _vm.showCreateUnitModalComponent($event)
+          _c("div", { staticClass: "box-header" }, [
+            _c("div", { staticClass: "pull-right" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-xs btn-primary",
+                    attrs: { href: "javascript:;" },
+                    on: {
+                      click: function($event) {
+                        _vm.showCreateUnitModalComponent($event)
+                      }
                     }
+                  },
+                  [
+                    _c("span", { staticClass: "glyphicon glyphicon-plus" }),
+                    _vm._v("\n            Add new Unit")
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    _vm.getUnits($event)
                   }
-                },
-                [_vm._v("\n\t\t\t\tAdd new Unit")]
-              )
-            ])
+                }
+              },
+              [
+                _c("div", { staticClass: "form-inline" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("div", { staticClass: "input-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.searchTerm,
+                            expression: "searchTerm"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.searchTerm },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.searchTerm = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(0)
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(_vm.searchTerm))])
+              ]
+            )
           ]),
           _vm._v(" "),
           _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  _vm.getUnits($event)
-                }
-              }
-            },
+            "div",
+            { staticClass: "box-body" },
             [
-              _c("div", { staticClass: "form-inline" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("div", { staticClass: "input-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.searchTerm,
-                          expression: "searchTerm"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text" },
-                      domProps: { value: _vm.searchTerm },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.searchTerm = $event.target.value
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm._m(0)
-                  ])
-                ])
-              ]),
+              _vm.on_load ? _c("heart-beat") : _vm._e(),
               _vm._v(" "),
-              _c("p", [_vm._v(_vm._s(_vm.searchTerm))])
-            ]
+              !_vm.loading
+                ? _c("div", [
+                    _c(
+                      "table",
+                      {
+                        staticClass: "table table-bordered table-hover",
+                        attrs: { id: "ex1" }
+                      },
+                      [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          _vm._l(_vm.units, function(unit, index) {
+                            return _c("tr", [
+                              _c("td", [_vm._v(_vm._s(index + 1))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(unit.mac_address))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(unit.unit_is_active))]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "row" },
+                                [
+                                  _c(
+                                    "btn",
+                                    {
+                                      staticClass: "col-xs-3",
+                                      staticStyle: {
+                                        "margin-left": "3px",
+                                        "margin-right": "3px"
+                                      },
+                                      attrs: { size: "xs", type: "primary" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.showUnitModalComponent(
+                                            $event,
+                                            unit
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", { staticClass: "fa fa-eye" }),
+                                      _vm._v(" Show")
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "btn",
+                                    {
+                                      staticClass: "col-xs-3",
+                                      staticStyle: {
+                                        "margin-left": "3px",
+                                        "margin-right": "3px"
+                                      },
+                                      attrs: { size: "xs", type: "warning" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.showEditUnitModalComponent(
+                                            $event,
+                                            unit
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fa fa-pencil",
+                                        attrs: { "aria-hidden": "true" }
+                                      }),
+                                      _vm._v(" Edit")
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "btn",
+                                    {
+                                      staticClass: "col-xs-3",
+                                      staticStyle: {
+                                        "margin-left": "3px",
+                                        "margin-right": "3px"
+                                      },
+                                      attrs: { size: "xs", type: "danger" },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.showDeleteUnitModalComponent(
+                                            $event,
+                                            unit
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fa fa-trash-o",
+                                        attrs: { "aria-hidden": "true" }
+                                      }),
+                                      _vm._v(" Delete")
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            ])
+                          })
+                        )
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            ],
+            1
           ),
           _vm._v(" "),
-          _vm.on_load ? _c("heart-beat") : _vm._e(),
+          _c("div", { staticClass: "box-footer" }),
           _vm._v(" "),
-          !_vm.loading
-            ? _c("div", [
-                _c("table", { staticClass: "table" }, [
-                  _vm._m(1),
+          _vm.showCreateUnitModal
+            ? _c("new-unit-modal", {
+                ref: "showCreateUnitModal",
+                on: {
+                  close: function($event) {
+                    _vm.showCreateUnitModal = false
+                  },
+                  "unit-created": _vm.unitCreated
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showEditUnitModal
+            ? _c("edit-unit-modal", {
+                attrs: { "edit-unit": _vm.unit },
+                on: {
+                  close: function($event) {
+                    _vm.showEditUnitModal = false
+                  },
+                  "unit-updated": _vm.getUnits
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showDeleteUnitModal
+            ? _c("delete-unit-modal", {
+                ref: "showDeleteUnitModal",
+                attrs: { "delete-unit": _vm.unit },
+                on: {
+                  "unit-deleted": _vm.getUnits,
+                  close: function($event) {
+                    _vm.showDeleteUnitModal = false
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showUnitModal
+            ? _c(
+                "modal",
+                {
+                  ref: "showUnitModal",
+                  attrs: { "auto-focus": "" },
+                  on: {
+                    hide: function($event) {
+                      _vm.$emit("close")
+                    }
+                  },
+                  model: {
+                    value: _vm.showUnitModal,
+                    callback: function($$v) {
+                      _vm.showUnitModal = $$v
+                    },
+                    expression: "showUnitModal"
+                  }
+                },
+                [
+                  _c("h3", { attrs: { slot: "title" }, slot: "title" }, [
+                    _vm._v("UNIT")
+                  ]),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.unit.mac_address))]),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.unit.unit_is_active))]),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.unit.oximeter_is_active))]),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.unit.bp_is_active))]),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("strong", [
+                    _vm._v(_vm._s(_vm.unit.thermometer_is_active))
+                  ]),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.unit.oximeter_delay))]),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.unit.bp_delay))]),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.unit.thermometer_delay))]),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("code", [
+                    _vm._v(
+                      _vm._s(_vm._f("moment")(_vm.unit.created_at, "from"))
+                    )
+                  ]),
+                  _c("hr"),
+                  _vm._v(" "),
+                  _c("code", [
+                    _vm._v(
+                      _vm._s(_vm._f("moment")(_vm.unit.created_at, "from"))
+                    )
+                  ]),
                   _vm._v(" "),
                   _c(
-                    "tbody",
-                    _vm._l(_vm.units, function(unit, index) {
-                      return _c("tr", [
-                        _c("td", [_vm._v(_vm._s(unit.mac_address))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(unit.unit_is_active))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(unit.unit_is_inuse))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(unit.oximeter_is_active))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(unit.bp_is_active))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(unit.thermometer_is_active))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(unit.oximeter_delay))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(unit.bp_delay))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(unit.thermometer_delay))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            "\n\t\t\t\t\t\t\t" +
-                              _vm._s(
-                                _vm._f("moment")(unit.created_at, "LLLL")
-                              ) +
-                              "\n\t\t\t\t\t\t\t"
-                          ),
-                          _c("code", [
-                            _vm._v(
-                              "\n\t\t\t\t\t\t\t\t" +
-                                _vm._s(
-                                  _vm._f("moment")(unit.created_at, "from")
-                                ) +
-                                "\n\t\t\t\t\t\t\t"
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(unit.updated_at))]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-info btn-xs",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  _vm.showUnitModalComponent($event, unit)
-                                }
-                              }
-                            },
-                            [
-                              _c("i", { staticClass: "fa fa-eye" }),
-                              _vm._v(" Show")
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-warning btn-xs",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  _vm.showEditUnitModalComponent($event, unit)
-                                }
-                              }
-                            },
-                            [_vm._v(" Edit")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-danger btn-xs",
-                              attrs: { type: "button" },
-                              on: {
-                                click: function($event) {
-                                  _vm.showDeleteUnitModalComponent($event, unit)
-                                }
-                              }
-                            },
-                            [_vm._v(" Delete")]
-                          ),
-                          _vm._v(" "),
-                          _c("hr")
-                        ])
-                      ])
-                    })
+                    "div",
+                    { attrs: { slot: "footer" }, slot: "footer" },
+                    [
+                      _c(
+                        "btn",
+                        {
+                          attrs: { type: "warning" },
+                          on: {
+                            click: function($event) {
+                              _vm.showEditUnitModalComponent($event, _vm.unit)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-pencil",
+                            attrs: { "aria-hidden": "true" }
+                          }),
+                          _vm._v(" Edit")
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "btn",
+                        {
+                          attrs: { type: "danger" },
+                          on: {
+                            click: function($event) {
+                              _vm.showDeleteUnitModalComponent($event, _vm.unit)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-trash-o",
+                            attrs: { "aria-hidden": "true" }
+                          }),
+                          _vm._v(" Delete")
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "btn",
+                        {
+                          attrs: { "data-action": "auto-focus" },
+                          on: {
+                            click: function($event) {
+                              _vm.showUnitModal = false
+                            }
+                          }
+                        },
+                        [_vm._v("Cancel")]
+                      )
+                    ],
+                    1
                   )
-                ])
-              ])
+                ]
+              )
             : _vm._e()
         ],
         1
-      ),
-      _vm._v(" "),
-      _vm.showCreateUnitModal
-        ? _c("new-unit-modal", {
-            ref: "showCreateUnitModal",
-            on: {
-              close: function($event) {
-                _vm.showCreateUnitModal = false
-              },
-              "unit-created": _vm.unitCreated
-            }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.showEditUnitModal
-        ? _c("edit-unit-modal", {
-            ref: "showEditUnitModal",
-            attrs: { "edit-unit": _vm.unit },
-            on: {
-              "unit-updated": _vm.getUnits,
-              close: function($event) {
-                _vm.showEditUnitModal = false
-              }
-            }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.showDeleteUnitModal
-        ? _c("delete-unit-modal", {
-            ref: "showDeleteUnitModal",
-            attrs: { "delete-unit": _vm.unit },
-            on: {
-              "unit-deleted": _vm.getUnits,
-              close: function($event) {
-                _vm.showDeleteUnitModal = false
-              }
-            }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.showUnitModal
-        ? _c(
-            "v-modal",
-            {
-              ref: "showUnitModal",
-              on: {
-                close: function($event) {
-                  _vm.showUnitModal = false
-                }
-              }
-            },
-            [
-              _c("h3", { attrs: { slot: "header" }, slot: "header" }, [
-                _vm._v("UNIT")
-              ]),
-              _vm._v(" "),
-              _c("div", { attrs: { slot: "body" }, slot: "body" }, [
-                _c("strong", [_vm._v(_vm._s(_vm.unit.mac_address))]),
-                _vm._v(" "),
-                _c("p", [_vm._v(_vm._s(_vm.unit.unit_is_active))]),
-                _vm._v(" "),
-                _c("div", [
-                  _vm._v(_vm._s(_vm._f("moment")(_vm.unit.created_at, "LLLL")))
-                ]),
-                _vm._v(" "),
-                _c("code", [
-                  _vm._v(_vm._s(_vm._f("moment")(_vm.unit.created_at, "from")))
-                ])
-              ])
-            ]
-          )
-        : _vm._e()
-    ],
-    1
-  )
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -74323,7 +74729,7 @@ var staticRenderFns = [
       _c(
         "button",
         { staticClass: "btn btn-default", attrs: { type: "submit" } },
-        [_vm._v("Search")]
+        [_vm._v("search")]
       )
     ])
   },
@@ -74333,29 +74739,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Mac Address")]),
+        _c("th", [_vm._v("#")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Active")]),
+        _c("th", [_vm._v("mac_address")]),
         _vm._v(" "),
-        _c("th", [_vm._v("In Use")]),
+        _c("th", [_vm._v("is active")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Oximeter")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Blood Pressure")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Temperature")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Oximeter Delay")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("BP Delay")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Temperature Delay")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Date Created")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Date Modified")]),
-        _vm._v(" "),
-        _c("th", { staticClass: "col-md-2" }, [_vm._v("Actions")])
+        _c("th")
       ])
     ])
   }
@@ -74422,6 +74812,10 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -74878,7 +75272,11 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("tr", [_c("th", [_vm._v("Title")]), _vm._v(" "), _c("th")])
+      _c("tr", [
+        _c("th", [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("...")])
+      ])
     ])
   }
 ]

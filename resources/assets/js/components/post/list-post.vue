@@ -37,7 +37,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(post, index) in posts">
+                <tr v-for="(post, index) in posts.data">
                   <td>{{ index + 1 }}</td>
                   <td>{{ post.title }}</td>
                   <td>{{ post.created_at | moment('LLLL')}} <code>{{ post.created_at | moment('from')}}</code></td>
@@ -48,8 +48,26 @@
                     <btn size="xs" type="danger"  class="col-xs-3" style="margin-left:3px;margin-right:3px;"  v-on:click="showDeletePostModalComponent($event, post)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</btn>
                   </td>
                 </tr>
+                 <tr v-if="!posts.total">
+                  <td colspan="5">...0</td>
+                  
+                </tr>
               </tbody>
             </table>
+
+
+<dropdown menu-right>
+  <btn class="dropdown-toggle">{{ posts.per_page }} / per page <span class="caret"></span></btn>
+  <template slot="dropdown">  
+    <li><a role="button" v-on:click="getPosts($event, {'per_page': 5})">5</a></li> 
+    <li><a role="button" v-on:click="getPosts($event, {'per_page': 10})">10</a></li> 
+    <li><a role="button" v-on:click="getPosts($event, {'per_page': 15})">15</a></li>  
+  </template>
+</dropdown>
+
+
+<pagination v-if="posts" v-model="posts.current_page" :total-page="posts.last_page" :max-size="3" align="center" v-on:change="onPagination"/>
+ 
           </div>
         </div>
         <div class="box-footer">
@@ -80,6 +98,7 @@
 export default {
   data() {
     return {
+      per_page: 10,
       on_load: true,
       post: null,
       showCreatePostModal: false,
@@ -88,8 +107,13 @@ export default {
       showPostModal: false,
       searchTerm: '',
     }
-  },
+  }, 
   mounted() {
+    setInterval(function(){
+      
+      this.getPosts()
+    }.bind(this), 2000)
+
     this.$nextTick(()=>{
       this.getPosts().then((response)=>{
         this.on_load = false
@@ -137,8 +161,16 @@ export default {
         this.showPostModal = true
       })
     },
-    getPosts(event) {
-      return this.$store.dispatch('getPosts', { 'search': this.searchTerm })
+    onPagination (page) {
+        return this.$store.dispatch('getPosts', { 'search': this.searchTerm, 'per_page': this.per_page, 'page': page })
+    },
+    getPosts(event, params) {
+      params = params || {} 
+      return this.$store.dispatch(
+        'getPosts', 
+        Object.assign({}, 
+          { 'search': this.searchTerm, 'per_page': this.per_page }, params)
+        )
     }
   },
 }

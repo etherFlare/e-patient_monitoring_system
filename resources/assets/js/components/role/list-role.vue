@@ -30,7 +30,7 @@
               <thead>
                 <tr>
                   <th>Title</th>
-                  <th></th>
+                  <th>...</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,8 +40,12 @@
                     <btn size="xs" type="primary" class="col-xs-3" style="margin-left:3px;margin-right:3px;" v-on:click="showRoleModalComponent($event, role)"><i class="fa fa-eye"></i> Show</btn>
                   </td>
                 </tr>
+               
               </tbody>
             </table>
+
+
+
           </div>
         </div>
         <div class="box-footer">

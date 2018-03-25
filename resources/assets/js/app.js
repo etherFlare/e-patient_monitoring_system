@@ -114,7 +114,7 @@ const store = new Vuex.Store({
       return state.posts
     },
     posts(state, getters) {
-      return getters.postsCollection.data
+      return getters.postsCollection
     },
     //-------------------------units
     unitsCollection(state) {
