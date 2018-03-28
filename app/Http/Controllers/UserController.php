@@ -14,7 +14,7 @@ class UserController extends Controller
 		$user = User::where(function($query) use($request) {
 			if($request->has('search')){
 				$search = trim($request->get('search')); 
-				$query->where('name', 'LIKE', '%'. $search .'%');
+				$query->where('first_name', 'LIKE', '%'. $search .'%');
 			}
 		})
 		->orderBy('created_at', 'desc')

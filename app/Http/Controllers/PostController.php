@@ -25,11 +25,9 @@ class PostController extends Controller
                 $search = trim($request->get('search')); 
                 $query->where('title', 'LIKE', '%'. $search .'%')->orWhere('body', 'LIKE', '%'. $search .'%');
             }
-
         })
         ->orderBy('created_at', 'desc')
         ->paginate($request->get('per_page', 10));
-
         return $post;
     }
 

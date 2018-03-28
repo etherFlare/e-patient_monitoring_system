@@ -1,6 +1,6 @@
 <template id="user-list">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-6">
       <div class="box">
         <div class="box-header">
           <div class="pull-right">
@@ -8,7 +8,7 @@
               <a href="javascript:;" class="btn btn-xs btn-primary" v-on:click="showCreateUserModalComponent($event)"><span class="glyphicon glyphicon-plus"></span>
               Add new User</a>
             </div>
-          </div>
+          </div>  
           <form v-on:submit.prevent="getUsers($event)">
             <div class="form-inline">
               <div class="form-group">
@@ -29,25 +29,18 @@
             <table  id="ex1" class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Name</th>
-                  <th>Created At</th>
-                  <th>Updated At</th>
-                  <th></th>
+                  <th>Title</th>
+                  <th class="col-md-2"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(user, index) in users">
-                  <td>{{ index + 1 }}</td>
-                  <td>{{ user.name }}</td>
-                  <td>{{ user.created_at | moment('LLLL')}} <code>{{ user.created_at | moment('from')}}</code></td>
-                  <td>{{ user.updated_at }}</td>
+                <tr v-for="(user, index) in users" >
+                  <td v-on:click="showUserModalComponent($event, user)">{{ user.first_name }}</td>
                   <td class="row"> 
-                    <btn size="xs" type="primary" class="col-xs-3" style="margin-left:3px;margin-right:3px;" v-on:click="showUserModalComponent($event, user)"><i class="fa fa-eye"></i> Show</btn>
-                    <btn size="xs" type="warning"  class="col-xs-3"style="margin-left:3px;margin-right:3px;" v-on:click="showEditUserModalComponent($event, user)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
-                    <btn size="xs" type="danger"  class="col-xs-3" style="margin-left:3px;margin-right:3px;"  v-on:click="showDeleteUserModalComponent($event, user)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</btn>
+                    <btn size="xs" type="primary" class="col-xs-12" style="margin-left:3px;margin-right:3px;" v-on:click="showUserModalComponent($event, user)"><i class="fa fa-eye"></i> Show</btn>
                   </td>
                 </tr>
+               
               </tbody>
             </table>
           </div>
@@ -56,13 +49,13 @@
         </div>
         <new-user-modal ref="showCreateUserModal" v-if="showCreateUserModal" v-on:close="showCreateUserModal = false" v-on:user-created="userCreated" ></new-user-modal>
         <edit-user-modal v-if="showEditUserModal" v-on:close="showEditUserModal = false" :edit-user="user" v-on:user-updated="getUsers"></edit-user-modal> 
-        <delete-user-modal ref="showDeleteUserModal" :delete-user="user" v-if="showDeleteUserModal" v-on:user-deleted="getUsers" v-on:close="showDeleteUserModal = false"></delete-user-modal>
+        <delete-user-modal ref="showDeleteUserModal" :delete-user="user" v-if="showDeleteUserModal" v-on:user-deleted="getUsers" v-on:close="showDeleteUserModal = false"  v-on:deleted="showUserModal = false" ></delete-user-modal>
 
         <!--show modal-->
         <modal ref="showUserModal" v-if="showUserModal" v-model="showUserModal"  auto-focus v-on:hide="$emit('close')" >
-          <h3 slot="title">USER</h3>       
-          <strong>{{ user.name }}</strong>
-          <p>{{ user.email }}</p> 
+          <h3 slot="title">User</h3>       
+          <strong>{{ user.first_name }}</strong>
+          <p>{{ user.comment }}</p> 
           <div>{{user.created_at | moment('LLLL')}}</div>
           <code>{{user.created_at | moment('from')}}</code>
           <div slot="footer">
@@ -128,7 +121,7 @@ export default {
     showDeleteUserModalComponent(event, user) {
       this.user = user
       this.$nextTick(() => { 
-        this.showDeletePostModal = true
+        this.showDeleteUserModal = true
       })
     },
     showUserModalComponent(event, user) {

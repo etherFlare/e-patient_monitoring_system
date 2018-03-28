@@ -18,9 +18,10 @@ class CreateUserTable extends Migration
             $table->string('first_name',20);
             $table->string('middle_name',20);
             $table->string('last_name',20);
-            $table->unsignedinteger('contact_number');
-            $table->string('email',20)->unique();
+            $table->string('contact_number');
+            $table->string('email',50)->unique();
             $table->string('password');
+             $table->string('comment',50);
             $table->rememberToken();
             $table->timestamps();
             // add description

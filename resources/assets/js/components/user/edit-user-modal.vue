@@ -2,23 +2,23 @@
   <section>
     <modal 
     v-model="showModal" 
-    title="Edit Post" 
+    title="Edit User" 
     :keyboard="false" 
     :backdrop="false" 
     :footer="false" 
     v-on:hide="$emit('close')"
     >  
     <div slot="default">
-      <form v-if="post" ref="vForm" v-on:submit.prevent="updatePost($event)">
+      <form v-if="user" ref="vForm" v-on:submit.prevent="updateUser($event)">
         <template v-if="posting">...posting</template>
         <template v-else>
-          <div class="form-group" :class="{'has-error': !post.title}">
+          <div class="form-group" :class="{'has-error': !user.title}">
             <label>title</label>
-            <input type="text" class="form-control" placeholder="..." v-model="post.title"/>
+            <input type="text" class="form-control" placeholder="..." v-model="user.title"/>
           </div>
-          <div class="form-group" :class="{'has-error': !post.body}">
-            <label>body</label>
-            <textarea cols="30" rows="5" class="form-control" placeholder="..." v-model="post.body"></textarea>
+          <div class="form-group" :class="{'has-error': !user.description}">
+            <label>description</label>
+            <textarea cols="30" rows="5" class="form-control" placeholder="..." v-model="user.description"></textarea>
           </div>
           <div class="modal-footer text-right" >
             <div class="row">
@@ -48,9 +48,9 @@
 </template>
 <script>
 export default {
-  name: 'edit-post-modal',
+  name: 'edit-user-modal',
   props: { 
-    editPost: {
+    editUser: {
       required: true
     }
   },
@@ -59,34 +59,35 @@ export default {
       dismiss:false,
       showModal: true,
       posting: false,
-      post: (()=>{ return Object.assign({}, this.editPost) })()
+      user: (()=>{ return Object.assign({}, this.editUser) })()
     }
   },
   computed: {
     canPost(){
       let result = true
-      Object.entries(this.post).forEach(([attrIdx, attr])=>{
+      Object.entries(this.user).forEach(([attrIdx, attr])=>{
         if(attr === '') result = false
       })
       return result
     }
   },
   methods: {
-    async updatePost(event){
+    async updateUser(event){
       const axiosOptions = {
-        'url': '/post/posts/'+this.editPost.id,
+        'url': '/user/users/'+this.editUser.id,
         'method': 'post',
         'params': {'_method': 'PUT'},
-        'data': this.post
+        'data': this.user
       }
       this.posting = true
       await axios(axiosOptions).then(async (response) => {
         this.$toaster.success(response.data.msg)
-        this.$emit('post-updated')
+        this.$emit('user-updated')
       }).catch(error => {
         this.$toaster.error(error.response.data.message)
       })
       this.posting = false
+      this.showModal = false
     }
   }
 }

@@ -11,8 +11,8 @@
         <small>e-patient nurses, doctors , administrators and developer accounts</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i>e-Patient</a></li>
-        <li><a href="#">Accounts</a></li>
+        <li><a href="{{ route('user') }}"><i class="fa fa-dashboard"></i>e-Patient</a></li>
+        <li><a href="{{ route('user') }}">Accounts</a></li>
         <li class="active">List</li>
       </ol>
 @endsection

@@ -71829,6 +71829,30 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'edit-role-modal',
@@ -71841,9 +71865,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     var _this = this;
 
     return {
+      dismiss: false,
+      showModal: true,
       posting: false,
       role: function () {
-        return _this.editRole;
+        return Object.assign({}, _this.editRole);
       }()
     };
   },
@@ -71906,8 +71932,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
               case 4:
                 this.posting = false;
+                this.showModal = false;
 
-              case 5:
+              case 6:
               case 'end':
                 return _context2.stop();
             }
@@ -71933,139 +71960,218 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-modal",
-    {
-      on: {
-        close: function($event) {
-          _vm.$emit("close")
-        }
-      }
-    },
+    "section",
     [
-      _c("h3", { attrs: { slot: "header" }, slot: "header" }, [
-        _vm._v("Edit Role")
-      ]),
-      _vm._v(" "),
-      _c("div", { attrs: { slot: "body" }, slot: "body" }, [
-        _c(
-          "form",
-          {
-            ref: "vForm",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                _vm.updateRole($event)
-              }
+      _c(
+        "modal",
+        {
+          attrs: {
+            title: "Edit Role",
+            keyboard: false,
+            backdrop: false,
+            footer: false
+          },
+          on: {
+            hide: function($event) {
+              _vm.$emit("close")
             }
           },
-          [
-            _vm.posting
-              ? [_vm._v("...posting")]
-              : [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "form-group",
-                      class: { "has-error": !_vm.role.title }
-                    },
-                    [
-                      _c("label", [_vm._v("title")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.role.title,
-                            expression: "role.title"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "..." },
-                        domProps: { value: _vm.role.title },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.role, "title", $event.target.value)
-                          }
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "form-group",
-                      class: { "has-error": !_vm.role.description }
-                    },
-                    [
-                      _c("label", [_vm._v("description")]),
-                      _vm._v(" "),
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.role.description,
-                            expression: "role.description"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { cols: "30", rows: "10", placeholder: "..." },
-                        domProps: { value: _vm.role.description },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.role,
-                              "description",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "text-right" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default pull-left",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.$emit("close")
-                          }
-                        }
-                      },
-                      [_vm._v("CANCEL")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn",
-                        class: {
-                          "btn-default": _vm.canPost,
-                          "btn-danger": !_vm.canPost
-                        },
-                        attrs: { type: "submit" }
-                      },
-                      [_vm._v("UPDATE")]
-                    )
-                  ])
-                ]
-          ],
-          2
-        )
-      ])
-    ]
+          model: {
+            value: _vm.showModal,
+            callback: function($$v) {
+              _vm.showModal = $$v
+            },
+            expression: "showModal"
+          }
+        },
+        [
+          _c("div", { attrs: { slot: "default" }, slot: "default" }, [
+            _vm.role
+              ? _c(
+                  "form",
+                  {
+                    ref: "vForm",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        _vm.updateRole($event)
+                      }
+                    }
+                  },
+                  [
+                    _vm.posting
+                      ? [_vm._v("...posting")]
+                      : [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "form-group",
+                              class: { "has-error": !_vm.role.title }
+                            },
+                            [
+                              _c("label", [_vm._v("title")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.role.title,
+                                    expression: "role.title"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { type: "text", placeholder: "..." },
+                                domProps: { value: _vm.role.title },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.role,
+                                      "title",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "form-group",
+                              class: { "has-error": !_vm.role.description }
+                            },
+                            [
+                              _c("label", [_vm._v("description")]),
+                              _vm._v(" "),
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.role.description,
+                                    expression: "role.description"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  cols: "30",
+                                  rows: "5",
+                                  placeholder: "..."
+                                },
+                                domProps: { value: _vm.role.description },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.role,
+                                      "description",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "modal-footer text-right" },
+                            [
+                              _c("div", { staticClass: "row" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-default pull-left col-md-4",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.dismiss = true
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("CANCEL")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn pull-right col-md-4",
+                                    class: {
+                                      "btn-primary": _vm.canPost,
+                                      "btn-danger": !_vm.canPost
+                                    },
+                                    attrs: { type: "submit" }
+                                  },
+                                  [_vm._v("UPDATE")]
+                                )
+                              ])
+                            ]
+                          )
+                        ]
+                  ],
+                  2
+                )
+              : _vm._e()
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: { "transition-duration": 0, header: false },
+          model: {
+            value: _vm.dismiss,
+            callback: function($$v) {
+              _vm.dismiss = $$v
+            },
+            expression: "dismiss"
+          }
+        },
+        [
+          _c("h3", [_vm._v("WARNING! DISMISSING UPDATE")]),
+          _vm._v(" "),
+          _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success pull-left col-md-4",
+                attrs: { type: "button", "data-action": "auto-focus" },
+                on: {
+                  click: function($event) {
+                    _vm.dismiss = false
+                  }
+                }
+              },
+              [_vm._v("Back to Update")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger pull-right col-md-4",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    _vm.$emit("close")
+                  }
+                }
+              },
+              [_vm._v("Cancel Update")]
+            )
+          ])
+        ]
+      )
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -72160,6 +72266,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'delete-role-modal',
@@ -72172,6 +72285,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     var _this = this;
 
     return {
+      showModal: true,
       posting: false,
       role: function () {
         return _this.deleteRole;
@@ -72180,6 +72294,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   },
 
   methods: {
+    dismiss: function dismiss() {
+      this.$toaster.info('deleting was canceled');
+      this.showModal = false;
+    },
     doAction: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
         var _this2 = this;
@@ -72206,8 +72324,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                             _this2.$toaster.success(response.data.msg);
                             _this2.$emit('role-deleted');
                             _this2.$emit('close');
+                            _this2.$emit('deleted');
 
-                          case 3:
+                          case 4:
                           case 'end':
                             return _context.stop();
                         }
@@ -72251,66 +72370,81 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-modal",
+    "modal",
     {
+      attrs: {
+        title: "Delete Role",
+        header: false,
+        footer: false,
+        "transition-duration": 0
+      },
       on: {
-        close: function($event) {
+        hide: function($event) {
           _vm.$emit("close")
         }
+      },
+      model: {
+        value: _vm.showModal,
+        callback: function($$v) {
+          _vm.showModal = $$v
+        },
+        expression: "showModal"
       }
     },
     [
-      _c("h3", { attrs: { slot: "header" }, slot: "header" }, [
-        _vm._v("Delete Role")
-      ]),
-      _vm._v(" "),
-      _c("div", { attrs: { slot: "body" }, slot: "body" }, [
-        _c(
-          "form",
-          {
-            ref: "vForm",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                _vm.doAction($event)
-              }
+      _c(
+        "form",
+        {
+          ref: "vForm",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              _vm.doAction($event)
             }
-          },
-          [
-            _vm.posting
-              ? [_vm._v("...deleting")]
-              : [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("title")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "..." },
-                      domProps: { value: _vm.role.title }
-                    })
-                  ]),
+          }
+        },
+        [
+          _vm.posting
+            ? [_vm._v("...deleting")]
+            : [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("title")]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("description")]),
-                    _vm._v(" "),
-                    _c("pre", [_vm._v(_vm._s(_vm.role.description))])
-                  ]),
+                  _c("pre", [_vm._v(_vm._s(_vm.role.title))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("body")]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "text-right" }, [
+                  _c("pre", [_vm._v(_vm._s(_vm.role.description))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer text-right" }, [
+                  _c("div", { staticClass: "row" }, [
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-danger",
+                        staticClass: "btn btn-success pull-left col-md-4",
+                        attrs: { type: "button", "data-action": "auto-focus" },
+                        on: { click: _vm.dismiss }
+                      },
+                      [_vm._v("CANCEL")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger  pull-right col-md-4",
                         attrs: { type: "submit" }
                       },
                       [_vm._v("CONFIRM")]
                     )
                   ])
-                ]
-          ],
-          2
-        )
-      ])
+                ])
+              ]
+        ],
+        2
+      )
     ]
   )
 }
@@ -72413,8 +72547,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'new-user-modal',
@@ -72423,16 +72555,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       showModal: true,
       posting: false,
       user: {
-        name: '',
-        email: '',
-        password: '',
-        confirm_password: '',
-        first_name: '',
-        middle_name: '',
-        last_name: '',
-        contact_number: '',
-        is_archive: '',
-        comment: ''
+        title: '',
+        description: ''
       }
     };
   },
@@ -72466,10 +72590,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                   'data': this.user
                 };
 
+                console.log(this.user);
+
                 this.posting = true;
                 this.result = {};
                 this.message = {};
-                _context2.next = 6;
+                _context2.next = 7;
                 return axios(axiosOptions).then(function () {
                   var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(response) {
                     return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -72477,13 +72603,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                         switch (_context.prev = _context.next) {
                           case 0:
                             _this.$toaster.success(response.data.msg);
-                            _this.user = { title: '', body: '' };
+                            _this.user = { title: '', description: '' };
                             _this.$emit('user-created');
                             setTimeout(function () {
                               return _this.$emit('close');
                             }, 500);
+                            console.log(_this.user);
 
-                          case 4:
+                          case 5:
                           case 'end':
                             return _context.stop();
                         }
@@ -72496,13 +72623,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                   };
                 }()).catch(function (error) {
                   _this.$toaster.error(error.response.data.message);
+                  console.log(error.response.data.messagee);
                   _this.posting = false;
                 });
 
-              case 6:
+              case 7:
                 return _context2.abrupt('return', _context2.sent);
 
-              case 8:
+              case 9:
               case 'end':
                 return _context2.stop();
             }
@@ -72530,7 +72658,7 @@ var render = function() {
   return _c(
     "modal",
     {
-      attrs: { title: "New Post", footer: false },
+      attrs: { title: "New User", footer: false },
       on: {
         hide: function($event) {
           _vm.$emit("close")
@@ -72560,6 +72688,72 @@ var render = function() {
           _vm.posting
             ? [_vm._v("...posting")]
             : [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": !_vm.user.title }
+                  },
+                  [
+                    _c("label", [_vm._v("title")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user.title,
+                          expression: "user.title"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "..." },
+                      domProps: { value: _vm.user.title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.user, "title", $event.target.value)
+                        }
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: { "has-error": !_vm.user.description }
+                  },
+                  [
+                    _c("label", [_vm._v("description")]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.user.description,
+                          expression: "user.description"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { cols: "30", rows: "5", placeholder: "..." },
+                      domProps: { value: _vm.user.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.user, "description", $event.target.value)
+                        }
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
                 _c("div", { staticClass: "modal-footer text-right" }, [
                   _c("div", { staticClass: "row" }, [
                     _c(
@@ -72718,9 +72912,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'edit-post-modal',
+  name: 'edit-user-modal',
   props: {
-    editPost: {
+    editUser: {
       required: true
     }
   },
@@ -72731,8 +72925,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       dismiss: false,
       showModal: true,
       posting: false,
-      post: function () {
-        return Object.assign({}, _this.editPost);
+      user: function () {
+        return Object.assign({}, _this.editUser);
       }()
     };
   },
@@ -72740,7 +72934,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   computed: {
     canPost: function canPost() {
       var result = true;
-      Object.entries(this.post).forEach(function (_ref) {
+      Object.entries(this.user).forEach(function (_ref) {
         var _ref2 = _slicedToArray(_ref, 2),
             attrIdx = _ref2[0],
             attr = _ref2[1];
@@ -72751,7 +72945,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     }
   },
   methods: {
-    updatePost: function () {
+    updateUser: function () {
       var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
         var _this2 = this;
 
@@ -72761,10 +72955,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             switch (_context2.prev = _context2.next) {
               case 0:
                 axiosOptions = {
-                  'url': '/post/posts/' + this.editPost.id,
+                  'url': '/user/users/' + this.editUser.id,
                   'method': 'post',
                   'params': { '_method': 'PUT' },
-                  'data': this.post
+                  'data': this.user
                 };
 
                 this.posting = true;
@@ -72776,7 +72970,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                         switch (_context.prev = _context.next) {
                           case 0:
                             _this2.$toaster.success(response.data.msg);
-                            _this2.$emit('post-updated');
+                            _this2.$emit('user-updated');
 
                           case 2:
                           case 'end':
@@ -72795,8 +72989,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
               case 4:
                 this.posting = false;
+                this.showModal = false;
 
-              case 5:
+              case 6:
               case 'end':
                 return _context2.stop();
             }
@@ -72804,11 +72999,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         }, _callee2, this);
       }));
 
-      function updatePost(_x) {
+      function updateUser(_x) {
         return _ref3.apply(this, arguments);
       }
 
-      return updatePost;
+      return updateUser;
     }()
   }
 });
@@ -72828,7 +73023,7 @@ var render = function() {
         "modal",
         {
           attrs: {
-            title: "Edit Post",
+            title: "Edit User",
             keyboard: false,
             backdrop: false,
             footer: false
@@ -72848,7 +73043,7 @@ var render = function() {
         },
         [
           _c("div", { attrs: { slot: "default" }, slot: "default" }, [
-            _vm.post
+            _vm.user
               ? _c(
                   "form",
                   {
@@ -72856,7 +73051,7 @@ var render = function() {
                     on: {
                       submit: function($event) {
                         $event.preventDefault()
-                        _vm.updatePost($event)
+                        _vm.updateUser($event)
                       }
                     }
                   },
@@ -72868,7 +73063,7 @@ var render = function() {
                             "div",
                             {
                               staticClass: "form-group",
-                              class: { "has-error": !_vm.post.title }
+                              class: { "has-error": !_vm.user.title }
                             },
                             [
                               _c("label", [_vm._v("title")]),
@@ -72878,20 +73073,20 @@ var render = function() {
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.post.title,
-                                    expression: "post.title"
+                                    value: _vm.user.title,
+                                    expression: "user.title"
                                   }
                                 ],
                                 staticClass: "form-control",
                                 attrs: { type: "text", placeholder: "..." },
-                                domProps: { value: _vm.post.title },
+                                domProps: { value: _vm.user.title },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
                                       return
                                     }
                                     _vm.$set(
-                                      _vm.post,
+                                      _vm.user,
                                       "title",
                                       $event.target.value
                                     )
@@ -72905,18 +73100,18 @@ var render = function() {
                             "div",
                             {
                               staticClass: "form-group",
-                              class: { "has-error": !_vm.post.body }
+                              class: { "has-error": !_vm.user.description }
                             },
                             [
-                              _c("label", [_vm._v("body")]),
+                              _c("label", [_vm._v("description")]),
                               _vm._v(" "),
                               _c("textarea", {
                                 directives: [
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.post.body,
-                                    expression: "post.body"
+                                    value: _vm.user.description,
+                                    expression: "user.description"
                                   }
                                 ],
                                 staticClass: "form-control",
@@ -72925,15 +73120,15 @@ var render = function() {
                                   rows: "5",
                                   placeholder: "..."
                                 },
-                                domProps: { value: _vm.post.body },
+                                domProps: { value: _vm.user.description },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
                                       return
                                     }
                                     _vm.$set(
-                                      _vm.post,
-                                      "body",
+                                      _vm.user,
+                                      "description",
                                       $event.target.value
                                     )
                                   }
@@ -73137,9 +73332,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'delete-post-modal',
+  name: 'delete-user-modal',
   props: {
-    deletePost: {
+    deleteUser: {
       required: true
     }
   },
@@ -73149,8 +73344,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     return {
       showModal: true,
       posting: false,
-      post: function () {
-        return _this.deletePost;
+      user: function () {
+        return _this.deleteUser;
       }()
     };
   },
@@ -73170,7 +73365,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             switch (_context2.prev = _context2.next) {
               case 0:
                 axiosOptions = {
-                  'url': '/post/posts/' + this.deletePost.id,
+                  'url': '/user/users/' + this.deleteUser.id,
                   'method': 'post',
                   'params': { '_method': 'DELETE' }
                 };
@@ -73184,10 +73379,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                         switch (_context.prev = _context.next) {
                           case 0:
                             _this2.$toaster.success(response.data.msg);
-                            _this2.$emit('post-deleted');
+                            _this2.$emit('user-deleted');
                             _this2.$emit('close');
+                            _this2.$emit('deleted');
 
-                          case 3:
+                          case 4:
                           case 'end':
                             return _context.stop();
                         }
@@ -73234,7 +73430,7 @@ var render = function() {
     "modal",
     {
       attrs: {
-        title: "Delete Post",
+        title: "Delete User",
         header: false,
         footer: false,
         "transition-duration": 0
@@ -73271,13 +73467,13 @@ var render = function() {
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", [_vm._v("title")]),
                   _vm._v(" "),
-                  _c("pre", [_vm._v(_vm._s(_vm.post.title))])
+                  _c("pre", [_vm._v(_vm._s(_vm.user.first_name))])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", [_vm._v("body")]),
                   _vm._v(" "),
-                  _c("pre", [_vm._v(_vm._s(_vm.post.body))])
+                  _c("pre", [_vm._v(_vm._s(_vm.user.comment))])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer text-right" }, [
@@ -73557,11 +73753,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   mounted: function mounted() {
     var _this = this;
 
-    setInterval(function () {
-
-      this.getPosts();
-    }.bind(this), 2000);
-
+    /*
+    setInterval(function(){
+      
+      this.getPosts()
+    }.bind(this), 2000)
+    */
     this.$nextTick(function () {
       _this.getPosts().then(function (response) {
         _this.on_load = false;
@@ -74883,9 +75080,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -74972,7 +75166,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-xs-12" }, [
+    _c("div", { staticClass: "col-xs-6" }, [
       _c(
         "div",
         { staticClass: "box" },
@@ -75066,7 +75260,17 @@ var render = function() {
                           "tbody",
                           _vm._l(_vm.roles, function(role, index) {
                             return _c("tr", [
-                              _c("td", [_vm._v(_vm._s(role.title))]),
+                              _c(
+                                "td",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      _vm.showRoleModalComponent($event, role)
+                                    }
+                                  }
+                                },
+                                [_vm._v(_vm._s(role.title))]
+                              ),
                               _vm._v(" "),
                               _c(
                                 "td",
@@ -75075,7 +75279,7 @@ var render = function() {
                                   _c(
                                     "btn",
                                     {
-                                      staticClass: "col-xs-3",
+                                      staticClass: "col-xs-12",
                                       staticStyle: {
                                         "margin-left": "3px",
                                         "margin-right": "3px"
@@ -75143,6 +75347,9 @@ var render = function() {
                   "role-deleted": _vm.getRoles,
                   close: function($event) {
                     _vm.showDeleteRoleModal = false
+                  },
+                  deleted: function($event) {
+                    _vm.showRoleModal = false
                   }
                 }
               })
@@ -75275,7 +75482,7 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Title")]),
         _vm._v(" "),
-        _c("th", [_vm._v("...")])
+        _c("th", { staticClass: "col-md-2" })
       ])
     ])
   }
@@ -75413,13 +75620,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -75480,7 +75680,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.user = user;
       this.$nextTick(function () {
-        _this3.showDeletePostModal = true;
+        _this3.showDeleteUserModal = true;
       });
     },
     showUserModalComponent: function showUserModalComponent(event, user) {
@@ -75506,7 +75706,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-xs-12" }, [
+    _c("div", { staticClass: "col-xs-6" }, [
       _c(
         "div",
         { staticClass: "box" },
@@ -75600,26 +75800,17 @@ var render = function() {
                           "tbody",
                           _vm._l(_vm.users, function(user, index) {
                             return _c("tr", [
-                              _c("td", [_vm._v(_vm._s(index + 1))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(user.name))]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(
-                                    _vm._f("moment")(user.created_at, "LLLL")
-                                  ) + " "
-                                ),
-                                _c("code", [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm._f("moment")(user.created_at, "from")
-                                    )
-                                  )
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(user.updated_at))]),
+                              _c(
+                                "td",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      _vm.showUserModalComponent($event, user)
+                                    }
+                                  }
+                                },
+                                [_vm._v(_vm._s(user.first_name))]
+                              ),
                               _vm._v(" "),
                               _c(
                                 "td",
@@ -75628,7 +75819,7 @@ var render = function() {
                                   _c(
                                     "btn",
                                     {
-                                      staticClass: "col-xs-3",
+                                      staticClass: "col-xs-12",
                                       staticStyle: {
                                         "margin-left": "3px",
                                         "margin-right": "3px"
@@ -75646,60 +75837,6 @@ var render = function() {
                                     [
                                       _c("i", { staticClass: "fa fa-eye" }),
                                       _vm._v(" Show")
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "btn",
-                                    {
-                                      staticClass: "col-xs-3",
-                                      staticStyle: {
-                                        "margin-left": "3px",
-                                        "margin-right": "3px"
-                                      },
-                                      attrs: { size: "xs", type: "warning" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showEditUserModalComponent(
-                                            $event,
-                                            user
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-pencil",
-                                        attrs: { "aria-hidden": "true" }
-                                      }),
-                                      _vm._v(" Edit")
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "btn",
-                                    {
-                                      staticClass: "col-xs-3",
-                                      staticStyle: {
-                                        "margin-left": "3px",
-                                        "margin-right": "3px"
-                                      },
-                                      attrs: { size: "xs", type: "danger" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showDeleteUserModalComponent(
-                                            $event,
-                                            user
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-trash-o",
-                                        attrs: { "aria-hidden": "true" }
-                                      }),
-                                      _vm._v(" Delete")
                                     ]
                                   )
                                 ],
@@ -75750,6 +75887,9 @@ var render = function() {
                   "user-deleted": _vm.getUsers,
                   close: function($event) {
                     _vm.showDeleteUserModal = false
+                  },
+                  deleted: function($event) {
+                    _vm.showUserModal = false
                   }
                 }
               })
@@ -75776,12 +75916,12 @@ var render = function() {
                 },
                 [
                   _c("h3", { attrs: { slot: "title" }, slot: "title" }, [
-                    _vm._v("USER")
+                    _vm._v("User")
                   ]),
                   _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.user.name))]),
+                  _c("strong", [_vm._v(_vm._s(_vm.user.first_name))]),
                   _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(_vm.user.email))]),
+                  _c("p", [_vm._v(_vm._s(_vm.user.comment))]),
                   _vm._v(" "),
                   _c("div", [
                     _vm._v(
@@ -75880,15 +76020,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("#")]),
+        _c("th", [_vm._v("Title")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Name")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Created At")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Updated At")]),
-        _vm._v(" "),
-        _c("th")
+        _c("th", { staticClass: "col-md-2" })
       ])
     ])
   }

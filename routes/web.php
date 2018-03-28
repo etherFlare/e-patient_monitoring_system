@@ -27,11 +27,11 @@ Route::get('/unit', 'UnitController@home');
 Route::resource('/unit/units','UnitController');
 Route::get('/unit/add-new','UnitController@get_store');
 //for role
-Route::get('/role', 'RoleController@home');
+Route::get('/role', 'RoleController@home') ->name('role');
 Route::resource('/role/roles','RoleController');
 Route::get('/role/add-new','RoleController@get_store');
 //for user
-Route::get('/user', 'UserController@home');
+Route::get('/user', 'UserController@home') ->name('user');
 Route::resource('/user/users','UserController');
 Route::get('/user/add-new','UserController@get_store');
 //for patient

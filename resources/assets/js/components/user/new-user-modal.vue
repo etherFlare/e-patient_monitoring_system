@@ -2,22 +2,20 @@
   <modal  
   v-model="showModal" 
   v-on:hide="$emit('close')"
-   title="New Post"
+   title="New User"
    :footer="false"
   >
       <form ref="vForm" v-on:submit.prevent="postNewUser($event)">
         <template v-if="posting">...posting</template>
         <template v-else>
-          <!--
-          <div class="form-group" :class="{'has-error': !post.title}">
+          <div class="form-group" :class="{'has-error': !user.title}">
             <label>title</label>
-            <input type="text" class="form-control" placeholder="..." v-model="post.title"/>
+            <input type="text" class="form-control" placeholder="..." v-model="user.title"/>
           </div>
-          <div class="form-group" :class="{'has-error': !post.body}">
-            <label>body</label>
-            <textarea cols="30" rows="5" class="form-control" placeholder="..." v-model="post.body"></textarea>
+          <div class="form-group" :class="{'has-error': !user.description}">
+            <label>description</label>
+            <textarea cols="30" rows="5" class="form-control" placeholder="..." v-model="user.description"></textarea>
           </div>
-          -->
           <div class="modal-footer text-right" >
             <div class="row">
               <button class="btn btn-default pull-left col-md-4" type="button" v-on:click="showModal=false">CANCEL</button>
@@ -36,16 +34,8 @@ export default {
       showModal: true,
       posting: false,
       user: {
-         name:'', 
-        email:'', 
-        password:'',
-        confirm_password:'',
-        first_name:'',
-        middle_name:'',
-        last_name:'',
-        contact_number:'',
-        is_archive:'',
-        comment:''
+        title: '',
+        description: ''
       }
     }
   },
@@ -65,16 +55,21 @@ export default {
         'method': 'post',
         'data': this.user
       }
+ console.log( this.user); 
+
       this.posting = true
       this.result = {}
       this.message = {}
       return await axios(axiosOptions).then(async (response) => {
         this.$toaster.success(response.data.msg)
-        this.user = {title: '', body: ''}
+        this.user = {title: '', description: ''}
         this.$emit('user-created')
         setTimeout(() => this.$emit('close'), 500)
+console.log( this.user); 
+
       }).catch(error => {
         this.$toaster.error(error.response.data.message)
+         console.log( error.response.data.messagee);
          this.posting = false
       })
       this.posting = false

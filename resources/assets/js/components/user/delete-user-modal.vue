@@ -1,7 +1,7 @@
 <template>
   <modal 
   v-model="showModal"
-  title="Delete Post"  
+  title="Delete User"  
   :header="false" 
   :footer="false" 
   :transition-duration="0"
@@ -12,11 +12,11 @@
     <template v-else>
       <div class="form-group">
         <label>title</label>
-        <pre>{{post.title}}</pre>
+        <pre>{{user.first_name}}</pre>
       </div>
       <div class="form-group">
         <label>body</label>
-        <pre>{{post.body}}</pre>
+        <pre>{{user.comment}}</pre>
       </div>
       <div  class="modal-footer text-right" >
         <div class="row">
@@ -30,9 +30,9 @@
 </template>
 <script>
 export default {
-  name:'delete-post-modal',
+  name:'delete-user-modal',
   props: {
-    deletePost: {
+    deleteUser: {
       required: true
     }
   },
@@ -40,7 +40,7 @@ export default {
     return {
       showModal: true,
       posting: false, 
-      post: (()=>{ return this.deletePost })()
+      user: (()=>{ return this.deleteUser })()
     }
   }, 
   methods: { 
@@ -50,15 +50,16 @@ export default {
     },
     async doAction(event){  
       const axiosOptions = {
-        'url': '/post/posts/'+this.deletePost.id,
+        'url': '/user/users/'+this.deleteUser.id,
         'method': 'post',
         'params': {'_method': 'DELETE'}
       }
       this.posting = true 
       await axios(axiosOptions).then(async (response) => {
         this.$toaster.success(response.data.msg)
-        this.$emit('post-deleted')
+        this.$emit('user-deleted')
         this.$emit('close')
+        this.$emit('deleted')
       }).catch(error => { 
         this.$toaster.error(error.response.data.message) 
       })

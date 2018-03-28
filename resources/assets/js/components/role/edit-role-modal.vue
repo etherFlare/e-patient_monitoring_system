@@ -1,39 +1,65 @@
 <template>
-    <v-modal v-on:close="$emit('close')">
-      <h3 slot="header">Edit Role</h3>
-      <div slot="body">
-        <form ref="vForm" v-on:submit.prevent="updateRole($event)">
-          <template v-if="posting">...posting</template>
-          <template v-else>
-            <div class="form-group" :class="{'has-error': !role.title}">
-              <label>title</label>
-              <input type="text" class="form-control" placeholder="..." v-model="role.title"/>
+  <section>
+    <modal 
+    v-model="showModal" 
+    title="Edit Role" 
+    :keyboard="false" 
+    :backdrop="false" 
+    :footer="false" 
+    v-on:hide="$emit('close')"
+    >  
+    <div slot="default">
+      <form v-if="role" ref="vForm" v-on:submit.prevent="updateRole($event)">
+        <template v-if="posting">...posting</template>
+        <template v-else>
+          <div class="form-group" :class="{'has-error': !role.title}">
+            <label>title</label>
+            <input type="text" class="form-control" placeholder="..." v-model="role.title"/>
+          </div>
+          <div class="form-group" :class="{'has-error': !role.description}">
+            <label>description</label>
+            <textarea cols="30" rows="5" class="form-control" placeholder="..." v-model="role.description"></textarea>
+          </div>
+          <div class="modal-footer text-right" >
+            <div class="row">
+              <button class="btn btn-default pull-left col-md-4" type="button" v-on:click="dismiss=true">CANCEL</button>
+              <button class="btn pull-right col-md-4" :class="{'btn-primary': canPost, 'btn-danger': !canPost}" type="submit">UPDATE</button>
             </div>
-            <div class="form-group" :class="{'has-error': !role.description}">
-              <label>description</label>
-              <textarea cols="30" rows="10" class="form-control" placeholder="..." v-model="role.description"></textarea>
-            </div>
-            <div class="text-right">
-              <button class="btn btn-default pull-left" type="button" v-on:click="$emit('close')">CANCEL</button>
-              <button class="btn" :class="{'btn-default': canPost, 'btn-danger': !canPost}" type="submit">UPDATE</button>
-            </div>
-          </template>
-        </form>
-      </div>
-    </v-modal>
+          </div>
+        </template>
+      </form>
+    </div>
+  </modal> 
+  <!--verification modal -->
+  <modal 
+  v-model="dismiss" 
+  :transition-duration="0" 
+  :header="false"
+  >
+  <h3>WARNING! DISMISSING UPDATE</h3>
+  <div slot="footer">
+    <button class="btn btn-success pull-left col-md-4" type="button" v-on:click="dismiss=false" data-action="auto-focus">Back to Update</button> 
+    <button class="btn btn-danger pull-right col-md-4" type="button" v-on:click="$emit('close')">Cancel Update</button> 
+    
+  </div>
+</modal> 
+<!--verification modal end-->
+</section>
 </template>
 <script>
 export default {
   name: 'edit-role-modal',
-  props: {
+  props: { 
     editRole: {
       required: true
     }
   },
   data() {
     return {
+      dismiss:false,
+      showModal: true,
       posting: false,
-      role: (()=>{ return this.editRole })()
+      role: (()=>{ return Object.assign({}, this.editRole) })()
     }
   },
   computed: {
@@ -61,8 +87,8 @@ export default {
         this.$toaster.error(error.response.data.message)
       })
       this.posting = false
+      this.showModal = false
     }
-
   }
 }
 </script>

@@ -1,6 +1,6 @@
 <template id="role-list">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-6">
       <div class="box">
         <div class="box-header">
           <div class="pull-right">
@@ -8,7 +8,7 @@
               <a href="javascript:;" class="btn btn-xs btn-primary" v-on:click="showCreateRoleModalComponent($event)"><span class="glyphicon glyphicon-plus"></span>
               Add new Role</a>
             </div>
-          </div>
+          </div>  
           <form v-on:submit.prevent="getRoles($event)">
             <div class="form-inline">
               <div class="form-group">
@@ -30,29 +30,26 @@
               <thead>
                 <tr>
                   <th>Title</th>
-                  <th>...</th>
+                  <th class="col-md-2"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(role, index) in roles">
-                  <td>{{ role.title }}</td>
+                <tr v-for="(role, index) in roles" >
+                  <td v-on:click="showRoleModalComponent($event, role)">{{ role.title }}</td>
                   <td class="row"> 
-                    <btn size="xs" type="primary" class="col-xs-3" style="margin-left:3px;margin-right:3px;" v-on:click="showRoleModalComponent($event, role)"><i class="fa fa-eye"></i> Show</btn>
+                    <btn size="xs" type="primary" class="col-xs-12" style="margin-left:3px;margin-right:3px;" v-on:click="showRoleModalComponent($event, role)"><i class="fa fa-eye"></i> Show</btn>
                   </td>
                 </tr>
                
               </tbody>
             </table>
-
-
-
           </div>
         </div>
         <div class="box-footer">
         </div>
         <new-role-modal ref="showCreateRoleModal" v-if="showCreateRoleModal" v-on:close="showCreateRoleModal = false" v-on:role-created="roleCreated" ></new-role-modal>
         <edit-role-modal v-if="showEditRoleModal" v-on:close="showEditRoleModal = false" :edit-role="role" v-on:role-updated="getRoles"></edit-role-modal> 
-        <delete-role-modal ref="showDeleteRoleModal" :delete-role="role" v-if="showDeleteRoleModal" v-on:role-deleted="getRoles" v-on:close="showDeleteRoleModal = false"></delete-role-modal>
+        <delete-role-modal ref="showDeleteRoleModal" :delete-role="role" v-if="showDeleteRoleModal" v-on:role-deleted="getRoles" v-on:close="showDeleteRoleModal = false"  v-on:deleted="showRoleModal = false" ></delete-role-modal>
 
         <!--show modal-->
         <modal ref="showRoleModal" v-if="showRoleModal" v-model="showRoleModal"  auto-focus v-on:hide="$emit('close')" >

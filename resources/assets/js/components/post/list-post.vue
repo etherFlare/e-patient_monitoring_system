@@ -109,11 +109,12 @@ export default {
     }
   }, 
   mounted() {
+    /*
     setInterval(function(){
       
       this.getPosts()
     }.bind(this), 2000)
-
+    */
     this.$nextTick(()=>{
       this.getPosts().then((response)=>{
         this.on_load = false
