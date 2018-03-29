@@ -23,12 +23,11 @@ class CreatePatientTable extends Migration
             $table->integer('age');
             $table->string('location',50);
             $table->string('home_address',50);    
-            $table->string('contact_number',20);
+            $table->string('contact_number',50);
             $table->string('contact_person',50);
             $table->boolean('is_active');
             $table->boolean('is_archive');
             $table->string('comment',255);
-            $table->rememberToken();
             $table->timestamps();
         });
     }

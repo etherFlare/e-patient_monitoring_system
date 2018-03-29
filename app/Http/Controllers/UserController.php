@@ -11,14 +11,19 @@ class UserController extends Controller
 	}
 	public function index(Request $request)
 	{
+
 		$user = User::where(function($query) use($request) {
 			if($request->has('search')){
 				$search = trim($request->get('search')); 
-				$query->where('first_name', 'LIKE', '%'. $search .'%');
+				$query->where('first_name', 'LIKE', '%'. $search .'%')
+				->orWhere('last_name', 'LIKE', '%'. $search .'%')
+				->orWhere('middle_name', 'LIKE', '%'. $search .'%')
+				->orWhere('email', 'LIKE', '%'. $search .'%');
 			}
 		})
+		
 		->orderBy('created_at', 'desc')
-		->paginate(10);
+		->paginate(20);
 		return $user;
 	}
 	public function store(Request $request)
@@ -61,7 +66,6 @@ class UserController extends Controller
 	{
 		$this->validate($request, [
 			'email' => 'required',
-			'password' => 'required',
 			'first_name' => 'required',
 			'middle_name' => 'required',
 			'last_name' => 'required',
@@ -71,9 +75,9 @@ class UserController extends Controller
 		$user = User::find($id);
 		if($user->count()){
 			$user->update($request->all());
-			return response()->json(['statur'=>'success','msg'=>'User updated successfully']);
+			return response()->json(['status'=>'success','msg'=>'User updated successfully']);
 		} else {
-			return response()->json(['statur'=>'error','msg'=>'error in updating post']);
+			return response()->json(['status'=>'error','msg'=>'error in updating user ']);
 		}
 	}
 	public function destroy($id)
@@ -81,9 +85,9 @@ class UserController extends Controller
 		$user = User::find($id);
 		if($user->count()){
 			$user->delete();
-			return response()->json(['statur'=>'success','msg'=>'User deleted successfully']);
+			return response()->json(['status'=>'success','msg'=>'User deleted successfully']);
 		} else {
-			return response()->json(['statur'=>'error','msg'=>'error in deleting post']);
+			return response()->json(['status'=>'error','msg'=>'error in deleting user']);
 		}
 	}
 }

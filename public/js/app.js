@@ -28483,6 +28483,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_user_edit_user_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__components_user_edit_user_modal_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_user_delete_user_modal_vue__ = __webpack_require__(207);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_user_delete_user_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__components_user_delete_user_modal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_patient_new_patient_modal_vue__ = __webpack_require__(253);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_patient_new_patient_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__components_patient_new_patient_modal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_patient_edit_patient_modal_vue__ = __webpack_require__(256);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_patient_edit_patient_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__components_patient_edit_patient_modal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_patient_delete_patient_modal_vue__ = __webpack_require__(259);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_patient_delete_patient_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__components_patient_delete_patient_modal_vue__);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -28519,6 +28525,10 @@ window.VueAxios = __webpack_require__(167).default;
 
 
 
+
+
+
+
 window.Axios = __webpack_require__(8).default;
 
 var AppLayout = __webpack_require__(210);
@@ -28531,6 +28541,8 @@ var Listunits = Vue.component('Listunits', __webpack_require__(215));
 var Listroles = Vue.component('Listroles', __webpack_require__(218));
 // show the list user template
 var Listusers = Vue.component('Listusers', __webpack_require__(221));
+// show the list patient template
+var Listpatients = Vue.component('Listpatients', __webpack_require__(262));
 
 var heartBeat = Vue.component('heart-beat', __webpack_require__(224));
 var vmodal = Vue.component('v-modal', __webpack_require__(230));
@@ -28560,6 +28572,10 @@ Vue.component('new-user-modal', __WEBPACK_IMPORTED_MODULE_13__components_user_ne
 Vue.component('edit-user-modal', __WEBPACK_IMPORTED_MODULE_14__components_user_edit_user_modal_vue___default.a);
 Vue.component('delete-user-modal', __WEBPACK_IMPORTED_MODULE_15__components_user_delete_user_modal_vue___default.a);
 
+Vue.component('new-patient-modal', __WEBPACK_IMPORTED_MODULE_16__components_patient_new_patient_modal_vue___default.a);
+Vue.component('edit-patient-modal', __WEBPACK_IMPORTED_MODULE_17__components_patient_edit_patient_modal_vue___default.a);
+Vue.component('delete-patient-modal', __WEBPACK_IMPORTED_MODULE_18__components_patient_delete_patient_modal_vue___default.a);
+
 var routes = [{
   name: 'Listposts',
   path: '/post',
@@ -28576,6 +28592,10 @@ var routes = [{
   name: 'Listusers',
   path: '/user',
   component: Listusers
+}, {
+  name: 'Listpatients',
+  path: '/patient',
+  component: Listpatients
 }];
 
 var router = new VueRouter({ mode: 'history', routes: routes });
@@ -28586,7 +28606,8 @@ var store = new Vuex.Store({
     posts: {},
     units: {},
     roles: {},
-    users: {}
+    users: {},
+    patients: {}
   },
   getters: {
     loading: function loading(state) {
@@ -28621,6 +28642,14 @@ var store = new Vuex.Store({
     },
     users: function users(state, getters) {
       return getters.usersCollection.data;
+    },
+
+    //-------------------------patitient
+    patientsCollection: function patientsCollection(state) {
+      return state.patients;
+    },
+    patients: function patients(state, getters) {
+      return getters.patientsCollection.data;
     }
   },
   actions: {
@@ -28953,6 +28982,89 @@ var store = new Vuex.Store({
       var commit = _ref16.commit;
 
       commit('setUsers', payload);
+    },
+
+    //--------------------------user
+    getPatients: function () {
+      var _ref18 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee10(_ref17, data) {
+        var _this5 = this;
+
+        var commit = _ref17.commit,
+            dispatch = _ref17.dispatch,
+            state = _ref17.state;
+        var axiosOptions, nullData;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee10$(_context10) {
+          while (1) {
+            switch (_context10.prev = _context10.next) {
+              case 0:
+                data = data || {};
+                axiosOptions = {
+                  'url': '/patient/patients',
+                  'method': 'get',
+                  'params': data
+                };
+                _context10.next = 4;
+                return commit('setLoading', true);
+
+              case 4:
+                nullData = Object.assign(state.patients, { data: [] });
+                _context10.next = 7;
+                return dispatch('newPatients', nullData);
+
+              case 7:
+                _context10.next = 9;
+                return axios(axiosOptions).then(function () {
+                  var _ref19 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee9(response) {
+                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee9$(_context9) {
+                      while (1) {
+                        switch (_context9.prev = _context9.next) {
+                          case 0:
+                            _context9.next = 2;
+                            return console.log('getPatients:', response);
+
+                          case 2:
+                            _context9.next = 4;
+                            return dispatch('newPatients', response.data);
+
+                          case 4:
+                            commit('setLoading', false);
+
+                          case 5:
+                          case 'end':
+                            return _context9.stop();
+                        }
+                      }
+                    }, _callee9, _this5);
+                  }));
+
+                  return function (_x15) {
+                    return _ref19.apply(this, arguments);
+                  };
+                }()).catch(function (error) {
+                  console.log('error', error);
+                });
+
+              case 9:
+                return _context10.abrupt('return', _context10.sent);
+
+              case 10:
+              case 'end':
+                return _context10.stop();
+            }
+          }
+        }, _callee10, this);
+      }));
+
+      function getPatients(_x13, _x14) {
+        return _ref18.apply(this, arguments);
+      }
+
+      return getPatients;
+    }(),
+    newPatients: function newPatients(_ref20, payload) {
+      var commit = _ref20.commit;
+
+      commit('setPatients', payload);
     }
     //-------------------------------------------
 
@@ -28972,6 +29084,9 @@ var store = new Vuex.Store({
     },
     setUsers: function setUsers(state, payload) {
       state.users = payload;
+    },
+    setPatients: function setPatients(state, payload) {
+      state.patients = payload;
     }
   }
 });
@@ -70480,6 +70595,91 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'new-unit-modal',
@@ -70487,18 +70687,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     return {
       showModal: true,
       posting: false,
-      unit: {
-        mac_address: '',
-        unit_is_active: '',
-        unit_is_inuse: '',
-        oximeter_is_active: '',
-        bp_is_active: '',
-        thermometer_is_active: '',
-        oximeter_delay: '',
-        bp_delay: '',
-        thermometer_delay: '',
-        comment: ''
-      }
+      unit: {},
+      time: new Date('')
     };
   },
 
@@ -70531,10 +70721,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                   'data': this.unit
                 };
 
+                console.log(this.unit);
+
                 this.posting = true;
                 this.result = {};
                 this.message = {};
-                _context2.next = 6;
+                _context2.next = 7;
                 return axios(axiosOptions).then(function () {
                   var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(response) {
                     return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
@@ -70542,24 +70734,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                         switch (_context.prev = _context.next) {
                           case 0:
                             _this.$toaster.success(response.data.msg);
-                            _this.unit = {
-                              mac_address: '',
-                              unit_is_active: '',
-                              unit_is_inuse: '',
-                              oximeter_is_active: '',
-                              bp_is_active: '',
-                              thermometer_is_active: '',
-                              oximeter_delay: '',
-                              bp_delay: '',
-                              thermometer_delay: '',
-                              comment: ''
-                            };
+                            _this.unit = { title: '', description: '' };
                             _this.$emit('unit-created');
                             setTimeout(function () {
                               return _this.$emit('close');
                             }, 500);
+                            console.log(_this.unit);
 
-                          case 4:
+                          case 5:
                           case 'end':
                             return _context.stop();
                         }
@@ -70572,13 +70754,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                   };
                 }()).catch(function (error) {
                   _this.$toaster.error(error.response.data.message);
+                  console.log(error.response.data.messagee);
                   _this.posting = false;
                 });
 
-              case 6:
+              case 7:
                 return _context2.abrupt('return', _context2.sent);
 
-              case 8:
+              case 9:
               case 'end':
                 return _context2.stop();
             }
@@ -70606,7 +70789,7 @@ var render = function() {
   return _c(
     "modal",
     {
-      attrs: { title: "New Unit", footer: false },
+      attrs: { title: "New Unit", footer: false, size: "lg" },
       on: {
         hide: function($event) {
           _vm.$emit("close")
@@ -70636,135 +70819,366 @@ var render = function() {
           _vm.posting
             ? [_vm._v("...posting")]
             : [
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { "has-error": !_vm.unit.mac_address }
-                  },
-                  [
-                    _c("label", [_vm._v("title")]),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("p", [
+                      _c("strong", [
+                        _c("i", { staticClass: "fa  fa-unit-plus margin-r-5" }),
+                        _vm._v("Unit Activation Status\n              ")
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.unit.mac_address,
-                          expression: "unit.mac_address"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "..." },
-                      domProps: { value: _vm.unit.mac_address },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.unit, "mac_address", $event.target.value)
-                        }
-                      }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { "has-error": !_vm.unit.oximeter_delay }
-                  },
-                  [
-                    _c("div", { staticClass: "input-group" }, [
-                      _c("span", { staticClass: "input-group-addon" }, [
-                        _c("input", { attrs: { type: "checkbox" } })
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control timepicker",
-                        attrs: { type: "text" }
-                      })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { "has-error": !_vm.unit.oximeter_delay }
-                  },
-                  [
-                    _c("div", { staticClass: "input-group" }, [
-                      _c("span", { staticClass: "input-group-addon" }, [
-                        _c("input", { attrs: { type: "checkbox" } })
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { type: "text" }
-                      })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { "has-error": !_vm.unit.oximeter_delay }
-                  },
-                  [
-                    _c("div", { staticClass: "input-group" }, [
-                      _c("span", { staticClass: "input-group-addon" }, [
-                        _c("input", { attrs: { type: "checkbox" } })
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "form-control",
-                        attrs: { type: "text" }
-                      })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { "has-error": !_vm.unit.oximeter_delay }
-                  },
-                  [
-                    _c("label", [_vm._v("body")]),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-xs-3" }, [
+                        _c("label", { staticClass: "switch" }, [
+                          _c("input", {
+                            attrs: { type: "checkbox", checked: "" }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "slider round " })
+                        ])
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.unit.oximeter_delay,
-                          expression: "unit.oximeter_delay"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { cols: "30", rows: "5", placeholder: "..." },
-                      domProps: { value: _vm.unit.oximeter_delay },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group",
+                        class: { "has-error": !_vm.unit.mac_address }
+                      },
+                      [
+                        _c("label", [
+                          _c("i", {
+                            staticClass: "fa fa-mobile-phone margin-r-5"
+                          }),
+                          _vm._v("Mac Address")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.unit.mac_address,
+                              expression: "unit.mac_address"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "..." },
+                          domProps: { value: _vm.unit.mac_address },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.unit,
+                                "mac_address",
+                                $event.target.value
+                              )
+                            }
                           }
-                          _vm.$set(
-                            _vm.unit,
-                            "oximeter_delay",
-                            $event.target.value
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group",
+                        class: { "has-error": !_vm.unit.comment }
+                      },
+                      [
+                        _c("label", [_vm._v("Comment")]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.unit.comment,
+                              expression: "unit.comment"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { cols: "10", rows: "5", placeholder: "..." },
+                          domProps: { value: _vm.unit.comment },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.unit, "comment", $event.target.value)
+                            }
+                          }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c("p", [
+                      _c("strong", [
+                        _c("i", { staticClass: "fa  fa-unit-plus margin-r-5" }),
+                        _vm._v("Unit Oximeter Status\n              ")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-xs-3" }, [
+                        _c("label", { staticClass: "switch" }, [
+                          _c("input", {
+                            attrs: { type: "checkbox", checked: "" }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "slider round " })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-xs-9" },
+                        [
+                          _c("strong", [
+                            _c("i", {
+                              staticClass: "fa fa-file-text-o margin-r-5"
+                            }),
+                            _vm._v(" Delay")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "dropdown",
+                            { staticClass: "form-group" },
+                            [
+                              _c("div", { staticClass: "input-group" }, [
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "text", readonly: "readonly" },
+                                  domProps: { value: this.time.toTimeString() }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "input-group-btn" },
+                                  [
+                                    _c(
+                                      "btn",
+                                      { staticClass: "dropdown-toggle" },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "glyphicon glyphicon-time"
+                                        })
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("template", { slot: "dropdown" }, [
+                                _c(
+                                  "li",
+                                  { staticStyle: { padding: "10px" } },
+                                  [
+                                    _c("time-picker", {
+                                      model: {
+                                        value: _vm.time,
+                                        callback: function($$v) {
+                                          _vm.time = $$v
+                                        },
+                                        expression: "time"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ])
+                            ],
+                            2
                           )
-                        }
-                      }
-                    })
-                  ]
-                ),
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _c("strong", [
+                        _c("i", { staticClass: "fa  fa-unit-plus margin-r-5" }),
+                        _vm._v(
+                          "Account Sphygmomanometer Status\n              "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-xs-3" }, [
+                        _c("label", { staticClass: "switch" }, [
+                          _c("input", {
+                            attrs: { type: "checkbox", checked: "" }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "slider round " })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-xs-9" },
+                        [
+                          _c("strong", [
+                            _c("i", {
+                              staticClass: "fa fa-file-text-o margin-r-5"
+                            }),
+                            _vm._v(" Delay")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "dropdown",
+                            { staticClass: "form-group" },
+                            [
+                              _c("div", { staticClass: "input-group" }, [
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "text", readonly: "readonly" },
+                                  domProps: { value: this.time.toTimeString() }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "input-group-btn" },
+                                  [
+                                    _c(
+                                      "btn",
+                                      { staticClass: "dropdown-toggle" },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "glyphicon glyphicon-time"
+                                        })
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("template", { slot: "dropdown" }, [
+                                _c(
+                                  "li",
+                                  { staticStyle: { padding: "10px" } },
+                                  [
+                                    _c("time-picker", {
+                                      model: {
+                                        value: _vm.time,
+                                        callback: function($$v) {
+                                          _vm.time = $$v
+                                        },
+                                        expression: "time"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ])
+                            ],
+                            2
+                          )
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [
+                      _c("strong", [
+                        _c("i", { staticClass: "fa  fa-unit-plus margin-r-5" }),
+                        _vm._v("Account Thermometer Status\n              ")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-xs-3" }, [
+                        _c("label", { staticClass: "switch" }, [
+                          _c("input", {
+                            attrs: { type: "checkbox", checked: "" }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "slider round " })
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "col-xs-9" },
+                        [
+                          _c("strong", [
+                            _c("i", {
+                              staticClass: "fa fa-file-text-o margin-r-5"
+                            }),
+                            _vm._v(" Delay")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "dropdown",
+                            { staticClass: "form-group" },
+                            [
+                              _c("div", { staticClass: "input-group" }, [
+                                _c("input", {
+                                  staticClass: "form-control",
+                                  attrs: { type: "text", readonly: "readonly" },
+                                  domProps: { value: this.time.toTimeString() }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "input-group-btn" },
+                                  [
+                                    _c(
+                                      "btn",
+                                      { staticClass: "dropdown-toggle" },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "glyphicon glyphicon-time"
+                                        })
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("template", { slot: "dropdown" }, [
+                                _c(
+                                  "li",
+                                  { staticStyle: { padding: "10px" } },
+                                  [
+                                    _c("time-picker", {
+                                      model: {
+                                        value: _vm.time,
+                                        callback: function($$v) {
+                                          _vm.time = $$v
+                                        },
+                                        expression: "time"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ])
+                            ],
+                            2
+                          )
+                        ],
+                        1
+                      )
+                    ])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer text-right" }, [
                   _c("div", { staticClass: "row" }, [
@@ -70898,6 +71312,144 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'edit-unit-modal',
@@ -70910,10 +71462,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     var _this = this;
 
     return {
+      dismiss: false,
+      showModal: true,
       posting: false,
       unit: function () {
-        return _this.editUnit;
-      }()
+        return Object.assign({}, _this.editUnit);
+      }(),
+      time: new Date('')
+
     };
   },
 
@@ -70975,8 +71531,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
               case 4:
                 this.posting = false;
+                this.showModal = false;
 
-              case 5:
+              case 6:
               case 'end':
                 return _context2.stop();
             }
@@ -71002,139 +71559,590 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-modal",
-    {
-      on: {
-        close: function($event) {
-          _vm.$emit("close")
-        }
-      }
-    },
+    "section",
     [
-      _c("h3", { attrs: { slot: "header" }, slot: "header" }, [
-        _vm._v("Edit Unit")
-      ]),
-      _vm._v(" "),
-      _c("div", { attrs: { slot: "body" }, slot: "body" }, [
-        _c(
-          "form",
-          {
-            ref: "vForm",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                _vm.updateUnit($event)
-              }
+      _c(
+        "modal",
+        {
+          attrs: {
+            title: "Edit Unit",
+            keyboard: false,
+            backdrop: false,
+            footer: false,
+            size: "lg"
+          },
+          on: {
+            hide: function($event) {
+              _vm.$emit("close")
             }
           },
-          [
-            _vm.posting
-              ? [_vm._v("...posting")]
-              : [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "form-group",
-                      class: { "has-error": !_vm.unit.mac_address }
-                    },
-                    [
-                      _c("label", [_vm._v("mac_address")]),
-                      _vm._v(" "),
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.unit.mac_address,
-                            expression: "unit.mac_address"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { type: "text", placeholder: "..." },
-                        domProps: { value: _vm.unit.mac_address },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(
-                              _vm.unit,
-                              "mac_address",
-                              $event.target.value
-                            )
-                          }
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "form-group",
-                      class: { "has-error": !_vm.unit.comment }
-                    },
-                    [
-                      _c("label", [_vm._v("Comment")]),
-                      _vm._v(" "),
-                      _c("textarea", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.unit.comment,
-                            expression: "unit.comment"
-                          }
-                        ],
-                        staticClass: "form-control",
-                        attrs: { cols: "30", rows: "10", placeholder: "..." },
-                        domProps: { value: _vm.unit.comment },
-                        on: {
-                          input: function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.unit, "comment", $event.target.value)
-                          }
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "text-right" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-default pull-left",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.$emit("close")
-                          }
-                        }
-                      },
-                      [_vm._v("CANCEL")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn",
-                        class: {
-                          "btn-default": _vm.canPost,
-                          "btn-danger": !_vm.canPost
-                        },
-                        attrs: { type: "submit" }
-                      },
-                      [_vm._v("UPDATE")]
-                    )
-                  ])
-                ]
-          ],
-          2
-        )
-      ])
-    ]
+          model: {
+            value: _vm.showModal,
+            callback: function($$v) {
+              _vm.showModal = $$v
+            },
+            expression: "showModal"
+          }
+        },
+        [
+          _c("div", { attrs: { slot: "default" }, slot: "default" }, [
+            _vm.unit
+              ? _c(
+                  "form",
+                  {
+                    ref: "vForm",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        _vm.updateUnit($event)
+                      }
+                    }
+                  },
+                  [
+                    _vm.posting
+                      ? [_vm._v("...posting")]
+                      : [
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("p", [
+                                _c("strong", [
+                                  _c("i", {
+                                    staticClass: "fa  fa-unit-plus margin-r-5"
+                                  }),
+                                  _vm._v(
+                                    "Unit Activation Status\n                "
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-xs-3" }, [
+                                  _c("label", { staticClass: "switch" }, [
+                                    _c("input", {
+                                      attrs: { type: "checkbox", checked: "" }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", { staticClass: "slider round " })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "col-xs-9" }, [
+                                  _c("strong", [
+                                    _c("i", {
+                                      staticClass:
+                                        "fa fa-file-text-o margin-r-5"
+                                    }),
+                                    _vm._v("Used By")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", [
+                                    _vm._v(_vm._s(_vm.unit.unit_is_inuse))
+                                  ])
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("hr"),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "form-group",
+                                  class: { "has-error": !_vm.unit.mac_address }
+                                },
+                                [
+                                  _c("label", [
+                                    _c("i", {
+                                      staticClass:
+                                        "fa fa-mobile-phone margin-r-5"
+                                    }),
+                                    _vm._v("Mac Address")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.unit.mac_address,
+                                        expression: "unit.mac_address"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { type: "text", placeholder: "..." },
+                                    domProps: { value: _vm.unit.mac_address },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.unit,
+                                          "mac_address",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c("hr"),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "form-group",
+                                  class: { "has-error": !_vm.unit.comment }
+                                },
+                                [
+                                  _c("label", [_vm._v("Comment")]),
+                                  _vm._v(" "),
+                                  _c("textarea", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.unit.comment,
+                                        expression: "unit.comment"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      cols: "10",
+                                      rows: "5",
+                                      placeholder: "..."
+                                    },
+                                    domProps: { value: _vm.unit.comment },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.unit,
+                                          "comment",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c("p", [
+                                _c("strong", [
+                                  _c("i", {
+                                    staticClass: "fa  fa-unit-plus margin-r-5"
+                                  }),
+                                  _vm._v(
+                                    "Unit Oximeter Status\n                "
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-xs-3" }, [
+                                  _c("label", { staticClass: "switch" }, [
+                                    _c("input", {
+                                      attrs: { type: "checkbox", checked: "" }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", { staticClass: "slider round " })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-xs-9" },
+                                  [
+                                    _c("strong", [
+                                      _c("i", {
+                                        staticClass:
+                                          "fa fa-file-text-o margin-r-5"
+                                      }),
+                                      _vm._v(" Delay")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "dropdown",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "input-group" },
+                                          [
+                                            _c("input", {
+                                              staticClass: "form-control",
+                                              attrs: {
+                                                type: "text",
+                                                readonly: "readonly"
+                                              },
+                                              domProps: {
+                                                value: this.time.toTimeString()
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass: "input-group-btn"
+                                              },
+                                              [
+                                                _c(
+                                                  "btn",
+                                                  {
+                                                    staticClass:
+                                                      "dropdown-toggle"
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "glyphicon glyphicon-time"
+                                                    })
+                                                  ]
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("template", { slot: "dropdown" }, [
+                                          _c(
+                                            "li",
+                                            {
+                                              staticStyle: { padding: "10px" }
+                                            },
+                                            [
+                                              _c("time-picker", {
+                                                model: {
+                                                  value: _vm.time,
+                                                  callback: function($$v) {
+                                                    _vm.time = $$v
+                                                  },
+                                                  expression: "time"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ])
+                                      ],
+                                      2
+                                    )
+                                  ],
+                                  1
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _c("strong", [
+                                  _c("i", {
+                                    staticClass: "fa  fa-unit-plus margin-r-5"
+                                  }),
+                                  _vm._v(
+                                    "Account Sphygmomanometer Status\n                "
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-xs-3" }, [
+                                  _c("label", { staticClass: "switch" }, [
+                                    _c("input", {
+                                      attrs: { type: "checkbox", checked: "" }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", { staticClass: "slider round " })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-xs-9" },
+                                  [
+                                    _c("strong", [
+                                      _c("i", {
+                                        staticClass:
+                                          "fa fa-file-text-o margin-r-5"
+                                      }),
+                                      _vm._v(" Delay")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "dropdown",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "input-group" },
+                                          [
+                                            _c("input", {
+                                              staticClass: "form-control",
+                                              attrs: {
+                                                type: "text",
+                                                readonly: "readonly"
+                                              },
+                                              domProps: {
+                                                value: this.time.toTimeString()
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass: "input-group-btn"
+                                              },
+                                              [
+                                                _c(
+                                                  "btn",
+                                                  {
+                                                    staticClass:
+                                                      "dropdown-toggle"
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "glyphicon glyphicon-time"
+                                                    })
+                                                  ]
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("template", { slot: "dropdown" }, [
+                                          _c(
+                                            "li",
+                                            {
+                                              staticStyle: { padding: "10px" }
+                                            },
+                                            [
+                                              _c("time-picker", {
+                                                model: {
+                                                  value: _vm.time,
+                                                  callback: function($$v) {
+                                                    _vm.time = $$v
+                                                  },
+                                                  expression: "time"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ])
+                                      ],
+                                      2
+                                    )
+                                  ],
+                                  1
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _c("strong", [
+                                  _c("i", {
+                                    staticClass: "fa  fa-unit-plus margin-r-5"
+                                  }),
+                                  _vm._v(
+                                    "Account Thermometer Status\n                "
+                                  )
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "row" }, [
+                                _c("div", { staticClass: "col-xs-3" }, [
+                                  _c("label", { staticClass: "switch" }, [
+                                    _c("input", {
+                                      attrs: { type: "checkbox", checked: "" }
+                                    }),
+                                    _vm._v(" "),
+                                    _c("span", { staticClass: "slider round " })
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "col-xs-9" },
+                                  [
+                                    _c("strong", [
+                                      _c("i", {
+                                        staticClass:
+                                          "fa fa-file-text-o margin-r-5"
+                                      }),
+                                      _vm._v(" Delay")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "dropdown",
+                                      { staticClass: "form-group" },
+                                      [
+                                        _c(
+                                          "div",
+                                          { staticClass: "input-group" },
+                                          [
+                                            _c("input", {
+                                              staticClass: "form-control",
+                                              attrs: {
+                                                type: "text",
+                                                readonly: "readonly"
+                                              },
+                                              domProps: {
+                                                value: this.time.toTimeString()
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass: "input-group-btn"
+                                              },
+                                              [
+                                                _c(
+                                                  "btn",
+                                                  {
+                                                    staticClass:
+                                                      "dropdown-toggle"
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "glyphicon glyphicon-time"
+                                                    })
+                                                  ]
+                                                )
+                                              ],
+                                              1
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("template", { slot: "dropdown" }, [
+                                          _c(
+                                            "li",
+                                            {
+                                              staticStyle: { padding: "10px" }
+                                            },
+                                            [
+                                              _c("time-picker", {
+                                                model: {
+                                                  value: _vm.time,
+                                                  callback: function($$v) {
+                                                    _vm.time = $$v
+                                                  },
+                                                  expression: "time"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          )
+                                        ])
+                                      ],
+                                      2
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "modal-footer text-right" },
+                            [
+                              _c("div", { staticClass: "row" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-default pull-left col-md-4",
+                                    attrs: { type: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.dismiss = true
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("CANCEL")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn pull-right col-md-4",
+                                    class: {
+                                      "btn-primary": _vm.canPost,
+                                      "btn-danger": !_vm.canPost
+                                    },
+                                    attrs: { type: "submit" }
+                                  },
+                                  [_vm._v("UPDATE")]
+                                )
+                              ])
+                            ]
+                          )
+                        ]
+                  ],
+                  2
+                )
+              : _vm._e()
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: { "transition-duration": 0, header: false },
+          model: {
+            value: _vm.dismiss,
+            callback: function($$v) {
+              _vm.dismiss = $$v
+            },
+            expression: "dismiss"
+          }
+        },
+        [
+          _c("h3", [_vm._v("WARNING! DISMISSING UPDATE")]),
+          _vm._v(" "),
+          _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success pull-left col-md-4",
+                attrs: { type: "button", "data-action": "auto-focus" },
+                on: {
+                  click: function($event) {
+                    _vm.dismiss = false
+                  }
+                }
+              },
+              [_vm._v("Back to Update")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger pull-right col-md-4",
+                attrs: { type: "button" },
+                on: {
+                  click: function($event) {
+                    _vm.$emit("close")
+                  }
+                }
+              },
+              [_vm._v("Cancel Update")]
+            )
+          ])
+        ]
+      )
+    ],
+    1
   )
 }
 var staticRenderFns = []
@@ -71230,6 +72238,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'delete-unit-modal',
@@ -71242,6 +72256,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     var _this = this;
 
     return {
+      showModal: true,
       posting: false,
       unit: function () {
         return _this.deleteUnit;
@@ -71250,6 +72265,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   },
 
   methods: {
+    dismiss: function dismiss() {
+      this.$toaster.info('deleting was canceled');
+      this.showModal = false;
+    },
     doAction: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
         var _this2 = this;
@@ -71276,8 +72295,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                             _this2.$toaster.success(response.data.msg);
                             _this2.$emit('unit-deleted');
                             _this2.$emit('close');
+                            _this2.$emit('deleted');
 
-                          case 3:
+                          case 4:
                           case 'end':
                             return _context.stop();
                         }
@@ -71321,73 +72341,92 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-modal",
+    "modal",
     {
+      attrs: {
+        title: "Delete Unit",
+        header: false,
+        footer: false,
+        "transition-duration": 0
+      },
       on: {
-        close: function($event) {
+        hide: function($event) {
           _vm.$emit("close")
         }
+      },
+      model: {
+        value: _vm.showModal,
+        callback: function($$v) {
+          _vm.showModal = $$v
+        },
+        expression: "showModal"
       }
     },
     [
-      _c("h3", { attrs: { slot: "header" }, slot: "header" }, [
-        _vm._v("Delete Unit")
-      ]),
-      _vm._v(" "),
-      _c("div", { attrs: { slot: "body" }, slot: "body" }, [
-        _c(
-          "form",
-          {
-            ref: "vForm",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-                _vm.doAction($event)
-              }
+      _c(
+        "form",
+        {
+          ref: "vForm",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              _vm.doAction($event)
             }
-          },
-          [
-            _vm.posting
-              ? [_vm._v("...deleting")]
-              : [
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Mac Address")]),
+          }
+        },
+        [
+          _vm.posting
+            ? [_vm._v("...deleting")]
+            : [
+                _c("div", { attrs: { slot: "title" }, slot: "title" }, [
+                  _c("div", { staticClass: "box-profile " }, [
+                    _c("p", [_vm._v("your about to delete")]),
                     _vm._v(" "),
-                    _c("input", {
-                      staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "" },
-                      domProps: { value: _vm.unit.mac_address }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "form-group" }, [
-                    _c("label", [_vm._v("Comment")]),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      staticStyle: { "overflow-y": "scroll", resize: "none" },
+                    _c("img", {
+                      staticClass:
+                        "animated-box profile-unit-img img-responsive img-circle",
                       attrs: {
-                        name: "description",
-                        id: "description",
-                        rows: "3"
+                        src: "/img/heart-beat.png",
+                        alt: "Unit profile picture"
                       }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "text-right" }, [
+                    }),
+                    _vm._v(" "),
+                    _c("h3", { staticClass: "profile-unitname text-center" }, [
+                      _vm._v(" " + _vm._s(_vm.unit.mac_address) + " }}")
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("h2", { staticClass: "text-center" }, [
+                  _vm._v("!! ARE YOU SURE !!")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer text-right" }, [
+                  _c("div", { staticClass: "row" }, [
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-danger",
+                        staticClass: "btn btn-success pull-left col-md-4",
+                        attrs: { type: "button", "data-action": "auto-focus" },
+                        on: { click: _vm.dismiss }
+                      },
+                      [_vm._v("CANCEL")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger  pull-right col-md-4",
                         attrs: { type: "submit" }
                       },
                       [_vm._v("CONFIRM")]
                     )
                   ])
-                ]
-          ],
-          2
-        )
-      ])
+                ])
+              ]
+        ],
+        2
+      )
     ]
   )
 }
@@ -72547,6 +73586,39 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'new-user-modal',
@@ -72557,7 +73629,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       user: {
         title: '',
         description: ''
-      }
+      },
+      selected: [],
+      options: [{ value: 1, label: 'Option1' }, { value: 2, label: 'Option2' }, { value: 3, label: 'Option3' }, { value: 4, label: 'Option4' }, { value: 5, label: 'Option5' }]
     };
   },
 
@@ -72658,7 +73732,7 @@ var render = function() {
   return _c(
     "modal",
     {
-      attrs: { title: "New User", footer: false },
+      attrs: { title: "New User", footer: false, size: "lg" },
       on: {
         hide: function($event) {
           _vm.$emit("close")
@@ -72686,73 +73760,298 @@ var render = function() {
         },
         [
           _vm.posting
-            ? [_vm._v("...posting")]
+            ? [
+                _c("img", {
+                  staticClass:
+                    "animated-box profile-user-img img-responsive img-circle pull-right ",
+                  attrs: {
+                    src: "/img/heart-beat.png",
+                    alt: "User profile picture"
+                  }
+                })
+              ]
             : [
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { "has-error": !_vm.user.title }
-                  },
-                  [
-                    _c("label", [_vm._v("title")]),
-                    _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.user.title,
-                          expression: "user.title"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "..." },
-                      domProps: { value: _vm.user.title },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group col-md-4",
+                        class: { "has-error": !_vm.user.first_name }
+                      },
+                      [
+                        _c("label", [_vm._v("First Name")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.first_name,
+                              expression: "user.first_name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "..." },
+                          domProps: { value: _vm.user.first_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.user,
+                                "first_name",
+                                $event.target.value
+                              )
+                            }
                           }
-                          _vm.$set(_vm.user, "title", $event.target.value)
-                        }
-                      }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { "has-error": !_vm.user.description }
-                  },
-                  [
-                    _c("label", [_vm._v("description")]),
+                        })
+                      ]
+                    ),
                     _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.user.description,
-                          expression: "user.description"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { cols: "30", rows: "5", placeholder: "..." },
-                      domProps: { value: _vm.user.description },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group col-md-4",
+                        class: { "has-error": !_vm.user.middle_name }
+                      },
+                      [
+                        _c("label", [_vm._v("Middle Name")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.middle_name,
+                              expression: "user.middle_name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "..." },
+                          domProps: { value: _vm.user.middle_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.user,
+                                "middle_name",
+                                $event.target.value
+                              )
+                            }
                           }
-                          _vm.$set(_vm.user, "description", $event.target.value)
-                        }
-                      }
-                    })
-                  ]
-                ),
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group col-md-4",
+                        class: { "has-error": !_vm.user.last_name }
+                      },
+                      [
+                        _c("label", [_vm._v("Surname")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.last_name,
+                              expression: "user.last_name"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "..." },
+                          domProps: { value: _vm.user.last_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.user,
+                                "last_name",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group ",
+                        class: { "has-error": !_vm.user.contact_number }
+                      },
+                      [
+                        _c("label", [_vm._v("Phone Number")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.contact_number,
+                              expression: "user.contact_number"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "..." },
+                          domProps: { value: _vm.user.contact_number },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.user,
+                                "contact_number",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("label", { staticClass: "col-md-12" }, [
+                          _vm._v("Role")
+                        ]),
+                        _vm._v(" "),
+                        _c("multi-select", {
+                          attrs: { options: _vm.options },
+                          model: {
+                            value: _vm.selected,
+                            callback: function($$v) {
+                              _vm.selected = $$v
+                            },
+                            expression: "selected"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group ",
+                        class: { "has-error": !_vm.user.email }
+                      },
+                      [
+                        _c("label", [_vm._v("Email Address")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.email,
+                              expression: "user.email"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "email", placeholder: "..." },
+                          domProps: { value: _vm.user.email },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.user, "email", $event.target.value)
+                            }
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group ",
+                        class: { "has-error": !_vm.user.password }
+                      },
+                      [
+                        _c("label", [_vm._v("Password")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.password,
+                              expression: "user.password"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: {
+                            type: "password",
+                            placeholder: "updated as lastname was added"
+                          },
+                          domProps: { value: _vm.user.password },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.user,
+                                "password",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group",
+                        class: { "has-error": !_vm.user.comment }
+                      },
+                      [
+                        _c("label", [_vm._v("Comment")]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.user.comment,
+                              expression: "user.comment"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { cols: "10", rows: "5", placeholder: "..." },
+                          domProps: { value: _vm.user.comment },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.user, "comment", $event.target.value)
+                            }
+                          }
+                        })
+                      ]
+                    )
+                  ])
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer text-right" }, [
                   _c("div", { staticClass: "row" }, [
@@ -72862,6 +74161,29 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -73026,7 +74348,8 @@ var render = function() {
             title: "Edit User",
             keyboard: false,
             backdrop: false,
-            footer: false
+            footer: false,
+            size: "lg"
           },
           on: {
             hide: function($event) {
@@ -73059,83 +74382,244 @@ var render = function() {
                     _vm.posting
                       ? [_vm._v("...posting")]
                       : [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "form-group",
-                              class: { "has-error": !_vm.user.title }
-                            },
-                            [
-                              _c("label", [_vm._v("title")]),
-                              _vm._v(" "),
-                              _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.user.title,
-                                    expression: "user.title"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: { type: "text", placeholder: "..." },
-                                domProps: { value: _vm.user.title },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.user,
-                                      "title",
-                                      $event.target.value
-                                    )
-                                  }
-                                }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass: "form-group",
-                              class: { "has-error": !_vm.user.description }
-                            },
-                            [
-                              _c("label", [_vm._v("description")]),
-                              _vm._v(" "),
-                              _c("textarea", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.user.description,
-                                    expression: "user.description"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  cols: "30",
-                                  rows: "5",
-                                  placeholder: "..."
+                          _c("div", { staticClass: "row" }, [
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "form-group col-md-4",
+                                  class: { "has-error": !_vm.user.first_name }
                                 },
-                                domProps: { value: _vm.user.description },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
+                                [
+                                  _c("label", [_vm._v("First Name")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.user.first_name,
+                                        expression: "user.first_name"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { type: "text", placeholder: "..." },
+                                    domProps: { value: _vm.user.first_name },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.user,
+                                          "first_name",
+                                          $event.target.value
+                                        )
+                                      }
                                     }
-                                    _vm.$set(
-                                      _vm.user,
-                                      "description",
-                                      $event.target.value
-                                    )
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "form-group col-md-4",
+                                  class: { "has-error": !_vm.user.middle_name }
+                                },
+                                [
+                                  _c("label", [_vm._v("Middle Name")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.user.middle_name,
+                                        expression: "user.middle_name"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { type: "text", placeholder: "..." },
+                                    domProps: { value: _vm.user.middle_name },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.user,
+                                          "middle_name",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "form-group col-md-4",
+                                  class: { "has-error": !_vm.user.last_name }
+                                },
+                                [
+                                  _c("label", [_vm._v("Surname")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.user.last_name,
+                                        expression: "user.last_name"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { type: "text", placeholder: "..." },
+                                    domProps: { value: _vm.user.last_name },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.user,
+                                          "last_name",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "form-group ",
+                                  class: {
+                                    "has-error": !_vm.user.contact_number
                                   }
-                                }
-                              })
-                            ]
-                          ),
+                                },
+                                [
+                                  _c("label", [_vm._v("Phone Number")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.user.contact_number,
+                                        expression: "user.contact_number"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: { type: "text", placeholder: "..." },
+                                    domProps: {
+                                      value: _vm.user.contact_number
+                                    },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.user,
+                                          "contact_number",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-6" }, [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "form-group ",
+                                  class: { "has-error": !_vm.user.email }
+                                },
+                                [
+                                  _c("label", [_vm._v("Email Address")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.user.email,
+                                        expression: "user.email"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      type: "email",
+                                      placeholder: "..."
+                                    },
+                                    domProps: { value: _vm.user.email },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.user,
+                                          "email",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "form-group",
+                                  class: { "has-error": !_vm.user.comment }
+                                },
+                                [
+                                  _c("label", [_vm._v("Comment")]),
+                                  _vm._v(" "),
+                                  _c("textarea", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.user.comment,
+                                        expression: "user.comment"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    attrs: {
+                                      cols: "10",
+                                      rows: "5",
+                                      placeholder: "..."
+                                    },
+                                    domProps: { value: _vm.user.comment },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.user,
+                                          "comment",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  })
+                                ]
+                              )
+                            ])
+                          ]),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -73464,16 +74948,34 @@ var render = function() {
           _vm.posting
             ? [_vm._v("...deleting")]
             : [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("title")]),
-                  _vm._v(" "),
-                  _c("pre", [_vm._v(_vm._s(_vm.user.first_name))])
+                _c("div", { attrs: { slot: "title" }, slot: "title" }, [
+                  _c("div", { staticClass: "box-profile " }, [
+                    _c("p", [_vm._v("your about to delete")]),
+                    _vm._v(" "),
+                    _c("img", {
+                      staticClass:
+                        "animated-box profile-user-img img-responsive img-circle",
+                      attrs: {
+                        src: "/img/heart-beat.png",
+                        alt: "User profile picture"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("h3", { staticClass: "profile-username text-center" }, [
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.user.last_name) +
+                          ", " +
+                          _vm._s(_vm.user.first_name) +
+                          " " +
+                          _vm._s(_vm.user.middle_name)
+                      )
+                    ])
+                  ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("body")]),
-                  _vm._v(" "),
-                  _c("pre", [_vm._v(_vm._s(_vm.user.comment))])
+                _c("h2", { staticClass: "text-center" }, [
+                  _vm._v("!! ARE YOU SURE !!")
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer text-right" }, [
@@ -74468,6 +75970,90 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -74478,7 +76064,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       showEditUnitModal: false,
       showDeleteUnitModal: false,
       showUnitModal: false,
-      searchTerm: ''
+      searchTerm: '',
+      totalPage: 18,
+      currentPage: 1
     };
   },
   mounted: function mounted() {
@@ -74646,100 +76234,119 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.units, function(unit, index) {
-                            return _c("tr", [
-                              _c("td", [_vm._v(_vm._s(index + 1))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(unit.mac_address))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(unit.unit_is_active))]),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                { staticClass: "row" },
-                                [
-                                  _c(
-                                    "btn",
-                                    {
-                                      staticClass: "col-xs-3",
-                                      staticStyle: {
-                                        "margin-left": "3px",
-                                        "margin-right": "3px"
-                                      },
-                                      attrs: { size: "xs", type: "primary" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showUnitModalComponent(
-                                            $event,
-                                            unit
-                                          )
-                                        }
+                          [
+                            _vm._l(_vm.units, function(unit, index) {
+                              return _c("tr", [
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showUnitModalComponent($event, unit)
                                       }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(unit.mac_address))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showUnitModalComponent($event, unit)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(unit.unit_is_active))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showUnitModalComponent($event, unit)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("moment")(
+                                          unit.created_at,
+                                          "LLLL"
+                                        )
+                                      ) + " "
+                                    ),
+                                    _c("code", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("moment")(
+                                            unit.created_at,
+                                            "from"
+                                          )
+                                        )
+                                      )
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  { staticClass: "row" },
+                                  [
+                                    _c(
+                                      "btn",
+                                      {
+                                        staticClass: "col-xs-12",
+                                        staticStyle: {
+                                          "margin-left": "3px",
+                                          "margin-right": "3px"
+                                        },
+                                        attrs: { size: "xs", type: "primary" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.showUnitModalComponent(
+                                              $event,
+                                              unit
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", { staticClass: "fa fa-eye" }),
+                                        _vm._v(" Show")
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            }),
+                            _vm._v(" "),
+                            !_vm.units.total
+                              ? _c("tr", [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: { colspan: "4" }
                                     },
                                     [
-                                      _c("i", { staticClass: "fa fa-eye" }),
-                                      _vm._v(" Show")
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "btn",
-                                    {
-                                      staticClass: "col-xs-3",
-                                      staticStyle: {
-                                        "margin-left": "3px",
-                                        "margin-right": "3px"
-                                      },
-                                      attrs: { size: "xs", type: "warning" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showEditUnitModalComponent(
-                                            $event,
-                                            unit
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-pencil",
-                                        attrs: { "aria-hidden": "true" }
-                                      }),
-                                      _vm._v(" Edit")
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "btn",
-                                    {
-                                      staticClass: "col-xs-3",
-                                      staticStyle: {
-                                        "margin-left": "3px",
-                                        "margin-right": "3px"
-                                      },
-                                      attrs: { size: "xs", type: "danger" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showDeleteUnitModalComponent(
-                                            $event,
-                                            unit
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass: "fa fa-trash-o",
-                                        attrs: { "aria-hidden": "true" }
-                                      }),
-                                      _vm._v(" Delete")
+                                      _c("p", [
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(_vm.searchTerm) +
+                                            " was not in the list"
+                                        )
+                                      ])
                                     ]
                                   )
-                                ],
-                                1
-                              )
-                            ])
-                          })
+                                ])
+                              : _vm._e()
+                          ],
+                          2
                         )
                       ]
                     )
@@ -74749,7 +76356,27 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "box-footer" }),
+          _c(
+            "div",
+            { staticClass: "box-footer" },
+            [
+              _c("pagination", {
+                attrs: {
+                  "total-page": _vm.totalPage,
+                  align: "center",
+                  "max-size": 3
+                },
+                model: {
+                  value: _vm.currentPage,
+                  callback: function($$v) {
+                    _vm.currentPage = $$v
+                  },
+                  expression: "currentPage"
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _vm.showCreateUnitModal
             ? _c("new-unit-modal", {
@@ -74783,6 +76410,9 @@ var render = function() {
                   "unit-deleted": _vm.getUnits,
                   close: function($event) {
                     _vm.showDeleteUnitModal = false
+                  },
+                  deleted: function($event) {
+                    _vm.showUnitModal = false
                   }
                 }
               })
@@ -74793,7 +76423,7 @@ var render = function() {
                 "modal",
                 {
                   ref: "showUnitModal",
-                  attrs: { "auto-focus": "" },
+                  attrs: { size: "lg", "auto-focus": "" },
                   on: {
                     hide: function($event) {
                       _vm.$emit("close")
@@ -74808,47 +76438,224 @@ var render = function() {
                   }
                 },
                 [
-                  _c("h3", { attrs: { slot: "title" }, slot: "title" }, [
-                    _vm._v("UNIT")
-                  ]),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.unit.mac_address))]),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.unit.unit_is_active))]),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.unit.oximeter_is_active))]),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.unit.bp_is_active))]),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("strong", [
-                    _vm._v(_vm._s(_vm.unit.thermometer_is_active))
-                  ]),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.unit.oximeter_delay))]),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.unit.bp_delay))]),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.unit.thermometer_delay))]),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("code", [
-                    _vm._v(
-                      _vm._s(_vm._f("moment")(_vm.unit.created_at, "from"))
-                    )
-                  ]),
-                  _c("hr"),
-                  _vm._v(" "),
-                  _c("code", [
-                    _vm._v(
-                      _vm._s(_vm._f("moment")(_vm.unit.created_at, "from"))
-                    )
+                  _c("div", { staticClass: "row" }, [
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("strong", [
+                        _c("i", {
+                          staticClass: "fa fa-mobile-phone margin-r-5"
+                        }),
+                        _vm._v("Mac Address")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "text-muted" }, [
+                        _vm._v(_vm._s(_vm.unit.mac_address))
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("strong", [
+                        _c("i", { staticClass: "fa  fa-unit-plus margin-r-5" }),
+                        _vm._v("Unit Registered Since")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "text-muted" }, [
+                        _vm._v(
+                          _vm._s(_vm._f("moment")(_vm.unit.created_at, "LLLL"))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("code", [
+                        _vm._v(
+                          _vm._s(_vm._f("moment")(_vm.unit.created_at, "from"))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("strong", [
+                        _c("i", {
+                          staticClass: "fa fa-calendar-check-o margin-r-5"
+                        }),
+                        _vm._v("Unit Date Updated ")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "text-muted" }, [
+                        _vm._v(
+                          _vm._s(_vm._f("moment")(_vm.unit.updated_at, "LLLL"))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("code", [
+                        _vm._v(
+                          _vm._s(_vm._f("moment")(_vm.unit.updated_at, "from"))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("strong", [
+                        _c("i", {
+                          staticClass: "fa fa-file-text-o margin-r-5"
+                        }),
+                        _vm._v(" Comment")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(_vm.unit.comment))])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-md-6" }, [
+                      _c("p", [
+                        _c("strong", [
+                          _c("i", {
+                            staticClass: "fa  fa-unit-plus margin-r-5"
+                          }),
+                          _vm._v("Unit Activation Status\n                ")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-xs-3" }, [
+                          _c("label", { staticClass: "switch" }, [
+                            _c("input", {
+                              attrs: {
+                                type: "checkbox",
+                                disabled: "disabled",
+                                checked: ""
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "slider round " })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-xs-9" }, [
+                          _c("strong", [
+                            _c("i", {
+                              staticClass: "fa fa-file-text-o margin-r-5"
+                            }),
+                            _vm._v("Used By")
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [_vm._v(_vm._s(_vm.unit.unit_is_inuse))])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("strong", [
+                          _c("i", {
+                            staticClass: "fa  fa-unit-plus margin-r-5"
+                          }),
+                          _vm._v("Unit Oximeter Status\n                ")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-xs-3" }, [
+                          _c("label", { staticClass: "switch" }, [
+                            _c("input", {
+                              attrs: {
+                                type: "checkbox",
+                                disabled: "disabled",
+                                checked: ""
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "slider round " })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-xs-9" }, [
+                          _c("strong", [
+                            _c("i", {
+                              staticClass: "fa fa-file-text-o margin-r-5"
+                            }),
+                            _vm._v(" Delay")
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [_vm._v(_vm._s(_vm.unit.oximeter_delay))])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("strong", [
+                          _c("i", {
+                            staticClass: "fa  fa-unit-plus margin-r-5"
+                          }),
+                          _vm._v(
+                            "Account Sphygmomanometer Status\n                "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-xs-3" }, [
+                          _c("label", { staticClass: "switch" }, [
+                            _c("input", {
+                              attrs: {
+                                type: "checkbox",
+                                disabled: "disabled",
+                                checked: ""
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "slider round " })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-xs-9" }, [
+                          _c("strong", [
+                            _c("i", {
+                              staticClass: "fa fa-file-text-o margin-r-5"
+                            }),
+                            _vm._v(" Delay")
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [_vm._v(_vm._s(_vm.unit.bp_delay))])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("p", [
+                        _c("strong", [
+                          _c("i", {
+                            staticClass: "fa  fa-unit-plus margin-r-5"
+                          }),
+                          _vm._v("Account Thermometer Status\n                ")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "row" }, [
+                        _c("div", { staticClass: "col-xs-3" }, [
+                          _c("label", { staticClass: "switch" }, [
+                            _c("input", {
+                              attrs: {
+                                type: "checkbox",
+                                disabled: "disabled",
+                                checked: ""
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "slider round " })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-xs-9" }, [
+                          _c("strong", [
+                            _c("i", {
+                              staticClass: "fa fa-file-text-o margin-r-5"
+                            }),
+                            _vm._v(" Delay")
+                          ]),
+                          _vm._v(" "),
+                          _c("p", [_vm._v(_vm._s(_vm.unit.thermometer_delay))])
+                        ])
+                      ])
+                    ])
                   ]),
                   _vm._v(" "),
                   _c(
@@ -74936,13 +76743,13 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("#")]),
+        _c("th", [_vm._v("Name")]),
         _vm._v(" "),
-        _c("th", [_vm._v("mac_address")]),
+        _c("th", [_vm._v("Email")]),
         _vm._v(" "),
-        _c("th", [_vm._v("is active")]),
+        _c("th", [_vm._v("Date Created")]),
         _vm._v(" "),
-        _c("th")
+        _c("th", { staticClass: "col-md-2" })
       ])
     ])
   }
@@ -75009,6 +76816,11 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
 //
 //
 //
@@ -75258,52 +77070,76 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.roles, function(role, index) {
-                            return _c("tr", [
-                              _c(
-                                "td",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showRoleModalComponent($event, role)
-                                    }
-                                  }
-                                },
-                                [_vm._v(_vm._s(role.title))]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                { staticClass: "row" },
-                                [
-                                  _c(
-                                    "btn",
-                                    {
-                                      staticClass: "col-xs-12",
-                                      staticStyle: {
-                                        "margin-left": "3px",
-                                        "margin-right": "3px"
-                                      },
-                                      attrs: { size: "xs", type: "primary" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showRoleModalComponent(
-                                            $event,
-                                            role
-                                          )
-                                        }
+                          [
+                            _vm._l(_vm.roles, function(role, index) {
+                              return _c("tr", [
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showRoleModalComponent($event, role)
                                       }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(role.mac_address))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  { staticClass: "row" },
+                                  [
+                                    _c(
+                                      "btn",
+                                      {
+                                        staticClass: "col-xs-12",
+                                        staticStyle: {
+                                          "margin-left": "3px",
+                                          "margin-right": "3px"
+                                        },
+                                        attrs: { size: "xs", type: "primary" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.showRoleModalComponent(
+                                              $event,
+                                              role
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", { staticClass: "fa fa-eye" }),
+                                        _vm._v(" Show")
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            }),
+                            _vm._v(" "),
+                            !_vm.roles.total
+                              ? _c("tr", [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: { colspan: "2" }
                                     },
                                     [
-                                      _c("i", { staticClass: "fa fa-eye" }),
-                                      _vm._v(" Show")
+                                      _c("p", [
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(_vm.searchTerm) +
+                                            " was not in the list"
+                                        )
+                                      ])
                                     ]
                                   )
-                                ],
-                                1
-                              )
-                            ])
-                          })
+                                ])
+                              : _vm._e()
+                          ],
+                          2
                         )
                       ]
                     )
@@ -75620,6 +77456,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -75630,7 +77493,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       showEditUserModal: false,
       showDeleteUserModal: false,
       showUserModal: false,
-      searchTerm: ''
+      searchTerm: '',
+      totalPage: 18,
+      currentPage: 1
     };
   },
   mounted: function mounted() {
@@ -75706,7 +77571,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
-    _c("div", { staticClass: "col-xs-6" }, [
+    _c("div", { staticClass: "col-xs-12" }, [
       _c(
         "div",
         { staticClass: "box" },
@@ -75798,52 +77663,127 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "tbody",
-                          _vm._l(_vm.users, function(user, index) {
-                            return _c("tr", [
-                              _c(
-                                "td",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showUserModalComponent($event, user)
-                                    }
-                                  }
-                                },
-                                [_vm._v(_vm._s(user.first_name))]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "td",
-                                { staticClass: "row" },
-                                [
-                                  _c(
-                                    "btn",
-                                    {
-                                      staticClass: "col-xs-12",
-                                      staticStyle: {
-                                        "margin-left": "3px",
-                                        "margin-right": "3px"
-                                      },
-                                      attrs: { size: "xs", type: "primary" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showUserModalComponent(
-                                            $event,
-                                            user
-                                          )
-                                        }
+                          [
+                            _vm._l(_vm.users, function(user, index) {
+                              return _c("tr", [
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showUserModalComponent($event, user)
                                       }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(user.last_name) +
+                                        ", " +
+                                        _vm._s(user.first_name) +
+                                        " " +
+                                        _vm._s(user.middle_name)
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showUserModalComponent($event, user)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(user.email))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showUserModalComponent($event, user)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("moment")(
+                                          user.created_at,
+                                          "LLLL"
+                                        )
+                                      ) + " "
+                                    ),
+                                    _c("code", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("moment")(
+                                            user.created_at,
+                                            "from"
+                                          )
+                                        )
+                                      )
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  { staticClass: "row" },
+                                  [
+                                    _c(
+                                      "btn",
+                                      {
+                                        staticClass: "col-xs-12",
+                                        staticStyle: {
+                                          "margin-left": "3px",
+                                          "margin-right": "3px"
+                                        },
+                                        attrs: { size: "xs", type: "primary" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.showUserModalComponent(
+                                              $event,
+                                              user
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", { staticClass: "fa fa-eye" }),
+                                        _vm._v(" Show")
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            }),
+                            _vm._v(" "),
+                            !_vm.users.total
+                              ? _c("tr", [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: { colspan: "4" }
                                     },
                                     [
-                                      _c("i", { staticClass: "fa fa-eye" }),
-                                      _vm._v(" Show")
+                                      _c("p", [
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(_vm.searchTerm) +
+                                            " was not in the list"
+                                        )
+                                      ])
                                     ]
                                   )
-                                ],
-                                1
-                              )
-                            ])
-                          })
+                                ])
+                              : _vm._e()
+                          ],
+                          2
                         )
                       ]
                     )
@@ -75853,7 +77793,27 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "box-footer" }),
+          _c(
+            "div",
+            { staticClass: "box-footer" },
+            [
+              _c("pagination", {
+                attrs: {
+                  "total-page": _vm.totalPage,
+                  align: "center",
+                  "max-size": 3
+                },
+                model: {
+                  value: _vm.currentPage,
+                  callback: function($$v) {
+                    _vm.currentPage = $$v
+                  },
+                  expression: "currentPage"
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
           _vm.showCreateUserModal
             ? _c("new-user-modal", {
@@ -75915,24 +77875,97 @@ var render = function() {
                   }
                 },
                 [
-                  _c("h3", { attrs: { slot: "title" }, slot: "title" }, [
-                    _vm._v("User")
+                  _c("div", { attrs: { slot: "title" }, slot: "title" }, [
+                    _c("div", { staticClass: "box-profile row" }, [
+                      _c("img", {
+                        staticClass:
+                          "animated-box profile-user-img img-responsive img-circle pull-right ",
+                        staticStyle: { "margin-right": "50px" },
+                        attrs: {
+                          src: "/img/heart-beat.png",
+                          alt: "User profile picture"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "h3",
+                        { staticClass: "profile-username text-center" },
+                        [
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.user.last_name) +
+                              ", " +
+                              _vm._s(_vm.user.first_name) +
+                              " " +
+                              _vm._s(_vm.user.middle_name)
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "text-muted text-center" }, [
+                        _vm._v("add role/s here")
+                      ])
+                    ])
                   ]),
                   _vm._v(" "),
-                  _c("strong", [_vm._v(_vm._s(_vm.user.first_name))]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(_vm.user.comment))]),
-                  _vm._v(" "),
-                  _c("div", [
-                    _vm._v(
-                      _vm._s(_vm._f("moment")(_vm.user.created_at, "LLLL"))
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("code", [
-                    _vm._v(
-                      _vm._s(_vm._f("moment")(_vm.user.created_at, "from"))
-                    )
+                  _c("div", { staticClass: "box-body" }, [
+                    _c("strong", [
+                      _c("i", { staticClass: "fa fa-mobile-phone margin-r-5" }),
+                      _vm._v(" Contact Number")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-muted" }, [
+                      _vm._v(_vm._s(_vm.user.contact_number))
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("strong", [
+                      _c("i", { staticClass: "fa  fa-user-plus margin-r-5" }),
+                      _vm._v("Account Created Since")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        _vm._s(_vm._f("moment")(_vm.user.created_at, "LLLL"))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("code", [
+                      _vm._v(
+                        _vm._s(_vm._f("moment")(_vm.user.created_at, "from"))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("strong", [
+                      _c("i", {
+                        staticClass: "fa fa-calendar-check-o margin-r-5"
+                      }),
+                      _vm._v("Date Updated ")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        _vm._s(_vm._f("moment")(_vm.user.updated_at, "LLLL"))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("code", [
+                      _vm._v(
+                        _vm._s(_vm._f("moment")(_vm.user.updated_at, "from"))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("strong", [
+                      _c("i", { staticClass: "fa fa-file-text-o margin-r-5" }),
+                      _vm._v(" Comment")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(_vm.user.comment))])
                   ]),
                   _vm._v(" "),
                   _c(
@@ -76020,7 +78053,11 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", [_vm._v("Title")]),
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Date Created")]),
         _vm._v(" "),
         _c("th", { staticClass: "col-md-2" })
       ])
@@ -76122,7 +78159,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "\n.animated-box[data-v-0c2ea8f4]{\n\twidth: 480px;\n\tmax-width: 100%;\n\tmargin: 0 auto;\n\tdisplay: block;\n\t \n\tbackground: #000000 url('/img/red-glow.png') 0 0 no-repeat;\n    -webkit-animation: bganim-data-v-0c2ea8f4 2s linear infinite;\n    animation: bganim-data-v-0c2ea8f4 2s linear infinite;\n}\n.animated-box img[data-v-0c2ea8f4]{\n\twidth: 100%;\n\tmax-width: 100%;\n\theight: auto!important;\n\tmargin: 0 auto;\n\tdisplay: block;\n}\n.animated-box-top[data-v-0c2ea8f4]{\n\tmargin: 0 auto;\n\tdisplay: block;\t\n\twidth: 100%;\n\tbackground: transparent url('http://127.0.0.1:8000/img/heart-beat.png') center center no-repeat;\n\theight: 265px;\n}\n/* Firefox */\n/* WebKit - Chrome and Safari */\n@-webkit-keyframes bganim-data-v-0c2ea8f4 {\nfrom {\n    background-position: -256px 0;\n}\nto {\n    background-position: calc(100% + 256px) 0;\n}\n}\n/* Opera */\n/* general syntax */\n@keyframes bganim-data-v-0c2ea8f4 {\nfrom {\n    background-position: -256px 0;\n}\nto {\n    background-position: calc(100% + 256px) 0;\n}\n}\t \n", ""]);
+exports.push([module.i, "\n.animated-box[data-v-0c2ea8f4]{\n\tmax-width: 100%;\n\tmargin: 0 auto;\n\tdisplay: block;\n\t \n\tbackground: #000000 url('/img/red-glow.png') 0 0 no-repeat;\n    -webkit-animation: bganim-data-v-0c2ea8f4 2s linear infinite;\n    animation: bganim-data-v-0c2ea8f4 2s linear infinite;\n}\n.animated-box img[data-v-0c2ea8f4]{\n\twidth: 100%;\n\tmax-width: 100%;\n\theight: auto!important;\n\tmargin: 0 auto;\n\tdisplay: block;\n}\n.animated-box-top[data-v-0c2ea8f4]{\n\tmargin: 0 auto;\n\tdisplay: block;\t\n\twidth: 100%;\n\tbackground: transparent url('http://127.0.0.1:8000/img/heart-beat.png') center center no-repeat;\n\theight: 265px;\n}\n/* Firefox */\n/* WebKit - Chrome and Safari */\n@-webkit-keyframes bganim-data-v-0c2ea8f4 {\nfrom {\n    background-position: -256px 0;\n}\nto {\n    background-position: calc(100% + 256px) 0;\n}\n}\n/* Opera */\n/* general syntax */\n@keyframes bganim-data-v-0c2ea8f4 {\nfrom {\n    background-position: -256px 0;\n}\nto {\n    background-position: calc(100% + 256px) 0;\n}\n}\t \n", ""]);
 
 // exports
 
@@ -76223,7 +78260,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	data: function data() {
@@ -76246,11 +78282,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "animated-box" }, [
-      _c("img", {
-        attrs: { src: "/img/heart-beat.png", width: "480", height: "265" }
-      })
-    ])
+    return _c(
+      "div",
+      {
+        staticClass: "animated-box",
+        staticStyle: { width: "480px !important" }
+      },
+      [
+        _c("img", {
+          attrs: { src: "/img/heart-beat.png", width: "480", height: "265" }
+        })
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -76950,6 +78993,1641 @@ webpackContext.id = 236;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(254)
+/* template */
+var __vue_template__ = __webpack_require__(255)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\patient\\new-patient-modal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-8ce4e8cc", Component.options)
+  } else {
+    hotAPI.reload("data-v-8ce4e8cc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 254 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'new-unit-modal',
+  data: function data() {
+    return {
+      posting: false,
+      unit: {
+        mac_address: ''
+
+      }
+    };
+  },
+
+  computed: {
+    canPost: function canPost() {
+      var result = true;
+      Object.entries(this.unit).forEach(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            attrIdx = _ref2[0],
+            attr = _ref2[1];
+
+        if (attr === '') result = false;
+      });
+      return result;
+    }
+  },
+  methods: {
+    postNewUnit: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
+        var _this = this;
+
+        var axiosOptions;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                axiosOptions = {
+                  'url': '/unit/units',
+                  'method': 'post',
+                  'data': this.unit
+                };
+
+                this.posting = true;
+                this.result = {};
+                this.message = {};
+                _context2.next = 6;
+                return axios(axiosOptions).then(function () {
+                  var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(response) {
+                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _this.$toaster.success(response.data.msg);
+                            _this.unit = { mac_address: '' };
+                            _this.$emit('unit-created');
+                            setTimeout(function () {
+                              return _this.$emit('close');
+                            }, 500);
+
+                          case 4:
+                          case 'end':
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee, _this);
+                  }));
+
+                  return function (_x2) {
+                    return _ref4.apply(this, arguments);
+                  };
+                }()).catch(function (error) {
+                  _this.$toaster.error(error.response.data.message);
+                });
+
+              case 6:
+                return _context2.abrupt('return', _context2.sent);
+
+              case 8:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function postNewUnit(_x) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return postNewUnit;
+    }()
+  }
+});
+
+/***/ }),
+/* 255 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-modal",
+    {
+      on: {
+        close: function($event) {
+          _vm.$emit("close")
+        }
+      }
+    },
+    [
+      _c("h3", { attrs: { slot: "header" }, slot: "header" }, [
+        _vm._v("New Unit")
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { slot: "body" }, slot: "body" }, [
+        _c(
+          "form",
+          {
+            ref: "vForm",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                _vm.postNewUnit($event)
+              }
+            }
+          },
+          [
+            _vm.posting
+              ? [_vm._v("...posting")]
+              : [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "form-group",
+                      class: { "has-error": !_vm.unit.mac_address }
+                    },
+                    [
+                      _c("label", [_vm._v("mac_address")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.unit.mac_address,
+                            expression: "unit.mac_address"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", placeholder: "..." },
+                        domProps: { value: _vm.unit.mac_address },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.unit,
+                              "mac_address",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-right" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn",
+                        class: {
+                          "btn-default": _vm.canPost,
+                          "btn-danger": !_vm.canPost
+                        },
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("SUBMIT")]
+                    )
+                  ])
+                ]
+          ],
+          2
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-8ce4e8cc", module.exports)
+  }
+}
+
+/***/ }),
+/* 256 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(257)
+/* template */
+var __vue_template__ = __webpack_require__(258)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\patient\\edit-patient-modal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f8870ca0", Component.options)
+  } else {
+    hotAPI.reload("data-v-f8870ca0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 257 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'edit-unit-modal',
+  props: {
+    editUnit: {
+      required: true
+    }
+  },
+  data: function data() {
+    var _this = this;
+
+    return {
+      posting: false,
+      unit: function () {
+        return _this.editUnit;
+      }()
+    };
+  },
+
+  computed: {
+    canPost: function canPost() {
+      var result = true;
+      Object.entries(this.unit).forEach(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            attrIdx = _ref2[0],
+            attr = _ref2[1];
+
+        if (attr === '') result = false;
+      });
+      return result;
+    }
+  },
+  methods: {
+    updateUnit: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
+        var _this2 = this;
+
+        var axiosOptions;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                axiosOptions = {
+                  'url': '/unit/units/' + this.editUnit.id,
+                  'method': 'post',
+                  'params': { '_method': 'PUT' },
+                  'data': this.unit
+                };
+
+                this.posting = true;
+                _context2.next = 4;
+                return axios(axiosOptions).then(function () {
+                  var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(response) {
+                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _this2.$toaster.success(response.data.msg);
+                            _this2.$emit('unit-updated');
+
+                          case 2:
+                          case 'end':
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee, _this2);
+                  }));
+
+                  return function (_x2) {
+                    return _ref4.apply(this, arguments);
+                  };
+                }()).catch(function (error) {
+                  _this2.$toaster.error(error.response.data.message);
+                });
+
+              case 4:
+                this.posting = false;
+
+              case 5:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function updateUnit(_x) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return updateUnit;
+    }()
+  }
+});
+
+/***/ }),
+/* 258 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-modal",
+    {
+      on: {
+        close: function($event) {
+          _vm.$emit("close")
+        }
+      }
+    },
+    [
+      _c("h3", { attrs: { slot: "header" }, slot: "header" }, [
+        _vm._v("Edit Unit")
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { slot: "body" }, slot: "body" }, [
+        _c(
+          "form",
+          {
+            ref: "vForm",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                _vm.updateUnit($event)
+              }
+            }
+          },
+          [
+            _vm.posting
+              ? [_vm._v("...posting")]
+              : [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "form-group",
+                      class: { "has-error": !_vm.unit.mac_address }
+                    },
+                    [
+                      _c("label", [_vm._v("mac_address")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.unit.mac_address,
+                            expression: "unit.mac_address"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text", placeholder: "..." },
+                        domProps: { value: _vm.unit.mac_address },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.unit,
+                              "mac_address",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "form-group",
+                      class: { "has-error": !_vm.unit.comment }
+                    },
+                    [
+                      _c("label", [_vm._v("Comment")]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.unit.comment,
+                            expression: "unit.comment"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { cols: "30", rows: "10", placeholder: "..." },
+                        domProps: { value: _vm.unit.comment },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.unit, "comment", $event.target.value)
+                          }
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-right" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-default pull-left",
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.$emit("close")
+                          }
+                        }
+                      },
+                      [_vm._v("CANCEL")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn",
+                        class: {
+                          "btn-default": _vm.canPost,
+                          "btn-danger": !_vm.canPost
+                        },
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("UPDATE")]
+                    )
+                  ])
+                ]
+          ],
+          2
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-f8870ca0", module.exports)
+  }
+}
+
+/***/ }),
+/* 259 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(260)
+/* template */
+var __vue_template__ = __webpack_require__(261)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\patient\\delete-patient-modal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-562df591", Component.options)
+  } else {
+    hotAPI.reload("data-v-562df591", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 260 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'delete-unit-modal',
+  props: {
+    deleteUnit: {
+      required: true
+    }
+  },
+  data: function data() {
+    var _this = this;
+
+    return {
+      posting: false,
+      unit: function () {
+        return _this.deleteUnit;
+      }()
+    };
+  },
+
+  methods: {
+    doAction: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
+        var _this2 = this;
+
+        var axiosOptions;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                axiosOptions = {
+                  'url': '/unit/units/' + this.deleteUnit.id,
+                  'method': 'post',
+                  'params': { '_method': 'DELETE' }
+                };
+
+                this.posting = true;
+                _context2.next = 4;
+                return axios(axiosOptions).then(function () {
+                  var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(response) {
+                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _this2.$toaster.success(response.data.msg);
+                            _this2.$emit('unit-deleted');
+                            _this2.$emit('close');
+
+                          case 3:
+                          case 'end':
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee, _this2);
+                  }));
+
+                  return function (_x2) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }()).catch(function (error) {
+                  _this2.$toaster.error(error.response.data.message);
+                });
+
+              case 4:
+                this.posting = false;
+
+              case 5:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function doAction(_x) {
+        return _ref.apply(this, arguments);
+      }
+
+      return doAction;
+    }()
+  }
+});
+
+/***/ }),
+/* 261 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "v-modal",
+    {
+      on: {
+        close: function($event) {
+          _vm.$emit("close")
+        }
+      }
+    },
+    [
+      _c("h3", { attrs: { slot: "header" }, slot: "header" }, [
+        _vm._v("Delete Unit")
+      ]),
+      _vm._v(" "),
+      _c("div", { attrs: { slot: "body" }, slot: "body" }, [
+        _c(
+          "form",
+          {
+            ref: "vForm",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+                _vm.doAction($event)
+              }
+            }
+          },
+          [
+            _vm.posting
+              ? [_vm._v("...deleting")]
+              : [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("mac_address")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "..." },
+                      domProps: { value: _vm.unit.mac_address }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Commnet")]),
+                    _vm._v(" "),
+                    _c("pre", [_vm._v(_vm._s(_vm.unit.comment))])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-right" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("CONFIRM")]
+                    )
+                  ])
+                ]
+          ],
+          2
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-562df591", module.exports)
+  }
+}
+
+/***/ }),
+/* 262 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(263)
+/* template */
+var __vue_template__ = __webpack_require__(264)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\patient\\list-patient.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1d8479a4", Component.options)
+  } else {
+    hotAPI.reload("data-v-1d8479a4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 263 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      on_load: true,
+      patient: null,
+      showCreatePatientModal: false,
+      showEditPatientModal: false,
+      showDeletePatientModal: false,
+      showPatientModal: false,
+      searchTerm: '',
+      totalPage: 18,
+      currentPage: 1
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      _this.getPatients().then(function (response) {
+        _this.on_load = false;
+      });
+    });
+  },
+
+  computed: {
+    loading: function loading() {
+      return this.$store.getters.loading;
+    },
+    patients: function patients() {
+      return this.$store.getters.patients;
+    },
+
+    filteredPatients: function filteredPatients() {
+      if (this.patients.length) {
+        return this.patients;
+      }
+    }
+  },
+  methods: {
+    callback: function callback(msg) {
+      this.$notify('Modal dismissed with msg \'' + msg + '\'.');
+    },
+    patientCreated: function patientCreated() {
+      this.getPatients();
+    },
+    showCreatePatientModalComponent: function showCreatePatientModalComponent(event) {
+      this.showCreatePatientModal = true;
+    },
+    showEditPatientModalComponent: function showEditPatientModalComponent(event, patient) {
+      var _this2 = this;
+
+      this.patient = patient;
+      this.$nextTick(function () {
+        _this2.showEditPatientModal = true;
+      });
+    },
+    showDeletePatientModalComponent: function showDeletePatientModalComponent(event, patient) {
+      var _this3 = this;
+
+      this.patient = patient;
+      this.$nextTick(function () {
+        _this3.showDeletePatientModal = true;
+      });
+    },
+    showPatientModalComponent: function showPatientModalComponent(event, patient) {
+      var _this4 = this;
+
+      this.patient = patient;
+      this.$nextTick(function () {
+        _this4.showPatientModal = true;
+      });
+    },
+    getPatients: function getPatients(event) {
+      return this.$store.dispatch('getPatients', { 'search': this.searchTerm });
+    }
+  }
+});
+
+/***/ }),
+/* 264 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-xs-12" }, [
+      _c(
+        "div",
+        { staticClass: "box" },
+        [
+          _c("div", { staticClass: "box-header" }, [
+            _c("div", { staticClass: "pull-right" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-xs btn-primary",
+                    attrs: { href: "javascript:;" },
+                    on: {
+                      click: function($event) {
+                        _vm.showCreatePatientModalComponent($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "glyphicon glyphicon-plus" }),
+                    _vm._v("\n            Add new Patient")
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    _vm.getPatients($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "form-inline" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("div", { staticClass: "input-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.searchTerm,
+                            expression: "searchTerm"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.searchTerm },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.searchTerm = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(0)
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(_vm.searchTerm))])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "box-body" },
+            [
+              _vm.on_load ? _c("heart-beat") : _vm._e(),
+              _vm._v(" "),
+              !_vm.loading
+                ? _c("div", [
+                    _c(
+                      "table",
+                      {
+                        staticClass: "table table-bordered table-hover",
+                        attrs: { id: "ex1" }
+                      },
+                      [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          [
+                            _vm._l(_vm.patients, function(patient, index) {
+                              return _c("tr", [
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showPatientModalComponent(
+                                          $event,
+                                          patient
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(patient.last_name) +
+                                        ", " +
+                                        _vm._s(patient.first_name) +
+                                        " " +
+                                        _vm._s(patient.middle_name)
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showPatientModalComponent(
+                                          $event,
+                                          patient
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(patient.location))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showPatientModalComponent(
+                                          $event,
+                                          patient
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(
+                                        _vm._f("moment")(
+                                          patient.created_at,
+                                          "LLLL"
+                                        )
+                                      ) + " "
+                                    ),
+                                    _c("code", [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm._f("moment")(
+                                            patient.created_at,
+                                            "from"
+                                          )
+                                        )
+                                      )
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  { staticClass: "row" },
+                                  [
+                                    _c(
+                                      "btn",
+                                      {
+                                        staticClass: "col-xs-12",
+                                        staticStyle: {
+                                          "margin-left": "3px",
+                                          "margin-right": "3px"
+                                        },
+                                        attrs: { size: "xs", type: "primary" },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.showPatientModalComponent(
+                                              $event,
+                                              patient
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", { staticClass: "fa fa-eye" }),
+                                        _vm._v(" Show")
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            }),
+                            _vm._v(" "),
+                            !_vm.patients.total
+                              ? _c("tr", [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: { colspan: "4" }
+                                    },
+                                    [
+                                      _c("p", [
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(_vm.searchTerm) +
+                                            " was not in the list"
+                                        )
+                                      ])
+                                    ]
+                                  )
+                                ])
+                              : _vm._e()
+                          ],
+                          2
+                        )
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "box-footer" },
+            [
+              _c("pagination", {
+                attrs: {
+                  "total-page": _vm.totalPage,
+                  align: "center",
+                  "max-size": 3
+                },
+                model: {
+                  value: _vm.currentPage,
+                  callback: function($$v) {
+                    _vm.currentPage = $$v
+                  },
+                  expression: "currentPage"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.showCreatePatientModal
+            ? _c("new-patient-modal", {
+                ref: "showCreatePatientModal",
+                on: {
+                  close: function($event) {
+                    _vm.showCreatePatientModal = false
+                  },
+                  "patient-created": _vm.patientCreated
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showEditPatientModal
+            ? _c("edit-patient-modal", {
+                attrs: { "edit-patient": _vm.patient },
+                on: {
+                  close: function($event) {
+                    _vm.showEditPatientModal = false
+                  },
+                  "patient-updated": _vm.getPatients
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showDeletePatientModal
+            ? _c("delete-patient-modal", {
+                ref: "showDeletePatientModal",
+                attrs: { "delete-patient": _vm.patient },
+                on: {
+                  "patient-deleted": _vm.getPatients,
+                  close: function($event) {
+                    _vm.showDeletePatientModal = false
+                  },
+                  deleted: function($event) {
+                    _vm.showPatientModal = false
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showPatientModal
+            ? _c(
+                "modal",
+                {
+                  ref: "showPatientModal",
+                  attrs: { "auto-focus": "" },
+                  on: {
+                    hide: function($event) {
+                      _vm.$emit("close")
+                    }
+                  },
+                  model: {
+                    value: _vm.showPatientModal,
+                    callback: function($$v) {
+                      _vm.showPatientModal = $$v
+                    },
+                    expression: "showPatientModal"
+                  }
+                },
+                [
+                  _c("div", { attrs: { slot: "title" }, slot: "title" }, [
+                    _c("div", { staticClass: "box-profile row" }, [
+                      _c("img", {
+                        staticClass:
+                          "animated-box profile-patient-img img-responsive img-circle pull-right ",
+                        staticStyle: { "margin-right": "50px" },
+                        attrs: {
+                          src: "/img/heart-beat.png",
+                          alt: "Patient profile picture"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "h3",
+                        { staticClass: "profile-patientname text-center" },
+                        [
+                          _vm._v(
+                            " " +
+                              _vm._s(_vm.patient.last_name) +
+                              ", " +
+                              _vm._s(_vm.patient.first_name) +
+                              " " +
+                              _vm._s(_vm.patient.middle_name)
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "text-muted text-center" }, [
+                        _vm._v("add location here")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "box-body" }, [
+                    _c("strong", [
+                      _c("i", { staticClass: "fa fa-mobile-phone margin-r-5" }),
+                      _vm._v(" Contact Number")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-muted" }, [
+                      _vm._v(_vm._s(_vm.patient.contact_number))
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("strong", [
+                      _c("i", {
+                        staticClass: "fa  fa-patient-plus margin-r-5"
+                      }),
+                      _vm._v("Account Created Since")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        _vm._s(_vm._f("moment")(_vm.patient.created_at, "LLLL"))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("code", [
+                      _vm._v(
+                        _vm._s(_vm._f("moment")(_vm.patient.created_at, "from"))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("strong", [
+                      _c("i", {
+                        staticClass: "fa fa-calendar-check-o margin-r-5"
+                      }),
+                      _vm._v("Date Updated ")
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "text-muted" }, [
+                      _vm._v(
+                        _vm._s(_vm._f("moment")(_vm.patient.updated_at, "LLLL"))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("code", [
+                      _vm._v(
+                        _vm._s(_vm._f("moment")(_vm.patient.updated_at, "from"))
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
+                    _vm._v(" "),
+                    _c("strong", [
+                      _c("i", { staticClass: "fa fa-file-text-o margin-r-5" }),
+                      _vm._v(" Comment")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", [_vm._v(_vm._s(_vm.patient.comment))])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { attrs: { slot: "footer" }, slot: "footer" },
+                    [
+                      _c(
+                        "btn",
+                        {
+                          attrs: { type: "warning" },
+                          on: {
+                            click: function($event) {
+                              _vm.showEditPatientModalComponent(
+                                $event,
+                                _vm.patient
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-pencil",
+                            attrs: { "aria-hidden": "true" }
+                          }),
+                          _vm._v(" Edit")
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "btn",
+                        {
+                          attrs: { type: "danger" },
+                          on: {
+                            click: function($event) {
+                              _vm.showDeletePatientModalComponent(
+                                $event,
+                                _vm.patient
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-trash-o",
+                            attrs: { "aria-hidden": "true" }
+                          }),
+                          _vm._v(" Delete")
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "btn",
+                        {
+                          attrs: { "data-action": "auto-focus" },
+                          on: {
+                            click: function($event) {
+                              _vm.showPatientModal = false
+                            }
+                          }
+                        },
+                        [_vm._v("Cancel")]
+                      )
+                    ],
+                    1
+                  )
+                ]
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-btn" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { type: "submit" } },
+        [_vm._v("search")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("location")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Date Added")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "col-md-2" })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1d8479a4", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

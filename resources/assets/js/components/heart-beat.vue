@@ -1,11 +1,10 @@
 <template>
-<div class="animated-box">
+<div class="animated-box" style="width: 480px !important;">
 		<img src="/img/heart-beat.png" width="480" height="265"/>
 	</div>
 </template>
 <style scoped>
 		.animated-box{
-			width: 480px;
 			max-width: 100%;
 			margin: 0 auto;
 			display: block;

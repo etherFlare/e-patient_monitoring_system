@@ -11,7 +11,7 @@ class PatientController extends Controller
 	}
 	public function index(Request $request)
 	{
-		$patient = Patient::where(function($query) use($request) {
+		$patients = Patient::where(function($query) use($request) {
 			if($request->has('search')){
 				$search = trim($request->get('search'));
 				$query->where('first_name', 'LIKE', '%'. $search .'%');
@@ -19,7 +19,7 @@ class PatientController extends Controller
 		})
 		->orderBy('created_at', 'desc')
 		->paginate(10);
-		return $patient;
+		return $patients;
 	}
 	public function store(Request $request)
 	{

@@ -4,45 +4,130 @@
   v-on:hide="$emit('close')"
    title="New Unit"
    :footer="false"
+   size="lg"
   >
       <form ref="vForm" v-on:submit.prevent="postNewUnit($event)">
         <template v-if="posting">...posting</template>
         <template v-else>
-          <div class="form-group" :class="{'has-error': !unit.mac_address}">
-            <label>title</label>
-            <input type="text" class="form-control" placeholder="..." v-model="unit.mac_address"/>
-          </div>
-          
-          <div class="form-group" :class="{'has-error': !unit.oximeter_delay}">
-             <div class="input-group">
-                        <span class="input-group-addon">
-                          <input type="checkbox">
-                        </span>
-                    <input type="text" class="form-control timepicker">
+          <div class="row">
+          <div class="col-md-6">
+              <p>
+                <strong>
+                  <i class="fa  fa-unit-plus margin-r-5"></i>Unit Activation Status
+                </strong>
+              </p>
+              <div class="row">
+                <div class="col-xs-3">
+                  <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider round "></span>
+                  </label>
+                </div>
+                
               </div>
-          </div>
-          <div class="form-group" :class="{'has-error': !unit.oximeter_delay}">
-             <div class="input-group">
-                        <span class="input-group-addon">
-                          <input type="checkbox">
-                        </span>
-                    <input type="text" class="form-control">
+              <hr>
+              <div class="form-group" :class="{'has-error': !unit.mac_address}">
+                <label><i class="fa fa-mobile-phone margin-r-5"></i>Mac Address</label>
+                <input type="text" class="form-control" placeholder="..." v-model="unit.mac_address"/>
               </div>
-          </div>
-          <div class="form-group" :class="{'has-error': !unit.oximeter_delay}">
-             <div class="input-group">
-                        <span class="input-group-addon">
-                          <input type="checkbox">
-                        </span>
-                    <input type="text" class="form-control">
+              <hr>
+              <div class="form-group" :class="{'has-error': !unit.comment}">
+                <label>Comment</label>
+                <textarea cols="10" rows="5" class="form-control" placeholder="..." v-model="unit.comment"></textarea>
               </div>
-          </div>
-         <div class="form-group" :class="{'has-error': !unit.oximeter_delay}">
-            <label>body</label>
-            <textarea cols="30" rows="5" class="form-control" placeholder="..." v-model="unit.oximeter_delay"></textarea>
-          </div>
+            </div>
+            <div class="col-md-6">
 
+              <p>
+                <strong>
+                  <i class="fa  fa-unit-plus margin-r-5"></i>Unit Oximeter Status
+                </strong>
+              </p>
+              <div class="row">
+                <div class="col-xs-3">
+                  <label class="switch">
+                    <input type="checkbox"   checked>
+                    <span class="slider round "></span>
+                  </label>
+                </div>
+                <div class="col-xs-9">
+                  <strong><i class="fa fa-file-text-o margin-r-5"></i> Delay</strong>
+                  <dropdown class="form-group">
+                    <div class="input-group">
+                      <input class="form-control" type="text" :value="this.time.toTimeString()" readonly="readonly">
+                      <div class="input-group-btn">
+                        <btn class="dropdown-toggle"><i class="glyphicon glyphicon-time"></i></btn>
+                      </div>
+                    </div>
+                    <template slot="dropdown">
+                      <li style="padding: 10px">
+                        <time-picker v-model="time"/>
+                      </li>
+                    </template>
+                  </dropdown>
+                </div>
+              </div>
+              <p>
+                <strong>
+                  <i class="fa  fa-unit-plus margin-r-5"></i>Account Sphygmomanometer Status
+                </strong>
+              </p>
+              <div class="row">
+                <div class="col-xs-3">
+                  <label class="switch">
+                    <input type="checkbox"   checked>
+                    <span class="slider round "></span>
+                  </label>
+                </div>
+                <div class="col-xs-9">
+                  <strong><i class="fa fa-file-text-o margin-r-5"></i> Delay</strong>
+                  <dropdown class="form-group">
+                    <div class="input-group">
+                      <input class="form-control" type="text" :value="this.time.toTimeString()" readonly="readonly">
+                      <div class="input-group-btn">
+                        <btn class="dropdown-toggle"><i class="glyphicon glyphicon-time"></i></btn>
+                      </div>
+                    </div>
+                    <template slot="dropdown">
+                      <li style="padding: 10px">
+                        <time-picker v-model="time"/>
+                      </li>
+                    </template>
+                  </dropdown>
 
+                </div>
+              </div>
+              <p>
+                <strong>
+                  <i class="fa  fa-unit-plus margin-r-5"></i>Account Thermometer Status
+                </strong>
+              </p>
+              <div class="row">
+                <div class="col-xs-3">
+                  <label class="switch">
+                    <input type="checkbox"    checked>
+                    <span class="slider round "></span>
+                  </label>
+                </div>
+                <div class="col-xs-9">
+                  <strong><i class="fa fa-file-text-o margin-r-5"></i> Delay</strong>
+                  <dropdown class="form-group">
+                    <div class="input-group">
+                      <input class="form-control" type="text" :value="this.time.toTimeString()" readonly="readonly">
+                      <div class="input-group-btn">
+                        <btn class="dropdown-toggle"><i class="glyphicon glyphicon-time"></i></btn>
+                      </div>
+                    </div>
+                    <template slot="dropdown">
+                      <li style="padding: 10px">
+                        <time-picker v-model="time"/>
+                      </li>
+                    </template>
+                  </dropdown>
+                </div>
+              </div>
+            </div>
+            </div>
           <div class="modal-footer text-right" >
             <div class="row">
               <button class="btn btn-default pull-left col-md-4" type="button" v-on:click="showModal=false">CANCEL</button>
@@ -61,17 +146,9 @@ export default {
       showModal: true,
       posting: false,
       unit: {
-        mac_address:'',
-        unit_is_active:'',
-        unit_is_inuse:'',
-        oximeter_is_active:'',
-        bp_is_active:'',
-        thermometer_is_active:'',
-        oximeter_delay:'',
-        bp_delay:'',
-        thermometer_delay:'',
-        comment:''
-      }
+
+      },
+        time: new Date(''),
     }
   },
   computed: {
@@ -90,27 +167,21 @@ export default {
         'method': 'post',
         'data': this.unit
       }
+ console.log( this.unit); 
+
       this.posting = true
       this.result = {}
       this.message = {}
       return await axios(axiosOptions).then(async (response) => {
         this.$toaster.success(response.data.msg)
-        this.unit = {
-          mac_address:'',
-          unit_is_active:'',
-          unit_is_inuse:'',
-          oximeter_is_active:'',
-          bp_is_active:'',
-          thermometer_is_active:'',
-          oximeter_delay:'',
-          bp_delay:'',
-          thermometer_delay:'',
-          comment:''
-        }
+        this.unit = {title: '', description: ''}
         this.$emit('unit-created')
         setTimeout(() => this.$emit('close'), 500)
+console.log( this.unit); 
+
       }).catch(error => {
         this.$toaster.error(error.response.data.message)
+         console.log( error.response.data.messagee);
          this.posting = false
       })
       this.posting = false

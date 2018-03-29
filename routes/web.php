@@ -33,7 +33,6 @@ Route::get('/role/add-new','RoleController@get_store');
 //for user
 Route::get('/user', 'UserController@home') ->name('user');
 Route::resource('/user/users','UserController');
-Route::get('/user/add-new','UserController@get_store');
 //for patient
 Route::get('/patient', 'PatientController@home');
 Route::resource('/patient/patients','PatientController');

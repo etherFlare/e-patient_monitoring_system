@@ -18,7 +18,6 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
- 
         $post = Post::where(function($query) use($request) {
 
             if($request->has('search')){

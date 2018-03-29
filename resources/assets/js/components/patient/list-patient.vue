@@ -1,154 +1,167 @@
-\<template id="unit-list">
-	<div>
-		<div class="row">
-			<div class="pull-right">
-				<div class="form-group">
-					<a href="javascript:;" class="btn btn-xs btn-primary" v-on:click="showCreateUnitModalComponent($event)">
-					Add new Unit</a>
-				</div>
-			</div>
-			<form v-on:submit.prevent="getUnits($event)">
-				<div class="form-inline">
-					<div class="form-group">
-						<div class="input-group">
-							<input type="text" class="form-control" v-model="searchTerm"/>
-							<div class="input-group-btn">
-								<button class="btn btn-default" type="submit">search</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<p>{{searchTerm}}</p>
-			</form>
-			<heart-beat v-if="on_load"></heart-beat>
-			<div v-if="!loading">
-				<table class="table">
-					<thead>
-						<tr>
-							<th>mac address</th>
-							<th>is active</th>
-							<th>in use</th>
-							<th>oximeter</th>
-							<th>bp</th>
-							<th>thermometer</th>
-							<th>oximeter Delay</th>
-							<th>bp Delay</th>
-							<th>thermometer Delay</th>
-							<th>Date Created</th>
-							<th>Date Modified</th>
-							<th class="col-md-2">Actions</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr v-for="(unit, index) in units">
-							<td>{{ unit.mac_address }}</td>
-							<td>{{ unit.unit_is_active }}</td>
-							<td>{{ unit.unit_is_inuse }}</td>
-							<td>{{ unit.oximeter_is_active }}</td>
-							<td>{{ unit.bp_is_active }}</td>
-							<td>{{ unit.thermometer_is_active }}</td>
-							<td>{{ unit.oximeter_delay }}</td>
-							<td>{{ unit.bp_delay }}</td>
-							<td>{{ unit.thermometer_delay }}</td>
-							<td>
-								{{ unit.created_at | moment('LLLL')}}
-								<code>
-									{{ unit.created_at | moment('from')}}
-								</code>
-							</td>
-							<td>{{ unit.updated_at }}</td>
-							<td>
-								<button type="button" class="btn btn-info btn-xs" v-on:click="showUnitModalComponent($event, unit)"><i class="fa fa-eye"></i> Show</button>
-								<button type="button" class="btn btn-warning btn-xs" v-on:click="showEditUnitModalComponent($event, unit)"> Edit</button>
-								<button type="button" class="btn btn-danger btn-xs" v-on:click="showDeleteUnitModalComponent($event, unit)"> Delete</button>
-								<hr />
+<template id="patient-list">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <div class="pull-right">
+            <div class="form-group">
+              <a href="javascript:;" class="btn btn-xs btn-primary" v-on:click="showCreatePatientModalComponent($event)"><span class="glyphicon glyphicon-plus"></span>
+              Add new Patient</a>
+            </div>
+          </div>
+          <form v-on:submit.prevent="getPatients($event)">
+            <div class="form-inline">
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" class="form-control" v-model="searchTerm"/>
+                  <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">search</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p>{{searchTerm}}</p>
+          </form>
+        </div>
+        <div class="box-body">
+          <heart-beat v-if="on_load"></heart-beat>
+          <div v-if="!loading">
+            <table  id="ex1" class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>location</th>
+                  <th>Date Added</th>
+                  <th class="col-md-2"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(patient, index) in patients" >
+                  <td v-on:click="showPatientModalComponent($event, patient)">{{ patient.last_name }}, {{ patient.first_name }} {{ patient.middle_name }}</td>
+                  <td  v-on:click="showPatientModalComponent($event, patient)">{{ patient.location }}</td>
+                  <td  v-on:click="showPatientModalComponent($event, patient)">{{ patient.created_at | moment('LLLL')}} <code>{{ patient.created_at | moment('from')}}</code></td>
+                  <td class="row">
+                    <btn size="xs" type="primary" class="col-xs-12" style="margin-left:3px;margin-right:3px;" v-on:click="showPatientModalComponent($event, patient)"><i class="fa fa-eye"></i> Show</btn>
+                  </td>
+                </tr>
+                <tr v-if="!patients.total">
+                  <td colspan="4" class="text-center">
+                    <p> {{searchTerm}} was not in the list</p>
+                  </td>
 
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-		<new-unit-modal ref="showCreateUnitModal" v-if="showCreateUnitModal" v-on:close="showCreateUnitModal = false" v-on:unit-created="unitCreated"></new-unit-modal>
-
-		<edit-unit-modal ref="showEditUnitModal" :edit-unit="unit" v-if="showEditUnitModal" v-on:unit-updated="getUnits" v-on:close="showEditUnitModal = false"></edit-unit-modal>
-		<delete-unit-modal ref="showDeleteUnitModal" :delete-unit="unit" v-if="showDeleteUnitModal" v-on:unit-deleted="getUnits" v-on:close="showDeleteUnitModal = false"></delete-unit-modal>
-		<v-modal ref="showUnitModal" v-if="showUnitModal" v-on:close="showUnitModal = false">
-			<h3 slot="header">UNIT</h3>
-			<div slot="body">
-				<strong>{{ unit.mac_address }}</strong>
-				<p>{{ unit.unit_is_active }}</p>
-				<div>{{unit.created_at | moment('LLLL')}}</div>
-				<code>{{unit.created_at | moment('from')}}</code>
-			</div>
-
-		</v-modal>
-
-
-	</div>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="box-footer">
+          <pagination v-model="currentPage" :total-page="totalPage" align="center" :max-size="3"/>
+        </div>
+        <new-patient-modal ref="showCreatePatientModal" v-if="showCreatePatientModal" v-on:close="showCreatePatientModal = false" v-on:patient-created="patientCreated" ></new-patient-modal>
+        <edit-patient-modal v-if="showEditPatientModal" v-on:close="showEditPatientModal = false" :edit-patient="patient" v-on:patient-updated="getPatients"></edit-patient-modal>
+        <delete-patient-modal ref="showDeletePatientModal" :delete-patient="patient" v-if="showDeletePatientModal" v-on:patient-deleted="getPatients" v-on:close="showDeletePatientModal = false"  v-on:deleted="showPatientModal = false" ></delete-patient-modal>
+        <!--show modal-->
+        <modal ref="showPatientModal" v-if="showPatientModal" v-model="showPatientModal"  auto-focus v-on:hide="$emit('close')" >
+          <div slot="title" >
+            <div class="box-profile row">
+              <img class="animated-box profile-patient-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="Patient profile picture" style="margin-right:50px">
+              <h3 class="profile-patientname text-center"> {{ patient.last_name }}, {{ patient.first_name }} {{ patient.middle_name }}</h3>
+              <p class="text-muted text-center">add location here</p>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <div class="box-body">
+            <strong><i class="fa fa-mobile-phone margin-r-5"></i> Contact Number</strong>
+            <p class="text-muted">{{ patient.contact_number }}</p>
+            <hr>
+            <strong><i class="fa  fa-patient-plus margin-r-5"></i>Account Created Since</strong>
+            <div class="text-muted">{{patient.created_at | moment('LLLL')}}</div>
+            <code>{{patient.created_at | moment('from')}}</code>
+            <hr>
+            <strong><i class="fa fa-calendar-check-o margin-r-5"></i>Date Updated </strong>
+            <div class="text-muted">{{patient.updated_at | moment('LLLL')}}</div>
+            <code>{{patient.updated_at | moment('from')}}</code>
+            <hr>
+            <strong><i class="fa fa-file-text-o margin-r-5"></i> Comment</strong>
+            <p>{{ patient.comment }}</p>
+          </div>
+          <div slot="footer">
+            <btn type="warning"  class="" v-on:click="showEditPatientModalComponent($event, patient)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
+            <btn type="danger"  class="" v-on:click="showDeletePatientModalComponent($event, patient)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</btn>
+            <btn  v-on:click="showPatientModal=false" data-action="auto-focus">Cancel</btn>
+          </div>
+        </modal>
+        <!--show modal end-->
+      </div>
+    </div>
+  </div>
 </template>
 <script>
 export default {
-	data() {
-		return {
-			on_load: true,
-			showCreateUnitModal: false,
-			showEditUnitModal: false,
-			showDeleteUnitModal: false,
-			showUnitModal: false,
-			unit: null,
-			searchTerm: ''
-		}
-	},
-	mounted() {
-		this.$nextTick(()=>{
-			this.getUnits().then((response)=>{
-				this.on_load = false
-			})
-		})
-	},
-	computed: {
-		loading() {
-			return this.$store.getters.loading
-		},
-		units() {
-			return this.$store.getters.units
-		},
-		filteredUnits: function(){
-			if(this.units.length) {
-				return this.units;
-			}
-		}
-	},
-	methods: {
-		unitCreated() {
-			this.getUnits()
-		},
-		showCreateUnitModalComponent(event) {
-			this.showCreateUnitModal = true
-		},
-		showEditUnitModalComponent(event, unit) {
-			this.unit = unit
-			this.$nextTick(() => {
-				this.showEditUnitModal = true
-			})
-		},
-		showDeleteUnitModalComponent(event, unit) {
-			this.unit = unit
-			this.$nextTick(() => {
-				this.showDeleteUnitModal = true
-			})
-		},
-		showUnitModalComponent(event, unit) {
-			this.unit = unit
-			this.$nextTick(() => {
-				this.showUnitModal = true
-			})
-		},
-		getUnits(event) {
-			return this.$store.dispatch('getUnits', { 'search': this.searchTerm })
-		}
-	},
+  data() {
+    return {
+      on_load: true,
+      patient: null,
+      showCreatePatientModal: false,
+      showEditPatientModal: false,
+      showDeletePatientModal: false,
+      showPatientModal: false,
+      searchTerm: '',
+      totalPage: 18,
+      currentPage: 1
+    }
+  },
+  mounted() {
+    this.$nextTick(()=>{
+      this.getPatients().then((response)=>{
+        this.on_load = false
+      })
+    })
+  },
+  computed: {
+    loading() {
+      return this.$store.getters.loading
+    },
+    patients() {
+      return this.$store.getters.patients
+    },
+    filteredPatients: function(){
+      if(this.patients.length) {
+        return this.patients;
+      }
+    }
+  },
+  methods: {
+    callback (msg) {
+      this.$notify(`Modal dismissed with msg '${msg}'.`)
+    },
+    patientCreated() {
+      this.getPatients()
+    },
+    showCreatePatientModalComponent(event) {
+      this.showCreatePatientModal = true
+    },
+    showEditPatientModalComponent(event, patient) {
+      this.patient = patient
+      this.$nextTick(() => {
+        this.showEditPatientModal = true
+      })
+    },
+    showDeletePatientModalComponent(event, patient) {
+      this.patient = patient
+      this.$nextTick(() => {
+        this.showDeletePatientModal = true
+      })
+    },
+    showPatientModalComponent(event, patient) {
+      this.patient = patient
+      this.$nextTick(() => {
+        this.showPatientModal = true
+      })
+    },
+    getPatients(event) {
+      return this.$store.dispatch('getPatients', { 'search': this.searchTerm })
+    }
+  },
 }
 </script>

@@ -7,19 +7,42 @@
     :backdrop="false" 
     :footer="false" 
     v-on:hide="$emit('close')"
+    size="lg"
     >  
     <div slot="default">
       <form v-if="user" ref="vForm" v-on:submit.prevent="updateUser($event)">
         <template v-if="posting">...posting</template>
         <template v-else>
-          <div class="form-group" :class="{'has-error': !user.title}">
-            <label>title</label>
-            <input type="text" class="form-control" placeholder="..." v-model="user.title"/>
+          <div class="row">
+        <div class="col-md-6">
+          <div class="form-group col-md-4" :class="{'has-error': !user.first_name}">
+            <label>First Name</label>
+            <input type="text" class="form-control" placeholder="..." v-model="user.first_name"/>
           </div>
-          <div class="form-group" :class="{'has-error': !user.description}">
-            <label>description</label>
-            <textarea cols="30" rows="5" class="form-control" placeholder="..." v-model="user.description"></textarea>
+          <div class="form-group col-md-4" :class="{'has-error': !user.middle_name}">
+            <label>Middle Name</label>
+            <input type="text" class="form-control" placeholder="..." v-model="user.middle_name"/>
           </div>
+          <div class="form-group col-md-4" :class="{'has-error': !user.last_name}">
+            <label>Surname</label>
+            <input type="text" class="form-control" placeholder="..." v-model="user.last_name"/>
+          </div>
+          <div class="form-group " :class="{'has-error': !user.contact_number}">
+            <label>Phone Number</label>
+            <input type="text" class="form-control" placeholder="..." v-model="user.contact_number"/>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group " :class="{'has-error': !user.email}">
+            <label>Email Address</label>
+            <input type="email" class="form-control" placeholder="..." v-model="user.email"/>
+          </div>
+          <div class="form-group" :class="{'has-error': !user.comment}">
+            <label>Comment</label>
+            <textarea cols="10" rows="5" class="form-control" placeholder="..." v-model="user.comment"></textarea>
+          </div>
+        </div>
+      </div>
           <div class="modal-footer text-right" >
             <div class="row">
               <button class="btn btn-default pull-left col-md-4" type="button" v-on:click="dismiss=true">CANCEL</button>

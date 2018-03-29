@@ -31,6 +31,9 @@ import NewUserModalComponent from './components/user/new-user-modal.vue'
 import EditUserModalComponent from './components/user/edit-user-modal.vue'
 import DeleteUserModalComponent from './components/user/delete-user-modal.vue'
 
+import NewPatientModalComponent from './components/patient/new-patient-modal.vue'
+import EditPatientModalComponent from './components/patient/edit-patient-modal.vue'
+import DeletePatientModalComponent from './components/patient/delete-patient-modal.vue'
 
 window.Axios=require('axios').default;
 
@@ -44,6 +47,8 @@ const Listunits=Vue.component('Listunits', require('./components/unit/list-unit.
 const Listroles=Vue.component('Listroles', require('./components/role/list-role.vue'));
 // show the list user template
 const Listusers=Vue.component('Listusers', require('./components/user/list-user.vue'));
+// show the list patient template
+const Listpatients=Vue.component('Listpatients', require('./components/patient/list-patient.vue'));
 
 const heartBeat =Vue.component('heart-beat', require('./components/heart-beat.vue'));
 const vmodal =Vue.component('v-modal', require('./components/modal.vue'));
@@ -73,6 +78,10 @@ Vue.component('new-user-modal', NewUserModalComponent);
 Vue.component('edit-user-modal', EditUserModalComponent);
 Vue.component('delete-user-modal', DeleteUserModalComponent);
 
+Vue.component('new-patient-modal', NewPatientModalComponent);
+Vue.component('edit-patient-modal', EditPatientModalComponent);
+Vue.component('delete-patient-modal', DeletePatientModalComponent);
+
 const routes = [
 {
   name: 'Listposts',
@@ -93,6 +102,11 @@ const routes = [
   name: 'Listusers',
   path: '/user',
   component: Listusers
+},
+{
+  name: 'Listpatients',
+  path: '/patient',
+  component: Listpatients
 }
 ];
 
@@ -104,7 +118,8 @@ const store = new Vuex.Store({
     posts: {},
     units: {},
     roles: {},
-    users: {}
+    users: {},
+    patients: {}
   },
   getters: {
     loading(state) {
@@ -136,6 +151,13 @@ const store = new Vuex.Store({
     },
     users(state, getters) {
       return getters.usersCollection.data
+    },
+    //-------------------------patitient
+    patientsCollection(state) {
+      return state.patients
+    },
+    patients(state, getters) {
+      return getters.patientsCollection.data
     },
     //-------------------------
   },
@@ -235,6 +257,30 @@ async getUsers({commit, dispatch, state}, data) {
   },
   newUsers({commit}, payload) {
     commit('setUsers', payload)
+  },
+  //--------------------------user
+async getPatients({commit, dispatch, state}, data) {
+    data = data || {}
+    const axiosOptions = {
+      'url': '/patient/patients',
+      'method': 'get',
+      'params': data
+    }
+    await commit('setLoading', true)
+    let nullData = Object.assign(state.patients, {data: []})
+    await dispatch('newPatients', nullData)
+
+    return await axios(axiosOptions).then(async (response) => {
+      await console.log('getPatients:', response)
+      await dispatch('newPatients', response.data)
+       commit('setLoading', false)
+
+    }).catch(error => { 
+      console.log('error', error); 
+    })
+  },
+  newPatients({commit}, payload) {
+    commit('setPatients', payload)
   }
   //-------------------------------------------
 },
@@ -253,6 +299,9 @@ mutations: {
   },
   setUsers(state, payload){
     state.users = payload
+  },
+  setPatients(state, payload){
+    state.patients = payload
   }
 } 
 })
