@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -14,15 +14,15 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $table = 'users';
+    protected $table    = 'users';
     protected $fillable = [
-        'email', 
+        'email',
         'password',
         'first_name',
         'middle_name',
         'last_name',
         'contact_number',
-        'comment'
+        'comment',
     ];
 
     /**
@@ -33,4 +33,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role')
+                ->withTimestamps();
+
+    }
+
+    public function setRolesAttribute($roles)
+    {
+        $this->roles()->sync($roles);
+
+    }
+ 
 }

@@ -5,8 +5,7 @@
         <div class="box-header">
           <div class="pull-right">
             <div class="form-group">
-              <a href="javascript:;" class="btn btn-xs btn-primary" v-on:click="showCreateUserModalComponent($event)"><span class="glyphicon glyphicon-plus"></span>
-              Add new User</a>
+              <a href="javascript:;" class="btn btn-xs btn-primary" v-on:click="showCreateUserModalComponent($event)"><span class="glyphicon glyphicon-plus"></span> Add new User</a>
             </div>
           </div>
           <form v-on:submit.prevent="getUsers($event)">
@@ -27,7 +26,7 @@
           <heart-beat v-if="on_load"></heart-beat>
           <div v-if="!loading">
             <table  id="ex1" class="table table-bordered table-hover">
-              <thead>
+              <thead v-if="users.length">
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
@@ -44,11 +43,10 @@
                     <btn size="xs" type="primary" class="col-xs-12" style="margin-left:3px;margin-right:3px;" v-on:click="showUserModalComponent($event, user)"><i class="fa fa-eye"></i> Show</btn>
                   </td>
                 </tr>
-                <tr v-if="!users.total">
+                <tr v-if="!users.length">
                   <td colspan="4" class="text-center">
-                    <p> {{searchTerm}} was not in the list</p>
+                    <p class="no-margin text-red">{{searchTerm}} was not in the list</p>
                   </td>
-
                 </tr>
               </tbody>
             </table>
@@ -60,7 +58,6 @@
         <new-user-modal ref="showCreateUserModal" v-if="showCreateUserModal" v-on:close="showCreateUserModal = false" v-on:user-created="userCreated" ></new-user-modal>
         <edit-user-modal v-if="showEditUserModal" v-on:close="showEditUserModal = false" :edit-user="user" v-on:user-updated="getUsers"></edit-user-modal>
         <delete-user-modal ref="showDeleteUserModal" :delete-user="user" v-if="showDeleteUserModal" v-on:user-deleted="getUsers" v-on:close="showDeleteUserModal = false"  v-on:deleted="showUserModal = false" ></delete-user-modal>
-        <!--show modal-->
         <modal ref="showUserModal" v-if="showUserModal" v-model="showUserModal"  auto-focus v-on:hide="$emit('close')" >
           <div slot="title" >
             <div class="box-profile row">
@@ -68,7 +65,6 @@
               <h3 class="profile-username text-center"> {{ user.last_name }}, {{ user.first_name }} {{ user.middle_name }}</h3>
               <p class="text-muted text-center">add role/s here</p>
             </div>
-            <!-- /.box-body -->
           </div>
           <div class="box-body">
             <strong><i class="fa fa-mobile-phone margin-r-5"></i> Contact Number</strong>
@@ -91,77 +87,77 @@
             <btn  v-on:click="showUserModal=false" data-action="auto-focus">Cancel</btn>
           </div>
         </modal>
-        <!--show modal end-->
       </div>
     </div>
   </div>
 </template>
+
 <script>
-export default {
-  data() {
-    return {
-      on_load: true,
-      user: null,
-      showCreateUserModal: false,
-      showEditUserModal: false,
-      showDeleteUserModal: false,
-      showUserModal: false,
-      searchTerm: '',
-      totalPage: 18,
-      currentPage: 1
-    }
-  },
-  mounted() {
-    this.$nextTick(()=>{
-      this.getUsers().then((response)=>{
-        this.on_load = false
+  export default {
+    data() {
+      return {
+        on_load: true,
+        user: null,
+        showCreateUserModal: false,
+        showEditUserModal: false,
+        showDeleteUserModal: false,
+        showUserModal: false,
+        searchTerm: '',
+        totalPage: 18,
+        currentPage: 1
+      }
+    },
+    mounted() {
+      this.$nextTick(()=>{
+        this.getUsers().then((response)=>{
+          this.on_load = false
+        })
       })
-    })
-  },
-  computed: {
-    loading() {
-      return this.$store.getters.loading
     },
-    users() {
-      return this.$store.getters.users
+    computed: { 
+      loading() {
+        return this.$store.getters.loading
+      },
+      users() {
+        return this.$store.getters.users
+      }, 
+      filteredUsers: function(){
+        if(this.users.length) {
+          return this.users;
+        }
+      }
     },
-    filteredUsers: function(){
-      if(this.users.length) {
-        return this.users;
+    methods: {
+      callback (msg) {
+        this.$notify(`Modal dismissed with msg '${msg}'.`)
+      },
+      userCreated() {
+        this.getUsers()
+      },
+      showCreateUserModalComponent(event) {
+        this.showCreateUserModal = true
+      },
+      showEditUserModalComponent(event, user) {
+        this.user = user
+        this.$nextTick(() => {
+          this.showEditUserModal = true
+        })
+      },
+      showDeleteUserModalComponent(event, user) {
+        this.user = user
+        this.$nextTick(() => {
+          this.showDeleteUserModal = true
+        })
+      },
+      showUserModalComponent(event, user) {
+        this.user = user
+        this.$nextTick(() => {
+          this.showUserModal = true
+        })
+      },
+      getUsers(event) {
+        return this.$store.dispatch('getUsers', { 'search': this.searchTerm })
       }
     }
-  },
-  methods: {
-    callback (msg) {
-      this.$notify(`Modal dismissed with msg '${msg}'.`)
-    },
-    userCreated() {
-      this.getUsers()
-    },
-    showCreateUserModalComponent(event) {
-      this.showCreateUserModal = true
-    },
-    showEditUserModalComponent(event, user) {
-      this.user = user
-      this.$nextTick(() => {
-        this.showEditUserModal = true
-      })
-    },
-    showDeleteUserModalComponent(event, user) {
-      this.user = user
-      this.$nextTick(() => {
-        this.showDeleteUserModal = true
-      })
-    },
-    showUserModalComponent(event, user) {
-      this.user = user
-      this.$nextTick(() => {
-        this.showUserModal = true
-      })
-    },
-    getUsers(event) {
-      return this.$store.dispatch('getUsers', { 'search': this.searchTerm })
-    }
-  },
-}
+  }
 </script>

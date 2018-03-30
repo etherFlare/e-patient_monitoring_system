@@ -11,4 +11,12 @@ class Role extends Model
 		'title',
 		'description'
 	];
+
+	public function users()
+    {
+        return $this->belongsToMany('App\User')
+                ->withTimestamps();
+
+    }
+	
 }

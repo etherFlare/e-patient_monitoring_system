@@ -35,7 +35,7 @@
               </thead>
               <tbody>
                 <tr v-for="(role, index) in roles" >
-                  <td v-on:click="showRoleModalComponent($event, role)">{{ role.mac_address }}</td>
+                  <td v-on:click="showRoleModalComponent($event, role)">{{ role.title }}</td>
                   <td class="row"> 
                     <btn size="xs" type="primary" class="col-xs-12" style="margin-left:3px;margin-right:3px;" v-on:click="showRoleModalComponent($event, role)"><i class="fa fa-eye"></i> Show</btn>
                   </td>
