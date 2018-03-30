@@ -19,4 +19,9 @@ class Unit extends Model
         'thermometer_delay',
         'comment'
     ];
+
+    public function patients()
+    {
+        return $this->hasMany('App\Patient'); 
+    }
 }

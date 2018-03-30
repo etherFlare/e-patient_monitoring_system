@@ -9,7 +9,7 @@
                         <div class="row">
                             <div class="col-xs-3">
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" checked v-model="unit.unit_is_active"/>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
@@ -17,7 +17,7 @@
                         <hr>
                         <div class="form-group" :class="{'has-error': !unit.mac_address}">
                             <label><i class="fa fa-mobile-phone margin-r-5"></i>Mac Address</label>
-                            <input type="text" class="form-control" placeholder="..." v-model="unit.mac_address"/>
+                            <input type="text" class="form-control" placeholder="..." v-model="unit.mac_address" v-mask="['XX:XX:XX:XX:XX:XX']"/>
                         </div>
                         <hr>
                         <div class="form-group" :class="{'has-error': !unit.comment}">
@@ -28,31 +28,19 @@
                     <div class="col-md-6">
                         <p>
                             <strong>
-                                <i class="fa  fa-unit-plus margin-r-5"></i>Unit Oximeter Status
+                                <i class="fa  fa-unit-plus margin-r-5"></i> Unit Oximeter Status
                             </strong>
                         </p>
                         <div class="row">
                             <div class="col-xs-3">
                                 <label class="switch">
-                                    <input type="checkbox"   checked>
+                                    <input type="checkbox" checked v-model="unit.oximeter_is_active"/>
                                     <span class="slider round "></span>
                                 </label>
                             </div>
                             <div class="col-xs-9">
                                 <strong><i class="fa fa-file-text-o margin-r-5"></i> Delay</strong>
-                                <dropdown class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control" type="text" :value="this.time.toTimeString()" readonly="readonly">
-                                        <div class="input-group-btn">
-                                            <btn class="dropdown-toggle"><i class="glyphicon glyphicon-time"></i></btn>
-                                        </div>
-                                    </div>
-                                    <template slot="dropdown">
-                                        <li style="padding: 10px">
-                                            <time-picker v-model="time"/>
-                                        </li>
-                                    </template>
-                                </dropdown>
+                                <input type="text" class="form-control" placeholder="..." v-model="unit.oximeter_delay"/>
                             </div>
                         </div>
                         <p>
@@ -63,25 +51,13 @@
                         <div class="row">
                             <div class="col-xs-3">
                                 <label class="switch">
-                                    <input type="checkbox"   checked>
+                                    <input type="checkbox" checked v-model="unit.bp_is_active"/>
                                     <span class="slider round "></span>
                                 </label>
                             </div>
                             <div class="col-xs-9">
                                 <strong><i class="fa fa-file-text-o margin-r-5"></i> Delay</strong>
-                                <dropdown class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control" type="text" :value="this.time.toTimeString()" readonly="readonly">
-                                        <div class="input-group-btn">
-                                            <btn class="dropdown-toggle"><i class="glyphicon glyphicon-time"></i></btn>
-                                        </div>
-                                    </div>
-                                    <template slot="dropdown">
-                                        <li style="padding: 10px">
-                                            <time-picker v-model="time"/>
-                                        </li>
-                                    </template>
-                                </dropdown>
+                                <input type="text" class="form-control" placeholder="..." v-model="unit.bp_delay"/>
                             </div>
                         </div>
                         <p>
@@ -92,25 +68,13 @@
                         <div class="row">
                             <div class="col-xs-3">
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" checked v-model="unit.thermometer_is_active"/>
                                     <span class="slider round "></span>
                                 </label>
                             </div>
                             <div class="col-xs-9">
                                 <strong><i class="fa fa-file-text-o margin-r-5"></i> Delay</strong>
-                                <dropdown class="form-group">
-                                    <div class="input-group">
-                                        <input class="form-control" type="text" :value="this.time.toTimeString()" readonly="readonly">
-                                        <div class="input-group-btn">
-                                            <btn class="dropdown-toggle"><i class="glyphicon glyphicon-time"></i></btn>
-                                        </div>
-                                    </div>
-                                    <template slot="dropdown">
-                                        <li style="padding: 10px">
-                                            <time-picker v-model="time"/>
-                                        </li>
-                                    </template>
-                                </dropdown>
+                                <input type="text" class="form-control" placeholder="..." v-model="unit.thermometer_delay"/>
                             </div>
                         </div>
                     </div>
@@ -127,27 +91,31 @@
 </template>
 
 <script>
+import {mask} from 'vue-the-mask'
+
 const blankUnitData = () => {
     return {
         'mac_address': '',
-        'unit_is_active': '',
-        'unit_is_inuse': '',
-        'oximeter_is_active': '',
-        'bp_is_active': '',
-        'thermometer_is_active': '',
-        'oximeter_delay': '',
-        'bp_delay': '',
-        'thermometer_delay': '',
-        'comment': ''
+        'unit_is_active': false,
+        'unit_is_inuse': false,
+        'oximeter_is_active': false,
+        'bp_is_active': false,
+        'thermometer_is_active': false,
+        'oximeter_delay': 1000,
+        'bp_delay': 1000,
+        'thermometer_delay': 1000,
+        'comment': '...bananas'
     }
 }
 
 export default {
+    directives: { mask },
     name: 'new-unit-modal',
     data() {
         return {
             showModal: true,
             isBusy: false,
+            errors: null,
             unit: blankUnitData(),
             time: new Date(''),
         }
@@ -162,6 +130,11 @@ export default {
         }
     },
     methods: {
+        hasError(field) {
+            const errors = this.errors
+            if(!errors) return false
+                return Object.keys(errors).map(key=>key).includes(field)
+        },
         async postNewUnit(event){
             const axiosOptions = {
                 'url': '/unit/units',

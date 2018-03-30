@@ -1,6 +1,5 @@
 require('./bootstrap'); 
 
-
 window.Vue = require('vue');
 window.Vuex = require('vuex');
 
@@ -11,7 +10,7 @@ window.VueAxios=require('vue-axios').default;
 import Toaster from 'v-toaster'
 
 import * as uiv from 'uiv'
-
+ 
 // You need a specific loader for CSS files like https://github.com/webpack/css-loader
 import 'v-toaster/dist/v-toaster.css'
 
@@ -55,6 +54,7 @@ const vmodal =Vue.component('v-modal', require('./components/modal.vue'));
 
 // optional set default imeout, the default is 10000 (10 seconds).
 Vue.use(Toaster, {timeout: 5000})
+ 
 
 Vue.use(uiv)
 

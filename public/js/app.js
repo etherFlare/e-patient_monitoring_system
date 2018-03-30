@@ -1902,7 +1902,7 @@ function loadLocale(name) {
         try {
             oldLocale = globalLocale._abbr;
             var aliasedRequire = require;
-            __webpack_require__(251)("./" + name);
+            __webpack_require__(252)("./" + name);
             getSetGlobalLocale(oldLocale);
         } catch (e) {}
     }
@@ -16689,7 +16689,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(242)
+var listToStyles = __webpack_require__(243)
 
 /*
 type StyleObject = {
@@ -28575,7 +28575,7 @@ return zhTw;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(140);
-module.exports = __webpack_require__(252);
+module.exports = __webpack_require__(253);
 
 
 /***/ }),
@@ -28599,27 +28599,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_post_delete_post_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_post_delete_post_modal_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_unit_new_unit_modal_vue__ = __webpack_require__(186);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_unit_new_unit_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_unit_new_unit_modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_unit_edit_unit_modal_vue__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_unit_edit_unit_modal_vue__ = __webpack_require__(190);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_unit_edit_unit_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_unit_edit_unit_modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_unit_delete_unit_modal_vue__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_unit_delete_unit_modal_vue__ = __webpack_require__(193);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_unit_delete_unit_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_unit_delete_unit_modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_role_new_role_modal_vue__ = __webpack_require__(195);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_role_new_role_modal_vue__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_role_new_role_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__components_role_new_role_modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_role_edit_role_modal_vue__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_role_edit_role_modal_vue__ = __webpack_require__(199);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__components_role_edit_role_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__components_role_edit_role_modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_role_delete_role_modal_vue__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_role_delete_role_modal_vue__ = __webpack_require__(202);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__components_role_delete_role_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__components_role_delete_role_modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_user_new_user_modal_vue__ = __webpack_require__(204);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_user_new_user_modal_vue__ = __webpack_require__(205);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__components_user_new_user_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__components_user_new_user_modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_user_edit_user_modal_vue__ = __webpack_require__(207);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_user_edit_user_modal_vue__ = __webpack_require__(208);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__components_user_edit_user_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__components_user_edit_user_modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_user_delete_user_modal_vue__ = __webpack_require__(210);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_user_delete_user_modal_vue__ = __webpack_require__(211);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__components_user_delete_user_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__components_user_delete_user_modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_patient_new_patient_modal_vue__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_patient_new_patient_modal_vue__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__components_patient_new_patient_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__components_patient_new_patient_modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_patient_edit_patient_modal_vue__ = __webpack_require__(216);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_patient_edit_patient_modal_vue__ = __webpack_require__(217);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__components_patient_edit_patient_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__components_patient_edit_patient_modal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_patient_delete_patient_modal_vue__ = __webpack_require__(219);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_patient_delete_patient_modal_vue__ = __webpack_require__(220);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__components_patient_delete_patient_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__components_patient_delete_patient_modal_vue__);
 
 
@@ -28663,21 +28663,21 @@ window.VueAxios = __webpack_require__(170).default;
 
 window.Axios = __webpack_require__(8).default;
 
-var AppLayout = __webpack_require__(222);
+var AppLayout = __webpack_require__(223);
 
 // show the list post template
-var Listposts = Vue.component('Listposts', __webpack_require__(224));
+var Listposts = Vue.component('Listposts', __webpack_require__(225));
 // show the list unit template
-var Listunits = Vue.component('Listunits', __webpack_require__(227));
+var Listunits = Vue.component('Listunits', __webpack_require__(228));
 // show the list role template
-var Listroles = Vue.component('Listroles', __webpack_require__(230));
+var Listroles = Vue.component('Listroles', __webpack_require__(231));
 // show the list user template
-var Listusers = Vue.component('Listusers', __webpack_require__(233));
+var Listusers = Vue.component('Listusers', __webpack_require__(234));
 // show the list patient template
-var Listpatients = Vue.component('Listpatients', __webpack_require__(236));
+var Listpatients = Vue.component('Listpatients', __webpack_require__(237));
 
-var heartBeat = Vue.component('heart-beat', __webpack_require__(239));
-var vmodal = Vue.component('v-modal', __webpack_require__(245));
+var heartBeat = Vue.component('heart-beat', __webpack_require__(240));
+var vmodal = Vue.component('v-modal', __webpack_require__(246));
 
 // optional set default imeout, the default is 10000 (10 seconds).
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_v_toaster___default.a, { timeout: 5000 });
@@ -28686,7 +28686,7 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_2_uiv__);
 
 // registering Modules
 Vue.use(VueRouter, VueAxios, axios, Vuex);
-Vue.use(__webpack_require__(250));
+Vue.use(__webpack_require__(251));
 
 Vue.component('new-post-modal', __WEBPACK_IMPORTED_MODULE_4__components_post_new_post_modal_vue___default.a);
 Vue.component('edit-post-modal', __WEBPACK_IMPORTED_MODULE_5__components_post_edit_post_modal_vue___default.a);
@@ -70620,7 +70620,7 @@ var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = __webpack_require__(187)
 /* template */
-var __vue_template__ = __webpack_require__(188)
+var __vue_template__ = __webpack_require__(189)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -70666,6 +70666,8 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_the_mask__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_the_mask___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_the_mask__);
 
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
@@ -70764,64 +70766,32 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 var blankUnitData = function blankUnitData() {
     return {
         'mac_address': '',
-        'unit_is_active': '',
-        'unit_is_inuse': '',
-        'oximeter_is_active': '',
-        'bp_is_active': '',
-        'thermometer_is_active': '',
-        'oximeter_delay': '',
-        'bp_delay': '',
-        'thermometer_delay': '',
-        'comment': ''
+        'unit_is_active': false,
+        'unit_is_inuse': false,
+        'oximeter_is_active': false,
+        'bp_is_active': false,
+        'thermometer_is_active': false,
+        'oximeter_delay': 1000,
+        'bp_delay': 1000,
+        'thermometer_delay': 1000,
+        'comment': '...bananas'
     };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    directives: { mask: __WEBPACK_IMPORTED_MODULE_1_vue_the_mask__["mask"] },
     name: 'new-unit-modal',
     data: function data() {
         return {
             showModal: true,
             isBusy: false,
+            errors: null,
             unit: blankUnitData(),
             time: new Date('')
         };
@@ -70841,6 +70811,13 @@ var blankUnitData = function blankUnitData() {
         }
     },
     methods: {
+        hasError: function hasError(field) {
+            var errors = this.errors;
+            if (!errors) return false;
+            return Object.keys(errors).map(function (key) {
+                return key;
+            }).includes(field);
+        },
         postNewUnit: function () {
             var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(event) {
                 var _this = this;
@@ -70895,6 +70872,12 @@ var blankUnitData = function blankUnitData() {
 /* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
+(function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.VueTheMask=t():e.VueTheMask=t()})(this,function(){return function(e){function t(r){if(n[r])return n[r].exports;var a=n[r]={i:r,l:!1,exports:{}};return e[r].call(a.exports,a,a.exports,t),a.l=!0,a.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p=".",t(t.s=10)}([function(e,t){e.exports={"#":{pattern:/\d/},X:{pattern:/[0-9a-zA-Z]/},S:{pattern:/[a-zA-Z]/},A:{pattern:/[a-zA-Z]/,transform:function(e){return e.toLocaleUpperCase()}},a:{pattern:/[a-zA-Z]/,transform:function(e){return e.toLocaleLowerCase()}},"!":{escape:!0}}},function(e,t,n){"use strict";function r(e){var t=document.createEvent("Event");return t.initEvent(e,!0,!0),t}var a=n(2),o=n(0),i=n.n(o);t.a=function(e,t){var o=t.value;if((Array.isArray(o)||"string"==typeof o)&&(o={mask:o,tokens:i.a}),"INPUT"!==e.tagName.toLocaleUpperCase()){var u=e.getElementsByTagName("input");if(1!==u.length)throw new Error("v-mask directive requires 1 input, found "+u.length);e=u[0]}e.oninput=function(t){if(t.isTrusted){var i=e.selectionEnd,u=e.value[i-1];for(e.value=n.i(a.a)(e.value,o.mask,!0,o.tokens);i<e.value.length&&e.value.charAt(i-1)!==u;)i++;e===document.activeElement&&(e.setSelectionRange(i,i),setTimeout(function(){e.setSelectionRange(i,i)},0)),e.dispatchEvent(r("input"))}};var s=n.i(a.a)(e.value,o.mask,!0,o.tokens);s!==e.value&&(e.value=s,e.dispatchEvent(r("input")))}},function(e,t,n){"use strict";var r=n(6),a=n(5);t.a=function(e,t){var o=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],i=arguments[3];return Array.isArray(t)?n.i(a.a)(r.a,t,i)(e,t,o,i):n.i(r.a)(e,t,o,i)}},function(e,t,n){"use strict";function r(e){e.component(s.a.name,s.a),e.directive("mask",i.a)}Object.defineProperty(t,"__esModule",{value:!0});var a=n(0),o=n.n(a),i=n(1),u=n(7),s=n.n(u);n.d(t,"TheMask",function(){return s.a}),n.d(t,"mask",function(){return i.a}),n.d(t,"tokens",function(){return o.a}),n.d(t,"version",function(){return c});var c="0.11.1";t.default=r,"undefined"!=typeof window&&window.Vue&&window.Vue.use(r)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=n(1),a=n(0),o=n.n(a),i=n(2);t.default={name:"TheMask",props:{value:[String,Number],mask:{type:[String,Array],required:!0},masked:{type:Boolean,default:!1},tokens:{type:Object,default:function(){return o.a}}},directives:{mask:r.a},data:function(){return{lastValue:null,display:this.value}},watch:{value:function(e){e!==this.lastValue&&(this.display=e)},masked:function(){this.refresh(this.display)}},computed:{config:function(){return{mask:this.mask,tokens:this.tokens,masked:this.masked}}},methods:{onInput:function(e){e.isTrusted||this.refresh(e.target.value)},refresh:function(e){this.display=e;var e=n.i(i.a)(e,this.mask,this.masked,this.tokens);e!==this.lastValue&&(this.lastValue=e,this.$emit("input",e))}}}},function(e,t,n){"use strict";function r(e,t,n){return t=t.sort(function(e,t){return e.length-t.length}),function(r,a){for(var o=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],i=0;i<t.length;){var u=t[i];i++;var s=t[i];if(!(s&&e(r,s,!0,n).length>u.length))return e(r,u,o,n)}return""}}t.a=r},function(e,t,n){"use strict";function r(e,t){var n=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],r=arguments[3];e=e||"",t=t||"";for(var a=0,o=0,i="";a<t.length&&o<e.length;){var u=t[a],s=r[u],c=e[o];s&&!s.escape?(s.pattern.test(c)&&(i+=s.transform?s.transform(c):c,a++),o++):(s&&s.escape&&(a++,u=t[a]),n&&(i+=u),c===u&&o++,a++)}for(var f="";a<t.length&&n;){var u=t[a];if(r[u]){f="";break}f+=u,a++}return i+f}t.a=r},function(e,t,n){var r=n(8)(n(4),n(9),null,null);e.exports=r.exports},function(e,t){e.exports=function(e,t,n,r){var a,o=e=e||{},i=typeof e.default;"object"!==i&&"function"!==i||(a=e,o=e.default);var u="function"==typeof o?o.options:o;if(t&&(u.render=t.render,u.staticRenderFns=t.staticRenderFns),n&&(u._scopeId=n),r){var s=u.computed||(u.computed={});Object.keys(r).forEach(function(e){var t=r[e];s[e]=function(){return t}})}return{esModule:a,exports:o,options:u}}},function(e,t){e.exports={render:function(){var e=this,t=e.$createElement;return(e._self._c||t)("input",{directives:[{name:"mask",rawName:"v-mask",value:e.config,expression:"config"}],attrs:{type:"text"},domProps:{value:e.display},on:{input:e.onInput}})},staticRenderFns:[]}},function(e,t,n){e.exports=n(3)}])});
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -70945,7 +70928,50 @@ var render = function() {
                       _c("div", { staticClass: "col-xs-3" }, [
                         _c("label", { staticClass: "switch" }, [
                           _c("input", {
-                            attrs: { type: "checkbox", checked: "" }
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.unit.unit_is_active,
+                                expression: "unit.unit_is_active"
+                              }
+                            ],
+                            attrs: { type: "checkbox", checked: "" },
+                            domProps: {
+                              checked: Array.isArray(_vm.unit.unit_is_active)
+                                ? _vm._i(_vm.unit.unit_is_active, null) > -1
+                                : _vm.unit.unit_is_active
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.unit.unit_is_active,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.unit,
+                                        "unit_is_active",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.unit,
+                                        "unit_is_active",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.unit, "unit_is_active", $$c)
+                                }
+                              }
+                            }
                           }),
                           _vm._v(" "),
                           _c("span", { staticClass: "slider round" })
@@ -70976,6 +71002,12 @@ var render = function() {
                               rawName: "v-model",
                               value: _vm.unit.mac_address,
                               expression: "unit.mac_address"
+                            },
+                            {
+                              name: "mask",
+                              rawName: "v-mask",
+                              value: ["XX:XX:XX:XX:XX:XX"],
+                              expression: "['XX:XX:XX:XX:XX:XX']"
                             }
                           ],
                           staticClass: "form-control",
@@ -71037,7 +71069,9 @@ var render = function() {
                     _c("p", [
                       _c("strong", [
                         _c("i", { staticClass: "fa  fa-unit-plus margin-r-5" }),
-                        _vm._v("Unit Oximeter Status\n                        ")
+                        _vm._v(
+                          " Unit Oximeter Status\n                        "
+                        )
                       ])
                     ]),
                     _vm._v(" "),
@@ -71045,78 +71079,92 @@ var render = function() {
                       _c("div", { staticClass: "col-xs-3" }, [
                         _c("label", { staticClass: "switch" }, [
                           _c("input", {
-                            attrs: { type: "checkbox", checked: "" }
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.unit.oximeter_is_active,
+                                expression: "unit.oximeter_is_active"
+                              }
+                            ],
+                            attrs: { type: "checkbox", checked: "" },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.unit.oximeter_is_active
+                              )
+                                ? _vm._i(_vm.unit.oximeter_is_active, null) > -1
+                                : _vm.unit.oximeter_is_active
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.unit.oximeter_is_active,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.unit,
+                                        "oximeter_is_active",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.unit,
+                                        "oximeter_is_active",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.unit, "oximeter_is_active", $$c)
+                                }
+                              }
+                            }
                           }),
                           _vm._v(" "),
                           _c("span", { staticClass: "slider round " })
                         ])
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-xs-9" },
-                        [
-                          _c("strong", [
-                            _c("i", {
-                              staticClass: "fa fa-file-text-o margin-r-5"
-                            }),
-                            _vm._v(" Delay")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "dropdown",
-                            { staticClass: "form-group" },
-                            [
-                              _c("div", { staticClass: "input-group" }, [
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: { type: "text", readonly: "readonly" },
-                                  domProps: { value: this.time.toTimeString() }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "input-group-btn" },
-                                  [
-                                    _c(
-                                      "btn",
-                                      { staticClass: "dropdown-toggle" },
-                                      [
-                                        _c("i", {
-                                          staticClass:
-                                            "glyphicon glyphicon-time"
-                                        })
-                                      ]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("template", { slot: "dropdown" }, [
-                                _c(
-                                  "li",
-                                  { staticStyle: { padding: "10px" } },
-                                  [
-                                    _c("time-picker", {
-                                      model: {
-                                        value: _vm.time,
-                                        callback: function($$v) {
-                                          _vm.time = $$v
-                                        },
-                                        expression: "time"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ])
-                            ],
-                            2
-                          )
-                        ],
-                        1
-                      )
+                      _c("div", { staticClass: "col-xs-9" }, [
+                        _c("strong", [
+                          _c("i", {
+                            staticClass: "fa fa-file-text-o margin-r-5"
+                          }),
+                          _vm._v(" Delay")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.unit.oximeter_delay,
+                              expression: "unit.oximeter_delay"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "..." },
+                          domProps: { value: _vm.unit.oximeter_delay },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.unit,
+                                "oximeter_delay",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
                     ]),
                     _vm._v(" "),
                     _c("p", [
@@ -71132,78 +71180,90 @@ var render = function() {
                       _c("div", { staticClass: "col-xs-3" }, [
                         _c("label", { staticClass: "switch" }, [
                           _c("input", {
-                            attrs: { type: "checkbox", checked: "" }
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.unit.bp_is_active,
+                                expression: "unit.bp_is_active"
+                              }
+                            ],
+                            attrs: { type: "checkbox", checked: "" },
+                            domProps: {
+                              checked: Array.isArray(_vm.unit.bp_is_active)
+                                ? _vm._i(_vm.unit.bp_is_active, null) > -1
+                                : _vm.unit.bp_is_active
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.unit.bp_is_active,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.unit,
+                                        "bp_is_active",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.unit,
+                                        "bp_is_active",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.unit, "bp_is_active", $$c)
+                                }
+                              }
+                            }
                           }),
                           _vm._v(" "),
                           _c("span", { staticClass: "slider round " })
                         ])
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-xs-9" },
-                        [
-                          _c("strong", [
-                            _c("i", {
-                              staticClass: "fa fa-file-text-o margin-r-5"
-                            }),
-                            _vm._v(" Delay")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "dropdown",
-                            { staticClass: "form-group" },
-                            [
-                              _c("div", { staticClass: "input-group" }, [
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: { type: "text", readonly: "readonly" },
-                                  domProps: { value: this.time.toTimeString() }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "input-group-btn" },
-                                  [
-                                    _c(
-                                      "btn",
-                                      { staticClass: "dropdown-toggle" },
-                                      [
-                                        _c("i", {
-                                          staticClass:
-                                            "glyphicon glyphicon-time"
-                                        })
-                                      ]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("template", { slot: "dropdown" }, [
-                                _c(
-                                  "li",
-                                  { staticStyle: { padding: "10px" } },
-                                  [
-                                    _c("time-picker", {
-                                      model: {
-                                        value: _vm.time,
-                                        callback: function($$v) {
-                                          _vm.time = $$v
-                                        },
-                                        expression: "time"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ])
-                            ],
-                            2
-                          )
-                        ],
-                        1
-                      )
+                      _c("div", { staticClass: "col-xs-9" }, [
+                        _c("strong", [
+                          _c("i", {
+                            staticClass: "fa fa-file-text-o margin-r-5"
+                          }),
+                          _vm._v(" Delay")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.unit.bp_delay,
+                              expression: "unit.bp_delay"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "..." },
+                          domProps: { value: _vm.unit.bp_delay },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.unit,
+                                "bp_delay",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
                     ]),
                     _vm._v(" "),
                     _c("p", [
@@ -71219,78 +71279,97 @@ var render = function() {
                       _c("div", { staticClass: "col-xs-3" }, [
                         _c("label", { staticClass: "switch" }, [
                           _c("input", {
-                            attrs: { type: "checkbox", checked: "" }
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.unit.thermometer_is_active,
+                                expression: "unit.thermometer_is_active"
+                              }
+                            ],
+                            attrs: { type: "checkbox", checked: "" },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.unit.thermometer_is_active
+                              )
+                                ? _vm._i(_vm.unit.thermometer_is_active, null) >
+                                  -1
+                                : _vm.unit.thermometer_is_active
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.unit.thermometer_is_active,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = null,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.unit,
+                                        "thermometer_is_active",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.unit,
+                                        "thermometer_is_active",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.unit,
+                                    "thermometer_is_active",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
                           }),
                           _vm._v(" "),
                           _c("span", { staticClass: "slider round " })
                         ])
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-xs-9" },
-                        [
-                          _c("strong", [
-                            _c("i", {
-                              staticClass: "fa fa-file-text-o margin-r-5"
-                            }),
-                            _vm._v(" Delay")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "dropdown",
-                            { staticClass: "form-group" },
-                            [
-                              _c("div", { staticClass: "input-group" }, [
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: { type: "text", readonly: "readonly" },
-                                  domProps: { value: this.time.toTimeString() }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  { staticClass: "input-group-btn" },
-                                  [
-                                    _c(
-                                      "btn",
-                                      { staticClass: "dropdown-toggle" },
-                                      [
-                                        _c("i", {
-                                          staticClass:
-                                            "glyphicon glyphicon-time"
-                                        })
-                                      ]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("template", { slot: "dropdown" }, [
-                                _c(
-                                  "li",
-                                  { staticStyle: { padding: "10px" } },
-                                  [
-                                    _c("time-picker", {
-                                      model: {
-                                        value: _vm.time,
-                                        callback: function($$v) {
-                                          _vm.time = $$v
-                                        },
-                                        expression: "time"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ])
-                            ],
-                            2
-                          )
-                        ],
-                        1
-                      )
+                      _c("div", { staticClass: "col-xs-9" }, [
+                        _c("strong", [
+                          _c("i", {
+                            staticClass: "fa fa-file-text-o margin-r-5"
+                          }),
+                          _vm._v(" Delay")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.unit.thermometer_delay,
+                              expression: "unit.thermometer_delay"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "text", placeholder: "..." },
+                          domProps: { value: _vm.unit.thermometer_delay },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.unit,
+                                "thermometer_delay",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
                     ])
                   ])
                 ]),
@@ -71343,15 +71422,15 @@ if (false) {
 }
 
 /***/ }),
-/* 189 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(190)
+var __vue_script__ = __webpack_require__(191)
 /* template */
-var __vue_template__ = __webpack_require__(191)
+var __vue_template__ = __webpack_require__(192)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -71390,7 +71469,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 190 */
+/* 191 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71666,7 +71745,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -72271,15 +72350,15 @@ if (false) {
 }
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(193)
+var __vue_script__ = __webpack_require__(194)
 /* template */
-var __vue_template__ = __webpack_require__(194)
+var __vue_template__ = __webpack_require__(195)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -72318,7 +72397,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -72448,7 +72527,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -72556,15 +72635,15 @@ if (false) {
 }
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(196)
+var __vue_script__ = __webpack_require__(197)
 /* template */
-var __vue_template__ = __webpack_require__(197)
+var __vue_template__ = __webpack_require__(198)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -72603,7 +72682,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -72745,7 +72824,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -72899,15 +72978,15 @@ if (false) {
 }
 
 /***/ }),
-/* 198 */
+/* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(199)
+var __vue_script__ = __webpack_require__(200)
 /* template */
-var __vue_template__ = __webpack_require__(200)
+var __vue_template__ = __webpack_require__(201)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -72946,7 +73025,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 199 */
+/* 200 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -73106,7 +73185,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 200 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -73339,15 +73418,15 @@ if (false) {
 }
 
 /***/ }),
-/* 201 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(202)
+var __vue_script__ = __webpack_require__(203)
 /* template */
-var __vue_template__ = __webpack_require__(203)
+var __vue_template__ = __webpack_require__(204)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -73386,7 +73465,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 202 */
+/* 203 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -73516,7 +73595,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -73613,15 +73692,15 @@ if (false) {
 }
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(205)
+var __vue_script__ = __webpack_require__(206)
 /* template */
-var __vue_template__ = __webpack_require__(206)
+var __vue_template__ = __webpack_require__(207)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -73660,7 +73739,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 205 */
+/* 206 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -73894,7 +73973,7 @@ var blankUserData = function blankUserData() {
 });
 
 /***/ }),
-/* 206 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -74321,15 +74400,15 @@ if (false) {
 }
 
 /***/ }),
-/* 207 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(208)
+var __vue_script__ = __webpack_require__(209)
 /* template */
-var __vue_template__ = __webpack_require__(209)
+var __vue_template__ = __webpack_require__(210)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -74368,7 +74447,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -74551,7 +74630,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 209 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -74946,15 +75025,15 @@ if (false) {
 }
 
 /***/ }),
-/* 210 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(211)
+var __vue_script__ = __webpack_require__(212)
 /* template */
-var __vue_template__ = __webpack_require__(212)
+var __vue_template__ = __webpack_require__(213)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -74993,7 +75072,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 211 */
+/* 212 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -75123,7 +75202,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 212 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -75238,15 +75317,15 @@ if (false) {
 }
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(214)
+var __vue_script__ = __webpack_require__(215)
 /* template */
-var __vue_template__ = __webpack_require__(215)
+var __vue_template__ = __webpack_require__(216)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -75285,7 +75364,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -75546,7 +75625,7 @@ var blankPartienData = function blankPartienData() {
 });
 
 /***/ }),
-/* 215 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -76141,15 +76220,15 @@ if (false) {
 }
 
 /***/ }),
-/* 216 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(217)
+var __vue_script__ = __webpack_require__(218)
 /* template */
-var __vue_template__ = __webpack_require__(218)
+var __vue_template__ = __webpack_require__(219)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -76188,7 +76267,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 217 */
+/* 218 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -76405,7 +76484,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 218 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -76963,15 +77042,15 @@ if (false) {
 }
 
 /***/ }),
-/* 219 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(220)
+var __vue_script__ = __webpack_require__(221)
 /* template */
-var __vue_template__ = __webpack_require__(221)
+var __vue_template__ = __webpack_require__(222)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -77010,7 +77089,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 220 */
+/* 221 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77140,7 +77219,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 });
 
 /***/ }),
-/* 221 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -77259,7 +77338,7 @@ if (false) {
 }
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
@@ -77267,7 +77346,7 @@ var normalizeComponent = __webpack_require__(1)
 /* script */
 var __vue_script__ = null
 /* template */
-var __vue_template__ = __webpack_require__(223)
+var __vue_template__ = __webpack_require__(224)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -77306,7 +77385,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 223 */
+/* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -77331,15 +77410,15 @@ if (false) {
 }
 
 /***/ }),
-/* 224 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(225)
+var __vue_script__ = __webpack_require__(226)
 /* template */
-var __vue_template__ = __webpack_require__(226)
+var __vue_template__ = __webpack_require__(227)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -77378,7 +77457,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 225 */
+/* 226 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -77568,7 +77647,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -78077,15 +78156,15 @@ if (false) {
 }
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(228)
+var __vue_script__ = __webpack_require__(229)
 /* template */
-var __vue_template__ = __webpack_require__(229)
+var __vue_template__ = __webpack_require__(230)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -78124,7 +78203,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -78295,87 +78374,88 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      on_load: true,
-      unit: null,
-      showCreateUnitModal: false,
-      showEditUnitModal: false,
-      showDeleteUnitModal: false,
-      showUnitModal: false,
-      searchTerm: '',
-      totalPage: 18,
-      currentPage: 1
-    };
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.$nextTick(function () {
-      _this.getUnits().then(function (response) {
-        _this.on_load = false;
-      });
-    });
-  },
-
-  computed: {
-    loading: function loading() {
-      return this.$store.getters.loading;
+    data: function data() {
+        return {
+            on_load: true,
+            unit: null,
+            showCreateUnitModal: false,
+            showEditUnitModal: false,
+            showDeleteUnitModal: false,
+            showUnitModal: false,
+            searchTerm: '',
+            totalPage: 18,
+            currentPage: 1
+        };
     },
-    units: function units() {
-      return this.$store.getters.units;
+    mounted: function mounted() {
+        var _this = this;
+
+        this.$nextTick(function () {
+            _this.getUnits().then(function (response) {
+                _this.on_load = false;
+            });
+        });
     },
 
-    filteredUnits: function filteredUnits() {
-      if (this.units.length) {
-        return this.units;
-      }
+    computed: {
+        loading: function loading() {
+            return this.$store.getters.loading;
+        },
+        units: function units() {
+            return this.$store.getters.units;
+        },
+
+        filteredUnits: function filteredUnits() {
+            if (this.units.length) {
+                return this.units;
+            }
+        }
+    },
+    methods: {
+        callback: function callback(msg) {
+            this.$notify('Modal dismissed with msg \'' + msg + '\'.');
+        },
+        unitCreated: function unitCreated() {
+            this.getUnits();
+        },
+        showCreateUnitModalComponent: function showCreateUnitModalComponent(event) {
+            this.showCreateUnitModal = true;
+        },
+        showEditUnitModalComponent: function showEditUnitModalComponent(event, unit) {
+            var _this2 = this;
+
+            this.unit = unit;
+            this.$nextTick(function () {
+                _this2.showEditUnitModal = true;
+            });
+        },
+        showDeleteUnitModalComponent: function showDeleteUnitModalComponent(event, unit) {
+            var _this3 = this;
+
+            this.unit = unit;
+            this.$nextTick(function () {
+                _this3.showDeleteUnitModal = true;
+            });
+        },
+        showUnitModalComponent: function showUnitModalComponent(event, unit) {
+            var _this4 = this;
+
+            this.unit = unit;
+            this.$nextTick(function () {
+                _this4.showUnitModal = true;
+            });
+        },
+        getUnits: function getUnits(event) {
+            return this.$store.dispatch('getUnits', { 'search': this.searchTerm });
+        }
     }
-  },
-  methods: {
-    callback: function callback(msg) {
-      this.$notify('Modal dismissed with msg \'' + msg + '\'.');
-    },
-    unitCreated: function unitCreated() {
-      this.getUnits();
-    },
-    showCreateUnitModalComponent: function showCreateUnitModalComponent(event) {
-      this.showCreateUnitModal = true;
-    },
-    showEditUnitModalComponent: function showEditUnitModalComponent(event, unit) {
-      var _this2 = this;
-
-      this.unit = unit;
-      this.$nextTick(function () {
-        _this2.showEditUnitModal = true;
-      });
-    },
-    showDeleteUnitModalComponent: function showDeleteUnitModalComponent(event, unit) {
-      var _this3 = this;
-
-      this.unit = unit;
-      this.$nextTick(function () {
-        _this3.showDeleteUnitModal = true;
-      });
-    },
-    showUnitModalComponent: function showUnitModalComponent(event, unit) {
-      var _this4 = this;
-
-      this.unit = unit;
-      this.$nextTick(function () {
-        _this4.showUnitModal = true;
-      });
-    },
-    getUnits: function getUnits(event) {
-      return this.$store.dispatch('getUnits', { 'search': this.searchTerm });
-    }
-  }
 });
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -78404,7 +78484,7 @@ var render = function() {
                   },
                   [
                     _c("span", { staticClass: "glyphicon glyphicon-plus" }),
-                    _vm._v("\n            Add new Unit")
+                    _vm._v("\n                        Add new Unit")
                   ]
                 )
               ])
@@ -78660,307 +78740,546 @@ var render = function() {
             : _vm._e(),
           _vm._v(" "),
           _vm.showUnitModal
-            ? _c(
-                "modal",
-                {
-                  ref: "showUnitModal",
-                  attrs: { size: "lg", "auto-focus": "" },
-                  on: {
-                    hide: function($event) {
-                      _vm.$emit("close")
+            ? [
+                _c(
+                  "modal",
+                  {
+                    ref: "showUnitModal",
+                    attrs: { size: "lg", "auto-focus": "" },
+                    on: {
+                      hide: function($event) {
+                        _vm.$emit("close")
+                      }
+                    },
+                    model: {
+                      value: _vm.showUnitModal,
+                      callback: function($$v) {
+                        _vm.showUnitModal = $$v
+                      },
+                      expression: "showUnitModal"
                     }
                   },
-                  model: {
-                    value: _vm.showUnitModal,
-                    callback: function($$v) {
-                      _vm.showUnitModal = $$v
-                    },
-                    expression: "showUnitModal"
-                  }
-                },
-                [
-                  _c("div", { staticClass: "row" }, [
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("strong", [
-                        _c("i", {
-                          staticClass: "fa fa-mobile-phone margin-r-5"
-                        }),
-                        _vm._v("Mac Address")
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "text-muted" }, [
-                        _vm._v(_vm._s(_vm.unit.mac_address))
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("strong", [
-                        _c("i", { staticClass: "fa  fa-unit-plus margin-r-5" }),
-                        _vm._v("Unit Registered Since")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "text-muted" }, [
-                        _vm._v(
-                          _vm._s(_vm._f("moment")(_vm.unit.created_at, "LLLL"))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("code", [
-                        _vm._v(
-                          _vm._s(_vm._f("moment")(_vm.unit.created_at, "from"))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("strong", [
-                        _c("i", {
-                          staticClass: "fa fa-calendar-check-o margin-r-5"
-                        }),
-                        _vm._v("Unit Date Updated ")
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "text-muted" }, [
-                        _vm._v(
-                          _vm._s(_vm._f("moment")(_vm.unit.updated_at, "LLLL"))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("code", [
-                        _vm._v(
-                          _vm._s(_vm._f("moment")(_vm.unit.updated_at, "from"))
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("strong", [
-                        _c("i", {
-                          staticClass: "fa fa-file-text-o margin-r-5"
-                        }),
-                        _vm._v(" Comment")
-                      ]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(_vm.unit.comment))])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "col-md-6" }, [
-                      _c("p", [
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6" }, [
                         _c("strong", [
                           _c("i", {
-                            staticClass: "fa  fa-unit-plus margin-r-5"
+                            staticClass: "fa fa-mobile-phone margin-r-5"
                           }),
-                          _vm._v("Unit Activation Status\n                ")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-xs-3" }, [
-                          _c("label", { staticClass: "switch" }, [
-                            _c("input", {
-                              attrs: {
-                                type: "checkbox",
-                                disabled: "disabled",
-                                checked: ""
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "slider round " })
-                          ])
+                          _vm._v("Mac Address")
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-xs-9" }, [
-                          _c("strong", [
-                            _c("i", {
-                              staticClass: "fa fa-file-text-o margin-r-5"
-                            }),
-                            _vm._v("Used By")
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v(_vm._s(_vm.unit.unit_is_inuse))])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("p", [
-                        _c("strong", [
-                          _c("i", {
-                            staticClass: "fa  fa-unit-plus margin-r-5"
-                          }),
-                          _vm._v("Unit Oximeter Status\n                ")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-xs-3" }, [
-                          _c("label", { staticClass: "switch" }, [
-                            _c("input", {
-                              attrs: {
-                                type: "checkbox",
-                                disabled: "disabled",
-                                checked: ""
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "slider round " })
-                          ])
+                        _c("p", { staticClass: "text-muted" }, [
+                          _vm._v(_vm._s(_vm.unit.mac_address))
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-xs-9" }, [
-                          _c("strong", [
-                            _c("i", {
-                              staticClass: "fa fa-file-text-o margin-r-5"
-                            }),
-                            _vm._v(" Delay")
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v(_vm._s(_vm.unit.oximeter_delay))])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("p", [
+                        _c("hr"),
+                        _vm._v(" "),
                         _c("strong", [
                           _c("i", {
                             staticClass: "fa  fa-unit-plus margin-r-5"
                           }),
+                          _vm._v("Unit Registered Since")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "text-muted" }, [
                           _vm._v(
-                            "Account Sphygmomanometer Status\n                "
+                            _vm._s(
+                              _vm._f("moment")(_vm.unit.created_at, "LLLL")
+                            )
                           )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-xs-3" }, [
-                          _c("label", { staticClass: "switch" }, [
-                            _c("input", {
-                              attrs: {
-                                type: "checkbox",
-                                disabled: "disabled",
-                                checked: ""
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "slider round " })
-                          ])
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-xs-9" }, [
-                          _c("strong", [
-                            _c("i", {
-                              staticClass: "fa fa-file-text-o margin-r-5"
-                            }),
-                            _vm._v(" Delay")
-                          ]),
-                          _vm._v(" "),
-                          _c("p", [_vm._v(_vm._s(_vm.unit.bp_delay))])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("hr"),
-                      _vm._v(" "),
-                      _c("p", [
+                        _c("code", [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("moment")(_vm.unit.created_at, "from")
+                            )
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
                         _c("strong", [
                           _c("i", {
-                            staticClass: "fa  fa-unit-plus margin-r-5"
+                            staticClass: "fa fa-calendar-check-o margin-r-5"
                           }),
-                          _vm._v("Account Thermometer Status\n                ")
-                        ])
+                          _vm._v("Unit Date Updated ")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "text-muted" }, [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("moment")(_vm.unit.updated_at, "LLLL")
+                            )
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("code", [
+                          _vm._v(
+                            _vm._s(
+                              _vm._f("moment")(_vm.unit.updated_at, "from")
+                            )
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("strong", [
+                          _c("i", {
+                            staticClass: "fa fa-file-text-o margin-r-5"
+                          }),
+                          _vm._v(" Comment")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.unit.comment))])
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "row" }, [
-                        _c("div", { staticClass: "col-xs-3" }, [
-                          _c("label", { staticClass: "switch" }, [
-                            _c("input", {
-                              attrs: {
-                                type: "checkbox",
-                                disabled: "disabled",
-                                checked: ""
-                              }
+                      _c("div", { staticClass: "col-md-6" }, [
+                        _c("p", [
+                          _c("strong", [
+                            _c("i", {
+                              staticClass: "fa  fa-unit-plus margin-r-5"
                             }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "slider round " })
+                            _vm._v(
+                              "Unit Activation Status\n                                "
+                            )
                           ])
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "col-xs-9" }, [
-                          _c("strong", [
-                            _c("i", {
-                              staticClass: "fa fa-file-text-o margin-r-5"
-                            }),
-                            _vm._v(" Delay")
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-xs-3" }, [
+                            _c("label", { staticClass: "switch" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.unit.unit_is_active,
+                                    expression: "unit.unit_is_active"
+                                  }
+                                ],
+                                attrs: {
+                                  type: "checkbox",
+                                  disabled: "disabled",
+                                  checked: ""
+                                },
+                                domProps: {
+                                  checked: Array.isArray(
+                                    _vm.unit.unit_is_active
+                                  )
+                                    ? _vm._i(_vm.unit.unit_is_active, null) > -1
+                                    : _vm.unit.unit_is_active
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.unit.unit_is_active,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.unit,
+                                            "unit_is_active",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.unit,
+                                            "unit_is_active",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.unit, "unit_is_active", $$c)
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "slider round " })
+                            ])
                           ]),
                           _vm._v(" "),
-                          _c("p", [_vm._v(_vm._s(_vm.unit.thermometer_delay))])
+                          _c(
+                            "div",
+                            { staticClass: "col-xs-9" },
+                            [
+                              _c("strong", [
+                                _c("i", {
+                                  staticClass: "fa fa-file-text-o margin-r-5"
+                                }),
+                                _vm._v("Used By")
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [_vm._v(_vm._s(_vm.unit.unit_is_inuse))]),
+                              _vm._v(" "),
+                              _vm._l(_vm.unit.patients, function(
+                                patient,
+                                patientsIdx
+                              ) {
+                                return _c("div", { key: patientsIdx }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      patient.first_name +
+                                        " " +
+                                        patient.middle_name +
+                                        " " +
+                                        patient.last_name +
+                                        " " +
+                                        patient.created_at
+                                    )
+                                  )
+                                ])
+                              })
+                            ],
+                            2
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("p", [
+                          _c("strong", [
+                            _c("i", {
+                              staticClass: "fa  fa-unit-plus margin-r-5"
+                            }),
+                            _vm._v(
+                              "Unit Oximeter Status\n                                "
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-xs-3" }, [
+                            _c("label", { staticClass: "switch" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.unit.oximeter_is_active,
+                                    expression: "unit.oximeter_is_active"
+                                  }
+                                ],
+                                attrs: {
+                                  type: "checkbox",
+                                  disabled: "disabled",
+                                  checked: ""
+                                },
+                                domProps: {
+                                  checked: Array.isArray(
+                                    _vm.unit.oximeter_is_active
+                                  )
+                                    ? _vm._i(
+                                        _vm.unit.oximeter_is_active,
+                                        null
+                                      ) > -1
+                                    : _vm.unit.oximeter_is_active
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.unit.oximeter_is_active,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.unit,
+                                            "oximeter_is_active",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.unit,
+                                            "oximeter_is_active",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(
+                                        _vm.unit,
+                                        "oximeter_is_active",
+                                        $$c
+                                      )
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "slider round " })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-xs-9" }, [
+                            _c("strong", [
+                              _c("i", {
+                                staticClass: "fa fa-file-text-o margin-r-5"
+                              }),
+                              _vm._v(" Delay")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v(_vm._s(_vm.unit.oximeter_delay))])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("p", [
+                          _c("strong", [
+                            _c("i", {
+                              staticClass: "fa  fa-unit-plus margin-r-5"
+                            }),
+                            _vm._v(
+                              "Account Sphygmomanometer Status\n                                "
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-xs-3" }, [
+                            _c("label", { staticClass: "switch" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.unit.bp_is_active,
+                                    expression: "unit.bp_is_active"
+                                  }
+                                ],
+                                attrs: {
+                                  type: "checkbox",
+                                  disabled: "disabled",
+                                  checked: ""
+                                },
+                                domProps: {
+                                  checked: Array.isArray(_vm.unit.bp_is_active)
+                                    ? _vm._i(_vm.unit.bp_is_active, null) > -1
+                                    : _vm.unit.bp_is_active
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.unit.bp_is_active,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.unit,
+                                            "bp_is_active",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.unit,
+                                            "bp_is_active",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.unit, "bp_is_active", $$c)
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "slider round " })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-xs-9" }, [
+                            _c("strong", [
+                              _c("i", {
+                                staticClass: "fa fa-file-text-o margin-r-5"
+                              }),
+                              _vm._v(" Delay")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [_vm._v(_vm._s(_vm.unit.bp_delay))])
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("hr"),
+                        _vm._v(" "),
+                        _c("p", [
+                          _c("strong", [
+                            _c("i", {
+                              staticClass: "fa  fa-unit-plus margin-r-5"
+                            }),
+                            _vm._v(
+                              "Account Thermometer Status\n                                "
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-xs-3" }, [
+                            _c("label", { staticClass: "switch" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.unit.thermometer_is_active,
+                                    expression: "unit.thermometer_is_active"
+                                  }
+                                ],
+                                attrs: {
+                                  type: "checkbox",
+                                  disabled: "disabled",
+                                  checked: ""
+                                },
+                                domProps: {
+                                  checked: Array.isArray(
+                                    _vm.unit.thermometer_is_active
+                                  )
+                                    ? _vm._i(
+                                        _vm.unit.thermometer_is_active,
+                                        null
+                                      ) > -1
+                                    : _vm.unit.thermometer_is_active
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.unit.thermometer_is_active,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = null,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.unit,
+                                            "thermometer_is_active",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.unit,
+                                            "thermometer_is_active",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(
+                                        _vm.unit,
+                                        "thermometer_is_active",
+                                        $$c
+                                      )
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("span", { staticClass: "slider round " })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-xs-9" }, [
+                            _c("strong", [
+                              _c("i", {
+                                staticClass: "fa fa-file-text-o margin-r-5"
+                              }),
+                              _vm._v(" Delay")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", [
+                              _vm._v(_vm._s(_vm.unit.thermometer_delay))
+                            ])
+                          ])
                         ])
                       ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { attrs: { slot: "footer" }, slot: "footer" },
-                    [
-                      _c(
-                        "btn",
-                        {
-                          attrs: { type: "warning" },
-                          on: {
-                            click: function($event) {
-                              _vm.showEditUnitModalComponent($event, _vm.unit)
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { attrs: { slot: "footer" }, slot: "footer" },
+                      [
+                        _c(
+                          "btn",
+                          {
+                            attrs: { type: "warning" },
+                            on: {
+                              click: function($event) {
+                                _vm.showEditUnitModalComponent($event, _vm.unit)
+                              }
                             }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-pencil",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" Edit")
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "btn",
-                        {
-                          attrs: { type: "danger" },
-                          on: {
-                            click: function($event) {
-                              _vm.showDeleteUnitModalComponent($event, _vm.unit)
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-pencil",
+                              attrs: { "aria-hidden": "true" }
+                            }),
+                            _vm._v(" Edit")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "btn",
+                          {
+                            attrs: { type: "danger" },
+                            on: {
+                              click: function($event) {
+                                _vm.showDeleteUnitModalComponent(
+                                  $event,
+                                  _vm.unit
+                                )
+                              }
                             }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-trash-o",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" Delete")
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "btn",
-                        {
-                          attrs: { "data-action": "auto-focus" },
-                          on: {
-                            click: function($event) {
-                              _vm.showUnitModal = false
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-trash-o",
+                              attrs: { "aria-hidden": "true" }
+                            }),
+                            _vm._v(" Delete")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "btn",
+                          {
+                            attrs: { "data-action": "auto-focus" },
+                            on: {
+                              click: function($event) {
+                                _vm.showUnitModal = false
+                              }
                             }
-                          }
-                        },
-                        [_vm._v("Cancel")]
-                      )
-                    ],
-                    1
-                  )
-                ]
-              )
+                          },
+                          [_vm._v("Cancel")]
+                        )
+                      ],
+                      1
+                    )
+                  ]
+                )
+              ]
             : _vm._e()
         ],
-        1
+        2
       )
     ])
   ])
@@ -79005,15 +79324,15 @@ if (false) {
 }
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(231)
+var __vue_script__ = __webpack_require__(232)
 /* template */
-var __vue_template__ = __webpack_require__(232)
+var __vue_template__ = __webpack_require__(233)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -79052,7 +79371,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -79211,7 +79530,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -79574,15 +79893,15 @@ if (false) {
 }
 
 /***/ }),
-/* 233 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(234)
+var __vue_script__ = __webpack_require__(235)
 /* template */
-var __vue_template__ = __webpack_require__(235)
+var __vue_template__ = __webpack_require__(236)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -79621,7 +79940,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -79809,7 +80128,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -80360,15 +80679,15 @@ if (false) {
 }
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(237)
+var __vue_script__ = __webpack_require__(238)
 /* template */
-var __vue_template__ = __webpack_require__(238)
+var __vue_template__ = __webpack_require__(239)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -80407,7 +80726,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80613,7 +80932,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -81209,19 +81528,19 @@ if (false) {
 }
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(240)
+  __webpack_require__(241)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(243)
+var __vue_script__ = __webpack_require__(244)
 /* template */
-var __vue_template__ = __webpack_require__(244)
+var __vue_template__ = __webpack_require__(245)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -81260,13 +81579,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 240 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(241);
+var content = __webpack_require__(242);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -81286,7 +81605,7 @@ if(false) {
 }
 
 /***/ }),
-/* 241 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -81300,7 +81619,7 @@ exports.push([module.i, "\n.animated-box[data-v-0c2ea8f4]{\n\tmax-width: 100%;\n
 
 
 /***/ }),
-/* 242 */
+/* 243 */
 /***/ (function(module, exports) {
 
 /**
@@ -81333,7 +81652,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 243 */
+/* 244 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81403,7 +81722,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 244 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -81441,19 +81760,19 @@ if (false) {
 }
 
 /***/ }),
-/* 245 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(246)
+  __webpack_require__(247)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(248)
+var __vue_script__ = __webpack_require__(249)
 /* template */
-var __vue_template__ = __webpack_require__(249)
+var __vue_template__ = __webpack_require__(250)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -81492,13 +81811,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(247);
+var content = __webpack_require__(248);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -81518,7 +81837,7 @@ if(false) {
 }
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(false);
@@ -81532,7 +81851,7 @@ exports.push([module.i, "\n.modal-mask[data-v-72449f66] {\r\n\tposition: fixed;\
 
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81620,7 +81939,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -81690,7 +82009,7 @@ if (false) {
 }
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = {
@@ -81864,7 +82183,7 @@ module.exports = {
 
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -82127,10 +82446,10 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 251;
+webpackContext.id = 252;
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
