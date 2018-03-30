@@ -1,19 +1,17 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
-use App\UnitPatientMetadataPatientMetadata;
+use App\UnitPatientMetadata;
 class MetadataController extends Controller
 {
-    public function home(){
+	public function home(){
 		return view('metadata.index');
 	}
 	public function index(Request $request)
 	{
 		$metadata = UnitPatientMetadata::where(function($query) use($request) {
 			if($request->has('search')){
-				$search = trim($request->get('search')); 
+				$search = trim($request->get('search'));
 				$query->where('uniy_id', 'LIKE', '%'. $search .'%');
 			}
 		})
@@ -45,6 +43,4 @@ class MetadataController extends Controller
 	{
 		return UnitPatientMetadata::find($id);
 	}
-	
-	
 }

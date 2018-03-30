@@ -52,7 +52,16 @@
   background-color: #357ca5;
 }
 .skin-custom .main-header li.user-header {
-  background-color: #3c8dbc;
+  background-color: #1f2627;
+}
+.user-footer{
+  background-color: #282c2d !important;
+}
+
+.dropdown-menu-custum{
+
+
+  background-color: #282c2c !important;
 }
 .skin-custom .content-header {
   background: transparent;

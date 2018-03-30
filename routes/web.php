@@ -23,7 +23,7 @@ Route::get('/post', 'PostController@home');
 Route::resource('/post/posts','PostController');
 Route::get('/post/add-new','PostController@get_store');
 //for unit
-Route::get('/unit', 'UnitController@home');
+Route::get('/unit', 'UnitController@home') ->name('unit');
 Route::resource('/unit/units','UnitController');
 Route::get('/unit/add-new','UnitController@get_store');
 //for role
@@ -38,11 +38,11 @@ Route::get('/patient', 'PatientController@home') ->name('patient');
 Route::resource('/patient/patients','PatientController');
 Route::get('/patient/add-new','PatientController@get_store');
 //for metadata
-Route::get('/metadata', 'MetadataController@home');
+Route::get('/metadata', 'MetadataController@home') ->name('metadata');
 Route::resource('/metadata/metadatas','MetadataController');
 Route::get('/metadata/add-new','MetadataController@get_store');
 //for normal
-Route::get('/normal', 'NormalController@home');
+Route::get('/normal', 'NormalController@home') ->name('normal');
 Route::resource('/normal/normals','NormalController');
 Route::get('/normal/add-new','NormalController@get_store');
 

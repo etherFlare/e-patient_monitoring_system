@@ -17,10 +17,46 @@
       </span>
     </a>
     <ul class="treeview-menu">
-      <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-      <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+      <li><a href="#"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
     </ul>
   </li>
+  <li>
+          <a href="{{ route('user') }}">
+            <i class="fa fa-calendar"></i> <span>Accounts</span>
+            <span class="pull-right-container">
+              <!--
+              <small class="label pull-right bg-red">3</small>
+              <small class="label pull-right bg-blue">17</small>
+              -->
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('patient') }}">
+            <i class="fa fa-calendar"></i> <span>Patients</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('unit') }}">
+            <i class="fa  fa-circle-o"></i> <span>Units</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('role') }}">
+            <i class="fa  fa-circle-o"></i> <span>Role</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('metadata') }}">
+            <i class="fa fa-file-o"></i> <span>Data</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('normal') }}">
+            <i class="fa fa-file-o"></i> <span>Normal References</span>
+          </a>
+        </li>
+         
   <li class="header">LABELS</li>
   <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
   <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>

@@ -6,6 +6,7 @@
       </a>
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+          <!--
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
@@ -34,7 +35,7 @@
               <li class="header">You have 9 tasks</li>
               <li>
                 <ul class="menu">
-                  <li><!-- Task item -->
+                  <li>
                     <a href="#">
                       <h3>
                         Design some buttons
@@ -48,7 +49,7 @@
                       </div>
                     </a>
                   </li>
-                  <!-- end task item -->
+                  
                 </ul>
               </li>
               <li class="footer">
@@ -56,14 +57,15 @@
               </li>
             </ul>
           </li>
+          -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="{{ asset('img/icon002.jpg') }}" class="user-image" alt="User Image">
               <span class="hidden-xs">Your Name</span>
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu dropdown-menu-custum">
               <li class="user-header">
-                <img src="#" class="img-circle" alt="User Image">
+                <img src="{{ asset('img/icon002.jpg') }}" class="img-circle" alt="User Image">
                 <p>
                   Your Name -- Your Roles
                   <small>Member since the begining</small>
