@@ -70800,114 +70800,95 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+var blankUnitData = function blankUnitData() {
+    return {
+        'mac_address': '',
+        'unit_is_active': '',
+        'unit_is_inuse': '',
+        'oximeter_is_active': '',
+        'bp_is_active': '',
+        'thermometer_is_active': '',
+        'oximeter_delay': '',
+        'bp_delay': '',
+        'thermometer_delay': '',
+        'comment': ''
+    };
+};
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'new-unit-modal',
-  data: function data() {
-    return {
-      showModal: true,
-      posting: false,
-      unit: {},
-      time: new Date('')
-    };
-  },
+    name: 'new-unit-modal',
+    data: function data() {
+        return {
+            showModal: true,
+            isBusy: false,
+            unit: blankUnitData(),
+            time: new Date('')
+        };
+    },
 
-  computed: {
-    canPost: function canPost() {
-      var result = true;
-      Object.entries(this.unit).forEach(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            attrIdx = _ref2[0],
-            attr = _ref2[1];
+    computed: {
+        canPost: function canPost() {
+            var result = true;
+            Object.entries(this.unit).forEach(function (_ref) {
+                var _ref2 = _slicedToArray(_ref, 2),
+                    attrIdx = _ref2[0],
+                    attr = _ref2[1];
 
-        if (attr === '') result = false;
-      });
-      return result;
-    }
-  },
-  methods: {
-    postNewUnit: function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
-        var _this = this;
+                if (attr === '') result = false;
+            });
+            return result;
+        }
+    },
+    methods: {
+        postNewUnit: function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(event) {
+                var _this = this;
 
-        var axiosOptions;
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                axiosOptions = {
-                  'url': '/unit/units',
-                  'method': 'post',
-                  'data': this.unit
-                };
-
-                console.log(this.unit);
-
-                this.posting = true;
-                this.result = {};
-                this.message = {};
-                _context2.next = 7;
-                return axios(axiosOptions).then(function () {
-                  var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(response) {
-                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-                      while (1) {
+                var axiosOptions;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                    while (1) {
                         switch (_context.prev = _context.next) {
-                          case 0:
-                            _this.$toaster.success(response.data.msg);
-                            _this.unit = { title: '', description: '' };
-                            _this.$emit('unit-created');
-                            setTimeout(function () {
-                              return _this.$emit('close');
-                            }, 500);
-                            console.log(_this.unit);
+                            case 0:
+                                axiosOptions = {
+                                    'url': '/unit/units',
+                                    'method': 'post',
+                                    'data': { unit: this.unit }
+                                };
 
-                          case 5:
-                          case 'end':
-                            return _context.stop();
+                                this.errors = null;
+                                this.isBusy = true;
+                                this.result = {};
+                                this.message = {};
+                                _context.next = 7;
+                                return axios(axiosOptions).then(function (response) {
+                                    _this.unit = blankUnitData();
+                                    _this.$emit('unit-created');
+                                    _this.isBusy = false;
+                                }).catch(function (error) {
+                                    _this.errors = error.response.data.errors;
+                                    _this.isBusy = false;
+                                    return Promise.reject(error.response);
+                                });
+
+                            case 7:
+                                return _context.abrupt('return', _context.sent);
+
+                            case 9:
+                            case 'end':
+                                return _context.stop();
                         }
-                      }
-                    }, _callee, _this);
-                  }));
+                    }
+                }, _callee, this);
+            }));
 
-                  return function (_x2) {
-                    return _ref4.apply(this, arguments);
-                  };
-                }()).catch(function (error) {
-                  _this.$toaster.error(error.response.data.message);
-                  console.log(error.response.data.messagee);
-                  _this.posting = false;
-                });
-
-              case 7:
-                return _context2.abrupt('return', _context2.sent);
-
-              case 9:
-              case 'end':
-                return _context2.stop();
+            function postNewUnit(_x) {
+                return _ref3.apply(this, arguments);
             }
-          }
-        }, _callee2, this);
-      }));
 
-      function postNewUnit(_x) {
-        return _ref3.apply(this, arguments);
-      }
-
-      return postNewUnit;
-    }()
-  }
+            return postNewUnit;
+        }()
+    }
 });
 
 /***/ }),
@@ -70948,15 +70929,15 @@ var render = function() {
           }
         },
         [
-          _vm.posting
-            ? [_vm._v("...posting")]
+          _vm.isBusy
+            ? [_vm._v("...isBusy")]
             : [
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("p", [
                       _c("strong", [
                         _c("i", { staticClass: "fa  fa-unit-plus margin-r-5" }),
-                        _vm._v("Unit Activation Status\n              ")
+                        _vm._v(" Unit Activation Status")
                       ])
                     ]),
                     _vm._v(" "),
@@ -70967,7 +70948,7 @@ var render = function() {
                             attrs: { type: "checkbox", checked: "" }
                           }),
                           _vm._v(" "),
-                          _c("span", { staticClass: "slider round " })
+                          _c("span", { staticClass: "slider round" })
                         ])
                       ])
                     ]),
@@ -71056,7 +71037,7 @@ var render = function() {
                     _c("p", [
                       _c("strong", [
                         _c("i", { staticClass: "fa  fa-unit-plus margin-r-5" }),
-                        _vm._v("Unit Oximeter Status\n              ")
+                        _vm._v("Unit Oximeter Status\n                        ")
                       ])
                     ]),
                     _vm._v(" "),
@@ -71140,9 +71121,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("p", [
                       _c("strong", [
-                        _c("i", { staticClass: "fa  fa-unit-plus margin-r-5" }),
+                        _c("i", { staticClass: "fa fa-unit-plus margin-r-5" }),
                         _vm._v(
-                          "Account Sphygmomanometer Status\n              "
+                          " Account Sphygmomanometer Status\n                        "
                         )
                       ])
                     ]),
@@ -71228,7 +71209,9 @@ var render = function() {
                     _c("p", [
                       _c("strong", [
                         _c("i", { staticClass: "fa  fa-unit-plus margin-r-5" }),
-                        _vm._v("Account Thermometer Status\n              ")
+                        _vm._v(
+                          "Account Thermometer Status\n                        "
+                        )
                       ])
                     ]),
                     _vm._v(" "),
@@ -73767,147 +73750,147 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 
 var blankUserData = function blankUserData() {
-  return {
-    first_name: 'Jane',
-    middle_name: 'Da',
-    last_name: 'Moe',
-    contact_number: '1112222333',
-    email: 'foo@bar.io',
-    password: 'banana',
-    comment: '...',
-    roles: [1]
-  };
+    return {
+        first_name: 'Jane',
+        middle_name: 'Da',
+        last_name: 'Moe',
+        contact_number: '1112222333',
+        email: 'foo@bar.io',
+        password: 'banana',
+        comment: '...',
+        roles: [1]
+    };
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'new-user-modal',
-  data: function data() {
-    return {
-      showModal: true,
-      isBusy: false,
-      user: blankUserData(),
-      roles: null,
-      errors: null
-    };
-  },
-
-  computed: {
-    emailHasError: function emailHasError() {
-      return this.hasError('user.email');
+    name: 'new-user-modal',
+    data: function data() {
+        return {
+            showModal: true,
+            isBusy: false,
+            user: blankUserData(),
+            roles: null,
+            errors: null
+        };
     },
-    rolesOption: function rolesOption() {
-      if (Boolean(this.roles)) {
-        return this.roles.data.map(function (role) {
-          return { label: role.title, value: role.id };
-        });
-      }
-      return [];
-    },
-    canPost: function canPost() {
-      var result = true;
-      Object.entries(this.user).forEach(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            attrIdx = _ref2[0],
-            attr = _ref2[1];
 
-        if (attr === '') result = false;
-      });
-      return result;
+    computed: {
+        emailHasError: function emailHasError() {
+            return this.hasError('user.email');
+        },
+        rolesOption: function rolesOption() {
+            if (Boolean(this.roles)) {
+                return this.roles.data.map(function (role) {
+                    return { label: role.title, value: role.id };
+                });
+            }
+            return [];
+        },
+        canPost: function canPost() {
+            var result = true;
+            Object.entries(this.user).forEach(function (_ref) {
+                var _ref2 = _slicedToArray(_ref, 2),
+                    attrIdx = _ref2[0],
+                    attr = _ref2[1];
+
+                if (attr === '') result = false;
+            });
+            return result;
+        }
+    },
+    methods: {
+        hasError: function hasError(field) {
+            var errors = this.errors;
+            if (!errors) return false;
+            return Object.keys(errors).map(function (key) {
+                return key;
+            }).includes(field);
+        },
+        getRoles: function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+                var _this = this;
+
+                var axiosOptions;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                axiosOptions = {
+                                    'url': '/role/roles',
+                                    'method': 'get'
+                                };
+                                _context.next = 3;
+                                return axios(axiosOptions).then(function (response) {
+                                    _this.roles = response.data;
+                                }).catch(function (error) {
+                                    _this.roles = null;
+                                    error();
+                                });
+
+                            case 3:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+
+            function getRoles() {
+                return _ref3.apply(this, arguments);
+            }
+
+            return getRoles;
+        }(),
+        postNewUser: function () {
+            var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
+                var _this2 = this;
+
+                var axiosOptions;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                axiosOptions = {
+                                    'url': '/user/users',
+                                    'method': 'post',
+                                    'data': { user: this.user }
+                                };
+
+                                this.errors = null;
+                                this.isBusy = true;
+                                this.result = {};
+                                this.message = {};
+                                _context2.next = 7;
+                                return axios(axiosOptions).then(function (response) {
+                                    _this2.user = blankUserData();
+                                    _this2.$emit('user-created');
+                                    _this2.isBusy = false;
+                                }).catch(function (error) {
+                                    _this2.errors = error.response.data.errors;
+                                    _this2.isBusy = false;
+                                    return Promise.reject(error.response);
+                                });
+
+                            case 7:
+                                return _context2.abrupt('return', _context2.sent);
+
+                            case 9:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+
+            function postNewUser(_x) {
+                return _ref4.apply(this, arguments);
+            }
+
+            return postNewUser;
+        }()
+    },
+    created: function created() {
+        this.getRoles();
     }
-  },
-  methods: {
-    hasError: function hasError(field) {
-      var errors = this.errors;
-      if (!errors) return false;
-      return Object.keys(errors).map(function (key) {
-        return key;
-      }).includes(field);
-    },
-    getRoles: function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
-        var _this = this;
-
-        var axiosOptions;
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                axiosOptions = {
-                  'url': '/role/roles',
-                  'method': 'get'
-                };
-                _context.next = 3;
-                return axios(axiosOptions).then(function (response) {
-                  _this.roles = response.data;
-                }).catch(function (error) {
-                  _this.roles = null;
-                  error();
-                });
-
-              case 3:
-              case 'end':
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function getRoles() {
-        return _ref3.apply(this, arguments);
-      }
-
-      return getRoles;
-    }(),
-    postNewUser: function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
-        var _this2 = this;
-
-        var axiosOptions;
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                axiosOptions = {
-                  'url': '/user/users',
-                  'method': 'post',
-                  'data': { user: this.user }
-                };
-
-                this.errors = null;
-                this.isBusy = true;
-                this.result = {};
-                this.message = {};
-                _context2.next = 7;
-                return axios(axiosOptions).then(function (response) {
-                  _this2.user = blankUserData();
-                  _this2.$emit('user-created');
-                  _this2.isBusy = false;
-                }).catch(function (error) {
-                  _this2.errors = error.response.data.errors;
-                  _this2.isBusy = false;
-                  return Promise.reject(error.response);
-                });
-
-              case 7:
-                return _context2.abrupt('return', _context2.sent);
-
-              case 9:
-              case 'end':
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function postNewUser(_x) {
-        return _ref4.apply(this, arguments);
-      }
-
-      return postNewUser;
-    }()
-  },
-  created: function created() {
-    this.getRoles();
-  }
 });
 
 /***/ }),
@@ -75402,106 +75385,164 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'new-patient-modal',
-  data: function data() {
+var blankPartienData = function blankPartienData() {
     return {
-      showModal: true,
-      posting: false,
-      patient: {
-        title: '',
-        description: ''
-      },
-      selected: [],
-      options: [{ value: 1, label: 'Option1' }, { value: 2, label: 'Option2' }, { value: 3, label: 'Option3' }, { value: 4, label: 'Option4' }, { value: 5, label: 'Option5' }]
+        'unit_id': null,
+        'first_name': 'Jane',
+        'middle_name': 'Da',
+        'last_name': 'Moe',
+        'gender': 'Male',
+        'age': '18',
+        'location': 'ICU',
+        'home_address': 'that door close to 0001',
+        'contact_number': '1112222333',
+        'contact_person': 'Ma Me',
+        'comment': '...',
+        'is_active': false,
+        'is_archive': false
     };
-  },
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+    name: 'new-patient-modal',
+    data: function data() {
+        return {
+            showModal: true,
+            isBusy: false,
+            patient: blankPartienData(),
+            errors: null,
+            units: null
+        };
+    },
+    created: function created() {
+        this.getUnits();
+    },
 
-  computed: {
-    canPost: function canPost() {
-      var result = true;
-      Object.entries(this.patient).forEach(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            attrIdx = _ref2[0],
-            attr = _ref2[1];
-
-        if (attr === '') result = false;
-      });
-      return result;
-    }
-  },
-  methods: {
-    postNewPatient: function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
-        var _this = this;
-
-        var axiosOptions;
-        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                axiosOptions = {
-                  'url': '/patient/patients',
-                  'method': 'post',
-                  'data': this.patient
-                };
-
-                console.log(this.patient);
-
-                this.posting = true;
-                this.result = {};
-                this.message = {};
-                _context2.next = 7;
-                return axios(axiosOptions).then(function () {
-                  var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(response) {
-                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
-                      while (1) {
-                        switch (_context.prev = _context.next) {
-                          case 0:
-                            _this.$toaster.success(response.data.msg);
-                            _this.patient = { title: '', description: '' };
-                            _this.$emit('patient-created');
-                            setTimeout(function () {
-                              return _this.$emit('close');
-                            }, 500);
-                            console.log(_this.patient);
-
-                          case 5:
-                          case 'end':
-                            return _context.stop();
-                        }
-                      }
-                    }, _callee, _this);
-                  }));
-
-                  return function (_x2) {
-                    return _ref4.apply(this, arguments);
-                  };
-                }()).catch(function (error) {
-                  _this.$toaster.error(error.response.data.message);
-                  console.log(error.response.data.messagee);
-                  _this.posting = false;
+    computed: {
+        locationsOption: function locationsOption() {
+            return [{ label: 'Emergency room', value: 'ER' }, { label: 'Intensive care unit', value: 'ICU' }];
+        },
+        unitsOption: function unitsOption() {
+            if (Boolean(this.units)) {
+                return this.units.data.map(function (unit) {
+                    return { label: unit.mac_address, value: unit.id };
                 });
-
-              case 7:
-                return _context2.abrupt('return', _context2.sent);
-
-              case 9:
-              case 'end':
-                return _context2.stop();
             }
-          }
-        }, _callee2, this);
-      }));
+            return [];
+        },
+        canPost: function canPost() {
+            var result = true;
+            Object.entries(this.patient).forEach(function (_ref) {
+                var _ref2 = _slicedToArray(_ref, 2),
+                    attrIdx = _ref2[0],
+                    attr = _ref2[1];
 
-      function postNewPatient(_x) {
-        return _ref3.apply(this, arguments);
-      }
+                if (attr === '') result = false;
+            });
+            return result;
+        }
+    },
+    methods: {
+        hasError: function hasError(field) {
+            var errors = this.errors;
+            if (!errors) return false;
+            return Object.keys(errors).map(function (key) {
+                return key;
+            }).includes(field);
+        },
+        getUnits: function () {
+            var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+                var _this = this;
 
-      return postNewPatient;
-    }()
-  }
+                var axiosOptions;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                axiosOptions = {
+                                    'url': '/unit/units',
+                                    'method': 'get'
+                                };
+                                _context.next = 3;
+                                return axios(axiosOptions).then(function (response) {
+                                    _this.units = response.data;
+                                }).catch(function (error) {
+                                    _this.units = null;
+                                    return Promise.reject(error.response);
+                                });
+
+                            case 3:
+                            case 'end':
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, this);
+            }));
+
+            function getUnits() {
+                return _ref3.apply(this, arguments);
+            }
+
+            return getUnits;
+        }(),
+        postNewPatient: function () {
+            var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
+                var _this2 = this;
+
+                var axiosOptions;
+                return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                axiosOptions = {
+                                    'url': '/patient/patients',
+                                    'method': 'post',
+                                    'data': { patient: this.patient }
+                                };
+
+                                this.errors = null;
+                                this.isBusy = true;
+                                this.result = {};
+                                this.message = {};
+                                _context2.next = 7;
+                                return axios(axiosOptions).then(function (response) {
+                                    _this2.patient = blankPartienData();
+                                    _this2.$emit('patient-created');
+                                    _this2.isBusy = false;
+                                }).catch(function (error) {
+                                    _this2.errors = error.response.data.errors;
+                                    _this2.isBusy = false;
+                                    return Promise.reject(error.response);
+                                });
+
+                            case 7:
+                                return _context2.abrupt('return', _context2.sent);
+
+                            case 9:
+                            case 'end':
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, this);
+            }));
+
+            function postNewPatient(_x) {
+                return _ref4.apply(this, arguments);
+            }
+
+            return postNewPatient;
+        }()
+    }
 });
 
 /***/ }),
@@ -75542,7 +75583,7 @@ var render = function() {
           }
         },
         [
-          _vm.posting
+          _vm.isBusy
             ? [
                 _c("img", {
                   staticClass:
@@ -75556,116 +75597,124 @@ var render = function() {
             : [
                 _c("div", { staticClass: "row" }, [
                   _c("div", { staticClass: "col-md-6" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass: "form-group col-md-4",
-                        class: { "has-error": !_vm.patient.first_name }
-                      },
-                      [
-                        _c("label", [_vm._v("First Name")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.patient.first_name,
-                              expression: "patient.first_name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "..." },
-                          domProps: { value: _vm.patient.first_name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "form-group",
+                            class: { "has-error": !_vm.patient.first_name }
+                          },
+                          [
+                            _c("label", [_vm._v("First Name")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.patient.first_name,
+                                  expression: "patient.first_name"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", placeholder: "..." },
+                              domProps: { value: _vm.patient.first_name },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.patient,
+                                    "first_name",
+                                    $event.target.value
+                                  )
+                                }
                               }
-                              _vm.$set(
-                                _vm.patient,
-                                "first_name",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "form-group col-md-4",
-                        class: { "has-error": !_vm.patient.middle_name }
-                      },
-                      [
-                        _c("label", [_vm._v("Middle Name")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.patient.middle_name,
-                              expression: "patient.middle_name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "..." },
-                          domProps: { value: _vm.patient.middle_name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                            })
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "form-group",
+                            class: { "has-error": !_vm.patient.middle_name }
+                          },
+                          [
+                            _c("label", [_vm._v("Middle Name")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.patient.middle_name,
+                                  expression: "patient.middle_name"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", placeholder: "..." },
+                              domProps: { value: _vm.patient.middle_name },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.patient,
+                                    "middle_name",
+                                    $event.target.value
+                                  )
+                                }
                               }
-                              _vm.$set(
-                                _vm.patient,
-                                "middle_name",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "form-group col-md-4",
-                        class: { "has-error": !_vm.patient.last_name }
-                      },
-                      [
-                        _c("label", [_vm._v("Surname")]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.patient.last_name,
-                              expression: "patient.last_name"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { type: "text", placeholder: "..." },
-                          domProps: { value: _vm.patient.last_name },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                            })
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-4" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "form-group",
+                            class: { "has-error": !_vm.patient.last_name }
+                          },
+                          [
+                            _c("label", [_vm._v("Surname")]),
+                            _vm._v(" "),
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.patient.last_name,
+                                  expression: "patient.last_name"
+                                }
+                              ],
+                              staticClass: "form-control",
+                              attrs: { type: "text", placeholder: "..." },
+                              domProps: { value: _vm.patient.last_name },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.patient,
+                                    "last_name",
+                                    $event.target.value
+                                  )
+                                }
                               }
-                              _vm.$set(
-                                _vm.patient,
-                                "last_name",
-                                $event.target.value
-                              )
-                            }
-                          }
-                        })
-                      ]
-                    ),
+                            })
+                          ]
+                        )
+                      ])
+                    ]),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -75790,16 +75839,56 @@ var render = function() {
                         _c("div", { staticClass: "radio" }, [
                           _c("label", { staticClass: "radio-inline" }, [
                             _c("input", {
-                              attrs: { type: "radio", name: "optradio" }
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.patient.gender,
+                                  expression: "patient.gender"
+                                }
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "patient[gender]",
+                                value: "Male"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.patient.gender, "Male")
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.$set(_vm.patient, "gender", "Male")
+                                }
+                              }
                             }),
-                            _vm._v("Option 1")
+                            _vm._v(" Male")
                           ]),
                           _vm._v(" "),
                           _c("label", { staticClass: "radio-inline" }, [
                             _c("input", {
-                              attrs: { type: "radio", name: "optradio" }
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.patient.gender,
+                                  expression: "patient.gender"
+                                }
+                              ],
+                              attrs: {
+                                type: "radio",
+                                name: "patient[gender]",
+                                value: "Female"
+                              },
+                              domProps: {
+                                checked: _vm._q(_vm.patient.gender, "Female")
+                              },
+                              on: {
+                                change: function($event) {
+                                  _vm.$set(_vm.patient, "gender", "Female")
+                                }
+                              }
                             }),
-                            _vm._v("Option 2")
+                            _vm._v(" Female")
                           ])
                         ])
                       ]
@@ -75808,15 +75897,42 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "role" } }, [
+                      _c("label", { attrs: { for: "location" } }, [
                         _vm._v("Location")
                       ]),
                       _vm._v(" "),
                       _c(
                         "select",
                         {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.patient.location,
+                              expression: "patient.location"
+                            }
+                          ],
                           staticClass: "form-control",
-                          attrs: { id: "location" }
+                          attrs: { id: "location", placeholder: "..." },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.patient,
+                                "location",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
                         },
                         [
                           _c(
@@ -75827,46 +75943,116 @@ var render = function() {
                             [_vm._v(" -- select an option -- ")]
                           ),
                           _vm._v(" "),
-                          _c("option", [_vm._v("1")]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("2")]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("3")]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("4")]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("5")])
-                        ]
+                          _vm._l(_vm.locationsOption, function(
+                            location,
+                            locationsOptionIdx
+                          ) {
+                            return _c(
+                              "option",
+                              {
+                                key: locationsOptionIdx,
+                                domProps: { value: location.value }
+                              },
+                              [_vm._v(_vm._s(location.label))]
+                            )
+                          })
+                        ],
+                        2
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "form-group" }, [
-                      _c("label", { attrs: { for: "role" } }, [_vm._v("Unit")]),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        { staticClass: "form-control", attrs: { id: "unit" } },
-                        [
-                          _c(
-                            "option",
-                            {
-                              attrs: { disabled: "", selected: "", value: "" }
-                            },
-                            [_vm._v(" -- select an option -- ")]
-                          ),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("1")]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("2")]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("3")]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("4")]),
-                          _vm._v(" "),
-                          _c("option", [_vm._v("5")])
-                        ]
-                      )
-                    ]),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "form-group",
+                        class: {
+                          "has-error":
+                            !_vm.patient.unit_id ||
+                            _vm.hasError("patient.unit_id")
+                        }
+                      },
+                      [
+                        _c("label", { attrs: { for: "unit_id" } }, [
+                          _vm._v("Unit")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.patient.unit_id,
+                                expression: "patient.unit_id"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { id: "unit_id", placeholder: "..." },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.patient,
+                                  "unit_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "option",
+                              {
+                                attrs: { disabled: "", selected: "", value: "" }
+                              },
+                              [_vm._v(" -- select an option -- ")]
+                            ),
+                            _vm._v(" "),
+                            _vm._l(_vm.unitsOption, function(
+                              unit,
+                              unitsOptionIdx
+                            ) {
+                              return _c(
+                                "option",
+                                {
+                                  key: unitsOptionIdx,
+                                  domProps: { value: unit.value }
+                                },
+                                [_vm._v(_vm._s(unit.label))]
+                              )
+                            })
+                          ],
+                          2
+                        ),
+                        _vm._v(" "),
+                        _vm.hasError("patient.unit_id")
+                          ? _vm._l(_vm.errors["patient.unit_id"], function(
+                              line,
+                              errorIdx
+                            ) {
+                              return _c(
+                                "p",
+                                {
+                                  key: errorIdx,
+                                  staticClass: "small text-red"
+                                },
+                                [_vm._v(_vm._s(line))]
+                              )
+                            })
+                          : _vm._e()
+                      ],
+                      2
+                    ),
                     _vm._v(" "),
                     _c(
                       "div",
