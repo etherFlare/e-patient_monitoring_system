@@ -41,10 +41,4 @@ class User extends Authenticatable
 
     }
 
-    public function setRolesAttribute($roles)
-    {
-        $this->roles()->sync($roles);
-
-    }
- 
 }

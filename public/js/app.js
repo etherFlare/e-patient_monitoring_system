@@ -73817,9 +73817,7 @@ var blankUserData = function blankUserData() {
   methods: {
     hasError: function hasError(field) {
       var errors = this.errors;
-
       if (!errors) return false;
-
       return Object.keys(errors).map(function (key) {
         return key;
       }).includes(field);
@@ -73874,26 +73872,25 @@ var blankUserData = function blankUserData() {
                   'data': { user: this.user }
                 };
 
+                this.errors = null;
                 this.isBusy = true;
                 this.result = {};
                 this.message = {};
-                _context2.next = 6;
+                _context2.next = 7;
                 return axios(axiosOptions).then(function (response) {
-                  console.log(response);
                   _this2.user = blankUserData();
-                  // this.$emit('user-created')
+                  _this2.$emit('user-created');
                   _this2.isBusy = false;
                 }).catch(function (error) {
-                  console.log(error.response);
                   _this2.errors = error.response.data.errors;
                   _this2.isBusy = false;
                   return Promise.reject(error.response);
                 });
 
-              case 6:
+              case 7:
                 return _context2.abrupt('return', _context2.sent);
 
-              case 8:
+              case 9:
               case 'end':
                 return _context2.stop();
             }
@@ -79537,6 +79534,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -79785,6 +79791,25 @@ var render = function() {
                                 _vm._v(" "),
                                 _c(
                                   "td",
+                                  [
+                                    _vm._l(user.roles, function(
+                                      role,
+                                      rolesIdx
+                                    ) {
+                                      return _c("div", { key: rolesIdx }, [
+                                        _vm._v(_vm._s(role.title))
+                                      ])
+                                    }),
+                                    _vm._v(" "),
+                                    !user.roles.length
+                                      ? _c("span", [_vm._v("--")])
+                                      : _vm._e()
+                                  ],
+                                  2
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
                                   { staticClass: "row" },
                                   [
                                     _c(
@@ -79822,7 +79847,7 @@ var render = function() {
                                     "td",
                                     {
                                       staticClass: "text-center",
-                                      attrs: { colspan: "4" }
+                                      attrs: { colspan: "5" }
                                     },
                                     [
                                       _c(
@@ -79912,179 +79937,197 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          _vm.showUserModal
-            ? _c(
-                "modal",
-                {
-                  ref: "showUserModal",
-                  attrs: { "auto-focus": "" },
-                  on: {
-                    hide: function($event) {
-                      _vm.$emit("close")
-                    }
-                  },
-                  model: {
-                    value: _vm.showUserModal,
-                    callback: function($$v) {
-                      _vm.showUserModal = $$v
-                    },
-                    expression: "showUserModal"
-                  }
+          _c(
+            "modal",
+            {
+              ref: "showUserModal",
+              attrs: { "auto-focus": "" },
+              on: {
+                hide: function($event) {
+                  _vm.$emit("close")
+                }
+              },
+              model: {
+                value: _vm.showUserModal,
+                callback: function($$v) {
+                  _vm.showUserModal = $$v
                 },
-                [
-                  _c("div", { attrs: { slot: "title" }, slot: "title" }, [
-                    _c("div", { staticClass: "box-profile row" }, [
-                      _c("img", {
-                        staticClass:
-                          "animated-box profile-user-img img-responsive img-circle pull-right ",
-                        staticStyle: { "margin-right": "50px" },
-                        attrs: {
-                          src: "/img/heart-beat.png",
-                          alt: "User profile picture"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "h3",
-                        { staticClass: "profile-username text-center" },
-                        [
-                          _vm._v(
-                            " " +
-                              _vm._s(_vm.user.last_name) +
-                              ", " +
-                              _vm._s(_vm.user.first_name) +
+                expression: "showUserModal"
+              }
+            },
+            [
+              _vm.user
+                ? [
+                    _c("div", { attrs: { slot: "title" }, slot: "title" }, [
+                      _c("div", { staticClass: "box-profile row" }, [
+                        _c("img", {
+                          staticClass:
+                            "animated-box profile-user-img img-responsive img-circle pull-right ",
+                          staticStyle: { "margin-right": "50px" },
+                          attrs: {
+                            src: "/img/heart-beat.png",
+                            alt: "User profile picture"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "h3",
+                          { staticClass: "profile-username text-center" },
+                          [
+                            _vm._v(
                               " " +
-                              _vm._s(_vm.user.middle_name)
+                                _vm._s(_vm.user.last_name) +
+                                ", " +
+                                _vm._s(_vm.user.first_name) +
+                                " " +
+                                _vm._s(_vm.user.middle_name)
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "text-muted text-center" }, [
+                          _vm._v(
+                            _vm._s(
+                              Object.keys(_vm.user.roles)
+                                .map(function(key) {
+                                  return _vm.user.roles[key].title
+                                })
+                                .join(" | ")
+                            )
                           )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "text-muted text-center" }, [
-                        _vm._v("add role/s here")
+                        ])
                       ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "box-body" }, [
-                    _c("strong", [
-                      _c("i", { staticClass: "fa fa-mobile-phone margin-r-5" }),
-                      _vm._v(" Contact Number")
                     ]),
                     _vm._v(" "),
-                    _c("p", { staticClass: "text-muted" }, [
-                      _vm._v(_vm._s(_vm.user.contact_number))
-                    ]),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c("strong", [
-                      _c("i", { staticClass: "fa  fa-user-plus margin-r-5" }),
-                      _vm._v("Account Created Since")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "text-muted" }, [
-                      _vm._v(
-                        _vm._s(_vm._f("moment")(_vm.user.created_at, "LLLL"))
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("code", [
-                      _vm._v(
-                        _vm._s(_vm._f("moment")(_vm.user.created_at, "from"))
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c("strong", [
-                      _c("i", {
-                        staticClass: "fa fa-calendar-check-o margin-r-5"
-                      }),
-                      _vm._v("Date Updated ")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "text-muted" }, [
-                      _vm._v(
-                        _vm._s(_vm._f("moment")(_vm.user.updated_at, "LLLL"))
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("code", [
-                      _vm._v(
-                        _vm._s(_vm._f("moment")(_vm.user.updated_at, "from"))
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("hr"),
-                    _vm._v(" "),
-                    _c("strong", [
-                      _c("i", { staticClass: "fa fa-file-text-o margin-r-5" }),
-                      _vm._v(" Comment")
-                    ]),
-                    _vm._v(" "),
-                    _c("p", [_vm._v(_vm._s(_vm.user.comment))])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { attrs: { slot: "footer" }, slot: "footer" },
-                    [
-                      _c(
-                        "btn",
-                        {
-                          attrs: { type: "warning" },
-                          on: {
-                            click: function($event) {
-                              _vm.showEditUserModalComponent($event, _vm.user)
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-pencil",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" Edit")
-                        ]
-                      ),
+                    _c("div", { staticClass: "box-body" }, [
+                      _c("strong", [
+                        _c("i", {
+                          staticClass: "fa fa-mobile-phone margin-r-5"
+                        }),
+                        _vm._v(" Contact Number")
+                      ]),
                       _vm._v(" "),
-                      _c(
-                        "btn",
-                        {
-                          attrs: { type: "danger" },
-                          on: {
-                            click: function($event) {
-                              _vm.showDeleteUserModalComponent($event, _vm.user)
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-trash-o",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" Delete")
-                        ]
-                      ),
+                      _c("p", { staticClass: "text-muted" }, [
+                        _vm._v(_vm._s(_vm.user.contact_number))
+                      ]),
                       _vm._v(" "),
-                      _c(
-                        "btn",
-                        {
-                          attrs: { "data-action": "auto-focus" },
-                          on: {
-                            click: function($event) {
-                              _vm.showUserModal = false
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("strong", [
+                        _c("i", { staticClass: "fa  fa-user-plus margin-r-5" }),
+                        _vm._v("Account Created Since")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "text-muted" }, [
+                        _vm._v(
+                          _vm._s(_vm._f("moment")(_vm.user.created_at, "LLLL"))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("code", [
+                        _vm._v(
+                          _vm._s(_vm._f("moment")(_vm.user.created_at, "from"))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("strong", [
+                        _c("i", {
+                          staticClass: "fa fa-calendar-check-o margin-r-5"
+                        }),
+                        _vm._v("Date Updated ")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "text-muted" }, [
+                        _vm._v(
+                          _vm._s(_vm._f("moment")(_vm.user.updated_at, "LLLL"))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("code", [
+                        _vm._v(
+                          _vm._s(_vm._f("moment")(_vm.user.updated_at, "from"))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("hr"),
+                      _vm._v(" "),
+                      _c("strong", [
+                        _c("i", {
+                          staticClass: "fa fa-file-text-o margin-r-5"
+                        }),
+                        _vm._v(" Comment")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v(_vm._s(_vm.user.comment))])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { attrs: { slot: "footer" }, slot: "footer" },
+                      [
+                        _c(
+                          "btn",
+                          {
+                            attrs: { type: "warning" },
+                            on: {
+                              click: function($event) {
+                                _vm.showEditUserModalComponent($event, _vm.user)
+                              }
                             }
-                          }
-                        },
-                        [_vm._v("Cancel")]
-                      )
-                    ],
-                    1
-                  )
-                ]
-              )
-            : _vm._e()
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-pencil",
+                              attrs: { "aria-hidden": "true" }
+                            }),
+                            _vm._v(" Edit")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "btn",
+                          {
+                            attrs: { type: "danger" },
+                            on: {
+                              click: function($event) {
+                                _vm.showDeleteUserModalComponent(
+                                  $event,
+                                  _vm.user
+                                )
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-trash-o",
+                              attrs: { "aria-hidden": "true" }
+                            }),
+                            _vm._v(" Delete")
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "btn",
+                          {
+                            attrs: { "data-action": "auto-focus" },
+                            on: {
+                              click: function($event) {
+                                _vm.showUserModal = false
+                              }
+                            }
+                          },
+                          [_vm._v("Cancel")]
+                        )
+                      ],
+                      1
+                    )
+                  ]
+                : _vm._e()
+            ],
+            2
+          )
         ],
         1
       )
@@ -80114,6 +80157,8 @@ var staticRenderFns = [
       _c("th", [_vm._v("Email")]),
       _vm._v(" "),
       _c("th", [_vm._v("Date Created")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Roles")]),
       _vm._v(" "),
       _c("th", { staticClass: "col-md-2" })
     ])

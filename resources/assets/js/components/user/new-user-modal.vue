@@ -45,15 +45,15 @@
           <div class="form-group " :class="{'has-error': !user.email || hasError('user.email')}">
             <label>Email Address</label>
             <input type="email" class="form-control" placeholder="..." v-model="user.email"/>
-            <template v-if="hasError('user.email')"> 
-            <p class="small text-red" v-for="(line, errorIdx) in errors['user.email']" :key="errorIdx">{{line}}</p>
+            <template v-if="hasError('user.email')">
+              <p class="small text-red" v-for="(line, errorIdx) in errors['user.email']" :key="errorIdx">{{line}}</p>
             </template>
           </div>
           <div class="form-group " :class="{'has-error': !user.password || hasError('user.password')}">
             <label>Password</label>
             <input type="text" class="form-control" placeholder="updated as lastname was added" v-model="user.password"/>
-            <template v-if="hasError('user.password')"> 
-            <p class="small text-red" v-for="(line, errorIdx) in errors['user.password']" :key="errorIdx">{{line}}</p>
+            <template v-if="hasError('user.password')">
+              <p class="small text-red" v-for="(line, errorIdx) in errors['user.password']" :key="errorIdx">{{line}}</p>
             </template>
           </div>
           <div class="form-group" :class="{'has-error': !user.comment}">
@@ -74,93 +74,90 @@
 </template>
 
 <script>
-  const blankUserData = () => {
+const blankUserData = () => {
+  return {
+    first_name: 'Jane',
+    middle_name: 'Da',
+    last_name: 'Moe',
+    contact_number: '1112222333',
+    email: 'foo@bar.io',
+    password: 'banana',
+    comment: '...',
+    roles: [1]
+  }
+}
+export default {
+  name: 'new-user-modal',
+  data() {
     return {
-      first_name: 'Jane',
-      middle_name: 'Da',
-      last_name: 'Moe', 
-      contact_number: '1112222333',
-      email: 'foo@bar.io',
-      password: 'banana',
-      comment: '...',
-      roles: [1]
+      showModal: true,
+      isBusy: false,
+      user: blankUserData(),
+      roles: null,
+      errors: null
     }
-  }
-  export default {
-    name: 'new-user-modal',
-    data() {
-      return {
-        showModal: true,
-        isBusy: false,
-        user: blankUserData(),
-        roles: null,
-        errors: null
-      }
+  },
+  computed: {
+    emailHasError() {
+      return this.hasError('user.email')
     },
-    computed: {
-      emailHasError() {
-        return this.hasError('user.email')
-      },
-      rolesOption() {
-        if(Boolean(this.roles))
-        {
-          return this.roles.data.map(role => { return {label: role.title, value: role.id} } )
-        }
-        return []
-      },
-      canPost() {
-        let result = true
-        Object.entries(this.user).forEach(([attrIdx, attr])=>{
-          if(attr === '') result = false
-        })
-        return result
+    rolesOption() {
+      if(Boolean(this.roles))
+      {
+        return this.roles.data.map(role => { return {label: role.title, value: role.id} } )
       }
+      return []
     },
-    methods: {
-      hasError(field) {
-        const errors = this.errors
-
-        if(!errors) return false
-
+    canPost() {
+      let result = true
+      Object.entries(this.user).forEach(([attrIdx, attr])=>{
+        if(attr === '') result = false
+      })
+      return result
+    }
+  },
+  methods: {
+    hasError(field) {
+      const errors = this.errors
+      if(!errors) return false
         return Object.keys(errors).map(key=>key).includes(field)
-      },
-      async getRoles() {
-        const axiosOptions = {
-          'url': '/role/roles',
-          'method': 'get'
-        }
-        await axios(axiosOptions).then((response) => {
-          this.roles = response.data
-        }).catch(error => {
-          this.roles = null
-          error()
-        })
-      },
-      async postNewUser(event){
-        const axiosOptions = {
-          'url': '/user/users',
-          'method': 'post',
-          'data': {user: this.user}
-        } 
-        this.isBusy = true
-        this.result = {}
-        this.message = {}
-        return await axios(axiosOptions).then( (response) => {
-          console.log( response );
-          this.user = blankUserData()
-          // this.$emit('user-created')
-          this.isBusy = false
-        }).catch(error => {
-          console.log( error.response );
-          this.errors = error.response.data.errors
-          this.isBusy = false
-          return Promise.reject(error.response);
-        })
-        this.isBusy = false
-      }
     },
-    created () {
-      this.getRoles()
+    async getRoles() {
+      const axiosOptions = {
+      'url': '/role/roles',
+      'method': 'get'
     }
+    await axios(axiosOptions).then((response) => {
+      this.roles = response.data
+    }).catch(error => {
+      this.roles = null
+      error()
+    })
+  },
+  async postNewUser(event){
+    const axiosOptions = {
+    'url': '/user/users',
+    'method': 'post',
+    'data': {user: this.user}
   }
+  this.errors = null
+  this.isBusy = true
+  this.result = {}
+  this.message = {}
+  return await axios(axiosOptions).then( (response) => {
+    this.user = blankUserData()
+    this.$emit('user-created')
+    this.isBusy = false
+  }).catch(error => {
+    this.errors = error.response.data.errors
+    this.isBusy = false
+    return Promise.reject(error.response);
+  })
+  this.isBusy = false
+}
+},
+created () {
+  this.getRoles()
+}
+}
 </script>

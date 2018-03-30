@@ -25,6 +25,7 @@ class UserController extends Controller
         })
 
             ->orderBy('created_at', 'desc')
+            ->with(['roles'])
             ->paginate(20);
         return $user;
     }
@@ -41,6 +42,8 @@ class UserController extends Controller
         ]);
 
         $createdUser = User::create($request->get('user'));
+
+        $createdUser->roles()->sync($request->get('user')['roles']);
 
         return response()->json(['request' => $request->all(), 'user' => $createdUser]);
 
