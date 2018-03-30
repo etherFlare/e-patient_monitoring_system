@@ -31,7 +31,7 @@
                 <tr>
                   <th>Name</th>
                   <th>location</th>
-                  <th>Date Added</th>
+                  <th>Date Created</th>
                   <th class="col-md-2"></th>
                 </tr>
               </thead>
@@ -44,7 +44,7 @@
                     <btn size="xs" type="primary" class="col-xs-12" style="margin-left:3px;margin-right:3px;" v-on:click="showPatientModalComponent($event, patient)"><i class="fa fa-eye"></i> Show</btn>
                   </td>
                 </tr>
-                <tr v-if="!patients.total">
+                <tr v-if="patients.total === 0">
                   <td colspan="4" class="text-center">
                     <p> {{searchTerm}} was not in the list</p>
                   </td>
@@ -61,29 +61,52 @@
         <edit-patient-modal v-if="showEditPatientModal" v-on:close="showEditPatientModal = false" :edit-patient="patient" v-on:patient-updated="getPatients"></edit-patient-modal>
         <delete-patient-modal ref="showDeletePatientModal" :delete-patient="patient" v-if="showDeletePatientModal" v-on:patient-deleted="getPatients" v-on:close="showDeletePatientModal = false"  v-on:deleted="showPatientModal = false" ></delete-patient-modal>
         <!--show modal-->
-        <modal ref="showPatientModal" v-if="showPatientModal" v-model="showPatientModal"  auto-focus v-on:hide="$emit('close')" >
+        <modal ref="showPatientModal" v-if="showPatientModal" v-model="showPatientModal"  auto-focus v-on:hide="$emit('close')" size="lg">
           <div slot="title" >
             <div class="box-profile row">
-              <img class="animated-box profile-patient-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="Patient profile picture" style="margin-right:50px">
+
               <h3 class="profile-patientname text-center"> {{ patient.last_name }}, {{ patient.first_name }} {{ patient.middle_name }}</h3>
-              <p class="text-muted text-center">add location here</p>
             </div>
             <!-- /.box-body -->
           </div>
           <div class="box-body">
-            <strong><i class="fa fa-mobile-phone margin-r-5"></i> Contact Number</strong>
-            <p class="text-muted">{{ patient.contact_number }}</p>
-            <hr>
-            <strong><i class="fa  fa-patient-plus margin-r-5"></i>Account Created Since</strong>
-            <div class="text-muted">{{patient.created_at | moment('LLLL')}}</div>
-            <code>{{patient.created_at | moment('from')}}</code>
-            <hr>
-            <strong><i class="fa fa-calendar-check-o margin-r-5"></i>Date Updated </strong>
-            <div class="text-muted">{{patient.updated_at | moment('LLLL')}}</div>
-            <code>{{patient.updated_at | moment('from')}}</code>
-            <hr>
-            <strong><i class="fa fa-file-text-o margin-r-5"></i> Comment</strong>
-            <p>{{ patient.comment }}</p>
+            <div class="row">
+              <div class="col-md-6">
+                <strong><i class="fa fa-map margin-r-5"></i> Location</strong>
+                <p class="text-muted">{{ patient.location }}</p>
+                <hr>
+                <strong><i class="fa fa-mobile-phone margin-r-5"></i> Contact Number</strong>
+                <p class="text-muted">{{ patient.contact_number }}</p>
+                <hr>
+                <strong><i class="fa fa-map-o margin-r-5"></i> home Address</strong>
+                <p class="text-muted">{{ patient.home_address }}</p>
+                <hr>
+                <strong><i class="fa fa-user margin-r-5"></i> Contact Person</strong>
+                <p class="text-muted">{{ patient.contact_person }}</p>
+                <hr>
+                <strong><i class="fa fa-user margin-r-5"></i> gender</strong>
+                <p class="text-muted">{{ patient.gender }}</p>
+              </div>
+              <div class="col-md-6">
+                <strong><i class="fa fa-circle margin-r-5"></i> Unit</strong>
+                <p class="text-muted">{{ patient.unit_id }}</p>
+                <hr>
+                <strong><i class="fa fa-file-circle-o margin-r-5"></i> age</strong>
+                <p>{{ patient.age }}</p>
+                <hr>
+                <strong><i class="fa  fa-patient-plus margin-r-5"></i>Account Created Since</strong>
+                <div class="text-muted">{{patient.created_at | moment('LLLL')}}</div>
+                <code>{{patient.created_at | moment('from')}}</code>
+                <hr>
+                <strong><i class="fa fa-calendar-check-o margin-r-5"></i>Date Updated </strong>
+                <div class="text-muted">{{patient.updated_at | moment('LLLL')}}</div>
+                <code>{{patient.updated_at | moment('from')}}</code>
+                <hr>
+                <strong><i class="fa fa-file-text-o margin-r-5"></i> Comment</strong>
+                <p>{{ patient.comment }}</p>
+              </div>
+            </div>
+
           </div>
           <div slot="footer">
             <btn type="warning"  class="" v-on:click="showEditPatientModalComponent($event, patient)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>

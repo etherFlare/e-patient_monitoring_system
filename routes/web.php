@@ -34,7 +34,7 @@ Route::get('/role/add-new','RoleController@get_store');
 Route::get('/user', 'UserController@home') ->name('user');
 Route::resource('/user/users','UserController');
 //for patient
-Route::get('/patient', 'PatientController@home');
+Route::get('/patient', 'PatientController@home') ->name('patient');
 Route::resource('/patient/patients','PatientController');
 Route::get('/patient/add-new','PatientController@get_store');
 //for metadata
