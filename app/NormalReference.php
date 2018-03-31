@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class NormalReference extends Model
 {
-	protected $table = 'normal_reference';
+	protected $table = 'normals';
 	protected $fillable = [
 		'patient_id',
 		'type_id',

@@ -1,13 +1,8 @@
 <template>
-    <modal
-    v-model="showModal"
-    v-on:hide="$emit('close')"
-    title="New User"
-    :footer="false"
-    size="lg">
+    <modal v-model="showModal" v-on:hide="$emit('close')" title="NewUser" :footer="false" size="lg">
     <form ref="vForm" v-on:submit.prevent="postNewUser($event)">
         <template v-if="isBusy">
-            <img class="animated-box profile-user-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="User profile picture" >
+            <img class="animated-box profile-user-img img-responsive img-circle " src="/img/heart-beat.png" alt="User profile picture" >
         </template>
         <template v-else>
             <div class="row">
@@ -160,6 +155,7 @@ export default {
                 this.showModal = false
             }).catch(error => {
                 this.errors = error.response.data.errors
+                this.$toaster.error(error.response.data.message)
                 this.isBusy = false
                 return Promise.reject(error.response);
             })

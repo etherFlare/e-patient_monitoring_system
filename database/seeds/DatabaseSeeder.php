@@ -42,6 +42,7 @@ for($i = 0; $i < 10; $i++) {
 	    }
 	    for($i = 0; $i < 10; $i++) {
 	        App\Unit::create([
+	        	'label' => 'samplex',
 	            'mac_address'=> $faker->macAddress,
 	            'unit_is_active'=> $faker-> boolean ($chanceOfGettingTrue = 50),
 	            'unit_is_inuse'=> $faker->boolean,

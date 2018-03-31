@@ -2,7 +2,7 @@
     <modal v-model="showModal" v-on:hide="$emit('close')" title="NewPatient" :footer="false" size="lg">
     <form ref="vForm" v-on:submit.prevent="postNewPatient($event)">
         <template v-if="isBusy">
-            <img class="animated-box profile-patient-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="Patient profile picture" >
+            <img class="animated-box  img-responsive img-circle " src="/img/heart-beat.png" alt="some picture" >
         </template>
         <template v-else>
             <div class="row">
@@ -87,21 +87,19 @@
 <script>
 const blankPatientData = () => {
     return {
-        'unit_id': null,
-        'location_id': null,
+        'unit_id': 1,
+        'location_id': 1,
         'first_name': 'Jane',
         'middle_name': 'Da',
         'last_name': 'Moe',
         'gender': 'Male',
         'age': '18',
-       // 'location': 'ICU',
         'home_address': 'that door close to 0001',
         'contact_number': '1112222333',
         'contact_person': 'Ma Me',
         'comment': '...',
         'is_active': false,
         'is_archive': false
-        //'location_id': 1
     }
 }
 export default {
@@ -131,7 +129,7 @@ export default {
         unitsOption() {
             if(Boolean(this.units))
             {
-                return this.units.data.map(unit => { return {label: unit.mac_address, value: unit.id} } )
+                return this.units.data.map(unit => { return {label: unit.label, value: unit.id} } )
             }
             return []
         },

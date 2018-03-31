@@ -4,7 +4,7 @@
       <div slot="default">
         <form v-if="user" ref="vForm" v-on:submit.prevent="updateUser($event)">
           <template v-if="isBusy">
-            <img class="animated-box profile-user-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="User profile picture" >
+            <img class="animated-box profile-user-img img-responsive img-circle " src="/img/heart-beat.png" alt="some picture" >
           </template>
           <template v-else>
             <div class="row">
@@ -61,19 +61,12 @@
             </div>
             <div class="modal-footer text-right" >
               <div class="row">
-                <button class="btn btn-default pull-left col-md-4" type="button" v-on:click="dismiss=true">CANCEL</button>
+                <button class="btn btn-default pull-left col-md-4" type="button" v-on:click="$emit('close')">Cancel Update</button>
                 <button class="btn pull-right col-md-4" :class="{'btn-primary': canPost, 'btn-danger': !canPost}" type="submit">UPDATE</button>
               </div>
             </div>
           </template>
         </form>
-      </div>
-    </modal>
-    <modal v-model="dismiss" :transition-duration="0" :header="false">
-      <h3>WARNING! DISMISSING UPDATE</h3>
-      <div slot="footer">
-        <button class="btn btn-success pull-left col-md-4" type="button" v-on:click="dismiss=false" data-action="auto-focus">Back to Update</button>
-        <button class="btn btn-danger pull-right col-md-4" type="button" v-on:click="$emit('close')">Cancel Update</button>
       </div>
     </modal>
   </section>
@@ -91,7 +84,6 @@ export default {
   },
   data() {
     return {
-      dismiss:false,
       showModal: true,
       posting: false,
       user: (()=>{ return Object.assign({}, this.editUser) })(),

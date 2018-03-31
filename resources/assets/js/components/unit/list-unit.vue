@@ -24,27 +24,34 @@
                     </form>
                 </div>
                 <div class="box-body">
+<!--
                     <heart-beat v-if="on_load"></heart-beat>
+    -->                
                     <div v-if="!loading">
                         <table  id="ex1" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
+                                    <th>state</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Date Created</th>
+                                    <th>label</th>
                                     <th class="col-md-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(unit, index) in units" >
+                                <tr v-for="(unit, index) in units">
+                                    <td v-on:click="showUnitModalComponent($event, unit)">
+                                        <label class="switch">
+                                            <input type="checkbox" disabled="disabled"  checked v-model="unit.unit_is_active">
+                                            <span class="slider round "></span>
+                                        </label>
+                                    </td>
                                     <td v-on:click="showUnitModalComponent($event, unit)">{{ unit.mac_address }}</td>
-                                    <td  v-on:click="showUnitModalComponent($event, unit)">{{ unit.unit_is_active }}</td>
-                                    <td  v-on:click="showUnitModalComponent($event, unit)">{{ unit.created_at | moment('LLLL')}} <code>{{ unit.created_at | moment('from')}}</code></td>
+                                    <td  v-on:click="showUnitModalComponent($event, unit)">{{ unit.label }}</td>
                                     <td class="row">
                                         <btn size="xs" type="primary" class="col-xs-12" style="margin-left:3px;margin-right:3px;" v-on:click="showUnitModalComponent($event, unit)"><i class="fa fa-eye"></i> Show</btn>
                                     </td>
                                 </tr>
-                                <tr v-if="!units.total">
+                                <tr v-if="!units.length">
                                     <td colspan="4" class="text-center">
                                         <p> {{searchTerm}} was not in the list</p>
                                     </td>
@@ -64,24 +71,9 @@
                     <modal ref="showUnitModal" size="lg" v-model="showUnitModal"  auto-focus v-on:hide="$emit('close')" >
                         <div class="row">
                             <div class="col-md-6">
-                                <strong><i class="fa fa-mobile-phone margin-r-5"></i>Mac Address</strong>
-                                <p class="text-muted">{{ unit.mac_address }}</p>
-                                <hr>
-                                <strong><i class="fa  fa-unit-plus margin-r-5"></i>Unit Registered Since</strong>
-                                <div class="text-muted">{{unit.created_at | moment('LLLL')}}</div>
-                                <code>{{unit.created_at | moment('from')}}</code>
-                                <hr>
-                                <strong><i class="fa fa-calendar-check-o margin-r-5"></i>Unit Date Updated </strong>
-                                <div class="text-muted">{{unit.updated_at | moment('LLLL')}}</div>
-                                <code>{{unit.updated_at | moment('from')}}</code>
-                                <hr>
-                                <strong><i class="fa fa-file-text-o margin-r-5"></i> Comment</strong>
-                                <p>{{ unit.comment }}</p>
-                            </div>
-                            <div class="col-md-6">
                                 <p>
                                     <strong>
-                                        <i class="fa  fa-unit-plus margin-r-5"></i>Unit Activation Status
+                                        <i class="fa  fa-unit-plus margin-r-5"></i>Activation Status
                                     </strong>
                                 </p>
                                 <div class="row">
@@ -92,15 +84,46 @@
                                         </label>
                                     </div>
                                     <div class="col-xs-9">
-                                        <strong><i class="fa fa-file-text-o margin-r-5"></i>Used By</strong>
-                                        <p>{{ unit.unit_is_inuse }}</p>
+                                        <strong><i class="fa fa-circle-o margin-r-5"></i>Label</strong>
+                                        <p>{{ unit.label }}</p>
+                                    </div>
+                                </div>
+                                <strong>Mac Address</strong>
+                                <p class="text-muted">{{ unit.mac_address }}</p>
+                                <hr>
+                                <strong>Unit Registered Since</strong>
+                                <div class="text-muted">{{unit.created_at | moment('LLLL')}}</div>
+                                <code>{{unit.created_at | moment('from')}}</code>
+                                <hr>
+                                <strong>Unit Date Updated </strong>
+                                <div class="text-muted">{{unit.updated_at | moment('LLLL')}}</div>
+                                <code>{{unit.updated_at | moment('from')}}</code>
+                                <hr>
+                                <strong>Comment</strong>
+                                <p>{{ unit.comment }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p>
+                                    <strong>
+                                        <i class="fa  fa-unit-plus margin-r-5"></i>Usage Status
+                                    </strong>
+                                </p>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <label class="switch">
+                                            <input type="checkbox" disabled="disabled" checked v-model="unit.unit_is_inuse">
+                                            <span class="slider round "></span>
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <strong><i class="fa fa-user margin-r-5"></i>Used By</strong>
                                         <div v-for="(patient, patientsIdx) in unit.patients" :key="patientsIdx">{{ `${patient.first_name} ${patient.middle_name} ${patient.last_name} ${patient.created_at}` }}</div>
                                     </div>
                                 </div>
                                 <hr>
                                 <p>
                                     <strong>
-                                        <i class="fa  fa-unit-plus margin-r-5"></i>Unit Oximeter Status
+                                        <i class="fa  fa-unit-plus margin-r-5"></i>Oximeter Status
                                     </strong>
                                 </p>
                                 <div class="row">
@@ -118,7 +141,7 @@
                                 <hr>
                                 <p>
                                     <strong>
-                                        <i class="fa  fa-unit-plus margin-r-5"></i>Account Sphygmomanometer Status
+                                        <i class="fa  fa-unit-plus margin-r-5"></i>Sphygmomanometer Status
                                     </strong>
                                 </p>
                                 <div class="row">
@@ -136,7 +159,7 @@
                                 <hr>
                                 <p>
                                     <strong>
-                                        <i class="fa  fa-unit-plus margin-r-5"></i>Account Thermometer Status
+                                        <i class="fa  fa-unit-plus margin-r-5"></i>Thermometer Status
                                     </strong>
                                 </p>
                                 <div class="row">

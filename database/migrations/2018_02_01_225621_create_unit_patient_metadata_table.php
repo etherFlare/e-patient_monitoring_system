@@ -15,7 +15,7 @@ class CreateUnitPatientMetadataTable extends Migration
     {
         Schema::create('unit_patient_metadata', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('unit_id');
+            $table->integer('unit_id')->unsigned();
             $table->string('sensor_type',20);
             $table->integer('sensor_value');
             $table->timestamps();

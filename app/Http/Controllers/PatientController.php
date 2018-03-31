@@ -62,7 +62,6 @@ class PatientController extends Controller
             'last_name'      => 'required',
             'gender'         => 'required',
             'age'            => 'required',
-            //'location'       => 'required',
             'home_address'   => 'required',
             'contact_number' => 'required',
             'contact_person' => 'required',

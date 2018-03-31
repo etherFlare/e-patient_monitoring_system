@@ -1,14 +1,9 @@
 <template>
-  <modal 
-  v-model="showModal"
-  title="Delete Patient"  
-  :header="false" 
-  :footer="false" 
-  :transition-duration="0"
-  v-on:hide="$emit('close')"
-  >
+  <modal v-model="showModal" title="DeletePatient" :header="false" :footer="false" :transition-duration="0" v-on:hide="$emit('close')">
   <form ref="vForm" v-on:submit.prevent="doAction($event)"> 
-    <template v-if="posting">...deleting</template>
+    <template v-if="posting">
+        <img class="animated-box profile-patient-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="some picture" >
+    </template>
     <template v-else>
       <div slot="title" >
         <div class="box-profile ">

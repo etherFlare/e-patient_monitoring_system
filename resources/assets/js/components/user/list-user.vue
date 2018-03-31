@@ -23,7 +23,6 @@
           </form>
         </div>
         <div class="box-body">
-          
           <div v-if="!loading">
             <table  id="ex1" class="table table-bordered table-hover">
               <thead v-if="users.length">

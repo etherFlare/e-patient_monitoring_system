@@ -94,7 +94,7 @@
               </div>
               <div class="col-md-6">
                 <strong><i class="fa fa-circle margin-r-5"></i> Unit</strong>
-                <p class="text-muted"><span v-if="patient.unit">{{ patient.unit.mac_address }}</span></p>
+                <p class="text-muted"><span v-if="patient.unit">{{ patient.unit.label }}</span></p>
                 <hr>
                 <strong><i class="fa fa-file-circle-o margin-r-5"></i> age</strong>
                 <p>{{ patient.age }}</p>

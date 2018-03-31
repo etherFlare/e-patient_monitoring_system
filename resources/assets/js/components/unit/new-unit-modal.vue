@@ -1,11 +1,13 @@
 <template>
-    <modal v-model="showModal" v-on:hide="$emit('close')" title="New Unit" :footer="false" size="lg"> 
+    <modal v-model="showModal" v-on:hide="$emit('close')" title="New Unit" :footer="false" size="lg">
         <form ref="vForm" v-on:submit.prevent="postNewUnit($event)">
-            <template v-if="isBusy">...isBusy</template>
+            <template v-if="isBusy">
+                <img class="animated-box  img-responsive img-circle " src="/img/heart-beat.png" alt="some picture" >
+            </template>
             <template v-else>
                 <div class="row">
                     <div class="col-md-6">
-                        <p><strong><i class="fa  fa-unit-plus margin-r-5"></i> Unit Activation Status</strong></p>
+                        <p><strong><i class="fa  fa-circle-o margin-r-5"></i>Activation Status</strong></p>
                         <div class="row">
                             <div class="col-xs-3">
                                 <label class="switch">
@@ -28,7 +30,19 @@
                     <div class="col-md-6">
                         <p>
                             <strong>
-                                <i class="fa  fa-unit-plus margin-r-5"></i> Unit Oximeter Status
+                                <i class="fa  fa-circle-o margin-r-5"></i>Label
+                            </strong>
+                        </p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" :class="{'has-error': !unit.label}">
+                                    <input type="text" class="form-control" placeholder="..." v-model="unit.label"/>
+                                </div>
+                            </div>
+                        </div>
+                        <p>
+                            <strong>
+                                <i class="fa  fa-circle-o margin-r-5"></i> Unit Oximeter Status
                             </strong>
                         </p>
                         <div class="row">
@@ -45,7 +59,7 @@
                         </div>
                         <p>
                             <strong>
-                                <i class="fa fa-unit-plus margin-r-5"></i> Account Sphygmomanometer Status
+                                <i class="fa fa-circle-o margin-r-5"></i> Account Sphygmomanometer Status
                             </strong>
                         </p>
                         <div class="row">
@@ -62,7 +76,7 @@
                         </div>
                         <p>
                             <strong>
-                                <i class="fa  fa-unit-plus margin-r-5"></i>Account Thermometer Status
+                                <i class="fa  fa-circle-o margin-r-5"></i>Account Thermometer Status
                             </strong>
                         </p>
                         <div class="row">
@@ -89,13 +103,12 @@
         </form>
     </modal>
 </template>
-
 <script>
 import {mask} from 'vue-the-mask'
-
 const blankUnitData = () => {
     return {
-        'mac_address': '',
+        'mac_address': 'ff:ff:ff:ff:ff:ff',
+        'label': 'samplex',
         'unit_is_active': false,
         'unit_is_inuse': false,
         'oximeter_is_active': false,
@@ -104,10 +117,9 @@ const blankUnitData = () => {
         'oximeter_delay': 1000,
         'bp_delay': 1000,
         'thermometer_delay': 1000,
-        'comment': '...bananas'
+        'comment': '...'
     }
 }
-
 export default {
     directives: { mask },
     name: 'new-unit-modal',
@@ -147,10 +159,13 @@ export default {
             this.message = {}
             return await axios(axiosOptions).then( response => {
                 this.unit = blankUnitData()
+                this.$toaster.success(response.data.msg)
                 this.$emit('unit-created')
                 this.isBusy = false
+                this.showModal = false
             }).catch(error => {
                 this.errors = error.response.data.errors
+                this.$toaster.error(error.response.data.message)
                 this.isBusy = false
                 return Promise.reject(error.response);
             })
