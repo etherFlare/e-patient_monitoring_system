@@ -34,6 +34,14 @@ import NewPatientModalComponent from './components/patient/new-patient-modal.vue
 import EditPatientModalComponent from './components/patient/edit-patient-modal.vue'
 import DeletePatientModalComponent from './components/patient/delete-patient-modal.vue'
 
+import NewLocationModalComponent from './components/location/new-location-modal.vue'
+import EditLocationModalComponent from './components/location/edit-location-modal.vue'
+import DeleteLocationModalComponent from './components/location/delete-location-modal.vue'
+
+import NewTypeModalComponent from './components/type/new-type-modal.vue'
+import EditTypeModalComponent from './components/type/edit-type-modal.vue'
+import DeleteTypeModalComponent from './components/type/delete-type-modal.vue'
+
 window.Axios=require('axios').default;
 
 let AppLayout= require('./components/app.vue');
@@ -48,6 +56,10 @@ const Listroles=Vue.component('Listroles', require('./components/role/list-role.
 const Listusers=Vue.component('Listusers', require('./components/user/list-user.vue'));
 // show the list patient template
 const Listpatients=Vue.component('Listpatients', require('./components/patient/list-patient.vue'));
+// show the list location template
+const Listlocations=Vue.component('Listlocations', require('./components/location/list-location.vue'));
+// show the list type template
+const Listtypes=Vue.component('Listtypes', require('./components/type/list-type.vue'));
 
 const heartBeat =Vue.component('heart-beat', require('./components/heart-beat.vue'));
 const vmodal =Vue.component('v-modal', require('./components/modal.vue'));
@@ -82,6 +94,14 @@ Vue.component('new-patient-modal', NewPatientModalComponent);
 Vue.component('edit-patient-modal', EditPatientModalComponent);
 Vue.component('delete-patient-modal', DeletePatientModalComponent);
 
+Vue.component('new-location-modal', NewLocationModalComponent);
+Vue.component('edit-location-modal', EditLocationModalComponent);
+Vue.component('delete-location-modal', DeleteLocationModalComponent);
+
+Vue.component('new-type-modal', NewTypeModalComponent);
+Vue.component('edit-type-modal', EditTypeModalComponent);
+Vue.component('delete-type-modal', DeleteTypeModalComponent);
+
 const routes = [
 {
   name: 'Listposts',
@@ -107,6 +127,16 @@ const routes = [
   name: 'Listpatients',
   path: '/patient',
   component: Listpatients
+},
+{
+  name: 'Listlocations',
+  path: '/location',
+  component: Listlocations
+},
+{
+  name: 'Listtypes',
+  path: '/type',
+  component: Listtypes
 }
 ];
 
@@ -114,12 +144,14 @@ const router = new VueRouter({ mode: 'history', routes: routes});
 
 const store = new Vuex.Store({
   state: { 
-    loading: true,
-    posts: {},
-    units: {},
-    roles: {},
-    users: {},
-    patients: {}
+    loading:  true,
+    posts:    {},
+    units:    {},
+    roles:    {},
+    users:    {},
+    patients: {},
+    locations:{},
+    types:    {}
   },
   getters: {
     loading(state) {
@@ -159,6 +191,20 @@ const store = new Vuex.Store({
     patients(state, getters) {
       return getters.patientsCollection.data
     },
+    //-------------------------palocation
+    locationsCollection(state) {
+      return state.locations
+    },
+    locations(state, getters) {
+      return getters.locationsCollection.data
+    },
+     //-------------------------type
+    typesCollection(state) {
+      return state.types
+    },
+    types(state, getters) {
+      return getters.typesCollection.data
+    }
     //-------------------------
   },
   actions: {
@@ -258,7 +304,7 @@ async getUsers({commit, dispatch, state}, data) {
   newUsers({commit}, payload) {
     commit('setUsers', payload)
   },
-  //--------------------------user
+  //--------------------------patient
 async getPatients({commit, dispatch, state}, data) {
     data = data || {}
     const axiosOptions = {
@@ -281,6 +327,54 @@ async getPatients({commit, dispatch, state}, data) {
   },
   newPatients({commit}, payload) {
     commit('setPatients', payload)
+  },
+  //--------------------------location
+async getLocations({commit, dispatch, state}, data) {
+    data = data || {}
+    const axiosOptions = {
+      'url': '/location/locations',
+      'method': 'get',
+      'params': data
+    }
+    await commit('setLoading', true)
+    let nullData = Object.assign(state.locations, {data: []})
+    await dispatch('newLocations', nullData)
+
+    return await axios(axiosOptions).then(async (response) => {
+      await console.log('getLocations:', response)
+      await dispatch('newLocations', response.data)
+       commit('setLoading', false)
+
+    }).catch(error => { 
+      console.log('error', error); 
+    })
+  },
+  newLocations({commit}, payload) {
+    commit('setLocations', payload)
+  },
+  //--------------------------type
+async getTypes({commit, dispatch, state}, data) {
+    data = data || {}
+    const axiosOptions = {
+      'url': '/type/types',
+      'method': 'get',
+      'params': data
+    }
+    await commit('setLoading', true)
+    let nullData = Object.assign(state.types, {data: []})
+    await dispatch('newTypes', nullData)
+
+    return await axios(axiosOptions).then(async (response) => {
+      await console.log('getTypes:', response)
+      await dispatch('newTypes', response.data)
+       commit('setLoading', false)
+
+    }).catch(error => { 
+      console.log('error', error); 
+    })
+  },
+  newTypes({commit}, payload) {
+    commit('setTypes', payload)
   }
   //-------------------------------------------
 },
@@ -302,6 +396,12 @@ mutations: {
   },
   setPatients(state, payload){
     state.patients = payload
+  },
+  setLocations(state, payload){
+    state.locations = payload
+  },
+  setTypes(state, payload){
+    state.types = payload
   }
 } 
 })

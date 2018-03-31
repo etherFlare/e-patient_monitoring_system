@@ -14,7 +14,7 @@ class Patient extends Model
         'last_name',
         'gender',
         'age',
-        'location',
+        'location_id',
         'home_address',
         'contact_number',
         'contact_person',
@@ -22,4 +22,12 @@ class Patient extends Model
         'is_archive',
         'comment'
     ];
+        public function location()
+    {
+        return $this->belongsTo('App\Location');
+    }
+    public function unit()
+    {
+        return $this->belongsTo('App\Unit');
+    }
 }

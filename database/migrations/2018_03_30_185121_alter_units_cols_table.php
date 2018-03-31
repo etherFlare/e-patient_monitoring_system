@@ -13,11 +13,15 @@ class AlterUnitsColsTable extends Migration
      */
     public function up()
     {
-        Schema::table('units', function (Blueprint $table) {
+        if (Schema::hasTable('users')) {
+    Schema::table('units', function (Blueprint $table) {
             $table->string('oximeter_delay')->nullable()->change();
             $table->string('bp_delay')->nullable()->change();
             $table->string('thermometer_delay')->nullable()->change();
         });
+}
+
+        
     }
 
     /**

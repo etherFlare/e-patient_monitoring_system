@@ -20,47 +20,31 @@ class PatientController extends Controller
             }
         })
             ->orderBy('created_at', 'desc')
+            ->with(['location'])
+            ->with(['unit'])
             ->paginate(10);
         return $patients;
     }
     public function store(Request $request)
     {
         $this->validate($request, [
+            //'patient.location_id'    => 'required',
             'patient.unit_id'        => 'required',
             'patient.first_name'     => 'required',
             'patient.middle_name'    => 'required',
             'patient.last_name'      => 'required',
             'patient.gender'         => 'required',
             'patient.age'            => 'required',
-            'patient.location'       => 'required',
+            //'patient.location'       => 'required',
             'patient.home_address'   => 'required',
             'patient.contact_number' => 'required',
             'patient.contact_person' => 'required',
             'patient.comment'        => 'required',
         ]);
         $createdPatient = Patient::create($request->get('patient'));
-
-        return response()->json(['request' => $request->all(), 'patient' => $createdPatient]);
-
+        return response()->json(['request' => $request->all(), 'patient' => $createdPatient, 'statur' => 'success', 'msg' => 'Patient updated successfully']);
     }
-    public function get_store(Request $request)
-    {
-        $this->validate($request, [
-            'unit_id'        => 'required',
-            'first_name'     => 'required',
-            'middle_name'    => 'required',
-            'last_name'      => 'required',
-            'gender'         => 'required',
-            'age'            => 'required',
-            'location'       => 'required',
-            'home_address'   => 'required',
-            'contact_number' => 'required',
-            'contact_person' => 'required',
-            'comment'        => 'required',
-        ]);
-        $create = Patient::create($request->all());
-        return response()->json(['status' => 'success', 'msg' => 'Patient created successfully']);
-    }
+  
     public function show($id)
     {
         return Patient::find($id);
@@ -78,7 +62,7 @@ class PatientController extends Controller
             'last_name'      => 'required',
             'gender'         => 'required',
             'age'            => 'required',
-            'location'       => 'required',
+            //'location'       => 'required',
             'home_address'   => 'required',
             'contact_number' => 'required',
             'contact_person' => 'required',

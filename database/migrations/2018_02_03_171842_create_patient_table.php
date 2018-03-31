@@ -21,7 +21,7 @@ class CreatePatientTable extends Migration
             $table->string('last_name',20);
             $table->string('gender',10);
             $table->integer('age');
-            $table->string('location',50);
+            $table->integer('location_id');
             $table->string('home_address',50);    
             $table->string('contact_number',50);
             $table->string('contact_person',50);

@@ -56,7 +56,7 @@
                             <p class="small text-red" v-for="(line, errorIdx) in errors['user.password']" :key="errorIdx">{{line}}</p>
                         </template>
                     </div>
-                    <div class="form-group" :class="{'has-error': !user.comment}">
+                    <div class="form-group" >
                         <label>Comment</label>
                         <textarea cols="10" rows="5" class="form-control" placeholder="..." v-model="user.comment"></textarea>
                     </div>
@@ -76,14 +76,22 @@
 <script>
 const blankUserData = () => {
     return {
-        first_name: 'Jane',
-        middle_name: 'Da',
-        last_name: 'Moe',
-        contact_number: '1112222333',
-        email: 'foo@bar.io',
-        password: 'banana',
-        comment: '...',
-        roles: [1]
+        first_name: 'teddy',
+        middle_name: 'black',
+        last_name: 'white',
+        contact_number: '090909090',
+        email: 'sample@local.test',
+        password: '1234',
+        comment: 'sample',
+        roles: []
+      /*  first_name: '',
+        middle_name: '',
+        last_name: '',
+        contact_number: '',
+        email: '',
+        password: '',
+        comment: '',
+        roles: []*/
     }
 }
 export default {
@@ -146,8 +154,10 @@ export default {
             this.message = {}
             return await axios(axiosOptions).then( (response) => {
                 this.user = blankUserData()
+                this.$toaster.success(response.data.msg)
                 this.$emit('user-created')
                 this.isBusy = false
+                this.showModal = false
             }).catch(error => {
                 this.errors = error.response.data.errors
                 this.isBusy = false

@@ -21,7 +21,7 @@ class CreateUserTable extends Migration
             $table->string('contact_number');
             $table->string('email',50)->unique();
             $table->string('password');
-             $table->string('comment',50);
+             $table->string('comment',50)->nullable();
             $table->rememberToken();
             $table->timestamps();
             // add description

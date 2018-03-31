@@ -23,7 +23,7 @@
           </form>
         </div>
         <div class="box-body">
-          <heart-beat v-if="on_load"></heart-beat>
+          
           <div v-if="!loading">
             <table  id="ex1" class="table table-bordered table-hover">
               <thead v-if="users.length">
@@ -32,7 +32,7 @@
                   <th>Email</th>
                   <th>Date Created</th>
                   <th>Roles</th>
-                  <th class="col-md-2"></th>
+                  <th ></th>
                 </tr>
               </thead>
               <tbody>
@@ -65,7 +65,6 @@
         <delete-user-modal ref="showDeleteUserModal" :delete-user="user" v-if="showDeleteUserModal" v-on:user-deleted="getUsers" v-on:close="showDeleteUserModal = false"  v-on:deleted="showUserModal = false" ></delete-user-modal>
         <modal ref="showUserModal" v-model="showUserModal" auto-focus v-on:hide="$emit('close')">
           <template v-if="user">
-            
           <div slot="title" >
             <div class="box-profile row">
               <img class="animated-box profile-user-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="User profile picture" style="margin-right:50px">

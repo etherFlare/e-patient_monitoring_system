@@ -1,5 +1,8 @@
 <template id="patient-list">
   <div class="row">
+      <!--
+  <heart-beat v-if="on_load"></heart-beat>
+    -->
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
@@ -24,7 +27,7 @@
           </form>
         </div>
         <div class="box-body">
-          <heart-beat v-if="on_load"></heart-beat>
+          
           <div v-if="!loading">
             <table  id="ex1" class="table table-bordered table-hover">
               <thead>
@@ -32,13 +35,13 @@
                   <th>Name</th>
                   <th>location</th>
                   <th>Date Created</th>
-                  <th class="col-md-2"></th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="(patient, index) in patients" >
                   <td v-on:click="showPatientModalComponent($event, patient)">{{ patient.last_name }}, {{ patient.first_name }} {{ patient.middle_name }}</td>
-                  <td  v-on:click="showPatientModalComponent($event, patient)">{{ patient.location }}</td>
+                  <td  v-on:click="showPatientModalComponent($event, patient)"><span v-if="patient.location">{{ patient.location.name }}</span></td>
                   <td  v-on:click="showPatientModalComponent($event, patient)">{{ patient.created_at | moment('LLLL')}} <code>{{ patient.created_at | moment('from')}}</code></td>
                   <td class="row">
                     <btn size="xs" type="primary" class="col-xs-12" style="margin-left:3px;margin-right:3px;" v-on:click="showPatientModalComponent($event, patient)"><i class="fa fa-eye"></i> Show</btn>
@@ -58,7 +61,9 @@
           <pagination v-model="currentPage" :total-page="totalPage" align="center" :max-size="3"/>
         </div>
         <new-patient-modal ref="showCreatePatientModal" v-if="showCreatePatientModal" v-on:close="showCreatePatientModal = false" v-on:patient-created="patientCreated" ></new-patient-modal>
+        
         <edit-patient-modal v-if="showEditPatientModal" v-on:close="showEditPatientModal = false" :edit-patient="patient" v-on:patient-updated="getPatients"></edit-patient-modal>
+
         <delete-patient-modal ref="showDeletePatientModal" :delete-patient="patient" v-if="showDeletePatientModal" v-on:patient-deleted="getPatients" v-on:close="showDeletePatientModal = false"  v-on:deleted="showPatientModal = false" ></delete-patient-modal>
         <!--show modal-->
         <modal ref="showPatientModal" v-if="showPatientModal" v-model="showPatientModal"  auto-focus v-on:hide="$emit('close')" size="lg">
@@ -73,7 +78,7 @@
             <div class="row">
               <div class="col-md-6">
                 <strong><i class="fa fa-map margin-r-5"></i> Location</strong>
-                <p class="text-muted">{{ patient.location }}</p>
+                <p class="text-muted"><span v-if="patient.location">{{ patient.location.name }}</span></p>
                 <hr>
                 <strong><i class="fa fa-mobile-phone margin-r-5"></i> Contact Number</strong>
                 <p class="text-muted">{{ patient.contact_number }}</p>
@@ -89,7 +94,7 @@
               </div>
               <div class="col-md-6">
                 <strong><i class="fa fa-circle margin-r-5"></i> Unit</strong>
-                <p class="text-muted">{{ patient.unit_id }}</p>
+                <p class="text-muted"><span v-if="patient.unit">{{ patient.unit.mac_address }}</span></p>
                 <hr>
                 <strong><i class="fa fa-file-circle-o margin-r-5"></i> age</strong>
                 <p>{{ patient.age }}</p>
@@ -183,6 +188,10 @@ export default {
       })
     },
     getPatients(event) {
+      if(this.patient){   
+      this.patient = event.patient
+      }
+
       return this.$store.dispatch('getPatients', { 'search': this.searchTerm })
     }
   },

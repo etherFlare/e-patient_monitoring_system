@@ -14,6 +14,7 @@
 		    -webkit-animation: bganim 2s linear infinite;
 		    -o-animation: bganim 2s linear infinite;
 		    animation: bganim 2s linear infinite;
+		     background-color: rgba(0,0,1,0.4); 
 		}
 		.animated-box img{
 			width: 100%;

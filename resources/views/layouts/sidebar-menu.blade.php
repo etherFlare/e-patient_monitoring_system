@@ -56,7 +56,16 @@
             <i class="fa fa-file-o"></i> <span>Normal References</span>
           </a>
         </li>
-         
+        <li>
+          <a href="{{ route('location') }}">
+            <i class="fa fa-file-o"></i> <span>Location</span>
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('type') }}">
+            <i class="fa fa-file-o"></i> <span>Type</span>
+          </a>
+        </li>
   <li class="header">LABELS</li>
   <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
   <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>

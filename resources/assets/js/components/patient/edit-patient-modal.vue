@@ -1,112 +1,106 @@
 <template>
   <section>
-    <modal 
-    v-model="showModal" 
-    title="Edit Patient" 
-    :keyboard="false" 
-    :backdrop="false" 
-    :footer="false" 
-    v-on:hide="$emit('close')"
-    size="lg"
-    >  
-    <div slot="default">
-      <form v-if="patient" ref="vForm" v-on:submit.prevent="updatePatient($event)">
-        <template v-if="posting">...posting</template>
-        <template v-else>
-          <div class="row">
-        <div class="col-md-6">
-          <div class="form-group col-md-4" :class="{'has-error': !patient.first_name}">
-            <label>First Name</label>
-            <input type="text" class="form-control" placeholder="..." v-model="patient.first_name"/>
-          </div>
-          <div class="form-group col-md-4" :class="{'has-error': !patient.middle_name}">
-            <label>Middle Name</label>
-            <input type="text" class="form-control" placeholder="..." v-model="patient.middle_name"/>
-          </div>
-          <div class="form-group col-md-4" :class="{'has-error': !patient.last_name}">
-            <label>Surname</label>
-            <input type="text" class="form-control" placeholder="..." v-model="patient.last_name"/>
-          </div>
-          <div class="form-group " :class="{'has-error': !patient.contact_number}">
-            <label>Phone Number</label>
-            <input type="text" class="form-control" placeholder="..." v-model="patient.contact_number"/>
-          </div>
-          <div class="form-group " :class="{'has-error': !patient.home_address}">
-            <label>Home Address</label>
-            <input type="text" class="form-control" placeholder="..." v-model="patient.home_address"/>
-          </div>
-          <div class="form-group " :class="{'has-error': !patient.contact_person}">
-            <label>Contact Person</label>
-            <input type="text" class="form-control" placeholder="..." v-model="patient.contact_person"/>
-          </div>
-          <div class="form-group " :class="{'has-error': !patient.gender}">
-            <label >gender</label>
-            <div class="radio">
-              <label class="radio-inline"><input type="radio" name="optradio">Option 1</label>
-              <label class="radio-inline"><input type="radio" name="optradio">Option 2</label>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="form-group">
-            <label for="role">Location</label>
-            <select class="form-control" id="location">
-              <option disabled selected value> -- select an option -- </option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="role">Unit</label>
-            <select class="form-control" id="unit">
-              <option disabled selected value> -- select an option -- </option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </select>
-          </div>
-          <div class="form-group" :class="{'has-error': !patient.comment}">
-            <label>Comment</label>
-            <textarea cols="10" rows="5" class="form-control" placeholder="..." v-model="patient.comment"></textarea>
-          </div>
-        </div>
-      </div>
-          <div class="modal-footer text-right" >
-            <div class="row">
-              <button class="btn btn-default pull-left col-md-4" type="button" v-on:click="dismiss=true">CANCEL</button>
-              <button class="btn pull-right col-md-4" :class="{'btn-primary': canPost, 'btn-danger': !canPost}" type="submit">UPDATE</button>
-            </div>
-          </div>
+    <modal v-model="showModal" title="Edit Patient" :keyboard="false" :backdrop="false" :footer="false" v-on:hide="$emit('close')" size="lg">
+      <div slot="default">
+        <form v-if="patient" ref="vForm" v-on:submit.prevent="updatePatient($event)">
+           <template v-if="isBusy">
+            <img class="animated-box profile-patient-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="Patient profile picture" >
         </template>
-      </form>
-    </div>
-  </modal> 
-  <!--verification modal -->
-  <modal 
-  v-model="dismiss" 
-  :transition-duration="0" 
-  :header="false"
-  >
-  <h3>WARNING! DISMISSING UPDATE</h3>
-  <div slot="footer">
-    <button class="btn btn-success pull-left col-md-4" type="button" v-on:click="dismiss=false" data-action="auto-focus">Back to Update</button> 
-    <button class="btn btn-danger pull-right col-md-4" type="button" v-on:click="$emit('close')">Cancel Update</button> 
-    
-  </div>
-</modal> 
-<!--verification modal end-->
-</section>
+          <template v-else>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group" :class="{'has-error': !patient.first_name}">
+                      <label>First Name</label>
+                      <input type="text" class="form-control" placeholder="..." v-model="patient.first_name"/>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group" :class="{'has-error': !patient.middle_name}">
+                      <label>Middle Name</label>
+                      <input type="text" class="form-control" placeholder="..." v-model="patient.middle_name"/>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group" :class="{'has-error': !patient.last_name}">
+                      <label>Surname</label>
+                      <input type="text" class="form-control" placeholder="..." v-model="patient.last_name"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group " :class="{'has-error': !patient.contact_number}">
+                  <label>Phone Number</label>
+                  <input type="text" class="form-control" placeholder="..." v-model="patient.contact_number"/>
+                </div>
+                <div class="form-group " :class="{'has-error': !patient.home_address}">
+                  <label>Home Address</label>
+                  <input type="text" class="form-control" placeholder="..." v-model="patient.home_address"/>
+                </div>
+                <div class="form-group " :class="{'has-error': !patient.contact_person}">
+                  <label>Contact Person</label>
+                  <input type="text" class="form-control" placeholder="..." v-model="patient.contact_person"/>
+                </div>
+                <div class="form-group " :class="{'has-error': !patient.gender}">
+                  <label >gender</label>
+                  <div class="radio">
+                    <label class="radio-inline"><input type="radio" name="patient[gender]" value="Male" v-model="patient.gender"> Male</label>
+                    <label class="radio-inline"><input type="radio" name="patient[gender]" value="Female" v-model="patient.gender"> Female</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group" :class="{'has-error': !patient.location_id || hasError('patient.location_id')}">
+                  <label for="location_id">Location</label>
+                  <select class="form-control" id="location_id" v-model="patient.location_id" placeholder="...">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option v-for="(location, locationsOptionIdx) in locationsOption" :key="locationsOptionIdx" :value="location.value">{{location.label}}</option>
+                  </select>
+                  <template v-if="hasError('patient.location_id')">
+                    <p class="small text-red" v-for="(line, errorIdx) in errors['patient.location_id']" :key="errorIdx">{{line}}</p>
+                  </template>
+                </div>
+                <div class="form-group" :class="{'has-error': !patient.unit_id || hasError('patient.unit_id')}">
+                  <label for="unit_id">Unit</label>
+                  <select class="form-control" id="unit_id" v-model="patient.unit_id" placeholder="...">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option v-for="(unit, unitsOptionIdx) in unitsOption" :key="unitsOptionIdx" :value="unit.value">{{unit.label}}</option>
+                  </select>
+                  <template v-if="hasError('patient.unit_id')">
+                    <p class="small text-red" v-for="(line, errorIdx) in errors['patient.unit_id']" :key="errorIdx">{{line}}</p>
+                  </template>
+                </div>
+                <div class="form-group" :class="{'has-error': !patient.comment}">
+                  <label>Comment</label>
+                  <textarea cols="10" rows="5" class="form-control" placeholder="..." v-model="patient.comment"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer text-right" >
+              <div class="row">
+                <button class="btn btn-default pull-left col-md-4" type="button" v-on:click="dismiss=true">CANCEL</button>
+                <button class="btn pull-right col-md-4" :class="{'btn-primary': canPost, 'btn-danger': !canPost}" type="submit">UPDATE</button>
+              </div>
+            </div>
+          </template>
+        </form>
+      </div>
+    </modal>
+    <!--verification modal -->
+    <modal v-model="dismiss" :transition-duration="0" :header="false">
+      <h3>WARNING! DISMISSING UPDATE</h3>
+      <div slot="footer">
+        <button class="btn btn-success pull-left col-md-4" type="button" v-on:click="dismiss=false" data-action="auto-focus">Back to Update</button>
+        <button class="btn btn-danger pull-right col-md-4" type="button" v-on:click="$emit('close')">Cancel Update</button>
+      </div>
+    </modal>
+    <!--verification modal end-->
+  </section>
 </template>
 <script>
 export default {
   name: 'edit-patient-modal',
-  props: { 
+  props: {
     editPatient: {
       required: true
     }
@@ -115,11 +109,32 @@ export default {
     return {
       dismiss:false,
       showModal: true,
-      posting: false,
-      patient: (()=>{ return Object.assign({}, this.editPatient) })()
+      patient: (()=>{ return Object.assign({}, this.editPatient) })(),
+      isBusy: false,
+      errors: null,
+      units: null,
+      locations: null
     }
   },
+  created() {
+    this.getUnits()
+    this.getLocations()
+  },
   computed: {
+    locationsOption() {
+      if(Boolean(this.locations))
+      {
+        return this.locations.data.map(location => { return {label: location.name, value: location.id} } )
+      }
+      return []
+    },
+    unitsOption() {
+      if(Boolean(this.units))
+      {
+        return this.units.data.map(unit => { return {label: unit.mac_address, value: unit.id} } )
+      }
+      return []
+    },
     canPost(){
       let result = true
       Object.entries(this.patient).forEach(([attrIdx, attr])=>{
@@ -129,6 +144,35 @@ export default {
     }
   },
   methods: {
+    hasError(field) {
+      const errors = this.errors
+      if(!errors) return false
+        return Object.keys(errors).map(key=>key).includes(field)
+    },
+    async getLocations() {
+      const axiosOptions = {
+        'url': '/location/locations',
+        'method': 'get'
+      }
+      await axios(axiosOptions).then(response => {
+        this.locations = response.data
+      }).catch(error => {
+        this.locations = null
+        return Promise.reject(error.response);
+      })
+    },
+    async getUnits() {
+      const axiosOptions = {
+        'url': '/unit/units',
+        'method': 'get'
+      }
+      await axios(axiosOptions).then(response => {
+        this.units = response.data
+      }).catch(error => {
+        this.units = null
+        return Promise.reject(error.response);
+      })
+    },
     async updatePatient(event){
       const axiosOptions = {
         'url': '/patient/patients/'+this.editPatient.id,
@@ -136,15 +180,22 @@ export default {
         'params': {'_method': 'PUT'},
         'data': this.patient
       }
-      this.posting = true
+      this.errors = null
+      this.isBusy = true
+      this.result = {}
+      this.message = {}
       await axios(axiosOptions).then(async (response) => {
         this.$toaster.success(response.data.msg)
-        this.$emit('patient-updated')
+        this.$emit('patient-updated', {patient: this.patient})
+        this.isBusy = false
+        this.showModal = false
       }).catch(error => {
+        this.errors = error.response.data.errors
         this.$toaster.error(error.response.data.message)
+        this.isBusy = false
+        return Promise.reject(error.response);
       })
-      this.posting = false
-      this.showModal = false
+      this.isBusy = false
     }
   }
 }

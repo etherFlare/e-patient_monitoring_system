@@ -13,7 +13,14 @@ class DatabaseSeeder extends Seeder
     {
     	$faker = Faker\Factory::create();
 
- 
+ for($i = 0; $i < 10; $i++) {
+	        App\Location::create([
+	            'name' =>'room no $i',
+		        'description' => 'seeded',
+	            'created_at' => Carbon\Carbon::now() , 
+	            'updated_at' => Carbon\Carbon::now()
+	        ]);
+	    }
 for($i = 0; $i < 10; $i++) {
 	        App\Patient::create([
 	            'unit_id' =>$i,
@@ -22,7 +29,7 @@ for($i = 0; $i < 10; $i++) {
 		        'last_name'=>$faker->lastName,
 		        'gender'=> 'male',
 		        'age'=>18,
-		        'location' =>'ub',
+		        'location_id' =>$i,
 		        'home_address' =>$faker->streetAddress,
 		        'contact_number'=>$faker->phoneNumber,
 		        'contact_person' => $faker->firstName,

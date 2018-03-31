@@ -13,7 +13,6 @@
         <template v-else>
             <div class="row">
                 <div class="col-md-6">
-
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group" :class="{'has-error': !patient.first_name}">
@@ -34,10 +33,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
                     <div class="form-group " :class="{'has-error': !patient.contact_number}">
                         <label>Phone Number</label>
                         <input type="text" class="form-control" placeholder="..." v-model="patient.contact_number"/>
@@ -59,15 +54,25 @@
                     </div>
                 </div>
                 <div class="col-md-6">
+                    <div class="form-group" :class="{'has-error': !patient.location_id || hasError('patient.location_id')}">
+                        <label for="location_id">Location</label>
+                        <select class="form-control" id="location_id" v-model="patient.location_id" placeholder="...">
+                            <option disabled selected value> -- select an option -- </option>
+                            <option v-for="(location, locationsOptionIdx) in locationsOption" :key="locationsOptionIdx" :value="location.value">{{location.label}}</option>
+                        </select>
+                        <template v-if="hasError('patient.location_id')">
+                            <p class="small text-red" v-for="(line, errorIdx) in errors['patient.location_id']" :key="errorIdx">{{line}}</p>
+                        </template>
+                    </div>
+<!--
                     <div class="form-group">
                         <label for="location">Location</label>
                         <select class="form-control" id="location" v-model="patient.location" placeholder="...">
                             <option disabled selected value> -- select an option -- </option>
                             <option v-for="(location, locationsOptionIdx) in locationsOption" :key="locationsOptionIdx" :value="location.value">{{location.label}}</option>
-
                         </select>
                     </div>
-
+-->
                     <div class="form-group" :class="{'has-error': !patient.unit_id || hasError('patient.unit_id')}">
                         <label for="unit_id">Unit</label>
                         <select class="form-control" id="unit_id" v-model="patient.unit_id" placeholder="...">
@@ -94,23 +99,24 @@
     </form>
 </modal>
 </template>
-
 <script>
 const blankPartienData = () => {
     return {
         'unit_id': null,
+        'location_id': null,
         'first_name': 'Jane',
         'middle_name': 'Da',
         'last_name': 'Moe',
         'gender': 'Male',
         'age': '18',
-        'location': 'ICU',
+       // 'location': 'ICU',
         'home_address': 'that door close to 0001',
         'contact_number': '1112222333',
         'contact_person': 'Ma Me',
         'comment': '...',
         'is_active': false,
         'is_archive': false
+        //'location_id': 1
     }
 }
 export default {
@@ -121,18 +127,27 @@ export default {
             isBusy: false,
             patient: blankPartienData(),
             errors: null,
-            units: null
+            units: null,
+            locations: null
         }
     },
     created() {
         this.getUnits()
+        this.getLocations()
     },
-    computed: { 
+    computed: {
         locationsOption() {
+             if(Boolean(this.locations))
+            {
+                return this.locations.data.map(location => { return {label: location.name, value: location.id} } )
+            }
+            return []
+/*
             return [
             {label: 'Emergency room', value: 'ER'},
             {label: 'Intensive care unit', value: 'ICU'}
-            ] 
+            ]
+*/
         },
         unitsOption() {
             if(Boolean(this.units))
@@ -154,6 +169,18 @@ export default {
             const errors = this.errors
             if(!errors) return false
                 return Object.keys(errors).map(key=>key).includes(field)
+        },
+         async getLocations() {
+            const axiosOptions = {
+                'url': '/location/locations',
+                'method': 'get'
+            }
+            await axios(axiosOptions).then(response => {
+                this.locations = response.data
+            }).catch(error => {
+                this.locations = null
+                return Promise.reject(error.response);
+            })
         },
         async getUnits() {
             const axiosOptions = {
@@ -179,10 +206,13 @@ export default {
             this.message = {}
             return await axios(axiosOptions).then( response => {
                 this.patient = blankPartienData()
+                this.$toaster.success(response.data.msg)
                 this.$emit('patient-created')
                 this.isBusy = false
+                this.showModal = false
             }).catch(error => {
                 this.errors = error.response.data.errors
+                this.$toaster.error(error.response.data.message)
                 this.isBusy = false
                 return Promise.reject(error.response);
             })
