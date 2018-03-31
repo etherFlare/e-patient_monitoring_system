@@ -28633,6 +28633,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__components_type_edit_type_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__components_type_edit_type_modal_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_type_delete_type_modal_vue__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__components_type_delete_type_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__components_type_delete_type_modal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_normal_new_normal_modal_vue__ = __webpack_require__(293);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__components_normal_new_normal_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__components_normal_new_normal_modal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_normal_edit_normal_modal_vue__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_normal_edit_normal_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__components_normal_edit_normal_modal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_normal_delete_normal_modal_vue__ = __webpack_require__(299);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_normal_delete_normal_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__components_normal_delete_normal_modal_vue__);
 
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -28681,6 +28687,10 @@ window.VueAxios = __webpack_require__(170).default;
 
 
 
+
+
+
+
 window.Axios = __webpack_require__(8).default;
 
 var AppLayout = __webpack_require__(223);
@@ -28699,13 +28709,14 @@ var Listpatients = Vue.component('Listpatients', __webpack_require__(237));
 var Listlocations = Vue.component('Listlocations', __webpack_require__(278));
 // show the list type template
 var Listtypes = Vue.component('Listtypes', __webpack_require__(290));
+// show the list normal template
+var Listnormals = Vue.component('Listnormals', __webpack_require__(302));
 
 var heartBeat = Vue.component('heart-beat', __webpack_require__(240));
 var vmodal = Vue.component('v-modal', __webpack_require__(246));
 
 // optional set default imeout, the default is 10000 (10 seconds).
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_v_toaster___default.a, { timeout: 5000 });
-
 Vue.use(__WEBPACK_IMPORTED_MODULE_2_uiv__);
 
 // registering Modules
@@ -28740,6 +28751,10 @@ Vue.component('new-type-modal', __WEBPACK_IMPORTED_MODULE_22__components_type_ne
 Vue.component('edit-type-modal', __WEBPACK_IMPORTED_MODULE_23__components_type_edit_type_modal_vue___default.a);
 Vue.component('delete-type-modal', __WEBPACK_IMPORTED_MODULE_24__components_type_delete_type_modal_vue___default.a);
 
+Vue.component('new-normal-modal', __WEBPACK_IMPORTED_MODULE_25__components_normal_new_normal_modal_vue___default.a);
+Vue.component('edit-normal-modal', __WEBPACK_IMPORTED_MODULE_26__components_normal_edit_normal_modal_vue___default.a);
+Vue.component('delete-normal-modal', __WEBPACK_IMPORTED_MODULE_27__components_normal_delete_normal_modal_vue___default.a);
+
 var routes = [{
   name: 'Listposts',
   path: '/post',
@@ -28768,6 +28783,10 @@ var routes = [{
   name: 'Listtypes',
   path: '/type',
   component: Listtypes
+}, {
+  name: 'Listnormals',
+  path: '/normal',
+  component: Listnormals
 }];
 
 var router = new VueRouter({ mode: 'history', routes: routes });
@@ -28781,7 +28800,8 @@ var store = new Vuex.Store({
     users: {},
     patients: {},
     locations: {},
-    types: {}
+    types: {},
+    normals: {}
   },
   getters: {
     loading: function loading(state) {
@@ -28840,6 +28860,14 @@ var store = new Vuex.Store({
     },
     types: function types(state, getters) {
       return getters.typesCollection.data;
+    },
+
+    //-------------------------normal
+    normalsCollection: function normalsCollection(state) {
+      return state.normals;
+    },
+    normals: function normals(state, getters) {
+      return getters.normalsCollection.data;
     }
     //-------------------------
 
@@ -29423,6 +29451,89 @@ var store = new Vuex.Store({
       var commit = _ref28.commit;
 
       commit('setTypes', payload);
+    },
+
+    //--------------------------type
+    getNormals: function () {
+      var _ref30 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee16(_ref29, data) {
+        var _this8 = this;
+
+        var commit = _ref29.commit,
+            dispatch = _ref29.dispatch,
+            state = _ref29.state;
+        var axiosOptions, nullData;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee16$(_context16) {
+          while (1) {
+            switch (_context16.prev = _context16.next) {
+              case 0:
+                data = data || {};
+                axiosOptions = {
+                  'url': '/normal/normals',
+                  'method': 'get',
+                  'params': data
+                };
+                _context16.next = 4;
+                return commit('setLoading', true);
+
+              case 4:
+                nullData = Object.assign(state.normals, { data: [] });
+                _context16.next = 7;
+                return dispatch('newNormals', nullData);
+
+              case 7:
+                _context16.next = 9;
+                return axios(axiosOptions).then(function () {
+                  var _ref31 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee15(response) {
+                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee15$(_context15) {
+                      while (1) {
+                        switch (_context15.prev = _context15.next) {
+                          case 0:
+                            _context15.next = 2;
+                            return console.log('getNormals:', response);
+
+                          case 2:
+                            _context15.next = 4;
+                            return dispatch('newNormals', response.data);
+
+                          case 4:
+                            commit('setLoading', false);
+
+                          case 5:
+                          case 'end':
+                            return _context15.stop();
+                        }
+                      }
+                    }, _callee15, _this8);
+                  }));
+
+                  return function (_x24) {
+                    return _ref31.apply(this, arguments);
+                  };
+                }()).catch(function (error) {
+                  console.log('error', error);
+                });
+
+              case 9:
+                return _context16.abrupt('return', _context16.sent);
+
+              case 10:
+              case 'end':
+                return _context16.stop();
+            }
+          }
+        }, _callee16, this);
+      }));
+
+      function getNormals(_x22, _x23) {
+        return _ref30.apply(this, arguments);
+      }
+
+      return getNormals;
+    }(),
+    newNormals: function newNormals(_ref32, payload) {
+      var commit = _ref32.commit;
+
+      commit('setNormals', payload);
     }
     //-------------------------------------------
 
@@ -29451,6 +29562,9 @@ var store = new Vuex.Store({
     },
     setTypes: function setTypes(state, payload) {
       state.types = payload;
+    },
+    setNormals: function setNormals(state, payload) {
+      state.normals = payload;
     }
   }
 });
@@ -75907,23 +76021,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
-var blankPartienData = function blankPartienData() {
+var blankPatientData = function blankPatientData() {
     return {
         'unit_id': null,
         'location_id': null,
@@ -75948,7 +76047,7 @@ var blankPartienData = function blankPartienData() {
         return {
             showModal: true,
             isBusy: false,
-            patient: blankPartienData(),
+            patient: blankPatientData(),
             errors: null,
             units: null,
             locations: null
@@ -75967,12 +76066,6 @@ var blankPartienData = function blankPartienData() {
                 });
             }
             return [];
-            /*
-                        return [
-                        {label: 'Emergency room', value: 'ER'},
-                        {label: 'Intensive care unit', value: 'ICU'}
-                        ]
-            */
         },
         unitsOption: function unitsOption() {
             if (Boolean(this.units)) {
@@ -76093,7 +76186,7 @@ var blankPartienData = function blankPartienData() {
                                 this.message = {};
                                 _context3.next = 7;
                                 return axios(axiosOptions).then(function (response) {
-                                    _this3.patient = blankPartienData();
+                                    _this3.patient = blankPatientData();
                                     _this3.$toaster.success(response.data.msg);
                                     _this3.$emit('patient-created');
                                     _this3.isBusy = false;
@@ -76136,7 +76229,7 @@ var render = function() {
   return _c(
     "modal",
     {
-      attrs: { title: "New Patient", footer: false, size: "lg" },
+      attrs: { title: "NewPatient", footer: false, size: "lg" },
       on: {
         hide: function($event) {
           _vm.$emit("close")
@@ -76931,7 +77024,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       locations: null
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     this.getUnits();
     this.getLocations();
   },
@@ -86584,6 +86677,1965 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-c4acb704", module.exports)
+  }
+}
+
+/***/ }),
+/* 293 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(294)
+/* template */
+var __vue_template__ = __webpack_require__(295)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\normal\\new-normal-modal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-79333822", Component.options)
+  } else {
+    hotAPI.reload("data-v-79333822", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 294 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var blankNormalData = function blankNormalData() {
+  return {
+    'type_id': null,
+    'patient_id': null,
+    'upper_limit': '100',
+    'lower_limit': '1'
+  };
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'new-normal-modal',
+  data: function data() {
+    return {
+      showModal: true,
+      isBusy: false,
+      normal: blankNormalData(),
+      errors: null,
+      types: null,
+      patients: null
+    };
+  },
+  created: function created() {
+    this.getTypes();
+    this.getPatients();
+  },
+
+  computed: {
+    typesOption: function typesOption() {
+      if (Boolean(this.types)) {
+        return this.types.data.map(function (type) {
+          return { label: type.name, value: type.id };
+        });
+      }
+      return [];
+    },
+    patientsOption: function patientsOption() {
+      if (Boolean(this.patients)) {
+        return this.patients.data.map(function (patient) {
+          return { label: patient.first_name, value: patient.id };
+        });
+      }
+      return [];
+    },
+    canPost: function canPost() {
+      var result = true;
+      Object.entries(this.normal).forEach(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            attrIdx = _ref2[0],
+            attr = _ref2[1];
+
+        if (attr === '') result = false;
+      });
+      return result;
+    }
+  },
+  methods: {
+    hasError: function hasError(field) {
+      var errors = this.errors;
+      if (!errors) return false;
+      return Object.keys(errors).map(function (key) {
+        return key;
+      }).includes(field);
+    },
+    getTypes: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
+        var _this = this;
+
+        var axiosOptions;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                axiosOptions = {
+                  'url': '/type/types',
+                  'method': 'get'
+                };
+                _context.next = 3;
+                return axios(axiosOptions).then(function (response) {
+                  _this.types = response.data;
+                }).catch(function (error) {
+                  _this.types = null;
+                  return Promise.reject(error.response);
+                });
+
+              case 3:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getTypes() {
+        return _ref3.apply(this, arguments);
+      }
+
+      return getTypes;
+    }(),
+    getPatients: function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
+        var _this2 = this;
+
+        var axiosOptions;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                axiosOptions = {
+                  'url': '/patient/patients',
+                  'method': 'get'
+                };
+                _context2.next = 3;
+                return axios(axiosOptions).then(function (response) {
+                  _this2.patients = response.data;
+                }).catch(function (error) {
+                  _this2.patients = null;
+                  return Promise.reject(error.response);
+                });
+
+              case 3:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function getPatients() {
+        return _ref4.apply(this, arguments);
+      }
+
+      return getPatients;
+    }(),
+    postNewNormal: function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(event) {
+        var _this3 = this;
+
+        var axiosOptions;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                axiosOptions = {
+                  'url': '/normal/normals',
+                  'method': 'post',
+                  'data': { normal: this.normal }
+                };
+
+                this.errors = null;
+                this.isBusy = true;
+                this.result = {};
+                this.message = {};
+                _context3.next = 7;
+                return axios(axiosOptions).then(function (response) {
+                  _this3.normal = blankNormalData();
+                  _this3.$toaster.success(response.data.msg);
+                  _this3.$emit('normal-created');
+                  _this3.isBusy = false;
+                  _this3.showModal = false;
+                }).catch(function (error) {
+                  _this3.errors = error.response.data.errors;
+                  _this3.$toaster.error(error.response.data.message);
+                  _this3.isBusy = false;
+                  return Promise.reject(error.response);
+                });
+
+              case 7:
+                return _context3.abrupt('return', _context3.sent);
+
+              case 9:
+              case 'end':
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function postNewNormal(_x) {
+        return _ref5.apply(this, arguments);
+      }
+
+      return postNewNormal;
+    }()
+  }
+});
+
+/***/ }),
+/* 295 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "modal",
+    {
+      attrs: { title: "NewNormal", footer: false },
+      on: {
+        hide: function($event) {
+          _vm.$emit("close")
+        }
+      },
+      model: {
+        value: _vm.showModal,
+        callback: function($$v) {
+          _vm.showModal = $$v
+        },
+        expression: "showModal"
+      }
+    },
+    [
+      _c(
+        "form",
+        {
+          ref: "vForm",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              _vm.postNewNormal($event)
+            }
+          }
+        },
+        [
+          _vm.isBusy
+            ? [
+                _c("img", {
+                  staticClass:
+                    "animated-box profile-patient-img img-responsive img-circle pull-right ",
+                  attrs: {
+                    src: "/img/heart-beat.png",
+                    alt: "Patient profile picture"
+                  }
+                })
+              ]
+            : [
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: {
+                      "has-error":
+                        !_vm.normal.type_id || _vm.hasError("normal.type_id")
+                    }
+                  },
+                  [
+                    _c("label", { attrs: { for: "type_id" } }, [
+                      _vm._v("Type")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.normal.type_id,
+                            expression: "normal.type_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "type_id", placeholder: "..." },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.normal,
+                              "type_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { disabled: "", selected: "", value: "" } },
+                          [_vm._v(" -- select an option -- ")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.typesOption, function(type, typesOptionIdx) {
+                          return _c(
+                            "option",
+                            {
+                              key: typesOptionIdx,
+                              domProps: { value: type.value }
+                            },
+                            [_vm._v(_vm._s(type.label))]
+                          )
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _vm.hasError("normal.type_id")
+                      ? _vm._l(_vm.errors["normal.type_id"], function(
+                          line,
+                          errorIdx
+                        ) {
+                          return _c(
+                            "p",
+                            { key: errorIdx, staticClass: "small text-red" },
+                            [_vm._v(_vm._s(line))]
+                          )
+                        })
+                      : _vm._e()
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group",
+                    class: {
+                      "has-error":
+                        !_vm.normal.patient_id ||
+                        _vm.hasError("normal.patient_id")
+                    }
+                  },
+                  [
+                    _c("label", { attrs: { for: "patient_id" } }, [
+                      _vm._v("Patient")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.normal.patient_id,
+                            expression: "normal.patient_id"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "patient_id", placeholder: "..." },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.normal,
+                              "patient_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { disabled: "", selected: "", value: "" } },
+                          [_vm._v(" -- select an option -- ")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.patientsOption, function(
+                          patient,
+                          patientsOptionIdx
+                        ) {
+                          return _c(
+                            "option",
+                            {
+                              key: patientsOptionIdx,
+                              domProps: { value: patient.value }
+                            },
+                            [_vm._v(_vm._s(patient.label))]
+                          )
+                        })
+                      ],
+                      2
+                    ),
+                    _vm._v(" "),
+                    _vm.hasError("normal.patient_id")
+                      ? _vm._l(_vm.errors["normal.patient_id"], function(
+                          line,
+                          errorIdx
+                        ) {
+                          return _c(
+                            "p",
+                            { key: errorIdx, staticClass: "small text-red" },
+                            [_vm._v(_vm._s(line))]
+                          )
+                        })
+                      : _vm._e()
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group ",
+                    class: { "has-error": !_vm.normal.upper_limit }
+                  },
+                  [
+                    _c("label", [_vm._v("Upper Limit")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.normal.upper_limit,
+                          expression: "normal.upper_limit"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "..." },
+                      domProps: { value: _vm.normal.upper_limit },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.normal,
+                            "upper_limit",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "form-group ",
+                    class: { "has-error": !_vm.normal.lower_limit }
+                  },
+                  [
+                    _c("label", [_vm._v("Lower Limit")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.normal.lower_limit,
+                          expression: "normal.lower_limit"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text", placeholder: "..." },
+                      domProps: { value: _vm.normal.lower_limit },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.normal,
+                            "lower_limit",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer text-right" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-default pull-left col-md-4",
+                        attrs: { normal: "button" },
+                        on: {
+                          click: function($event) {
+                            _vm.showModal = false
+                          }
+                        }
+                      },
+                      [_vm._v("CANCEL")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success pull-right col-md-4",
+                        class: {
+                          "btn-default": _vm.canPost,
+                          "btn-danger": !_vm.canPost
+                        },
+                        attrs: { normal: "submit" }
+                      },
+                      [_vm._v("SUBMIT")]
+                    )
+                  ])
+                ])
+              ]
+        ],
+        2
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-79333822", module.exports)
+  }
+}
+
+/***/ }),
+/* 296 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(297)
+/* template */
+var __vue_template__ = __webpack_require__(298)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\normal\\edit-normal-modal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3da50168", Component.options)
+  } else {
+    hotAPI.reload("data-v-3da50168", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 297 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'edit-normal-modal',
+  props: {
+    editNormal: {
+      required: true
+    }
+  },
+  data: function data() {
+    var _this = this;
+
+    return {
+      dismiss: false,
+      showModal: true,
+      posting: false,
+      normal: function () {
+        return Object.assign({}, _this.editNormal);
+      }()
+    };
+  },
+
+  computed: {
+    canPost: function canPost() {
+      var result = true;
+      Object.entries(this.normal).forEach(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            attrIdx = _ref2[0],
+            attr = _ref2[1];
+
+        if (attr === '') result = false;
+      });
+      return result;
+    }
+  },
+  methods: {
+    updateNormal: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
+        var _this2 = this;
+
+        var axiosOptions;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                axiosOptions = {
+                  'url': '/normal/normals/' + this.editNormal.id,
+                  'method': 'post',
+                  'params': { '_method': 'PUT' },
+                  'data': this.normal
+                };
+
+                this.posting = true;
+                _context2.next = 4;
+                return axios(axiosOptions).then(function () {
+                  var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(response) {
+                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _this2.$toaster.success(response.data.msg);
+                            _this2.$emit('normal-updated');
+
+                          case 2:
+                          case 'end':
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee, _this2);
+                  }));
+
+                  return function (_x2) {
+                    return _ref4.apply(this, arguments);
+                  };
+                }()).catch(function (error) {
+                  _this2.$toaster.error(error.response.data.message);
+                });
+
+              case 4:
+                this.posting = false;
+                this.showModal = false;
+
+              case 6:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function updateNormal(_x) {
+        return _ref3.apply(this, arguments);
+      }
+
+      return updateNormal;
+    }()
+  }
+});
+
+/***/ }),
+/* 298 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    [
+      _c(
+        "modal",
+        {
+          attrs: {
+            title: "Edit Normal",
+            keyboard: false,
+            backdrop: false,
+            footer: false
+          },
+          on: {
+            hide: function($event) {
+              _vm.$emit("close")
+            }
+          },
+          model: {
+            value: _vm.showModal,
+            callback: function($$v) {
+              _vm.showModal = $$v
+            },
+            expression: "showModal"
+          }
+        },
+        [
+          _c("div", { attrs: { slot: "default" }, slot: "default" }, [
+            _vm.normal
+              ? _c(
+                  "form",
+                  {
+                    ref: "vForm",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        _vm.updateNormal($event)
+                      }
+                    }
+                  },
+                  [
+                    _vm.posting
+                      ? [_vm._v("...posting")]
+                      : [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "form-group",
+                              class: { "has-error": !_vm.normal.name }
+                            },
+                            [
+                              _c("label", [_vm._v("name")]),
+                              _vm._v(" "),
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.normal.name,
+                                    expression: "normal.name"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: { normal: "text", placeholder: "..." },
+                                domProps: { value: _vm.normal.name },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.normal,
+                                      "name",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "form-group",
+                              class: { "has-error": !_vm.normal.description }
+                            },
+                            [
+                              _c("label", [_vm._v("description")]),
+                              _vm._v(" "),
+                              _c("textarea", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.normal.description,
+                                    expression: "normal.description"
+                                  }
+                                ],
+                                staticClass: "form-control",
+                                attrs: {
+                                  cols: "30",
+                                  rows: "5",
+                                  placeholder: "..."
+                                },
+                                domProps: { value: _vm.normal.description },
+                                on: {
+                                  input: function($event) {
+                                    if ($event.target.composing) {
+                                      return
+                                    }
+                                    _vm.$set(
+                                      _vm.normal,
+                                      "description",
+                                      $event.target.value
+                                    )
+                                  }
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "modal-footer text-right" },
+                            [
+                              _c("div", { staticClass: "row" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "btn btn-default pull-left col-md-4",
+                                    attrs: { normal: "button" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.dismiss = true
+                                      }
+                                    }
+                                  },
+                                  [_vm._v("CANCEL")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "btn pull-right col-md-4",
+                                    class: {
+                                      "btn-primary": _vm.canPost,
+                                      "btn-danger": !_vm.canPost
+                                    },
+                                    attrs: { normal: "submit" }
+                                  },
+                                  [_vm._v("UPDATE")]
+                                )
+                              ])
+                            ]
+                          )
+                        ]
+                  ],
+                  2
+                )
+              : _vm._e()
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "modal",
+        {
+          attrs: { "transition-duration": 0, header: false },
+          model: {
+            value: _vm.dismiss,
+            callback: function($$v) {
+              _vm.dismiss = $$v
+            },
+            expression: "dismiss"
+          }
+        },
+        [
+          _c("h3", [_vm._v("WARNING! DISMISSING UPDATE")]),
+          _vm._v(" "),
+          _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-success pull-left col-md-4",
+                attrs: { normal: "button", "data-action": "auto-focus" },
+                on: {
+                  click: function($event) {
+                    _vm.dismiss = false
+                  }
+                }
+              },
+              [_vm._v("Back to Update")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-danger pull-right col-md-4",
+                attrs: { normal: "button" },
+                on: {
+                  click: function($event) {
+                    _vm.$emit("close")
+                  }
+                }
+              },
+              [_vm._v("Cancel Update")]
+            )
+          ])
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3da50168", module.exports)
+  }
+}
+
+/***/ }),
+/* 299 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(300)
+/* template */
+var __vue_template__ = __webpack_require__(301)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\normal\\delete-normal-modal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2092834b", Component.options)
+  } else {
+    hotAPI.reload("data-v-2092834b", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 300 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
+
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'delete-normal-modal',
+  props: {
+    deleteNormal: {
+      required: true
+    }
+  },
+  data: function data() {
+    var _this = this;
+
+    return {
+      showModal: true,
+      posting: false,
+      normal: function () {
+        return _this.deleteNormal;
+      }()
+    };
+  },
+
+  methods: {
+    dismiss: function dismiss() {
+      this.$toaster.info('deleting was canceled');
+      this.showModal = false;
+    },
+    doAction: function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
+        var _this2 = this;
+
+        var axiosOptions;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                axiosOptions = {
+                  'url': '/normal/normals/' + this.deleteNormal.id,
+                  'method': 'post',
+                  'params': { '_method': 'DELETE' }
+                };
+
+                this.posting = true;
+                _context2.next = 4;
+                return axios(axiosOptions).then(function () {
+                  var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(response) {
+                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                      while (1) {
+                        switch (_context.prev = _context.next) {
+                          case 0:
+                            _this2.$toaster.success(response.data.msg);
+                            _this2.$emit('normal-deleted');
+                            _this2.$emit('close');
+                            _this2.$emit('deleted');
+
+                          case 4:
+                          case 'end':
+                            return _context.stop();
+                        }
+                      }
+                    }, _callee, _this2);
+                  }));
+
+                  return function (_x2) {
+                    return _ref2.apply(this, arguments);
+                  };
+                }()).catch(function (error) {
+                  _this2.$toaster.error(error.response.data.message);
+                });
+
+              case 4:
+                this.posting = false;
+
+              case 5:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function doAction(_x) {
+        return _ref.apply(this, arguments);
+      }
+
+      return doAction;
+    }()
+  }
+});
+
+/***/ }),
+/* 301 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "modal",
+    {
+      attrs: {
+        title: "Delete Normal",
+        header: false,
+        footer: false,
+        "transition-duration": 0
+      },
+      on: {
+        hide: function($event) {
+          _vm.$emit("close")
+        }
+      },
+      model: {
+        value: _vm.showModal,
+        callback: function($$v) {
+          _vm.showModal = $$v
+        },
+        expression: "showModal"
+      }
+    },
+    [
+      _c(
+        "form",
+        {
+          ref: "vForm",
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              _vm.doAction($event)
+            }
+          }
+        },
+        [
+          _vm.posting
+            ? [_vm._v("...deleting")]
+            : [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("name")]),
+                  _vm._v(" "),
+                  _c("pre", [_vm._v(_vm._s(_vm.normal.name))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("body")]),
+                  _vm._v(" "),
+                  _c("pre", [_vm._v(_vm._s(_vm.normal.description))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "modal-footer text-right" }, [
+                  _c("div", { staticClass: "row" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-success pull-left col-md-4",
+                        attrs: {
+                          normal: "button",
+                          "data-action": "auto-focus"
+                        },
+                        on: { click: _vm.dismiss }
+                      },
+                      [_vm._v("CANCEL")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-danger  pull-right col-md-4",
+                        attrs: { normal: "submit" }
+                      },
+                      [_vm._v("CONFIRM")]
+                    )
+                  ])
+                ])
+              ]
+        ],
+        2
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2092834b", module.exports)
+  }
+}
+
+/***/ }),
+/* 302 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(303)
+/* template */
+var __vue_template__ = __webpack_require__(304)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\normal\\list-normal.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-00b80ed0", Component.options)
+  } else {
+    hotAPI.reload("data-v-00b80ed0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 303 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      on_load: true,
+      normal: null,
+      showCreateNormalModal: false,
+      showEditNormalModal: false,
+      showDeleteNormalModal: false,
+      showNormalModal: false,
+      searchTerm: ''
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      _this.getNormals().then(function (response) {
+        _this.on_load = false;
+      });
+    });
+  },
+
+  computed: {
+    loading: function loading() {
+      return this.$store.getters.loading;
+    },
+    normals: function normals() {
+      return this.$store.getters.normals;
+    },
+
+    filteredNormals: function filteredNormals() {
+      if (this.normals.length) {
+        return this.normals;
+      }
+    }
+  },
+  methods: {
+    callback: function callback(msg) {
+      this.$notify('Modal dismissed with msg \'' + msg + '\'.');
+    },
+    normalCreated: function normalCreated() {
+      this.getNormals();
+    },
+    showCreateNormalModalComponent: function showCreateNormalModalComponent(event) {
+      this.showCreateNormalModal = true;
+    },
+    showEditNormalModalComponent: function showEditNormalModalComponent(event, normal) {
+      var _this2 = this;
+
+      this.normal = normal;
+      this.$nextTick(function () {
+        _this2.showEditNormalModal = true;
+      });
+    },
+    showDeleteNormalModalComponent: function showDeleteNormalModalComponent(event, normal) {
+      var _this3 = this;
+
+      this.normal = normal;
+      this.$nextTick(function () {
+        _this3.showDeleteNormalModal = true;
+      });
+    },
+    showNormalModalComponent: function showNormalModalComponent(event, normal) {
+      var _this4 = this;
+
+      this.normal = normal;
+      this.$nextTick(function () {
+        _this4.showNormalModal = true;
+      });
+    },
+    getNormals: function getNormals(event) {
+      return this.$store.dispatch('getNormals', { 'search': this.searchTerm });
+    }
+  }
+});
+
+/***/ }),
+/* 304 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row" }, [
+    _c("div", { staticClass: "col-xs-6" }, [
+      _c(
+        "div",
+        { staticClass: "box" },
+        [
+          _c("div", { staticClass: "box-header" }, [
+            _c("div", { staticClass: "pull-right" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-xs btn-primary",
+                    attrs: { href: "javascript:;" },
+                    on: {
+                      click: function($event) {
+                        _vm.showCreateNormalModalComponent($event)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "glyphicon glyphicon-plus" }),
+                    _vm._v("\n            Add new Normal")
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    _vm.getNormals($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "form-inline" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("div", { staticClass: "input-group" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.searchTerm,
+                            expression: "searchTerm"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { normal: "text" },
+                        domProps: { value: _vm.searchTerm },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.searchTerm = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(0)
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("p", [_vm._v(_vm._s(_vm.searchTerm))])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "box-body" },
+            [
+              _vm.on_load ? _c("heart-beat") : _vm._e(),
+              _vm._v(" "),
+              !_vm.loading
+                ? _c("div", [
+                    _c(
+                      "table",
+                      {
+                        staticClass: "table table-bordered table-hover",
+                        attrs: { id: "ex1" }
+                      },
+                      [
+                        _vm._m(1),
+                        _vm._v(" "),
+                        _c(
+                          "tbody",
+                          [
+                            _vm._l(_vm.normals, function(normal, index) {
+                              return _c("tr", [
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showNormalModalComponent(
+                                          $event,
+                                          normal
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(normal.type_id))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showNormalModalComponent(
+                                          $event,
+                                          normal
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(normal.patient_id))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "td",
+                                  { staticClass: "row" },
+                                  [
+                                    _c(
+                                      "btn",
+                                      {
+                                        staticClass: "col-xs-12",
+                                        staticStyle: {
+                                          "margin-left": "3px",
+                                          "margin-right": "3px"
+                                        },
+                                        attrs: {
+                                          size: "xs",
+                                          normal: "primary"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            _vm.showNormalModalComponent(
+                                              $event,
+                                              normal
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", { staticClass: "fa fa-eye" }),
+                                        _vm._v(" Show")
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ])
+                            }),
+                            _vm._v(" "),
+                            !_vm.normals.length
+                              ? _c("tr", [
+                                  _c(
+                                    "td",
+                                    {
+                                      staticClass: "text-center",
+                                      attrs: { colspan: "3" }
+                                    },
+                                    [
+                                      _c("p", [
+                                        _vm._v(
+                                          " " +
+                                            _vm._s(_vm.searchTerm) +
+                                            " was not in the list"
+                                        )
+                                      ])
+                                    ]
+                                  )
+                                ])
+                              : _vm._e()
+                          ],
+                          2
+                        )
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "box-footer" }),
+          _vm._v(" "),
+          _vm.showCreateNormalModal
+            ? _c("new-normal-modal", {
+                ref: "showCreateNormalModal",
+                on: {
+                  close: function($event) {
+                    _vm.showCreateNormalModal = false
+                  },
+                  "normal-created": _vm.normalCreated
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showEditNormalModal
+            ? _c("edit-normal-modal", {
+                attrs: { "edit-normal": _vm.normal },
+                on: {
+                  close: function($event) {
+                    _vm.showEditNormalModal = false
+                  },
+                  "normal-updated": _vm.getNormals
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showDeleteNormalModal
+            ? _c("delete-normal-modal", {
+                ref: "showDeleteNormalModal",
+                attrs: { "delete-normal": _vm.normal },
+                on: {
+                  "normal-deleted": _vm.getNormals,
+                  close: function($event) {
+                    _vm.showDeleteNormalModal = false
+                  },
+                  deleted: function($event) {
+                    _vm.showNormalModal = false
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.showNormalModal
+            ? _c(
+                "modal",
+                {
+                  ref: "showNormalModal",
+                  attrs: { "auto-focus": "" },
+                  on: {
+                    hide: function($event) {
+                      _vm.$emit("close")
+                    }
+                  },
+                  model: {
+                    value: _vm.showNormalModal,
+                    callback: function($$v) {
+                      _vm.showNormalModal = $$v
+                    },
+                    expression: "showNormalModal"
+                  }
+                },
+                [
+                  _c("h3", { attrs: { slot: "title" }, slot: "title" }, [
+                    _vm._v("Reference")
+                  ]),
+                  _vm._v(" "),
+                  _c("strong", [_vm._v(_vm._s(_vm.normal.type_id))]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(_vm.normal.patient_id))]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(_vm.normal.upper_limit))]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(_vm.normal.lower_limit))]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(_vm.normal.patient_id))]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _vm._v(
+                      _vm._s(_vm._f("moment")(_vm.normal.created_at, "LLLL"))
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("code", [
+                    _vm._v(
+                      _vm._s(_vm._f("moment")(_vm.normal.created_at, "from"))
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { attrs: { slot: "footer" }, slot: "footer" },
+                    [
+                      _c(
+                        "btn",
+                        {
+                          attrs: { normal: "warning" },
+                          on: {
+                            click: function($event) {
+                              _vm.showEditNormalModalComponent(
+                                $event,
+                                _vm.normal
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-pencil",
+                            attrs: { "aria-hidden": "true" }
+                          }),
+                          _vm._v(" Edit")
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "btn",
+                        {
+                          attrs: { normal: "danger" },
+                          on: {
+                            click: function($event) {
+                              _vm.showDeleteNormalModalComponent(
+                                $event,
+                                _vm.normal
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-trash-o",
+                            attrs: { "aria-hidden": "true" }
+                          }),
+                          _vm._v(" Delete")
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "btn",
+                        {
+                          attrs: { "data-action": "auto-focus" },
+                          on: {
+                            click: function($event) {
+                              _vm.showNormalModal = false
+                            }
+                          }
+                        },
+                        [_vm._v("Cancel")]
+                      )
+                    ],
+                    1
+                  )
+                ]
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "input-group-btn" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-default", attrs: { normal: "submit" } },
+        [_vm._v("search")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("type")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("patient")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "col-md-2" })
+      ])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-00b80ed0", module.exports)
   }
 }
 

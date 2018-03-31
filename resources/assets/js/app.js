@@ -42,6 +42,10 @@ import NewTypeModalComponent from './components/type/new-type-modal.vue'
 import EditTypeModalComponent from './components/type/edit-type-modal.vue'
 import DeleteTypeModalComponent from './components/type/delete-type-modal.vue'
 
+import NewNormalModalComponent from './components/normal/new-normal-modal.vue'
+import EditNormalModalComponent from './components/normal/edit-normal-modal.vue'
+import DeleteNormalModalComponent from './components/normal/delete-normal-modal.vue'
+
 window.Axios=require('axios').default;
 
 let AppLayout= require('./components/app.vue');
@@ -60,14 +64,14 @@ const Listpatients=Vue.component('Listpatients', require('./components/patient/l
 const Listlocations=Vue.component('Listlocations', require('./components/location/list-location.vue'));
 // show the list type template
 const Listtypes=Vue.component('Listtypes', require('./components/type/list-type.vue'));
+// show the list normal template
+const Listnormals=Vue.component('Listnormals', require('./components/normal/list-normal.vue'));
 
 const heartBeat =Vue.component('heart-beat', require('./components/heart-beat.vue'));
 const vmodal =Vue.component('v-modal', require('./components/modal.vue'));
 
 // optional set default imeout, the default is 10000 (10 seconds).
 Vue.use(Toaster, {timeout: 5000})
- 
-
 Vue.use(uiv)
 
 // registering Modules
@@ -101,6 +105,10 @@ Vue.component('delete-location-modal', DeleteLocationModalComponent);
 Vue.component('new-type-modal', NewTypeModalComponent);
 Vue.component('edit-type-modal', EditTypeModalComponent);
 Vue.component('delete-type-modal', DeleteTypeModalComponent);
+
+Vue.component('new-normal-modal', NewNormalModalComponent);
+Vue.component('edit-normal-modal', EditNormalModalComponent);
+Vue.component('delete-normal-modal', DeleteNormalModalComponent);
 
 const routes = [
 {
@@ -137,6 +145,11 @@ const routes = [
   name: 'Listtypes',
   path: '/type',
   component: Listtypes
+},
+{
+  name: 'Listnormals',
+  path: '/normal',
+  component: Listnormals
 }
 ];
 
@@ -151,7 +164,8 @@ const store = new Vuex.Store({
     users:    {},
     patients: {},
     locations:{},
-    types:    {}
+    types:    {},
+    normals:  {}
   },
   getters: {
     loading(state) {
@@ -204,6 +218,13 @@ const store = new Vuex.Store({
     },
     types(state, getters) {
       return getters.typesCollection.data
+    },
+     //-------------------------normal
+    normalsCollection(state) {
+      return state.normals
+    },
+    normals(state, getters) {
+      return getters.normalsCollection.data
     }
     //-------------------------
   },
@@ -375,6 +396,30 @@ async getTypes({commit, dispatch, state}, data) {
   },
   newTypes({commit}, payload) {
     commit('setTypes', payload)
+  },
+  //--------------------------type
+async getNormals({commit, dispatch, state}, data) {
+    data = data || {}
+    const axiosOptions = {
+      'url': '/normal/normals',
+      'method': 'get',
+      'params': data
+    }
+    await commit('setLoading', true)
+    let nullData = Object.assign(state.normals, {data: []})
+    await dispatch('newNormals', nullData)
+
+    return await axios(axiosOptions).then(async (response) => {
+      await console.log('getNormals:', response)
+      await dispatch('newNormals', response.data)
+       commit('setLoading', false)
+
+    }).catch(error => { 
+      console.log('error', error); 
+    })
+  },
+  newNormals({commit}, payload) {
+    commit('setNormals', payload)
   }
   //-------------------------------------------
 },
@@ -402,6 +447,9 @@ mutations: {
   },
   setTypes(state, payload){
     state.types = payload
+  },
+  setNormals(state, payload){
+    state.normals = payload
   }
 } 
 })

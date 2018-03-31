@@ -15,8 +15,8 @@ class CreateNormalReferenceTable extends Migration
     {
         Schema::create('normal_reference', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('patient_id');
-            $table->string('type',20);
+            $table->integer('patient_id')->nullable();
+            $table->integer('type_id')->nullable();
             $table->integer('upper_limit');
             $table->integer('lower_limit');
             $table->timestamps();

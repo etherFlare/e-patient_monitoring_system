@@ -116,7 +116,7 @@ export default {
       locations: null
     }
   },
-  created() {
+  mounted() {
     this.getUnits()
     this.getLocations()
   },

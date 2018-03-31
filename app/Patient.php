@@ -30,4 +30,8 @@ class Patient extends Model
     {
         return $this->belongsTo('App\Unit');
     }
+        public function normal()
+    {
+        return $this->hasMany('App\NormalReference');
+    }
 }

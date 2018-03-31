@@ -1,11 +1,5 @@
 <template>
-    <modal
-    v-model="showModal"
-    v-on:hide="$emit('close')"
-    title="New Patient"
-    :footer="false"
-    size="lg"
-    >
+    <modal v-model="showModal" v-on:hide="$emit('close')" title="NewPatient" :footer="false" size="lg">
     <form ref="vForm" v-on:submit.prevent="postNewPatient($event)">
         <template v-if="isBusy">
             <img class="animated-box profile-patient-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="Patient profile picture" >
@@ -64,15 +58,6 @@
                             <p class="small text-red" v-for="(line, errorIdx) in errors['patient.location_id']" :key="errorIdx">{{line}}</p>
                         </template>
                     </div>
-<!--
-                    <div class="form-group">
-                        <label for="location">Location</label>
-                        <select class="form-control" id="location" v-model="patient.location" placeholder="...">
-                            <option disabled selected value> -- select an option -- </option>
-                            <option v-for="(location, locationsOptionIdx) in locationsOption" :key="locationsOptionIdx" :value="location.value">{{location.label}}</option>
-                        </select>
-                    </div>
--->
                     <div class="form-group" :class="{'has-error': !patient.unit_id || hasError('patient.unit_id')}">
                         <label for="unit_id">Unit</label>
                         <select class="form-control" id="unit_id" v-model="patient.unit_id" placeholder="...">
@@ -100,7 +85,7 @@
 </modal>
 </template>
 <script>
-const blankPartienData = () => {
+const blankPatientData = () => {
     return {
         'unit_id': null,
         'location_id': null,
@@ -125,7 +110,7 @@ export default {
         return {
             showModal: true,
             isBusy: false,
-            patient: blankPartienData(),
+            patient: blankPatientData(),
             errors: null,
             units: null,
             locations: null
@@ -142,12 +127,6 @@ export default {
                 return this.locations.data.map(location => { return {label: location.name, value: location.id} } )
             }
             return []
-/*
-            return [
-            {label: 'Emergency room', value: 'ER'},
-            {label: 'Intensive care unit', value: 'ICU'}
-            ]
-*/
         },
         unitsOption() {
             if(Boolean(this.units))
@@ -205,7 +184,7 @@ export default {
             this.result = {}
             this.message = {}
             return await axios(axiosOptions).then( response => {
-                this.patient = blankPartienData()
+                this.patient = blankPatientData()
                 this.$toaster.success(response.data.msg)
                 this.$emit('patient-created')
                 this.isBusy = false

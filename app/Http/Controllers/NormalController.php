@@ -11,35 +11,26 @@ class NormalController extends Controller
 	}
 	public function index(Request $request)
 	{
-		$normal = NormalReference::where(function($query) use($request) {
+		$normals = NormalReference::where(function($query) use($request) {
 			if($request->has('search')){
 				$search = trim($request->get('search')); 
-				$query->where('type', 'LIKE', '%'. $search .'%');
+				$query->where('type_id', 'LIKE', '%'. $search .'%');
 			}
 		})
 		->orderBy('created_at', 'desc')
+		->with(['type'])
+        ->with(['patient'])
 		->paginate(10);
-		return $normal;
+		return $normals;
 	}
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-					'type' => 'required',
 		'upper_limit' => 'required',
 		'lower_limit' => 'required'
 		]);
-		$create = NormalReference::create($request->all());
-		return response()->json(['status' => 'success','msg'=>'NormalReference created successfully']);
-	}
-	public function get_store(Request $request)
-	{
-		$this->validate($request, [
-								'type' => 'required',
-		'upper_limit' => 'required',
-		'lower_limit' => 'required'
-		]);
-		$create = NormalReference::create($request->all());
-		return response()->json(['status' => 'success','msg'=>'NormalReference created successfully']);
+		$createdNormal = NormalReference::create($request->get('normal'));
+        return response()->json(['request' => $request->all(), 'normal' => $createdNormal, 'status' => 'success', 'msg' => 'normal refernce updated successfully']);
 	}
 	public function show($id)
 	{
