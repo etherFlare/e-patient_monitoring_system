@@ -40,11 +40,10 @@
                     <btn size="xs" type="primary" class="col-xs-12" style="margin-left:3px;margin-right:3px;" v-on:click="showRoleModalComponent($event, role)"><i class="fa fa-eye"></i> Show</btn>
                   </td>
                 </tr>
-                <tr v-if="!roles.total">
+                <tr v-if="!roles.length">
                   <td colspan="2" class="text-center">
-                    <p> {{searchTerm}} was not in the list</p>
+                    <p class="no-margin text-red">{{searchTerm}} was not in the list</p>
                   </td>
-
                 </tr>
               </tbody>
             </table>

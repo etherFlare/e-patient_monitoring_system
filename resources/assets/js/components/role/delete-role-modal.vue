@@ -8,14 +8,16 @@
   v-on:hide="$emit('close')"
   >
   <form ref="vForm" v-on:submit.prevent="doAction($event)"> 
-    <template v-if="posting">...deleting</template>
+    <template v-if="posting">
+        <img class="animated-box img-responsive img-circle " src="/img/heart-beat.png" alt="some picture" >
+      </template>
     <template v-else>
       <div class="form-group">
         <label>title</label>
         <pre>{{role.title}}</pre>
       </div>
       <div class="form-group">
-        <label>body</label>
+        <label>description</label>
         <pre>{{role.description}}</pre>
       </div>
       <div  class="modal-footer text-right" >

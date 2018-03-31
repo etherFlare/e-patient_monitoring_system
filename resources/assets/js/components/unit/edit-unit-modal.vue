@@ -24,7 +24,7 @@
                   <input type="text" class="form-control" placeholder="..." v-model="unit.mac_address" v-mask="['XX:XX:XX:XX:XX:XX']"/>
                 </div>
                 <hr>
-                <div class="form-group" :class="{'has-error': !unit.comment}">
+                <div class="form-group" >
                   <label>Comment</label>
                   <textarea cols="10" rows="5" class="form-control" placeholder="..." v-model="unit.comment"></textarea>
                 </div>

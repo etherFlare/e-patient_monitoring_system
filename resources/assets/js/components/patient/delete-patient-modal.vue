@@ -2,13 +2,13 @@
   <modal v-model="showModal" title="DeletePatient" :header="false" :footer="false" :transition-duration="0" v-on:hide="$emit('close')">
   <form ref="vForm" v-on:submit.prevent="doAction($event)"> 
     <template v-if="posting">
-        <img class="animated-box profile-patient-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="some picture" >
+        <img class="animated-box img-responsive img-circle  " src="/img/heart-beat.png" alt="some picture" >
     </template>
     <template v-else>
       <div slot="title" >
         <div class="box-profile ">
-          <p>your about to delete</p>
-              <img class="animated-box profile-patient-img img-responsive img-circle" src="/img/heart-beat.png" alt="Patient profile picture" >
+          <code>your about to delete</code>
+              <img class="animated-box profile-user-img img-responsive img-circle" src="/img/heart-beat.png" alt="Patient profile picture" >
               <h3 class="profile-patientname text-center"> {{ patient.last_name }}, {{ patient.first_name }} {{ patient.middle_name }}</h3>
             </div>
       </div>

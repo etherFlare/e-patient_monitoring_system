@@ -24,9 +24,6 @@
                     </form>
                 </div>
                 <div class="box-body">
-<!--
-                    <heart-beat v-if="on_load"></heart-beat>
-    -->                
                     <div v-if="!loading">
                         <table  id="ex1" class="table table-bordered table-hover">
                             <thead>
@@ -66,7 +63,6 @@
                 <new-unit-modal ref="showCreateUnitModal" v-if="showCreateUnitModal" v-on:close="showCreateUnitModal = false" v-on:unit-created="unitCreated" ></new-unit-modal>
                 <edit-unit-modal v-if="showEditUnitModal" v-on:close="showEditUnitModal = false" :edit-unit="unit" v-on:unit-updated="getUnits"></edit-unit-modal>
                 <delete-unit-modal ref="showDeleteUnitModal" :delete-unit="unit" v-if="showDeleteUnitModal" v-on:unit-deleted="getUnits" v-on:close="showDeleteUnitModal = false"  v-on:deleted="showUnitModal = false" ></delete-unit-modal>
-                <!--show modal-->
                 <template v-if="showUnitModal">
                     <modal ref="showUnitModal" size="lg" v-model="showUnitModal"  auto-focus v-on:hide="$emit('close')" >
                         <div class="row">
@@ -183,7 +179,6 @@
                         </div>
                     </modal>
                 </template>
-                <!--show modal end-->
             </div>
         </div>
     </div>

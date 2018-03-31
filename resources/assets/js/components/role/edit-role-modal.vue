@@ -16,13 +16,13 @@
             <label>title</label>
             <input type="text" class="form-control" placeholder="..." v-model="role.title"/>
           </div>
-          <div class="form-group" :class="{'has-error': !role.description}">
+          <div class="form-group" >
             <label>description</label>
             <textarea cols="30" rows="5" class="form-control" placeholder="..." v-model="role.description"></textarea>
           </div>
           <div class="modal-footer text-right" >
             <div class="row">
-              <button class="btn btn-default pull-left col-md-4" type="button" v-on:click="dismiss=true">CANCEL</button>
+              <button class="btn btn-danger pull-left col-md-4" type="button" v-on:click="$emit('close')">Cancel </button> 
               <button class="btn pull-right col-md-4" :class="{'btn-primary': canPost, 'btn-danger': !canPost}" type="submit">UPDATE</button>
             </div>
           </div>
@@ -30,20 +30,6 @@
       </form>
     </div>
   </modal> 
-  <!--verification modal -->
-  <modal 
-  v-model="dismiss" 
-  :transition-duration="0" 
-  :header="false"
-  >
-  <h3>WARNING! DISMISSING UPDATE</h3>
-  <div slot="footer">
-    <button class="btn btn-success pull-left col-md-4" type="button" v-on:click="dismiss=false" data-action="auto-focus">Back to Update</button> 
-    <button class="btn btn-danger pull-right col-md-4" type="button" v-on:click="$emit('close')">Cancel Update</button> 
-    
-  </div>
-</modal> 
-<!--verification modal end-->
 </section>
 </template>
 <script>
@@ -56,7 +42,6 @@ export default {
   },
   data() {
     return {
-      dismiss:false,
       showModal: true,
       posting: false,
       role: (()=>{ return Object.assign({}, this.editRole) })()

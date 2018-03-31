@@ -7,7 +7,7 @@
       <template v-else>
         <div slot="title" >
           <div class="box-profile ">
-            <p>your about to delete</p>
+            <code>your about to delete</code>
             <img class="animated-box profile-user-img img-responsive img-circle" src="/img/heart-beat.png" alt="User profile picture" >
             <h3 class="profile-username text-center"> {{ user.last_name }}, {{ user.first_name }} {{ user.middle_name }}</h3>
           </div>

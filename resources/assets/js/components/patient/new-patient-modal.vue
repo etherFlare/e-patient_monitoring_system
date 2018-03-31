@@ -2,7 +2,7 @@
     <modal v-model="showModal" v-on:hide="$emit('close')" title="NewPatient" :footer="false" size="lg">
     <form ref="vForm" v-on:submit.prevent="postNewPatient($event)">
         <template v-if="isBusy">
-            <img class="animated-box  img-responsive img-circle " src="/img/heart-beat.png" alt="some picture" >
+            <img class="animated-box img-responsive img-circle " src="/img/heart-beat.png" alt="some picture" >
         </template>
         <template v-else>
             <div class="row">

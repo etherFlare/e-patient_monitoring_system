@@ -28,21 +28,19 @@ class PatientController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            //'patient.location_id'    => 'required',
+            'patient.location_id'    => 'required',
             'patient.unit_id'        => 'required',
             'patient.first_name'     => 'required',
             'patient.middle_name'    => 'required',
             'patient.last_name'      => 'required',
             'patient.gender'         => 'required',
             'patient.age'            => 'required',
-            //'patient.location'       => 'required',
             'patient.home_address'   => 'required',
             'patient.contact_number' => 'required',
             'patient.contact_person' => 'required',
-            'patient.comment'        => 'required',
         ]);
         $createdPatient = Patient::create($request->get('patient'));
-        return response()->json(['request' => $request->all(), 'patient' => $createdPatient, 'statur' => 'success', 'msg' => 'Patient updated successfully']);
+        return response()->json(['request' => $request->all(), 'patient' => $createdPatient, 'status' => 'success', 'msg' => 'Patient Created successfully']);
     }
   
     public function show($id)
@@ -56,25 +54,23 @@ class PatientController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'unit_id'        => 'required',
-            'first_name'     => 'required',
-            'middle_name'    => 'required',
-            'last_name'      => 'required',
-            'gender'         => 'required',
-            'age'            => 'required',
-            'home_address'   => 'required',
-            'contact_number' => 'required',
-            'contact_person' => 'required',
-            'is_active'      => 'required',
-            'is_archive'     => 'required',
-            'comment'        => 'required',
+            'patient.location_id'    => 'required',
+            'patient.unit_id'        => 'required',
+            'patient.first_name'     => 'required',
+            'patient.middle_name'    => 'required',
+            'patient.last_name'      => 'required',
+            'patient.gender'         => 'required',
+            'patient.age'            => 'required',
+            'patient.home_address'   => 'required',
+            'patient.contact_number' => 'required',
+            'patient.contact_person' => 'required',
         ]);
         $patient = Patient::find($id);
         if ($patient->count()) {
-            $patient->update($request->all());
-            return response()->json(['statur' => 'success', 'msg' => 'Patient updated successfully']);
+            $patient->update($request->get('patient'));
+            return response()->json(['request' => $request->all(), 'patient' => $patient, 'status' => 'success', 'msg' => 'Patient updated successfully']);
         } else {
-            return response()->json(['statur' => 'error', 'msg' => 'error in updating post']);
+            return response()->json(['status' => 'error', 'msg' => 'error in updating post']);
         }
     }
     public function destroy($id)
@@ -82,9 +78,9 @@ class PatientController extends Controller
         $patient = Patient::find($id);
         if ($patient->count()) {
             $patient->delete();
-            return response()->json(['statur' => 'success', 'msg' => 'Patient deleted successfully']);
+            return response()->json(['status' => 'success', 'msg' => 'Patient deleted successfully']);
         } else {
-            return response()->json(['statur' => 'error', 'msg' => 'error in deleting post']);
+            return response()->json(['status' => 'error', 'msg' => 'error in deleting post']);
         }
     }
 }

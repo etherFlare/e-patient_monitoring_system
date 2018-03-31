@@ -12,7 +12,7 @@
             <label>title</label>
             <input type="text" class="form-control" placeholder="..." v-model="role.title"/>
           </div>
-          <div class="form-group" :class="{'has-error': !role.description}">
+          <div class="form-group" >
             <label>description</label>
             <textarea cols="30" rows="5" class="form-control" placeholder="..." v-model="role.description"></textarea>
           </div>

@@ -1,20 +1,16 @@
 <template>
-  <modal 
-  v-model="showModal"
-  title="Delete Unit"  
-  :header="false" 
-  :footer="false" 
-  :transition-duration="0"
-  v-on:hide="$emit('close')"
-  >
+  <modal v-model="showModal" title="DeleteUnit" :header="false" :footer="false" :transition-duration="0" v-on:hide="$emit('close')">
   <form ref="vForm" v-on:submit.prevent="doAction($event)"> 
-    <template v-if="posting">...deleting</template>
+     <template v-if="isbusy">
+            <img class="animated-box  img-responsive img-circle " src="/img/heart-beat.png" alt="some picture" >
+          </template>
     <template v-else>
       <div slot="title" >
         <div class="box-profile ">
-          <p>your about to delete</p>
-              <img class="animated-box profile-unit-img img-responsive img-circle" src="/img/heart-beat.png" alt="Unit profile picture" >
-              <h3 class="profile-unitname text-center"> {{ unit.mac_address }} }}</h3>
+          <code>your about to delete</code>
+              <img class="animated-box profile-user-img img-responsive img-circle" src="/img/heart-beat.png" alt="Unit profile picture" >
+              <h3 class="profile-username text-center"> {{ unit.label }}</h3>
+              <p class="text-center">{{ unit.mac_address }}</p>
             </div>
       </div>
        <h2 class="text-center">!! ARE YOU SURE !!</h2>
@@ -39,7 +35,7 @@ export default {
   data() {
     return {
       showModal: true,
-      posting: false, 
+      isbusy: false, 
       unit: (()=>{ return this.deleteUnit })()
     }
   }, 
@@ -54,7 +50,7 @@ export default {
         'method': 'post',
         'params': {'_method': 'DELETE'}
       }
-      this.posting = true 
+      this.isbusy = true 
       await axios(axiosOptions).then(async (response) => {
         this.$toaster.success(response.data.msg)
         this.$emit('unit-deleted')
@@ -63,7 +59,7 @@ export default {
       }).catch(error => { 
         this.$toaster.error(error.response.data.message) 
       })
-      this.posting = false
+      this.isbusy = false
     }
   }
 }

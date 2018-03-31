@@ -4,7 +4,7 @@
       <div slot="default">
         <form v-if="patient" ref="vForm" v-on:submit.prevent="updatePatient($event)">
            <template v-if="isBusy">
-            <img class="animated-box profile-patient-img img-responsive img-circle" src="/img/heart-beat.png" alt="Patient profile picture" >
+            <img class="animated-box img-responsive img-circle" src="/img/heart-beat.png" alt="Patient profile picture" >
         </template>
           <template v-else>
             <div class="row">
@@ -168,7 +168,7 @@ export default {
         'url': '/patient/patients/'+this.editPatient.id,
         'method': 'post',
         'params': {'_method': 'PUT'},
-        'data': this.patient
+        'data': {patient: this.patient}
       }
       this.errors = null
       this.isBusy = true

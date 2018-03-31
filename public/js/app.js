@@ -71397,38 +71397,31 @@ var render = function() {
                     _vm._v(" "),
                     _c("hr"),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "form-group",
-                        class: { "has-error": !_vm.unit.comment }
-                      },
-                      [
-                        _c("label", [_vm._v("Comment")]),
-                        _vm._v(" "),
-                        _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.unit.comment,
-                              expression: "unit.comment"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { cols: "10", rows: "5", placeholder: "..." },
-                          domProps: { value: _vm.unit.comment },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.unit, "comment", $event.target.value)
-                            }
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Comment")]),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.unit.comment,
+                            expression: "unit.comment"
                           }
-                        })
-                      ]
-                    )
+                        ],
+                        staticClass: "form-control",
+                        attrs: { cols: "10", rows: "5", placeholder: "..." },
+                        domProps: { value: _vm.unit.comment },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.unit, "comment", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
@@ -72309,46 +72302,39 @@ var render = function() {
                               _vm._v(" "),
                               _c("hr"),
                               _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass: "form-group",
-                                  class: { "has-error": !_vm.unit.comment }
-                                },
-                                [
-                                  _c("label", [_vm._v("Comment")]),
-                                  _vm._v(" "),
-                                  _c("textarea", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.unit.comment,
-                                        expression: "unit.comment"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    attrs: {
-                                      cols: "10",
-                                      rows: "5",
-                                      placeholder: "..."
-                                    },
-                                    domProps: { value: _vm.unit.comment },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.unit,
-                                          "comment",
-                                          $event.target.value
-                                        )
-                                      }
+                              _c("div", { staticClass: "form-group" }, [
+                                _c("label", [_vm._v("Comment")]),
+                                _vm._v(" "),
+                                _c("textarea", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.unit.comment,
+                                      expression: "unit.comment"
                                     }
-                                  })
-                                ]
-                              )
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    cols: "10",
+                                    rows: "5",
+                                    placeholder: "..."
+                                  },
+                                  domProps: { value: _vm.unit.comment },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        _vm.unit,
+                                        "comment",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
                             ]),
                             _vm._v(" "),
                             _c("div", { staticClass: "col-md-6" }, [
@@ -72886,10 +72872,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'delete-unit-modal',
@@ -72903,7 +72885,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
     return {
       showModal: true,
-      posting: false,
+      isbusy: false,
       unit: function () {
         return _this.deleteUnit;
       }()
@@ -72930,7 +72912,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                   'params': { '_method': 'DELETE' }
                 };
 
-                this.posting = true;
+                this.isbusy = true;
                 _context2.next = 4;
                 return axios(axiosOptions).then(function () {
                   var _ref2 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(response) {
@@ -72959,7 +72941,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                 });
 
               case 4:
-                this.posting = false;
+                this.isbusy = false;
 
               case 5:
               case 'end':
@@ -72990,7 +72972,7 @@ var render = function() {
     "modal",
     {
       attrs: {
-        title: "Delete Unit",
+        title: "DeleteUnit",
         header: false,
         footer: false,
         "transition-duration": 0
@@ -73021,24 +73003,33 @@ var render = function() {
           }
         },
         [
-          _vm.posting
-            ? [_vm._v("...deleting")]
+          _vm.isbusy
+            ? [
+                _c("img", {
+                  staticClass: "animated-box  img-responsive img-circle ",
+                  attrs: { src: "/img/heart-beat.png", alt: "some picture" }
+                })
+              ]
             : [
                 _c("div", { attrs: { slot: "title" }, slot: "title" }, [
                   _c("div", { staticClass: "box-profile " }, [
-                    _c("p", [_vm._v("your about to delete")]),
+                    _c("code", [_vm._v("your about to delete")]),
                     _vm._v(" "),
                     _c("img", {
                       staticClass:
-                        "animated-box profile-unit-img img-responsive img-circle",
+                        "animated-box profile-user-img img-responsive img-circle",
                       attrs: {
                         src: "/img/heart-beat.png",
                         alt: "Unit profile picture"
                       }
                     }),
                     _vm._v(" "),
-                    _c("h3", { staticClass: "profile-unitname text-center" }, [
-                      _vm._v(" " + _vm._s(_vm.unit.mac_address) + " }}")
+                    _c("h3", { staticClass: "profile-username text-center" }, [
+                      _vm._v(" " + _vm._s(_vm.unit.label))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "text-center" }, [
+                      _vm._v(_vm._s(_vm.unit.mac_address))
                     ])
                   ])
                 ]),
@@ -73349,38 +73340,31 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "form-group",
-                    class: { "has-error": !_vm.role.description }
-                  },
-                  [
-                    _c("label", [_vm._v("description")]),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.role.description,
-                          expression: "role.description"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      attrs: { cols: "30", rows: "5", placeholder: "..." },
-                      domProps: { value: _vm.role.description },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.role, "description", $event.target.value)
-                        }
+                _c("div", { staticClass: "form-group" }, [
+                  _c("label", [_vm._v("description")]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.role.description,
+                        expression: "role.description"
                       }
-                    })
-                  ]
-                ),
+                    ],
+                    staticClass: "form-control",
+                    attrs: { cols: "30", rows: "5", placeholder: "..." },
+                    domProps: { value: _vm.role.description },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.role, "description", $event.target.value)
+                      }
+                    }
+                  })
+                ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer text-right" }, [
                   _c("div", { staticClass: "row" }, [
@@ -73524,20 +73508,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'edit-role-modal',
@@ -73550,7 +73520,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     var _this = this;
 
     return {
-      dismiss: false,
       showModal: true,
       posting: false,
       role: function () {
@@ -73724,46 +73693,39 @@ var render = function() {
                             ]
                           ),
                           _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass: "form-group",
-                              class: { "has-error": !_vm.role.description }
-                            },
-                            [
-                              _c("label", [_vm._v("description")]),
-                              _vm._v(" "),
-                              _c("textarea", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.role.description,
-                                    expression: "role.description"
-                                  }
-                                ],
-                                staticClass: "form-control",
-                                attrs: {
-                                  cols: "30",
-                                  rows: "5",
-                                  placeholder: "..."
-                                },
-                                domProps: { value: _vm.role.description },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.role,
-                                      "description",
-                                      $event.target.value
-                                    )
-                                  }
+                          _c("div", { staticClass: "form-group" }, [
+                            _c("label", [_vm._v("description")]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.role.description,
+                                  expression: "role.description"
                                 }
-                              })
-                            ]
-                          ),
+                              ],
+                              staticClass: "form-control",
+                              attrs: {
+                                cols: "30",
+                                rows: "5",
+                                placeholder: "..."
+                              },
+                              domProps: { value: _vm.role.description },
+                              on: {
+                                input: function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.role,
+                                    "description",
+                                    $event.target.value
+                                  )
+                                }
+                              }
+                            })
+                          ]),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -73774,15 +73736,15 @@ var render = function() {
                                   "button",
                                   {
                                     staticClass:
-                                      "btn btn-default pull-left col-md-4",
+                                      "btn btn-danger pull-left col-md-4",
                                     attrs: { type: "button" },
                                     on: {
                                       click: function($event) {
-                                        _vm.dismiss = true
+                                        _vm.$emit("close")
                                       }
                                     }
                                   },
-                                  [_vm._v("CANCEL")]
+                                  [_vm._v("Cancel ")]
                                 ),
                                 _vm._v(" "),
                                 _c(
@@ -73805,53 +73767,6 @@ var render = function() {
                   2
                 )
               : _vm._e()
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "modal",
-        {
-          attrs: { "transition-duration": 0, header: false },
-          model: {
-            value: _vm.dismiss,
-            callback: function($$v) {
-              _vm.dismiss = $$v
-            },
-            expression: "dismiss"
-          }
-        },
-        [
-          _c("h3", [_vm._v("WARNING! DISMISSING UPDATE")]),
-          _vm._v(" "),
-          _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success pull-left col-md-4",
-                attrs: { type: "button", "data-action": "auto-focus" },
-                on: {
-                  click: function($event) {
-                    _vm.dismiss = false
-                  }
-                }
-              },
-              [_vm._v("Back to Update")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger pull-right col-md-4",
-                attrs: { type: "button" },
-                on: {
-                  click: function($event) {
-                    _vm.$emit("close")
-                  }
-                }
-              },
-              [_vm._v("Cancel Update")]
-            )
           ])
         ]
       )
@@ -73928,6 +73843,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
 //
 //
 //
@@ -74090,7 +74007,12 @@ var render = function() {
         },
         [
           _vm.posting
-            ? [_vm._v("...deleting")]
+            ? [
+                _c("img", {
+                  staticClass: "animated-box img-responsive img-circle ",
+                  attrs: { src: "/img/heart-beat.png", alt: "some picture" }
+                })
+              ]
             : [
                 _c("div", { staticClass: "form-group" }, [
                   _c("label", [_vm._v("title")]),
@@ -74099,7 +74021,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("body")]),
+                  _c("label", [_vm._v("description")]),
                   _vm._v(" "),
                   _c("pre", [_vm._v(_vm._s(_vm.role.description))])
                 ]),
@@ -75854,7 +75776,7 @@ var render = function() {
             : [
                 _c("div", { attrs: { slot: "title" }, slot: "title" }, [
                   _c("div", { staticClass: "box-profile " }, [
-                    _c("p", [_vm._v("your about to delete")]),
+                    _c("code", [_vm._v("your about to delete")]),
                     _vm._v(" "),
                     _c("img", {
                       staticClass:
@@ -76304,7 +76226,7 @@ var render = function() {
           _vm.isBusy
             ? [
                 _c("img", {
-                  staticClass: "animated-box  img-responsive img-circle ",
+                  staticClass: "animated-box img-responsive img-circle ",
                   attrs: { src: "/img/heart-beat.png", alt: "some picture" }
                 })
               ]
@@ -77180,7 +77102,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
                   'url': '/patient/patients/' + this.editPatient.id,
                   'method': 'post',
                   'params': { '_method': 'PUT' },
-                  'data': this.patient
+                  'data': { patient: this.patient }
                 };
 
                 this.errors = null;
@@ -77290,7 +77212,7 @@ var render = function() {
                       ? [
                           _c("img", {
                             staticClass:
-                              "animated-box profile-patient-img img-responsive img-circle",
+                              "animated-box img-responsive img-circle",
                             attrs: {
                               src: "/img/heart-beat.png",
                               alt: "Patient profile picture"
@@ -78186,19 +78108,18 @@ var render = function() {
           _vm.posting
             ? [
                 _c("img", {
-                  staticClass:
-                    "animated-box profile-patient-img img-responsive img-circle pull-right ",
+                  staticClass: "animated-box img-responsive img-circle  ",
                   attrs: { src: "/img/heart-beat.png", alt: "some picture" }
                 })
               ]
             : [
                 _c("div", { attrs: { slot: "title" }, slot: "title" }, [
                   _c("div", { staticClass: "box-profile " }, [
-                    _c("p", [_vm._v("your about to delete")]),
+                    _c("code", [_vm._v("your about to delete")]),
                     _vm._v(" "),
                     _c("img", {
                       staticClass:
-                        "animated-box profile-patient-img img-responsive img-circle",
+                        "animated-box profile-user-img img-responsive img-circle",
                       attrs: {
                         src: "/img/heart-beat.png",
                         alt: "Patient profile picture"
@@ -79321,11 +79242,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -79435,7 +79351,7 @@ var render = function() {
                   },
                   [
                     _c("span", { staticClass: "glyphicon glyphicon-plus" }),
-                    _vm._v("\n                            Add new Unit")
+                    _vm._v("\n                        Add new Unit")
                   ]
                 )
               ])
@@ -79755,7 +79671,7 @@ var render = function() {
                               staticClass: "fa  fa-unit-plus margin-r-5"
                             }),
                             _vm._v(
-                              "Activation Status\n                                    "
+                              "Activation Status\n                                "
                             )
                           ])
                         ]),
@@ -79892,7 +79808,7 @@ var render = function() {
                               staticClass: "fa  fa-unit-plus margin-r-5"
                             }),
                             _vm._v(
-                              "Usage Status\n                                    "
+                              "Usage Status\n                                "
                             )
                           ])
                         ]),
@@ -79997,7 +79913,7 @@ var render = function() {
                               staticClass: "fa  fa-unit-plus margin-r-5"
                             }),
                             _vm._v(
-                              "Oximeter Status\n                                    "
+                              "Oximeter Status\n                                "
                             )
                           ])
                         ]),
@@ -80089,7 +80005,7 @@ var render = function() {
                               staticClass: "fa  fa-unit-plus margin-r-5"
                             }),
                             _vm._v(
-                              "Sphygmomanometer Status\n                                    "
+                              "Sphygmomanometer Status\n                                "
                             )
                           ])
                         ]),
@@ -80172,7 +80088,7 @@ var render = function() {
                               staticClass: "fa  fa-unit-plus margin-r-5"
                             }),
                             _vm._v(
-                              "Thermometer Status\n                                    "
+                              "Thermometer Status\n                                "
                             )
                           ])
                         ]),
@@ -80497,7 +80413,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -80724,7 +80639,7 @@ var render = function() {
                               ])
                             }),
                             _vm._v(" "),
-                            !_vm.roles.total
+                            !_vm.roles.length
                               ? _c("tr", [
                                   _c(
                                     "td",
@@ -80733,13 +80648,16 @@ var render = function() {
                                       attrs: { colspan: "2" }
                                     },
                                     [
-                                      _c("p", [
-                                        _vm._v(
-                                          " " +
+                                      _c(
+                                        "p",
+                                        { staticClass: "no-margin text-red" },
+                                        [
+                                          _vm._v(
                                             _vm._s(_vm.searchTerm) +
-                                            " was not in the list"
-                                        )
-                                      ])
+                                              " was not in the list"
+                                          )
+                                        ]
+                                      )
                                     ]
                                   )
                                 ])
