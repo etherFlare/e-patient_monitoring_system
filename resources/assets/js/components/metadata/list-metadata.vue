@@ -18,16 +18,16 @@
           </form>
         </div>
         <div class="box-body">
-          <heart-beat v-if="on_load"></heart-beat>
-          <div v-if="!loading">
+          <!-- <heart-beat v-if="on_load"></heart-beat> -->
+          <div v-if="Boolean(metadatas)">
             <table  id="ex1" class="table table-bordered table-hover">
-              <thead v-if="metadatas.length">
+              <thead >
                 <tr>
                   <th>uniy_id</th>
                   <th>sensor_type</th>
                   <th>sensor_value</th>
                   <th>Date Created</th>
-                  <th class="col-md-2"></th>
+                  <th><i class="fa fa-spin fa-refresh" v-if="on_load"></i></th>
                 </tr>
               </thead>
               <tbody>
@@ -62,6 +62,9 @@
             <strong><i class="fa fa-circle-o margin-r-5"></i> Unit id</strong>
             <p class="text-muted">{{ metadata.uniy_id }}</p>
             <hr>
+            <strong><i class="fa fa-circle-o margin-r-5"></i>Mac</strong>
+            <p class="text-muted">{{ metadata.mac }}</p>
+            <hr>
             <strong><i class="fa fa-circle-o margin-r-5"></i> Unit id</strong>
             <p class="text-muted">{{ metadata.sensor_type }}</p>
             <hr>
@@ -82,7 +85,6 @@
     </div>
   </div>
 </template>
-
 <script>
   export default {
     data() {
@@ -96,11 +98,15 @@
       }
     },
     mounted() {
-      this.$nextTick(()=>{
+
+      setInterval(()=>{
+this.on_load = true
         this.getMetadatas().then((response)=>{
           this.on_load = false
         })
-      })
+      
+      }, 5000)
+ 
     },
     computed: { 
       loading() {

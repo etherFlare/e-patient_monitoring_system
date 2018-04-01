@@ -6,7 +6,7 @@
    :footer="false"
   >
       <form ref="vForm" v-on:submit.prevent="postNewLocation($event)">
-        <template v-if="posting">...posting</template>
+        <template v-if="isbusy"><img class="animated-box profile-patient-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="Patient profile picture" ></template>
         <template v-else>
           <div class="form-group" :class="{'has-error': !location.name}">
             <label>name</label>
@@ -32,7 +32,7 @@ export default {
   data() {
     return {
       showModal: true,
-      posting: false,
+      isbusy: false,
       location: {
         name: '',
         description: ''
@@ -57,7 +57,7 @@ export default {
       }
  console.log( this.location); 
 
-      this.posting = true
+      this.isbusy = true
       this.result = {}
       this.message = {}
       return await axios(axiosOptions).then(async (response) => {
@@ -70,9 +70,9 @@ console.log( this.location);
       }).catch(error => {
         this.$toaster.error(error.response.data.message)
          console.log( error.response.data.messagee);
-         this.posting = false
+         this.isbusy = false
       })
-      this.posting = false
+      this.isbusy = false
     }
   }
 }

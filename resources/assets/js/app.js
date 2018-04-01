@@ -66,6 +66,9 @@ const Listlocations=Vue.component('Listlocations', require('./components/locatio
 const Listtypes=Vue.component('Listtypes', require('./components/type/list-type.vue'));
 // show the list normal template
 const Listnormals=Vue.component('Listnormals', require('./components/normal/list-normal.vue'));
+// show the list metadata template
+const Listmetadatas=Vue.component('Listmetadatas', require('./components/metadata/list-metadata.vue'));
+
 
 const heartBeat =Vue.component('heart-beat', require('./components/heart-beat.vue'));
 const vmodal =Vue.component('v-modal', require('./components/modal.vue'));
@@ -150,6 +153,11 @@ const routes = [
   name: 'Listnormals',
   path: '/normal',
   component: Listnormals
+},
+{
+  name: 'Listmetadatas',
+  path: '/metadata',
+  component: Listmetadatas
 }
 ];
 
@@ -165,7 +173,8 @@ const store = new Vuex.Store({
     patients: {},
     locations:{},
     types:    {},
-    normals:  {}
+    normals:  {},
+    metadatas:{}
   },
   getters: {
     loading(state) {
@@ -225,6 +234,13 @@ const store = new Vuex.Store({
     },
     normals(state, getters) {
       return getters.normalsCollection.data
+    },
+    //-------------------------metadata
+    metadatasCollection(state) {
+      return state.metadatas
+    },
+    metadatas(state, getters) {
+      return getters.metadatasCollection.data
     }
     //-------------------------
   },
@@ -420,6 +436,30 @@ async getNormals({commit, dispatch, state}, data) {
   },
   newNormals({commit}, payload) {
     commit('setNormals', payload)
+  },
+   //--------------------------type
+async getMetadatas({commit, dispatch, state}, data) {
+    data = data || {}
+    const axiosOptions = {
+      'url': '/metadata/metadatas',
+      'method': 'get',
+      'params': data
+    }
+    await commit('setLoading', true)
+    // let nullData = Object.assign(state.metadatas, {data: []})
+    // await dispatch('newMetadatas', nullData)
+
+    return await axios(axiosOptions).then(async (response) => {
+      await console.log('getMetadatas:', response)
+      await dispatch('newMetadatas', response.data)
+       commit('setLoading', false)
+
+    }).catch(error => { 
+      console.log('error', error); 
+    })
+  },
+  newMetadatas({commit}, payload) {
+    commit('setMetadatas', payload)
   }
   //-------------------------------------------
 },
@@ -450,6 +490,9 @@ mutations: {
   },
   setNormals(state, payload){
     state.normals = payload
+  },
+  setMetadatas(state, payload){
+    state.metadatas = payload
   }
 } 
 })

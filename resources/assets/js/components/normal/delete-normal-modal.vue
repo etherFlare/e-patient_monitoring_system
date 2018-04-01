@@ -8,15 +8,17 @@
   v-on:hide="$emit('close')"
   >
   <form ref="vForm" v-on:submit.prevent="doAction($event)"> 
-    <template v-if="posting">...deleting</template>
+    <template v-if="isbusy">
+    <img class="animated-box profile-patient-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="Patient profile picture" >
+    </template>
     <template v-else>
       <div class="form-group">
-        <label>name</label>
-        <pre>{{normal.name}}</pre>
+        <label>Sensor Type</label>
+        <pre>{{normal.type.name }}</pre>
       </div>
       <div class="form-group">
-        <label>body</label>
-        <pre>{{normal.description}}</pre>
+        <label>Assigned Patient</label>
+        <pre>{{normal.patient.first_name}}</pre>
       </div>
       <div  class="modal-footer text-right" >
         <div class="row">
@@ -39,7 +41,7 @@ export default {
   data() {
     return {
       showModal: true,
-      posting: false, 
+      isbusy: false, 
       normal: (()=>{ return this.deleteNormal })()
     }
   }, 
@@ -54,7 +56,7 @@ export default {
         'method': 'post',
         'params': {'_method': 'DELETE'}
       }
-      this.posting = true 
+      this.isbusy = true 
       await axios(axiosOptions).then(async (response) => {
         this.$toaster.success(response.data.msg)
         this.$emit('normal-deleted')
@@ -63,7 +65,7 @@ export default {
       }).catch(error => { 
         this.$toaster.error(error.response.data.message) 
       })
-      this.posting = false
+      this.isbusy = false
     }
   }
 }

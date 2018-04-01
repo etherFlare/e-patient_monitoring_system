@@ -10,7 +10,7 @@
     >  
     <div slot="default">
       <form v-if="type" ref="vForm" v-on:submit.prevent="updateType($event)">
-        <template v-if="posting">...posting</template>
+        <template v-if="isbusy"><img class="animated-box profile-patient-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="Patient profile picture" ></template>
         <template v-else>
           <div class="form-group" :class="{'has-error': !type.name}">
             <label>name</label>
@@ -58,7 +58,7 @@ export default {
     return {
       dismiss:false,
       showModal: true,
-      posting: false,
+      isbusy: false,
       type: (()=>{ return Object.assign({}, this.editType) })()
     }
   },
@@ -79,14 +79,14 @@ export default {
         'params': {'_method': 'PUT'},
         'data': this.type
       }
-      this.posting = true
+      this.isbusy = true
       await axios(axiosOptions).then(async (response) => {
         this.$toaster.success(response.data.msg)
         this.$emit('type-updated')
       }).catch(error => {
         this.$toaster.error(error.response.data.message)
       })
-      this.posting = false
+      this.isbusy = false
       this.showModal = false
     }
   }

@@ -27,6 +27,5 @@ class CreateRoleUserTable extends Migration
            $table->dropForeign(['role_id']);
            $table->dropForeign(['user_id']);
         });
-
     }
 }

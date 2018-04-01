@@ -24,7 +24,6 @@
           </form>
         </div>
         <div class="box-body">
-          <heart-beat v-if="on_load"></heart-beat>
           <div v-if="!loading">
             <table  id="ex1" class="table table-bordered table-hover">
               <thead>
@@ -65,106 +64,107 @@
               <hr/>
               <strong>Assigned Patient</strong>
               <p>{{ normal.patient.first_name }}</p>
-              <hr/></div>
-              <div class="col-md-6">
-                <strong>Upper Limit</strong>
-                <p>
-                  <code>{{ normal.upper_limit }}</code>
-                </p>
-                <hr/>
-                <strong>Lower Limit</strong>
-                <p>
-                  <code>{{ normal.lower_limit }}</code>
-                </p>
-                <hr/>
-              </div>
+              <hr/>
             </div>
-            <div class="row">
-              <div class="col-md-6">
-                <strong>Date Created</strong>
-                <div>{{normal.created_at | moment('LLLL')}}</div>
-                <code>{{normal.created_at | moment('from')}}</code>
-              </div>
-              <div class="col-md-6">
-                <strong>Date Updated</strong>
-                <div>{{normal.updated_at | moment('LLLL')}}</div>
-                <code>{{normal.updated_at | moment('from')}}</code>
-              </div>
+            <div class="col-md-6">
+              <strong>Upper Limit</strong>
+              <p>
+                <code>{{ normal.upper_limit }}</code>
+              </p>
+              <hr/>
+              <strong>Lower Limit</strong>
+              <p>
+                <code>{{ normal.lower_limit }}</code>
+              </p>
+              <hr/>
             </div>
-            <div slot="footer">
-              <btn type="warning"  class="" v-on:click="showEditNormalModalComponent($event, normal)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
-              <btn type="danger"  class="" v-on:click="showDeleteNormalModalComponent($event, normal)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</btn>
-              <btn  v-on:click="showNormalModal=false" data-action="auto-focus">Cancel</btn>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <strong>Date Created</strong>
+              <div>{{normal.created_at | moment('LLLL')}}</div>
+              <code>{{normal.created_at | moment('from')}}</code>
             </div>
-          </modal>
-        </div>
+            <div class="col-md-6">
+              <strong>Date Updated</strong>
+              <div>{{normal.updated_at | moment('LLLL')}}</div>
+              <code>{{normal.updated_at | moment('from')}}</code>
+            </div>
+          </div>
+          <div slot="footer">
+            <btn type="warning"  class="" v-on:click="showEditNormalModalComponent($event, normal)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
+            <btn type="danger"  class="" v-on:click="showDeleteNormalModalComponent($event, normal)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</btn>
+            <btn  v-on:click="showNormalModal=false" data-action="auto-focus">Cancel</btn>
+          </div>
+        </modal>
       </div>
     </div>
-  </template>
-  <script>
-  export default {
-    data() {
-      return {
-        on_load: true,
-        normal: null,
-        showCreateNormalModal: false,
-        showEditNormalModal: false,
-        showDeleteNormalModal: false,
-        showNormalModal: false,
-        searchTerm: '',
-      }
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      on_load: true,
+      normal: null,
+      showCreateNormalModal: false,
+      showEditNormalModal: false,
+      showDeleteNormalModal: false,
+      showNormalModal: false,
+      searchTerm: '',
+    }
+  },
+  mounted() {
+    this.$nextTick(()=>{
+      this.getNormals().then((response)=>{
+        this.on_load = false
+      })
+    })
+  },
+  computed: {
+    loading() {
+      return this.$store.getters.loading
     },
-    mounted() {
-      this.$nextTick(()=>{
-        this.getNormals().then((response)=>{
-          this.on_load = false
-        })
+    normals() {
+      return this.$store.getters.normals
+    },
+    filteredNormals: function(){
+      if(this.normals.length) {
+        return this.normals;
+      }
+    }
+  },
+  methods: {
+    callback (msg) {
+      this.$notify(`Modal dismissed with msg '${msg}'.`)
+    },
+    normalCreated() {
+      this.getNormals()
+    },
+    showCreateNormalModalComponent(event) {
+      this.showCreateNormalModal = true
+    },
+    showEditNormalModalComponent(event, normal) {
+      this.normal = normal
+      this.$nextTick(() => {
+        this.showEditNormalModal = true
       })
     },
-    computed: {
-      loading() {
-        return this.$store.getters.loading
-      },
-      normals() {
-        return this.$store.getters.normals
-      },
-      filteredNormals: function(){
-        if(this.normals.length) {
-          return this.normals;
-        }
-      }
+    showDeleteNormalModalComponent(event, normal) {
+      this.normal = normal
+      this.$nextTick(() => {
+        this.showDeleteNormalModal = true
+      })
     },
-    methods: {
-      callback (msg) {
-        this.$notify(`Modal dismissed with msg '${msg}'.`)
-      },
-      normalCreated() {
-        this.getNormals()
-      },
-      showCreateNormalModalComponent(event) {
-        this.showCreateNormalModal = true
-      },
-      showEditNormalModalComponent(event, normal) {
-        this.normal = normal
-        this.$nextTick(() => {
-          this.showEditNormalModal = true
-        })
-      },
-      showDeleteNormalModalComponent(event, normal) {
-        this.normal = normal
-        this.$nextTick(() => {
-          this.showDeleteNormalModal = true
-        })
-      },
-      showNormalModalComponent(event, normal) {
-        this.normal = normal
-        this.$nextTick(() => {
-          this.showNormalModal = true
-        })
-      },
-      getNormals(event) {
-        return this.$store.dispatch('getNormals', { 'search': this.searchTerm })
-      }
+    showNormalModalComponent(event, normal) {
+      this.normal = normal
+      this.$nextTick(() => {
+        this.showNormalModal = true
+      })
     },
-  }
-  </script>
+    getNormals(event) {
+      return this.$store.dispatch('getNormals', { 'search': this.searchTerm })
+    }
+  },
+}
+</script>

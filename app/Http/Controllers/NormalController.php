@@ -26,7 +26,7 @@ class NormalController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-		'normal.type_id'		 => 'required',
+		'normal.type_id'	 => 'required',
 		'normal.patient_id'  => 'required',
 		'normal.upper_limit' => 'required',
 		'normal.lower_limit' => 'required'
@@ -45,7 +45,7 @@ class NormalController extends Controller
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
-		'normal.type_id'		 => 'required',
+		'normal.type_id' 	 => 'required',
 		'normal.patient_id'  => 'required',
 		'normal.upper_limit' => 'required',
 		'normal.lower_limit' => 'required'

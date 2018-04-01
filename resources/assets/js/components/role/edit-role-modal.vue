@@ -10,7 +10,7 @@
     >  
     <div slot="default">
       <form v-if="role" ref="vForm" v-on:submit.prevent="updateRole($event)">
-        <template v-if="posting">...posting</template>
+        <template v-if="isbusy"><img class="animated-box profile-patient-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="Patient profile picture" ></template>
         <template v-else>
           <div class="form-group" :class="{'has-error': !role.title}">
             <label>title</label>
@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       showModal: true,
-      posting: false,
+      isbusy: false,
       role: (()=>{ return Object.assign({}, this.editRole) })()
     }
   },
@@ -64,14 +64,14 @@ export default {
         'params': {'_method': 'PUT'},
         'data': this.role
       }
-      this.posting = true
+      this.isbusy = true
       await axios(axiosOptions).then(async (response) => {
         this.$toaster.success(response.data.msg)
         this.$emit('role-updated')
       }).catch(error => {
         this.$toaster.error(error.response.data.message)
       })
-      this.posting = false
+      this.isbusy = false
       this.showModal = false
     }
   }

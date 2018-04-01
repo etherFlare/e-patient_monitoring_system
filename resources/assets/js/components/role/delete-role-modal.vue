@@ -8,7 +8,7 @@
   v-on:hide="$emit('close')"
   >
   <form ref="vForm" v-on:submit.prevent="doAction($event)"> 
-    <template v-if="posting">
+    <template v-if="isbusy">
         <img class="animated-box img-responsive img-circle " src="/img/heart-beat.png" alt="some picture" >
       </template>
     <template v-else>
@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       showModal: true,
-      posting: false, 
+      isbusy: false, 
       role: (()=>{ return this.deleteRole })()
     }
   }, 
@@ -56,7 +56,7 @@ export default {
         'method': 'post',
         'params': {'_method': 'DELETE'}
       }
-      this.posting = true 
+      this.isbusy = true 
       await axios(axiosOptions).then(async (response) => {
         this.$toaster.success(response.data.msg)
         this.$emit('role-deleted')
@@ -65,7 +65,7 @@ export default {
       }).catch(error => { 
         this.$toaster.error(error.response.data.message) 
       })
-      this.posting = false
+      this.isbusy = false
     }
   }
 }

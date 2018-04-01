@@ -85,7 +85,7 @@ export default {
   data() {
     return {
       showModal: true,
-      posting: false,
+      isbusy: false,
       user: (()=>{ return Object.assign({}, this.editUser) })(),
       isBusy: false,
       roles: null,

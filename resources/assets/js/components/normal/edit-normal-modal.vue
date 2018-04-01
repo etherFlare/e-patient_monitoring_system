@@ -1,13 +1,6 @@
 <template>
   <section>
-    <modal 
-    v-model="showModal" 
-    title="Edit Normal" 
-    :keyboard="false" 
-    :backdrop="false" 
-    :footer="false" 
-    v-on:hide="$emit('close')"
-    >  
+    <modal v-model="showModal" title="EditNormal" :backdrop="false" :footer="false" v-on:hide="$emit('close')">
     <div slot="default">
       <form v-if="normal" ref="vForm" v-on:submit.prevent="updateNormal($event)">
             <template v-if="isBusy">
@@ -67,7 +60,9 @@ export default {
       showModal: true,
       isBusy: false,
       errors: null,
-      normal: (()=>{ return Object.assign({}, this.editNormal) })()
+      normal: (()=>{ return Object.assign({}, this.editNormal) })(),
+      types: null,
+      patients: null
     }
   },
     mounted() {
@@ -134,16 +129,23 @@ export default {
         'params': {'_method': 'PUT'},
         'data': {normal: this.normal} 
       }
-      this.posting = true
+       this.errors = null
+      this.isBusy = true
+      this.result = {}
+      this.message = {}
       await axios(axiosOptions).then(async (response) => {
         this.$toaster.success(response.data.msg)
         this.$emit('normal-updated')
+         this.isBusy = false
+        this.showModal = false
       }).catch(error => {
+        this.errors = error.response.data.errors
         this.$toaster.error(error.response.data.message)
+        this.isBusy = false
+        return Promise.reject(error.response);
       })
-      this.posting = false
       this.showModal = false
     }
   }
 }
-</script>name
+</script>
