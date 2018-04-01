@@ -46,8 +46,8 @@
 <script>
 const blankNormalData = () => {
   return {
-    'type_id': null,
-    'patient_id': null,
+    'type_id': 1,
+    'patient_id': 1,
     'upper_limit': '100',
     'lower_limit': '1'
   }

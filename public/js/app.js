@@ -86809,8 +86809,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 var blankNormalData = function blankNormalData() {
   return {
-    'type_id': null,
-    'patient_id': null,
+    'type_id': 1,
+    'patient_id': 1,
     'upper_limit': '100',
     'lower_limit': '1'
   };
@@ -87444,6 +87444,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'edit-normal-modal',
@@ -87456,16 +87464,36 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     var _this = this;
 
     return {
-      dismiss: false,
       showModal: true,
-      posting: false,
+      isBusy: false,
+      errors: null,
       normal: function () {
         return Object.assign({}, _this.editNormal);
       }()
     };
   },
+  mounted: function mounted() {
+    this.getTypes();
+    this.getPatients();
+  },
 
   computed: {
+    typesOption: function typesOption() {
+      if (Boolean(this.types)) {
+        return this.types.data.map(function (type) {
+          return { label: type.name, value: type.id };
+        });
+      }
+      return [];
+    },
+    patientsOption: function patientsOption() {
+      if (Boolean(this.patients)) {
+        return this.patients.data.map(function (patient) {
+          return { label: patient.first_name, value: patient.id };
+        });
+      }
+      return [];
+    },
     canPost: function canPost() {
       var result = true;
       Object.entries(this.normal).forEach(function (_ref) {
@@ -87479,9 +87507,51 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     }
   },
   methods: {
-    updateNormal: function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2(event) {
+    hasError: function hasError(field) {
+      var errors = this.errors;
+      if (!errors) return false;
+      return Object.keys(errors).map(function (key) {
+        return key;
+      }).includes(field);
+    },
+    getTypes: function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee() {
         var _this2 = this;
+
+        var axiosOptions;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                axiosOptions = {
+                  'url': '/type/types',
+                  'method': 'get'
+                };
+                _context.next = 3;
+                return axios(axiosOptions).then(function (response) {
+                  _this2.types = response.data;
+                }).catch(function (error) {
+                  _this2.types = null;
+                  return Promise.reject(error.response);
+                });
+
+              case 3:
+              case 'end':
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getTypes() {
+        return _ref3.apply(this, arguments);
+      }
+
+      return getTypes;
+    }(),
+    getPatients: function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee2() {
+        var _this3 = this;
 
         var axiosOptions;
         return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee2$(_context2) {
@@ -87489,36 +87559,71 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             switch (_context2.prev = _context2.next) {
               case 0:
                 axiosOptions = {
+                  'url': '/patient/patients',
+                  'method': 'get'
+                };
+                _context2.next = 3;
+                return axios(axiosOptions).then(function (response) {
+                  _this3.patients = response.data;
+                }).catch(function (error) {
+                  _this3.patients = null;
+                  return Promise.reject(error.response);
+                });
+
+              case 3:
+              case 'end':
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function getPatients() {
+        return _ref4.apply(this, arguments);
+      }
+
+      return getPatients;
+    }(),
+    updateNormal: function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee4(event) {
+        var _this4 = this;
+
+        var axiosOptions;
+        return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                axiosOptions = {
                   'url': '/normal/normals/' + this.editNormal.id,
                   'method': 'post',
                   'params': { '_method': 'PUT' },
-                  'data': this.normal
+                  'data': { normal: this.normal }
                 };
 
                 this.posting = true;
-                _context2.next = 4;
+                _context4.next = 4;
                 return axios(axiosOptions).then(function () {
-                  var _ref4 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee(response) {
-                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee$(_context) {
+                  var _ref6 = _asyncToGenerator( /*#__PURE__*/__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.mark(function _callee3(response) {
+                    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default.a.wrap(function _callee3$(_context3) {
                       while (1) {
-                        switch (_context.prev = _context.next) {
+                        switch (_context3.prev = _context3.next) {
                           case 0:
-                            _this2.$toaster.success(response.data.msg);
-                            _this2.$emit('normal-updated');
+                            _this4.$toaster.success(response.data.msg);
+                            _this4.$emit('normal-updated');
 
                           case 2:
                           case 'end':
-                            return _context.stop();
+                            return _context3.stop();
                         }
                       }
-                    }, _callee, _this2);
+                    }, _callee3, _this4);
                   }));
 
                   return function (_x2) {
-                    return _ref4.apply(this, arguments);
+                    return _ref6.apply(this, arguments);
                   };
                 }()).catch(function (error) {
-                  _this2.$toaster.error(error.response.data.message);
+                  _this4.$toaster.error(error.response.data.message);
                 });
 
               case 4:
@@ -87527,14 +87632,14 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
               case 6:
               case 'end':
-                return _context2.stop();
+                return _context4.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee4, this);
       }));
 
       function updateNormal(_x) {
-        return _ref3.apply(this, arguments);
+        return _ref5.apply(this, arguments);
       }
 
       return updateNormal;
@@ -87590,30 +87695,242 @@ var render = function() {
                     }
                   },
                   [
-                    _vm.posting
-                      ? [_vm._v("...posting")]
+                    _vm.isBusy
+                      ? [
+                          _c("img", {
+                            staticClass:
+                              "animated-box profile-patient-img img-responsive img-circle pull-right ",
+                            attrs: {
+                              src: "/img/heart-beat.png",
+                              alt: "Patient profile picture"
+                            }
+                          })
+                        ]
                       : [
                           _c(
                             "div",
                             {
                               staticClass: "form-group",
-                              class: { "has-error": !_vm.normal.name }
+                              class: {
+                                "has-error":
+                                  !_vm.normal.type_id ||
+                                  _vm.hasError("normal.type_id")
+                              }
                             },
                             [
-                              _c("label", [_vm._v("name")]),
+                              _c("label", { attrs: { for: "type_id" } }, [
+                                _vm._v("Type")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.normal.type_id,
+                                      expression: "normal.type_id"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: { id: "type_id", placeholder: "..." },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.normal,
+                                        "type_id",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    {
+                                      attrs: {
+                                        disabled: "",
+                                        selected: "",
+                                        value: ""
+                                      }
+                                    },
+                                    [_vm._v(" -- select an option -- ")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.typesOption, function(
+                                    type,
+                                    typesOptionIdx
+                                  ) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: typesOptionIdx,
+                                        domProps: { value: type.value }
+                                      },
+                                      [_vm._v(_vm._s(type.label))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _vm.hasError("normal.type_id")
+                                ? _vm._l(_vm.errors["normal.type_id"], function(
+                                    line,
+                                    errorIdx
+                                  ) {
+                                    return _c(
+                                      "p",
+                                      {
+                                        key: errorIdx,
+                                        staticClass: "small text-red"
+                                      },
+                                      [_vm._v(_vm._s(line))]
+                                    )
+                                  })
+                                : _vm._e()
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "form-group",
+                              class: {
+                                "has-error":
+                                  !_vm.normal.patient_id ||
+                                  _vm.hasError("normal.patient_id")
+                              }
+                            },
+                            [
+                              _c("label", { attrs: { for: "patient_id" } }, [
+                                _vm._v("Patient")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.normal.patient_id,
+                                      expression: "normal.patient_id"
+                                    }
+                                  ],
+                                  staticClass: "form-control",
+                                  attrs: {
+                                    id: "patient_id",
+                                    placeholder: "..."
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.normal,
+                                        "patient_id",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    {
+                                      attrs: {
+                                        disabled: "",
+                                        selected: "",
+                                        value: ""
+                                      }
+                                    },
+                                    [_vm._v(" -- select an option -- ")]
+                                  ),
+                                  _vm._v(" "),
+                                  _vm._l(_vm.patientsOption, function(
+                                    patient,
+                                    patientsOptionIdx
+                                  ) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: patientsOptionIdx,
+                                        domProps: { value: patient.value }
+                                      },
+                                      [_vm._v(_vm._s(patient.label))]
+                                    )
+                                  })
+                                ],
+                                2
+                              ),
+                              _vm._v(" "),
+                              _vm.hasError("normal.patient_id")
+                                ? _vm._l(
+                                    _vm.errors["normal.patient_id"],
+                                    function(line, errorIdx) {
+                                      return _c(
+                                        "p",
+                                        {
+                                          key: errorIdx,
+                                          staticClass: "small text-red"
+                                        },
+                                        [_vm._v(_vm._s(line))]
+                                      )
+                                    }
+                                  )
+                                : _vm._e()
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "form-group ",
+                              class: { "has-error": !_vm.normal.upper_limit }
+                            },
+                            [
+                              _c("label", [_vm._v("Upper Limit")]),
                               _vm._v(" "),
                               _c("input", {
                                 directives: [
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.normal.name,
-                                    expression: "normal.name"
+                                    value: _vm.normal.upper_limit,
+                                    expression: "normal.upper_limit"
                                   }
                                 ],
                                 staticClass: "form-control",
-                                attrs: { normal: "text", placeholder: "..." },
-                                domProps: { value: _vm.normal.name },
+                                attrs: { type: "text", placeholder: "..." },
+                                domProps: { value: _vm.normal.upper_limit },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
@@ -87621,7 +87938,7 @@ var render = function() {
                                     }
                                     _vm.$set(
                                       _vm.normal,
-                                      "name",
+                                      "upper_limit",
                                       $event.target.value
                                     )
                                   }
@@ -87633,28 +87950,24 @@ var render = function() {
                           _c(
                             "div",
                             {
-                              staticClass: "form-group",
-                              class: { "has-error": !_vm.normal.description }
+                              staticClass: "form-group ",
+                              class: { "has-error": !_vm.normal.lower_limit }
                             },
                             [
-                              _c("label", [_vm._v("description")]),
+                              _c("label", [_vm._v("Lower Limit")]),
                               _vm._v(" "),
-                              _c("textarea", {
+                              _c("input", {
                                 directives: [
                                   {
                                     name: "model",
                                     rawName: "v-model",
-                                    value: _vm.normal.description,
-                                    expression: "normal.description"
+                                    value: _vm.normal.lower_limit,
+                                    expression: "normal.lower_limit"
                                   }
                                 ],
                                 staticClass: "form-control",
-                                attrs: {
-                                  cols: "30",
-                                  rows: "5",
-                                  placeholder: "..."
-                                },
-                                domProps: { value: _vm.normal.description },
+                                attrs: { type: "text", placeholder: "..." },
+                                domProps: { value: _vm.normal.lower_limit },
                                 on: {
                                   input: function($event) {
                                     if ($event.target.composing) {
@@ -87662,7 +87975,7 @@ var render = function() {
                                     }
                                     _vm.$set(
                                       _vm.normal,
-                                      "description",
+                                      "lower_limit",
                                       $event.target.value
                                     )
                                   }
@@ -87684,7 +87997,7 @@ var render = function() {
                                     attrs: { normal: "button" },
                                     on: {
                                       click: function($event) {
-                                        _vm.dismiss = true
+                                        _vm.$emit("close")
                                       }
                                     }
                                   },
@@ -87711,53 +88024,6 @@ var render = function() {
                   2
                 )
               : _vm._e()
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "modal",
-        {
-          attrs: { "transition-duration": 0, header: false },
-          model: {
-            value: _vm.dismiss,
-            callback: function($$v) {
-              _vm.dismiss = $$v
-            },
-            expression: "dismiss"
-          }
-        },
-        [
-          _c("h3", [_vm._v("WARNING! DISMISSING UPDATE")]),
-          _vm._v(" "),
-          _c("div", { attrs: { slot: "footer" }, slot: "footer" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-success pull-left col-md-4",
-                attrs: { normal: "button", "data-action": "auto-focus" },
-                on: {
-                  click: function($event) {
-                    _vm.dismiss = false
-                  }
-                }
-              },
-              [_vm._v("Back to Update")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger pull-right col-md-4",
-                attrs: { normal: "button" },
-                on: {
-                  click: function($event) {
-                    _vm.$emit("close")
-                  }
-                }
-              },
-              [_vm._v("Cancel Update")]
-            )
           ])
         ]
       )

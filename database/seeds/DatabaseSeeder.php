@@ -13,6 +13,24 @@ class DatabaseSeeder extends Seeder
     {
     	$faker = Faker\Factory::create();
 
+	        App\Type::create([
+	            'name' =>'oxymeter',
+		        'description' => 'seeded',
+	            'created_at' => Carbon\Carbon::now() , 
+	            'updated_at' => Carbon\Carbon::now()
+	        ]);
+	App\Type::create([
+	            'name' =>'Sphygmomanometer',
+		        'description' => 'seeded',
+	            'created_at' => Carbon\Carbon::now() , 
+	            'updated_at' => Carbon\Carbon::now()
+	        ]);
+	App\Type::create([
+	            'name' =>'temperature',
+		        'description' => 'seeded',
+	            'created_at' => Carbon\Carbon::now() , 
+	            'updated_at' => Carbon\Carbon::now()
+	        ]);
  for($i = 0; $i < 10; $i++) {
 	        App\Location::create([
 	            'name' =>'room no $i',
@@ -21,6 +39,7 @@ class DatabaseSeeder extends Seeder
 	            'updated_at' => Carbon\Carbon::now()
 	        ]);
 	    }
+
 for($i = 0; $i < 10; $i++) {
 	        App\Patient::create([
 	            'unit_id' =>$i,

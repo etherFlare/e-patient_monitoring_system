@@ -26,8 +26,10 @@ class NormalController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-		'upper_limit' => 'required',
-		'lower_limit' => 'required'
+		'normal.type_id'		 => 'required',
+		'normal.patient_id'  => 'required',
+		'normal.upper_limit' => 'required',
+		'normal.lower_limit' => 'required'
 		]);
 		$createdNormal = NormalReference::create($request->get('normal'));
         return response()->json(['request' => $request->all(), 'normal' => $createdNormal, 'status' => 'success', 'msg' => 'normal refernce updated successfully']);
@@ -43,14 +45,15 @@ class NormalController extends Controller
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
-					'type' => 'required',
-		'upper_limit' => 'required',
-		'lower_limit' => 'required'
+		'normal.type_id'		 => 'required',
+		'normal.patient_id'  => 'required',
+		'normal.upper_limit' => 'required',
+		'normal.lower_limit' => 'required'
 		]);
 		$normal = NormalReference::find($id);
 		if($normal->count()){
-			$normal->update($request->all());
-			return response()->json(['statur'=>'success','msg'=>'NormalReference updated successfully']);
+			$normal->update($request->get('normal'));
+			return response()->json(['request' => $request->all(), 'normal' => $normal, 'status' => 'success', 'msg' => 'normal refernce updated successfully']);
 		} else {
 			return response()->json(['statur'=>'error','msg'=>'error in updating post']);
 		}
