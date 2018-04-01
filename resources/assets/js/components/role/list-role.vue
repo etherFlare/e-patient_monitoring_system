@@ -24,7 +24,6 @@
           </form>
         </div>
         <div class="box-body">
-          <heart-beat v-if="on_load"></heart-beat>
           <div v-if="!loading"> 
             <table  id="ex1" class="table table-bordered table-hover">
               <thead>

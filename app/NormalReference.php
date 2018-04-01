@@ -13,7 +13,7 @@ class NormalReference extends Model
 		'upper_limit',
 		'lower_limit'
 	];
-	    public function patient()
+	public function patient()
     {
         return $this->belongsTo('App\Patient');
     }
