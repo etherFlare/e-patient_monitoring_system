@@ -23,7 +23,8 @@
             <table  id="ex1" class="table table-bordered table-hover">
               <thead >
                 <tr>
-                  <th>uniy_id</th>
+                  <th>unit_id</th>
+                  <th>mac</th>
                   <th>sensor_type</th>
                   <th>sensor_value</th>
                   <th>Date Created</th>
@@ -32,16 +33,17 @@
               </thead>
               <tbody>
                 <tr v-for="(metadata, index) in metadatas" >
-                  <td v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.uniy_id }}</td>
+                  <td v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.unit_id }}</td>
+                  <td v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.mac }}</td>
                   <td v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.sensor_type }}</td>
                   <td v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.sensor_value }}</td>
-                  <td  v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.created_at | moment('LLLL')}} <code>{{ metadata.created_at | moment('from')}}</code></td>
+                  <td  v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.created_at | moment('LLLL')}}</code></td>
                   <td class="row">
                     <btn size="xs" type="primary" class="col-xs-12" style="margin-left:3px;margin-right:3px;" v-on:click="showMetadataModalComponent($event, metadata)"><i class="fa fa-eye"></i> Show</btn>
                   </td>
                 </tr>
                 <tr v-if="!metadatas.length">
-                  <td colspan="4" class="text-center">
+                  <td colspan="6" class="text-center">
                     <p class="no-margin text-red">{{searchTerm}} was not in the list</p>
                   </td>
                 </tr>
@@ -55,12 +57,12 @@
         <modal ref="showMetadataModal" v-if="showMetadataModal" v-model="showMetadataModal"  auto-focus v-on:hide="$emit('close')" >
           <div slot="title" >
             <div class="box-profile row">
-              <img class="animated-box profile-metadata-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="Metadata profile picture" style="margin-right:50px">
+              <img class="animated-box profile-user-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="Metadata profile picture" style="margin-right:50px">
             </div>
           </div>
           <div class="box-body">
             <strong><i class="fa fa-circle-o margin-r-5"></i> Unit id</strong>
-            <p class="text-muted">{{ metadata.uniy_id }}</p>
+            <p class="text-muted">{{ metadata.unit_id }}</p>
             <hr>
             <strong><i class="fa fa-circle-o margin-r-5"></i>Mac</strong>
             <p class="text-muted">{{ metadata.mac }}</p>
