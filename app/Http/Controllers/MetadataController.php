@@ -10,7 +10,6 @@ class MetadataController extends Controller
     {
         return view('metadata.index');
     }
-
     public function create_meta(Request $request)
     {
     	// return $request->all();
@@ -20,17 +19,17 @@ class MetadataController extends Controller
             'meta.sensor_value' => 'required',
             'meta.mac'          => 'required',
         ]);
-
         $meta = UnitPatientMetadata::create($request->get('meta'));
         return $meta;
     }
     public function index(Request $request)
     {
-
         if ($request->has('meta') && $request->has('action') && $request->get('action') === "add") {
             return self::create_meta($request);
         }
-
+        if ($request->has('meta') && $request->has('action') && $request->get('action') === "getting") {
+        	return self::get_update($request);		
+        }
         $metadata = UnitPatientMetadata::where(function ($query) use ($request) {
             if ($request->has('search')) {
                 $search = trim($request->get('search'));
@@ -41,7 +40,9 @@ class MetadataController extends Controller
             ->paginate(100);
         return $metadata;
     }
+    public public function get_update(Request $request){
 
+    }
     public function store(Request $request)
     {
         $this->validate($request, [
