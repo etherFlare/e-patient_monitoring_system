@@ -5,16 +5,16 @@ class DatabaseSeeder extends Seeder
 	public function run()
 	{
 		$faker = Faker\Factory::create();
-		for($i = 0; $i < 10; $i++) {
-			App\NormalReference::create([
-				'type_id' =>'1',
-				'patient_id' =>'1',
-				'normal.upper_limit' => '100',
-				'normal.lower_limit' => '1',
-				'created_at' => Carbon\Carbon::now() ,
-				'updated_at' => Carbon\Carbon::now()
-			]);
-		}
+		// for($i = 0; $i < 10; $i++) {
+		// 	App\NormalReference::create([
+		// 		'type_id' =>'1',
+		// 		'patient_id' =>'1',
+		// 		'normal.upper_limit' => '100',
+		// 		'normal.lower_limit' => '1',
+		// 		'created_at' => Carbon\Carbon::now() ,
+		// 		'updated_at' => Carbon\Carbon::now()
+		// 	]);
+		// }
 		App\Type::create([
 			'name' =>'oxymeter',
 			'description' => 'seeded',
@@ -41,26 +41,26 @@ class DatabaseSeeder extends Seeder
 				'updated_at' => Carbon\Carbon::now()
 			]);
 		}
-		for($i = 0; $i < 10; $i++) {
-			App\Patient::create([
-				'unit_id' =>$i,
-				'first_name' => $faker->firstName,
-				'middle_name'=>$faker->lastName,
-				'last_name'=>$faker->lastName,
-				'gender'=> 'male',
-				'age'=>18,
-				'location_id' =>$i,
-				'home_address' =>$faker->streetAddress,
-				'contact_number'=>$faker->phoneNumber,
-				'contact_person' => $faker->firstName,
-				'is_active' => 0,
-				'is_archive'  => 0,
-				'comment' => 'seeded',
-				'created_at' => Carbon\Carbon::now() ,
-				'updated_at' => Carbon\Carbon::now()
-			]);
-		}
-		for($i = 0; $i < 10; $i++) {
+		// for($i = 0; $i < 10; $i++) {
+		// 	App\Patient::create([
+		// 		'unit_id' =>$i,
+		// 		'first_name' => $faker->firstName,
+		// 		'middle_name'=>$faker->lastName,
+		// 		'last_name'=>$faker->lastName,
+		// 		'gender'=> 'male',
+		// 		'age'=>18,
+		// 		'location_id' =>$i,
+		// 		'home_address' =>$faker->streetAddress,
+		// 		'contact_number'=>$faker->phoneNumber,
+		// 		'contact_person' => $faker->firstName,
+		// 		'is_active' => 0,
+		// 		'is_archive'  => 0,
+		// 		'comment' => 'seeded',
+		// 		'created_at' => Carbon\Carbon::now() ,
+		// 		'updated_at' => Carbon\Carbon::now()
+		// 	]);
+		// }
+		for($i = 0; $i <1; $i++) {
 			App\Unit::create([
 				'label' => 'samplex',
 				'mac_address'=> $faker->macAddress,

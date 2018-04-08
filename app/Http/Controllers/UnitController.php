@@ -12,6 +12,9 @@ class UnitController extends Controller
     }
     public function index(Request $request)
     {
+        if ($request->has('meta') && $request->has('action') && $request->get('action') === "getting") {
+            return self::get_update($request);      
+        }
         $units = Unit::where(function ($query) use ($request) {
             if ($request->has('search')) {
                 $search = trim($request->get('search'));
@@ -22,6 +25,10 @@ class UnitController extends Controller
             ->with(['patients'])
             ->paginate(10);
         return $units;
+    }
+     public function get_update(Request $request){
+       $unit = Unit::find($request->get('id'));
+       return response()->json(['Request' => $unit,'status' => 'success', 'msg' => 'UnitPatientMetadata created successfully']);
     }
     public function store(Request $request)
     {

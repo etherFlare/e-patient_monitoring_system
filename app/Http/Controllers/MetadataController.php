@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\UnitPatientMetadata;
+use App\Unit;
 use Illuminate\Http\Request;
 
 class MetadataController extends Controller
@@ -40,8 +41,14 @@ class MetadataController extends Controller
             ->paginate(100);
         return $metadata;
     }
-    public public function get_update(Request $request){
-
+    public function get_update(Request $request){
+        
+         
+        $unit = Unit::where('mac_address', $request->get('meta')['mac_address'])
+            ->with(['patients']) 
+            ->firstOrFail();
+       
+       return response()->json(['request' => $unit,'status' => 'success', 'msg' => 'UnitPatientMetadata created successfully']);
     }
     public function store(Request $request)
     {
