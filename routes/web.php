@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.home');
 });
 
 Auth::routes();
@@ -46,5 +46,7 @@ Route::resource('/location/locations','LocationController');
 //for type
 Route::get('/type', 'TypeController@home') ->name('type');
 Route::resource('/type/types','TypeController');
-
+//for observe patient
+Route::get('/observe', 'ObservePatientController@home') ->name('observe');
+Route::resource('/observe/observes','ObservePatientController');
 

@@ -68,7 +68,8 @@ const Listtypes=Vue.component('Listtypes', require('./components/type/list-type.
 const Listnormals=Vue.component('Listnormals', require('./components/normal/list-normal.vue'));
 // show the list metadata template
 const Listmetadatas=Vue.component('Listmetadatas', require('./components/metadata/list-metadata.vue'));
-
+// show the list post template
+const Observepatients=Vue.component('Observepatients', require('./components/observe/observe-patient.vue'));
 
 const heartBeat =Vue.component('heart-beat', require('./components/heart-beat.vue'));
 const vmodal =Vue.component('v-modal', require('./components/modal.vue'));
@@ -158,6 +159,11 @@ const routes = [
   name: 'Listmetadatas',
   path: '/metadata',
   component: Listmetadatas
+},
+{
+  name: 'Observepatients',
+  path: '/observe',
+  component: Observepatients
 }
 ];
 
@@ -174,7 +180,8 @@ const store = new Vuex.Store({
     locations:{},
     types:    {},
     normals:  {},
-    metadatas:{}
+    metadatas:{},
+    observe:{}
   },
   getters: {
     loading(state) {

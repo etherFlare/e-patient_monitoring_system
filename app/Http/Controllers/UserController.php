@@ -13,7 +13,6 @@ class UserController extends Controller
     }
     public function index(Request $request)
     {
-
         $user = User::where(function ($query) use ($request) {
             if ($request->has('search')) {
                 $search = trim($request->get('search'));
@@ -46,8 +45,6 @@ class UserController extends Controller
         $createdUser->roles()->sync($request->get('user')['roles']);
 
         return response()->json(['request' => $request->all(), 'user' => $createdUser, 'status' => 'success', 'msg' => 'User created successfully' ]);
-
-        // return response()->json(['status' => 'success', 'msg' => 'User created successfully']);
     }
   
     public function show($id)

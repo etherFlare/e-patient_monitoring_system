@@ -28719,6 +28719,8 @@ var Listtypes = Vue.component('Listtypes', __webpack_require__(270));
 var Listnormals = Vue.component('Listnormals', __webpack_require__(273));
 // show the list metadata template
 var Listmetadatas = Vue.component('Listmetadatas', __webpack_require__(276));
+// show the list post template
+var Observepatients = Vue.component('Observepatients', __webpack_require__(308));
 
 var heartBeat = Vue.component('heart-beat', __webpack_require__(279));
 var vmodal = Vue.component('v-modal', __webpack_require__(285));
@@ -28799,6 +28801,10 @@ var routes = [{
   name: 'Listmetadatas',
   path: '/metadata',
   component: Listmetadatas
+}, {
+  name: 'Observepatients',
+  path: '/observe',
+  component: Observepatients
 }];
 
 var router = new VueRouter({ mode: 'history', routes: routes });
@@ -28814,7 +28820,8 @@ var store = new Vuex.Store({
     locations: {},
     types: {},
     normals: {},
-    metadatas: {}
+    metadatas: {},
+    observe: {}
   },
   getters: {
     loading: function loading(state) {
@@ -89795,6 +89802,51 @@ webpackContext.id = 291;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = null
+/* template */
+var __vue_template__ = null
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources\\assets\\js\\components\\observe\\observe-patient.vue"
+
+module.exports = Component.exports
+
 
 /***/ })
 /******/ ]);

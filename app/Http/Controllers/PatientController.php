@@ -21,7 +21,7 @@ class PatientController extends Controller
         })
             ->orderBy('created_at', 'desc')
             ->with(['location'])
-            ->with(['unit'])
+            ->with(['unit' => function ($query) {$query->where('unit_is_inuse', '0');}])
             ->paginate(10);
         return $patients;
     }
