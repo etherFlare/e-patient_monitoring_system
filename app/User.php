@@ -37,8 +37,15 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->belongsToMany('App\Role')
-                ->withTimestamps();
+            ->withTimestamps();
 
+    }
+
+    public function patients()
+    {
+        return $this->belongsToMany('App\Patient')
+            ->withPivot('context', 'status')
+            ->withTimestamps();
     }
 
 }

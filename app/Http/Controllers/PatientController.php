@@ -14,15 +14,25 @@ class PatientController extends Controller
     public function index(Request $request)
     {
         $patients = Patient::where(function ($query) use ($request) {
+            if ($request->has('user_id')) {
+                $query->whereHas('users', function ($_q) use ($request)  {
+                    $_q->where('user_id', $request->get('user_id'));
+                });
+            }
+        });
+
+        $patients = $patients->where(function ($query) use ($request) {
             if ($request->has('search')) {
                 $search = trim($request->get('search'));
                 $query->where('first_name', 'LIKE', '%' . $search . '%');
             }
-        })
-            ->orderBy('created_at', 'desc')
+        });
+
+        $patients = $patients->orderBy('created_at', 'desc')
             ->with(['location'])
-            ->with(['unit' => function ($query) {$query->where('unit_is_inuse', '0');}])
-            ->paginate(10);
+            ->with(['unit'])
+            ->paginate($request->get('per_page', 10));
+
         return $patients;
     }
     public function store(Request $request)
@@ -40,9 +50,11 @@ class PatientController extends Controller
             'patient.contact_person' => 'required',
         ]);
         $createdPatient = Patient::create($request->get('patient'));
+        $createdPatient->unit()->update(['unit_is_inuse'=>1]);
+
         return response()->json(['request' => $request->all(), 'patient' => $createdPatient, 'status' => 'success', 'msg' => 'Patient Created successfully']);
     }
-  
+
     public function show($id)
     {
         return Patient::find($id);

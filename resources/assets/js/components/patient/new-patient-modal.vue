@@ -162,8 +162,13 @@ export default {
         async getUnits() {
             const axiosOptions = {
                 'url': '/unit/units',
-                'method': 'get'
+                'method': 'get',
+                'params':{
+                    'unit_is_inuse': 0
+                } 
+
             }
+
             await axios(axiosOptions).then(response => {
                 this.units = response.data
             }).catch(error => {

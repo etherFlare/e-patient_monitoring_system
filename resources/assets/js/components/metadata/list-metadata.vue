@@ -36,7 +36,7 @@
                   <td v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.unit_id }}</td>
                   <td v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.mac }}</td>
                   <td v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.sensor_type }}</td>
-                  <td v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.sensor_value }}</td>
+                  <td v-on:click="showMetadataModalComponent($event, metadata)">{{ toJson(metadata.sensor_value) }}</td>
                   <td  v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.created_at | moment('LLLL')}}</code></td>
                   <td class="row">
                     <btn size="xs" type="primary" class="col-xs-12" style="margin-left:3px;margin-right:3px;" v-on:click="showMetadataModalComponent($event, metadata)"><i class="fa fa-eye"></i> Show</btn>
@@ -88,57 +88,66 @@
   </div>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        on_load: true,
-        metadata: null,
-        showMetadataModal: false,
-        searchTerm: '',
-        totalPage: 18,
-        currentPage: 1
-      }
-    },
-    mounted() {
+export default {
+  data() {
+    return {
+      on_load: true,
+      metadata: null,
+      showMetadataModal: false,
+      searchTerm: '',
+      totalPage: 18,
+      currentPage: 1
+    }
+  },
+  mounted() {
 
-      setInterval(()=>{
-this.on_load = true
-        this.getMetadatas().then((response)=>{
-          this.on_load = false
-        })
+    setInterval(()=>{
+      this.on_load = true
+      this.getMetadatas().then((response)=>{
+        this.on_load = false
+      })
       
-      }, 5000)
- 
+    }, 5000)
+
+  },
+  computed: { 
+    loading() {
+      return this.$store.getters.loading
     },
-    computed: { 
-      loading() {
-        return this.$store.getters.loading
-      },
-      metadatas() {
-        return this.$store.getters.metadatas
-      }, 
-      filteredMetadatas: function(){
-        if(this.metadatas.length) {
-          return this.metadatas;
-        }
-      }
-    },
-    methods: {
-      callback (msg) {
-        this.$notify(`Modal dismissed with msg '${msg}'.`)
-      },
-      metadataCreated() {
-        this.getMetadatas()
-      },
-      showMetadataModalComponent(event, metadata) {
-        this.metadata = metadata
-        this.$nextTick(() => {
-          this.showMetadataModal = true
-        })
-      },
-      getMetadatas(event) {
-        return this.$store.dispatch('getMetadatas', { 'search': this.searchTerm })
+    metadatas() {
+      return this.$store.getters.metadatas
+    }, 
+    filteredMetadatas: function(){
+      if(this.metadatas.length) {
+        return this.metadatas;
       }
     }
+  },
+  methods: {
+    toJson(text){
+      try {
+        text = JSON.parse(text)
+      } catch(e) {
+        console.log(e)
+      }
+      console.log('toJson', text)
+      return text
+    },
+    callback (msg) {
+      this.$notify(`Modal dismissed with msg '${msg}'.`)
+    },
+    metadataCreated() {
+      this.getMetadatas()
+    },
+    showMetadataModalComponent(event, metadata) {
+      this.metadata = metadata
+      this.$nextTick(() => {
+        this.showMetadataModal = true
+      })
+    },
+    getMetadatas(event) {
+      return this.$store.dispatch('getMetadatas', { 'search': this.searchTerm })
+    }
   }
+}
 </script>

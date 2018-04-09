@@ -16,6 +16,9 @@ class UnitController extends Controller
             return self::get_update($request);      
         }
         $units = Unit::where(function ($query) use ($request) {
+            if ($request->has('unit_is_inuse')) { 
+                $query->where('unit_is_inuse', $request->get('unit_is_inuse'));
+            }
             if ($request->has('search')) {
                 $search = trim($request->get('search'));
                 $query->where('mac_address', 'LIKE', '%' . $search . '%');

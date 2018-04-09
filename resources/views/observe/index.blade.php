@@ -1,20 +1,21 @@
 @push('before_style')
+<script>window._user = @json(Auth::user())</script>
 <style>
-	.container{width: auto !important ;}
+.container{width: auto !important ;}
 </style>
 <link rel="stylesheet" href="{{ asset('assets/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 @endpush
 @extends('layouts.dashboard')
 @section('content-header')
 <h1>
-        Title Here
-        <small>it all starts here</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Fix</a></li>
-        <li><a href="#">Me</a></li>
-        <li class="active">Later</li>
-      </ol>
+  Title Here
+  <small>it all starts here</small>
+</h1>
+<ol class="breadcrumb">
+  <li><a href="#"><i class="fa fa-dashboard"></i> Fix</a></li>
+  <li><a href="#">Me</a></li>
+  <li class="active">Later</li>
+</ol>
 @endsection
 @section('main-content')
 <div id="app"></div>	
@@ -28,11 +29,11 @@
 <script>
   $(function () {
     $('#ex1').DataTable({
-      'paging'      : true,
-      'lengthChange': true,
+      'paging'      : false,
+      'lengthChange': false,
       'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
+      'ordering'    : false,
+      'info'        : false,
       'autoWidth'   : true
     })
   })

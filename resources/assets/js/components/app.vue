@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-
+		
 		<transition name="fade">
 			<router-view></router-view>
 
@@ -9,6 +9,11 @@
 
 </template>
 
+<style>	
+.alert {
+	z-index: 2000;
+}
+</style>
 <!--
 <script>
 export default {

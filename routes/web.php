@@ -31,6 +31,9 @@ Route::resource('/role/roles','RoleController');
 //for user
 Route::get('/user', 'UserController@home') ->name('user');
 Route::resource('/user/users','UserController');
+Route::apiResource('patient.user','PatientUserController');
+Route::apiResource('user.patient','UserPatientController');
+
 //for patient
 Route::get('/patient', 'PatientController@home') ->name('patient');
 Route::resource('/patient/patients','PatientController');

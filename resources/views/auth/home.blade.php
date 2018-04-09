@@ -126,11 +126,11 @@ html, body {
                         </form>
                     </div>
                     <div class="modal-footer">
-                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
-                    <a class="btn btn-link pull-left" href="{{ route('password.request') }}">
-                        Forgot Your Password?
-                    </a>
-                </div>
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                        <a class="btn btn-link pull-left" href="{{ route('password.request') }}">
+                            Forgot Your Password?
+                        </a>
+                    </div>
                 </div>
                 
             </div>

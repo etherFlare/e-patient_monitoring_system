@@ -34,4 +34,10 @@ class Patient extends Model
     {
         return $this->hasMany('App\NormalReference');
     }
+    public function users()
+    {
+        return $this->belongsToMany('App\User')
+            ->withPivot('context', 'status')
+            ->withTimestamps();
+    }
 }

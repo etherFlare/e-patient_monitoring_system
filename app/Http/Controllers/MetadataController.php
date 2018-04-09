@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\UnitPatientMetadata;
 use App\Unit;
+use App\UnitPatientMetadata;
 use Illuminate\Http\Request;
 
 class MetadataController extends Controller
@@ -13,7 +13,7 @@ class MetadataController extends Controller
     }
     public function create_meta(Request $request)
     {
-    	// return $request->all();
+        // return $request->all();
         $this->validate($request, [
             'meta.unit_id'      => 'required',
             'meta.sensor_type'  => 'required',
@@ -29,26 +29,34 @@ class MetadataController extends Controller
             return self::create_meta($request);
         }
         if ($request->has('meta') && $request->has('action') && $request->get('action') === "getting") {
-        	return self::get_update($request);		
+            return self::get_update($request);
         }
+
         $metadata = UnitPatientMetadata::where(function ($query) use ($request) {
+
+            if ($request->has('unit_id')) {
+                $query->where('unit_id', $request->get('unit_id'));
+            }
+            if ($request->has('type')) {
+                $query->where('sensor_type', $request->get('type'));
+            }
             if ($request->has('search')) {
                 $search = trim($request->get('search'));
                 $query->where('mac', 'LIKE', '%' . $search . '%');
             }
         })
             ->orderBy('created_at', 'desc')
-            ->paginate(100);
+            ->paginate($request->get('per_page', 100));
         return $metadata;
     }
-    public function get_update(Request $request){
-        
-         
+    public function get_update(Request $request)
+    {
+
         $unit = Unit::where('mac_address', $request->get('meta')['mac_address'])
-            ->with(['patients']) 
+            ->with(['patients'])
             ->firstOrFail();
-       
-       return response()->json(['request' => $unit,'status' => 'success', 'msg' => 'UnitPatientMetadata created successfully']);
+
+        return response()->json(['request' => $unit, 'status' => 'success', 'msg' => 'UnitPatientMetadata created successfully']);
     }
     public function store(Request $request)
     {
