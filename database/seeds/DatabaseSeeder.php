@@ -5,16 +5,16 @@ class DatabaseSeeder extends Seeder
 	public function run()
 	{
 		$faker = Faker\Factory::create();
-		// for($i = 0; $i < 10; $i++) {
-		// 	App\NormalReference::create([
-		// 		'type_id' =>'1',
-		// 		'patient_id' =>'1',
-		// 		'normal.upper_limit' => '100',
-		// 		'normal.lower_limit' => '1',
-		// 		'created_at' => Carbon\Carbon::now() ,
-		// 		'updated_at' => Carbon\Carbon::now()
-		// 	]);
-		// }
+// for($i = 0; $i < 10; $i++) {
+// 	App\NormalReference::create([
+// 		'type_id' =>'1',
+// 		'patient_id' =>'1',
+// 		'normal.upper_limit' => '100',
+// 		'normal.lower_limit' => '1',
+// 		'created_at' => Carbon\Carbon::now() ,
+// 		'updated_at' => Carbon\Carbon::now()
+// 	]);
+// }
 		App\Type::create([
 			'name' =>'oxymeter',
 			'description' => 'seeded',
@@ -35,76 +35,154 @@ class DatabaseSeeder extends Seeder
 		]);
 		for($i = 0; $i < 10; $i++) {
 			App\Location::create([
-				'name' =>'room no $i',
+				'name' =>$i ,
 				'description' => 'seeded',
 				'created_at' => Carbon\Carbon::now() ,
 				'updated_at' => Carbon\Carbon::now()
 			]);
 		}
-		// for($i = 0; $i < 10; $i++) {
-		// 	App\Patient::create([
-		// 		'unit_id' =>$i,
-		// 		'first_name' => $faker->firstName,
-		// 		'middle_name'=>$faker->lastName,
-		// 		'last_name'=>$faker->lastName,
-		// 		'gender'=> 'male',
-		// 		'age'=>18,
-		// 		'location_id' =>$i,
-		// 		'home_address' =>$faker->streetAddress,
-		// 		'contact_number'=>$faker->phoneNumber,
-		// 		'contact_person' => $faker->firstName,
-		// 		'is_active' => 0,
-		// 		'is_archive'  => 0,
-		// 		'comment' => 'seeded',
-		// 		'created_at' => Carbon\Carbon::now() ,
-		// 		'updated_at' => Carbon\Carbon::now()
-		// 	]);
-		// }
-		for($i = 0; $i <1; $i++) {
-			App\Unit::create([
-				'label' => 'samplex',
-				'mac_address'=> $faker->macAddress,
-				'unit_is_active'=> $faker-> boolean ($chanceOfGettingTrue = 50),
-				'unit_is_inuse'=> $faker->boolean,
-				'oximeter_is_active'=>  $faker->boolean,
-				'bp_is_active'=>  $faker->boolean,
-				'thermometer_is_active'=>  $faker->boolean,
-				'oximeter_delay'=> $faker->randomDigit,
-				'bp_delay' => $faker->randomDigit,
-				'thermometer_delay' => $faker->randomDigit,
-				'created_at' => Carbon\Carbon::now() ,
-				'updated_at' => Carbon\Carbon::now()
-			]);
-		}
-		for($i = 0; $i < 10; $i++) {
-			App\User::create([
-				'email' =>$faker->email,
-				'password' => 1,
-				'first_name' => $faker->firstName,
-				'middle_name'=>$faker->lastName,
-				'last_name'=>$faker->lastName,
-				'contact_number'=>$faker->phoneNumber,
-				'comment'=> "seeded",
-				'remember_token'=>0,
-				'created_at' => Carbon\Carbon::now() ,
-				'updated_at' => Carbon\Carbon::now()
-			]);
-		}
+// for($i = 0; $i < 10; $i++) {
+// 	App\Patient::create([
+// 		'unit_id' =>$i,
+// 		'first_name' => $faker->firstName,
+// 		'middle_name'=>$faker->lastName,
+// 		'last_name'=>$faker->lastName,
+// 		'gender'=> 'male',
+// 		'age'=>18,
+// 		'location_id' =>$i,
+// 		'home_address' =>$faker->streetAddress,
+// 		'contact_number'=>$faker->phoneNumber,
+// 		'contact_person' => $faker->firstName,
+// 		'is_active' => 0,
+// 		'is_archive'  => 0,
+// 		'comment' => 'seeded',
+// 		'created_at' => Carbon\Carbon::now() ,
+// 		'updated_at' => Carbon\Carbon::now()
+// 	]);
+// }
+
+		App\Unit::create([
+			'label' => 'Unit 1',
+			'mac_address'=> 'ff:ff:ff:ff:ff:aa',
+			'unit_is_active'=> 1,
+			'unit_is_inuse'=> 0,
+			'oximeter_is_active'=>  0,
+			'bp_is_active'=>  0,
+			'thermometer_is_active'=> 0,
+			'oximeter_delay'=> 1000,
+			'bp_delay' => 1000,
+			'thermometer_delay' => 1000,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		App\Unit::create([
+			'label' => 'Unit 2',
+			'mac_address'=> 'ff:ff:ff:ff:ff:bb',
+			'unit_is_active'=> 1,
+			'unit_is_inuse'=> 0,
+			'oximeter_is_active'=>  0,
+			'bp_is_active'=>  0,
+			'thermometer_is_active'=> 0,
+			'oximeter_delay'=> 1000,
+			'bp_delay' => 1000,
+			'thermometer_delay' => 1000,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+
+		App\User::create([
+			'email' =>'admin@local.io',
+			'password' => 'banana',
+			'first_name' => 'admin',
+			'middle_name'=>'admin',
+			'last_name'=>'admin',
+			'contact_number'=>$faker->phoneNumber,
+			'comment'=> "seeded",
+			'remember_token'=>0,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		App\User::create([
+			'email' =>'developer@local.io',
+			'password' => 'banana',
+			'first_name' => 'developer',
+			'middle_name'=>'developer',
+			'last_name'=>'developer',
+			'contact_number'=> $faker->phoneNumber,
+			'comment'=> "seeded",
+			'remember_token'=>0,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		App\User::create([
+			'email' =>'observer@local.io',
+			'password' => 'banana',
+			'first_name' => 'observer',
+			'middle_name'=>'observer',
+			'last_name'=>'observer',
+			'contact_number'=>$faker->phoneNumber,
+			'comment'=> "seeded",
+			'remember_token'=>0,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		// App\UserRole::create([
+		// 	'user_id'=> 1,
+		// 	'role_id'=> 1,
+		// 	'created_at' => Carbon\Carbon::now() ,
+		// 	'updated_at' => Carbon\Carbon::now()
+		// ]);
+		// App\UserRole::create([
+		// 	'user_id'=> 1,
+		// 	'role_id'=> 2,
+		// 	'created_at' => Carbon\Carbon::now() ,
+		// 	'updated_at' => Carbon\Carbon::now()
+		// ]);
+		// App\UserRole::create([
+		// 	'user_id'=> 1,
+		// 	'role_id'=> 3,
+		// 	'created_at' => Carbon\Carbon::now() ,
+		// 	'updated_at' => Carbon\Carbon::now()
+		// ]);
+		// App\UserRole::create([
+		// 	'user_id'=> 1,
+		// 	'role_id'=> 4,
+		// 	'created_at' => Carbon\Carbon::now() ,
+		// 	'updated_at' => Carbon\Carbon::now()
+		// ]);
+		// App\UserRole::create([
+		// 	'user_id'=> 1,
+		// 	'role_id'=> 5,
+		// 	'created_at' => Carbon\Carbon::now() ,
+		// 	'updated_at' => Carbon\Carbon::now()
+		// ]);
 		App\Role::create([
-			'title'=> 'Admin',
-			'description'=> 'Admin',
+			'title'=> 'Observer',
+			'description'=> 'Can Observe patient',
 			'created_at' => Carbon\Carbon::now() ,
 			'updated_at' => Carbon\Carbon::now()
 		]);
 		App\Role::create([
-			'title'=> 'SuperAdmin',
-			'description'=> 'SuperAdmin',
+			'title'=> 'developer',
+			'description'=> 'developer full access mode',
 			'created_at' => Carbon\Carbon::now() ,
 			'updated_at' => Carbon\Carbon::now()
 		]);
 		App\Role::create([
-			'title'=> 'Guest',
-			'description'=> 'Guest',
+			'title'=> 'Administrator',
+			'description'=> 'admin Access Mode',
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		App\Role::create([
+			'title'=> 'Editor',
+			'description'=> 'Can modify',
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		App\Role::create([
+			'title'=> 'Cleaner',
+			'description'=> 'Can delete',
 			'created_at' => Carbon\Carbon::now() ,
 			'updated_at' => Carbon\Carbon::now()
 		]);

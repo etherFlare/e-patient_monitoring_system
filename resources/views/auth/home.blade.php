@@ -54,7 +54,7 @@ html, body {
     @if (Route::has('login'))
     <div class="top-right links">
         @auth
-        <a href="#">Home</a>
+        <a href="{{ route('patient') }}">Home</a>
         @else
         <a href="{{ route('login') }}">Login</a>
         @endauth
@@ -65,9 +65,9 @@ html, body {
             E-Patient
         </div>
         <div class="links">
-            <a href="#">Documentation</a>
+            <!-- <a href="#">Documentation</a> -->
             <a href="#" data-toggle="modal" data-target="#modal-login" >login</a>
-            <a href="#">News</a>
+            <!-- <a href="#">News</a> -->
         </div>
         <div class="modal fade in" id="modal-login">
             <div class="modal-dialog">

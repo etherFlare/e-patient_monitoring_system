@@ -85275,27 +85275,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "box-footer" },
-            [
-              _c("pagination", {
-                attrs: {
-                  "total-page": _vm.totalPage,
-                  align: "center",
-                  "max-size": 3
-                },
-                model: {
-                  value: _vm.currentPage,
-                  callback: function($$v) {
-                    _vm.currentPage = $$v
-                  },
-                  expression: "currentPage"
-                }
-              })
-            ],
-            1
-          ),
+          _c("div", { staticClass: "box-footer" }),
           _vm._v(" "),
           _vm.showCreateUserModal
             ? _c("new-user-modal", {

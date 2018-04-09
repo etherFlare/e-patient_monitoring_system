@@ -25,7 +25,7 @@ class UserController extends Controller
 
             ->orderBy('created_at', 'desc')
             ->with(['roles'])
-            ->paginate(20);
+            ->paginate(100);
         return $user;
     }
     public function store(Request $request)

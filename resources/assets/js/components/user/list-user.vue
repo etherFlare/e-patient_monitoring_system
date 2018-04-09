@@ -57,7 +57,7 @@
           </div>
         </div>
         <div class="box-footer">
-          <pagination v-model="currentPage" :total-page="totalPage" align="center" :max-size="3"/>
+       <!--    <pagination v-model="currentPage" :total-page="totalPage" align="center" :max-size="3"/> -->
         </div>
         <new-user-modal ref="showCreateUserModal" v-if="showCreateUserModal" v-on:close="showCreateUserModal = false" v-on:user-created="userCreated" ></new-user-modal>
         <edit-user-modal v-if="showEditUserModal" v-on:close="showEditUserModal = false" :edit-user="user" v-on:user-updated="getUsers"></edit-user-modal>
