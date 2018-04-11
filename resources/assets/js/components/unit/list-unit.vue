@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="box-footer">
-                    <pagination v-model="currentPage" :total-page="totalPage" align="center" :max-size="3"/>
+                   <!--  <pagination v-model="currentPage" :total-page="totalPage" align="center" :max-size="3"/> -->
                 </div>
                 <new-unit-modal ref="showCreateUnitModal" v-if="showCreateUnitModal" v-on:close="showCreateUnitModal = false" v-on:unit-created="unitCreated" ></new-unit-modal>
                 <edit-unit-modal v-if="showEditUnitModal" v-on:close="showEditUnitModal = false" :edit-unit="unit" v-on:unit-updated="getUnits"></edit-unit-modal>

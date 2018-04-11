@@ -7,14 +7,10 @@
 @extends('layouts.dashboard')
 @section('content-header')
 <h1>
-        Title Here
-        <small>it all starts here</small>
+        Type
+        <small>Development View</small>
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Fix</a></li>
-        <li><a href="#">Me</a></li>
-        <li class="active">Later</li>
-      </ol>
+      
 @endsection
 @section('main-content')
 <div id="app"></div>	

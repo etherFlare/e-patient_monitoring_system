@@ -8,13 +8,13 @@
 @extends('layouts.dashboard')
 @section('content-header')
 <h1>
-  Title Here
-  <small>it all starts here</small>
+ Observation 
+  <small>Patient Observable Reactive data log</small>
 </h1>
 <ol class="breadcrumb">
-  <li><a href="#"><i class="fa fa-dashboard"></i> Fix</a></li>
-  <li><a href="#">Me</a></li>
-  <li class="active">Later</li>
+  <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i>e-Patient</a></li>
+  <li><a href="{{ route('observe') }}">Observation</a></li>
+  <li class="active">View</li>
 </ol>
 @endsection
 @section('main-content')

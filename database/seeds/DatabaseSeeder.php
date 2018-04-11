@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
 // 	]);
 // }
 		App\Type::create([
-			'name' =>'oxymeter',
+			'name' =>'Oxymeter',
 			'description' => 'seeded',
 			'created_at' => Carbon\Carbon::now() ,
 			'updated_at' => Carbon\Carbon::now()
@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
 			'updated_at' => Carbon\Carbon::now()
 		]);
 		App\Type::create([
-			'name' =>'temperature',
+			'name' =>'Thermometer',
 			'description' => 'seeded',
 			'created_at' => Carbon\Carbon::now() ,
 			'updated_at' => Carbon\Carbon::now()
@@ -126,12 +126,12 @@ class DatabaseSeeder extends Seeder
 			'created_at' => Carbon\Carbon::now() ,
 			'updated_at' => Carbon\Carbon::now()
 		]);
-		// App\UserRole::create([
-		// 	'user_id'=> 1,
-		// 	'role_id'=> 1,
-		// 	'created_at' => Carbon\Carbon::now() ,
-		// 	'updated_at' => Carbon\Carbon::now()
-		// ]);
+		App\UserRole::create([
+			'user_id'=> '1',
+			'role_id'=> '1',
+		'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
 		// App\UserRole::create([
 		// 	'user_id'=> 1,
 		// 	'role_id'=> 2,

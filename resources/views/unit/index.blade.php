@@ -7,13 +7,13 @@
 @extends('layouts.dashboard')
 @section('content-header')
 <h1>
-        Title Here
-        <small>it all starts here</small>
+        Unit
+        <small>Active sensor for monitoring patient</small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Fix</a></li>
-        <li><a href="#">Me</a></li>
-        <li class="active">Later</li>
+        <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> e-Patient</a></li>
+        <li><a href="{{ route('unit') }}">Unit</a></li>
+        <li class="active">List</li>
       </ol>
 @endsection
 @section('main-content')

@@ -1,6 +1,6 @@
 <template id="location-list">
   <div class="row">
-    <div class="col-xs-6">
+    <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
           <div class="pull-right">
@@ -56,7 +56,6 @@
         <edit-location-modal v-if="showEditLocationModal" v-on:close="showEditLocationModal = false" :edit-location="location" v-on:location-updated="getLocations"></edit-location-modal> 
         <delete-location-modal ref="showDeleteLocationModal" :delete-location="location" v-if="showDeleteLocationModal" v-on:location-deleted="getLocations" v-on:close="showDeleteLocationModal = false"  v-on:deleted="showLocationModal = false" ></delete-location-modal>
 
-        <!--show modal-->
         <modal ref="showLocationModal" v-if="showLocationModal" v-model="showLocationModal"  auto-focus v-on:hide="$emit('close')" >
           <h3 slot="title">LOCATION</h3>       
           <strong>{{ location.name }}</strong>
@@ -69,7 +68,6 @@
               <btn  v-on:click="showLocationModal=false" data-action="auto-focus">Cancel</btn>
           </div>
         </modal>
-        <!--show modal end-->
       </div>
     </div>
   </div>

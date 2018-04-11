@@ -11,7 +11,7 @@
         <small>e-patient </small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="{{ route('normal') }}"><i class="fa fa-dashboard"></i>e-Patient</a></li>
+        <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i>e-Patient</a></li>
         <li><a href="{{ route('normal') }}">Accounts</a></li>
         <li class="active">List</li>
       </ol>

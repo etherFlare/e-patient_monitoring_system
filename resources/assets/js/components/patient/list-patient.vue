@@ -58,7 +58,7 @@
           </div>
         </div>
         <div class="box-footer">
-          <pagination v-model="currentPage" :total-page="totalPage" align="center" :max-size="3"/>
+          <!-- <pagination v-model="currentPage" :total-page="totalPage" align="center" :max-size="3"/> -->
         </div>
         <new-patient-modal ref="showCreatePatientModal" v-if="showCreatePatientModal" v-on:close="showCreatePatientModal = false" v-on:patient-created="patientCreated" ></new-patient-modal>
         

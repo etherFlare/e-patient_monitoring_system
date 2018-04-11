@@ -1,6 +1,6 @@
 <template id="type-list">
   <div class="row">
-    <div class="col-xs-6">
+    <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
           <div class="pull-right">
@@ -58,7 +58,7 @@
 
         <!--show modal-->
         <modal ref="showTypeModal" v-if="showTypeModal" v-model="showTypeModal"  auto-focus v-on:hide="$emit('close')" >
-          <h3 slot="title">LOCATION</h3>       
+          <h3 slot="title">TYPE</h3>       
           <strong>{{ type.name }}</strong>
           <p>{{ type.description }}</p> 
           <div>{{type.created_at | moment('LLLL')}}</div>
