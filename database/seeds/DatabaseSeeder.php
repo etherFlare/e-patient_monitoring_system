@@ -62,8 +62,22 @@ class DatabaseSeeder extends Seeder
 // }
 
 		App\Unit::create([
+			'label' => 'Working Unit 1',
+			'mac_address'=> '5C:CF:7F:A4:83:5A',
+			'unit_is_active'=> 1,
+			'unit_is_inuse'=> 0,
+			'oximeter_is_active'=>  1,
+			'bp_is_active'=>  1,
+			'thermometer_is_active'=> 1,
+			'oximeter_delay'=> 1000,
+			'bp_delay' => 1000,
+			'thermometer_delay' => 1000,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		App\Unit::create([
 			'label' => 'Unit 1',
-			'mac_address'=> 'ff:ff:ff:ff:ff:aa',
+			'mac_address'=> 'ff:ff:ff:ff:ff:bb',
 			'unit_is_active'=> 1,
 			'unit_is_inuse'=> 0,
 			'oximeter_is_active'=>  0,
@@ -77,7 +91,7 @@ class DatabaseSeeder extends Seeder
 		]);
 		App\Unit::create([
 			'label' => 'Unit 2',
-			'mac_address'=> 'ff:ff:ff:ff:ff:bb',
+			'mac_address'=> 'ff:ff:ff:ff:ff:aa',
 			'unit_is_active'=> 1,
 			'unit_is_inuse'=> 0,
 			'oximeter_is_active'=>  0,
@@ -89,10 +103,65 @@ class DatabaseSeeder extends Seeder
 			'created_at' => Carbon\Carbon::now() ,
 			'updated_at' => Carbon\Carbon::now()
 		]);
-
+		App\Unit::create([
+			'label' => 'Unit 3',
+			'mac_address'=> 'ff:ff:ff:ff:ff:cc',
+			'unit_is_active'=> 1,
+			'unit_is_inuse'=> 0,
+			'oximeter_is_active'=>  0,
+			'bp_is_active'=>  0,
+			'thermometer_is_active'=> 0,
+			'oximeter_delay'=> 1000,
+			'bp_delay' => 1000,
+			'thermometer_delay' => 1000,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		App\Unit::create([
+			'label' => 'Unit 4',
+			'mac_address'=> 'ff:ff:ff:ff:ff:dd',
+			'unit_is_active'=> 1,
+			'unit_is_inuse'=> 0,
+			'oximeter_is_active'=>  0,
+			'bp_is_active'=>  0,
+			'thermometer_is_active'=> 0,
+			'oximeter_delay'=> 1000,
+			'bp_delay' => 1000,
+			'thermometer_delay' => 1000,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		App\Unit::create([
+			'label' => 'Unit 5',
+			'mac_address'=> 'ff:ff:ff:ff:ff:ee',
+			'unit_is_active'=> 1,
+			'unit_is_inuse'=> 0,
+			'oximeter_is_active'=>  0,
+			'bp_is_active'=>  0,
+			'thermometer_is_active'=> 0,
+			'oximeter_delay'=> 1000,
+			'bp_delay' => 1000,
+			'thermometer_delay' => 1000,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		App\Unit::create([
+			'label' => 'Unit 6',
+			'mac_address'=> 'ff:ff:ff:ff:ff:ff',
+			'unit_is_active'=> 1,
+			'unit_is_inuse'=> 0,
+			'oximeter_is_active'=>  0,
+			'bp_is_active'=>  0,
+			'thermometer_is_active'=> 0,
+			'oximeter_delay'=> 1000,
+			'bp_delay' => 1000,
+			'thermometer_delay' => 1000,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
 		App\User::create([
 			'email' =>'admin@local.io',
-			'password' => 'banana',
+			'password' => bcrypt('banana'),
 			'first_name' => 'admin',
 			'middle_name'=>'admin',
 			'last_name'=>'admin',
@@ -104,7 +173,7 @@ class DatabaseSeeder extends Seeder
 		]);
 		App\User::create([
 			'email' =>'developer@local.io',
-			'password' => 'banana',
+			'password' => bcrypt('banana'),
 			'first_name' => 'developer',
 			'middle_name'=>'developer',
 			'last_name'=>'developer',
@@ -116,7 +185,7 @@ class DatabaseSeeder extends Seeder
 		]);
 		App\User::create([
 			'email' =>'observer@local.io',
-			'password' => 'banana',
+			'password' => bcrypt('banana'),
 			'first_name' => 'observer',
 			'middle_name'=>'observer',
 			'last_name'=>'observer',

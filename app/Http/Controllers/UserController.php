@@ -32,21 +32,28 @@ class UserController extends Controller
     {
 
         $this->validate($request, [
-            'user.email'          => 'required|unique:users,email',
-            'user.password'       => 'required',
-            'user.first_name'     => 'required',
-            'user.middle_name'    => 'required',
-            'user.last_name'      => 'required',
+            'user.first_name'     => 'required|string|max:255',
+            'user.middle_name'    => 'required|string|max:255',
+            'user.last_name'      => 'required|string|max:255',
             'user.contact_number' => 'required',
+            'user.email'          => 'required|string|email|max:255|unique:users,email',
+            'user.password'       => 'required|string|min:1',
         ]);
-
-        $createdUser = User::create($request->get('user'));
-
+        $params_ = $request->get('user');
+        $createdUser = User::create([
+            'first_name'     => $params_['first_name'],
+            'middle_name'    => $params_['middle_name'],
+            'last_name'      => $params_['last_name'],
+            'contact_number' => $params_['contact_number'],
+            'email'          => $params_['email'],
+            'password'       => bcrypt($params_['password']),
+            'comment'        => $params_['comment'],
+        ]);
         $createdUser->roles()->sync($request->get('user')['roles']);
 
-        return response()->json(['request' => $request->all(), 'user' => $createdUser, 'status' => 'success', 'msg' => 'User created successfully' ]);
+        return response()->json(['request' => $request->all(), 'user' => $createdUser, 'status' => 'success', 'msg' => 'User created successfully']);
     }
-  
+
     public function show($id)
     {
         return User::findOrFail($id);
@@ -68,8 +75,8 @@ class UserController extends Controller
         if ($user->count()) {
             $user->update($request->get('user'));
 
-        $user->roles()->sync($request->get('user')['roles']);
-             return response()->json(['request' => $request->all(), 'user' => $user, 'status' => 'success', 'msg' => 'User created successfully' ]);
+            // $user->roles()->sync($request->get('user')['roles']);
+            return response()->json(['request' => $request->all(), 'user' => $user, 'status' => 'success', 'msg' => 'User created successfully']);
             //return response()->json(['status' => 'success', 'msg' => 'User updated successfully']);
         } else {
             return response()->json(['status' => 'error', 'msg' => 'error in updating user ']);

@@ -46,11 +46,18 @@
                     </div>
                     <div class="form-group " :class="{'has-error': !user.password || hasError('user.password')}">
                         <label>Password</label>
-                        <input type="text" class="form-control" placeholder="updated as lastname was added" v-model="user.password"/>
+                        <input type="text" class="form-control" placeholder="..." v-model="user.password"/>
                         <template v-if="hasError('user.password')">
                             <p class="small text-red" v-for="(line, errorIdx) in errors['user.password']" :key="errorIdx">{{line}}</p>
                         </template>
                     </div>
+                     <div class="form-group">
+                           <label>Confirm Password</label>
+                        <input type="text" class="form-control" placeholder="retype password" v-model="user.password_confirmation"/>
+                        <template v-if="hasError('user.password_confirmation')">
+                            <p class="small text-red" v-for="(line, errorIdx) in errors['user.password_confirmation']" :key="errorIdx">{{line}}</p>
+                        </template>
+                     </div>
                     <div class="form-group" >
                         <label>Comment</label>
                         <textarea cols="10" rows="5" class="form-control" placeholder="..." v-model="user.comment"></textarea>
@@ -157,6 +164,7 @@ export default {
                 this.errors = error.response.data.errors
                 this.$toaster.error(error.response.data.message)
                 this.isBusy = false
+                console.log(error.response);
                 return Promise.reject(error.response);
             })
             this.isBusy = false
