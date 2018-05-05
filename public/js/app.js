@@ -90742,6 +90742,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -90995,36 +90996,7 @@ var render = function() {
                                 ]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "td",
-                                { staticClass: "row" },
-                                [
-                                  _c(
-                                    "btn",
-                                    {
-                                      staticClass: "col-xs-12",
-                                      staticStyle: {
-                                        "margin-left": "3px",
-                                        "margin-right": "3px"
-                                      },
-                                      attrs: { size: "xs", type: "primary" },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.showMetadataModalComponent(
-                                            $event,
-                                            metadata
-                                          )
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", { staticClass: "fa fa-eye" }),
-                                      _vm._v(" Show")
-                                    ]
-                                  )
-                                ],
-                                1
-                              )
+                              _c("td")
                             ])
                           }),
                           _vm._v(" "),
@@ -91060,27 +91032,7 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "box-footer" },
-            [
-              _c("pagination", {
-                attrs: {
-                  "total-page": _vm.totalPage,
-                  align: "center",
-                  "max-size": 3
-                },
-                model: {
-                  value: _vm.currentPage,
-                  callback: function($$v) {
-                    _vm.currentPage = $$v
-                  },
-                  expression: "currentPage"
-                }
-              })
-            ],
-            1
-          ),
+          _c("div", { staticClass: "box-footer" }),
           _vm._v(" "),
           _vm.showMetadataModal
             ? _c(
@@ -104940,6 +104892,13 @@ var oximeterDeafultData = function oximeterDeafultData() {
   },
 
   watch: {
+    oximeterData: {
+      handler: function handler(state) {
+        if (state) {
+          this.evalNormals(state);
+        }
+      }
+    },
     selected: {
       handler: function handler(state) {
         this.oximeterService(Boolean(state));
@@ -104949,25 +104908,82 @@ var oximeterDeafultData = function oximeterDeafultData() {
     }
   },
   computed: {
+    oximeterDelay: function oximeterDelay() {
+      if (this.selectedPatient) {
+        if (this.selectedPatient.unit) {
+
+          return parseInt(this.selectedPatient.unit.oximeter_delay);
+        }
+      }
+
+      return 1000;
+    },
+    normal: function normal() {
+      if (this.selectedPatient) {
+        if (this.selectedPatient.normal) {
+          var norm = __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.find(this.selectedPatient.normal, function (n) {
+            return n.type_id === 1;
+          });
+          if (norm) {
+            return norm;
+          }
+        }
+      }
+
+      return { upper_limit: 0, lower_limit: 0 };
+    },
     user: function user() {
       return window._user;
     }
   },
   methods: {
+    evalNormals: function evalNormals(payload) {
+      var _this2 = this;
+
+      var oximeterData = __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.find(payload.datasets, function (o) {
+        return o.label === 'Oxygen Saturation';
+      });
+
+      if (oximeterData) {
+
+        oximeterData.data.forEach(function (v) {
+          if (v > _this2.normal.upper_limit) {
+
+            _this2.$notify({
+              title: 'Oxygen Saturation',
+              content: 'high ... ' + v,
+              duration: 15000,
+              type: 'warning',
+              placement: 'bottom-left'
+            });
+          }
+
+          if (v < _this2.normal.lower_limit) {
+            _this2.$notify({
+              title: 'Oxygen Saturation',
+              content: 'low ... ' + v,
+              duration: 15000,
+              type: 'danger',
+              placement: 'bottom-left'
+            });
+          }
+        });
+      }
+    },
     oximeterService: function oximeterService(state) {
       state = state || false;
       if (state) {
         this.oximeterProvider();
         this.oximeterInterval = setInterval(function () {
           this.oximeterProvider();
-        }.bind(this), this.interval);
+        }.bind(this), this.oximeterDelay);
       } else {
         clearInterval(this.oximeterInterval);
         this.oximeterData = defaultChartData();
       }
     },
     oximeterProvider: function oximeterProvider() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.selectedPatient) {
         var axiosOptions = {
@@ -104981,10 +104997,10 @@ var oximeterDeafultData = function oximeterDeafultData() {
         };
         this.oximeterProviderConfig.isBusy = true;
         axios(axiosOptions).then(function (response) {
-          _this2.oximeterData = oximeterDataFactory(response.data.data);
-          _this2.oximeterProviderConfig.isBusy = false;
+          _this3.oximeterData = oximeterDataFactory(response.data.data);
+          _this3.oximeterProviderConfig.isBusy = false;
         }).catch(function (error) {
-          _this2.oximeterProviderConfig.isBusy = false;
+          _this3.oximeterProviderConfig.isBusy = false;
           return Promise.reject(error.response);
         });
       }

@@ -86,6 +86,13 @@ export default {
     }
   },
   watch: {
+    oximeterData: {
+      handler(state) {
+        if(state){
+          this.evalNormals(state)
+        }
+      }
+    },
     selected: {
       handler(state) {
         this.oximeterService(Boolean(state))
@@ -94,18 +101,75 @@ export default {
     }
   },
   computed: {
+    oximeterDelay(){
+      if(this.selectedPatient){
+        if(this.selectedPatient.unit){
+
+          return  parseInt(this.selectedPatient.unit.oximeter_delay)
+          
+        }
+
+      }
+
+      return 1000
+    },
+    normal(){
+      if(this.selectedPatient){
+        if(this.selectedPatient.normal){
+          const norm = _.find(this.selectedPatient.normal, n => { return n.type_id === 1})
+          if(norm){
+            return  norm
+          }
+        }
+
+      }
+
+
+      return {upper_limit: 0, lower_limit: 0}
+    },
     user() {
       return window._user
     }
   },
   methods: {
+    evalNormals(payload){
+      const oximeterData = _.find(payload.datasets, o => { return o.label === 'Oxygen Saturation' })
+
+      if(oximeterData){
+
+        oximeterData.data.forEach((v)=>{
+         if(v > this.normal.upper_limit){
+
+          this.$notify({
+            title: 'Oxygen Saturation',
+            content: `high ... ${v}`,
+            duration: 15000,
+            type: 'warning',
+            placement: 'bottom-left'
+          })
+
+        }
+
+        if(v < this.normal.lower_limit) {
+          this.$notify({
+            title: 'Oxygen Saturation',
+            content: `low ... ${v}`,
+            duration: 15000,
+            type: 'danger',
+            placement: 'bottom-left'
+          })
+        }
+      })
+
+      }
+    },
     oximeterService(state) {
       state = state || false
       if (state) {
         this.oximeterProvider();
         this.oximeterInterval = setInterval(function() {
           this.oximeterProvider();
-        }.bind(this), this.interval);
+        }.bind(this), this.oximeterDelay);
       } else {
         clearInterval(this.oximeterInterval);
         this.oximeterData = defaultChartData()

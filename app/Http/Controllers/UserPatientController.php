@@ -15,7 +15,7 @@ class UserPatientController extends Controller
         $patients = $patients->where(function ($query) use ($request) { });
 
         $patients = $patients->orderBy('created_at', 'desc')
-        ->with(['location','unit'])
+        ->with(['location','unit','normal'])
         ->paginate($request->get('per_page', 10));
         return $patients;
     }

@@ -38,9 +38,10 @@
                   <td v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.sensor_type }}</td>
                   <td v-on:click="showMetadataModalComponent($event, metadata)">{{ toJson(metadata.sensor_value) }}</td>
                   <td  v-on:click="showMetadataModalComponent($event, metadata)">{{ metadata.created_at | moment('LLLL')}}</code></td>
-                  <td class="row">
+                  <td></td>
+                  <!-- <td class="row">
                     <btn size="xs" type="primary" class="col-xs-12" style="margin-left:3px;margin-right:3px;" v-on:click="showMetadataModalComponent($event, metadata)"><i class="fa fa-eye"></i> Show</btn>
-                  </td>
+                  </td> -->
                 </tr>
                 <tr v-if="!metadatas.length">
                   <td colspan="6" class="text-center">
@@ -52,8 +53,8 @@
           </div>
         </div>
         <div class="box-footer">
-          <pagination v-model="currentPage" :total-page="totalPage" align="center" :max-size="3"/>
-        </div>
+         <!--  <pagination v-model="currentPage" :total-page="totalPage" align="center" :max-size="3"/>
+         --></div>
         <modal ref="showMetadataModal" v-if="showMetadataModal" v-model="showMetadataModal"  auto-focus v-on:hide="$emit('close')" >
           <div slot="title" >
             <div class="box-profile row">
