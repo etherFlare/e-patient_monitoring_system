@@ -1,11 +1,20 @@
 <template>
 	<div class="container">
+		
 		<transition name="fade">
 			<router-view></router-view>
+
 		</transition>
 	</div>
+
 </template>
 
+<style>	
+.alert {
+	z-index: 2000;
+}
+</style>
+<!--
 <script>
 export default {
 	mounted() {
@@ -22,3 +31,4 @@ export default {
 	}
 }
 </script>
+-->

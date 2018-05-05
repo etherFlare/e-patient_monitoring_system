@@ -13,23 +13,20 @@ class PostController extends Controller
      */
 
     public function home(){
-      return view('vueApp');
+      return view('post.index');
     }
 
     public function index(Request $request)
     {
- 
         $post = Post::where(function($query) use($request) {
 
             if($request->has('search')){
                 $search = trim($request->get('search')); 
                 $query->where('title', 'LIKE', '%'. $search .'%')->orWhere('body', 'LIKE', '%'. $search .'%');
             }
-
         })
         ->orderBy('created_at', 'desc')
-        ->paginate(10);
-
+        ->paginate($request->get('per_page', 10));
         return $post;
     }
 

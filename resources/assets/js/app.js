@@ -1,5 +1,4 @@
-require('./bootstrap');
-
+require('./bootstrap'); 
 
 window.Vue = require('vue');
 window.Vuex = require('vuex');
@@ -11,7 +10,7 @@ window.VueAxios=require('vue-axios').default;
 import Toaster from 'v-toaster'
 
 import * as uiv from 'uiv'
-
+ 
 // You need a specific loader for CSS files like https://github.com/webpack/css-loader
 import 'v-toaster/dist/v-toaster.css'
 
@@ -31,6 +30,21 @@ import NewUserModalComponent from './components/user/new-user-modal.vue'
 import EditUserModalComponent from './components/user/edit-user-modal.vue'
 import DeleteUserModalComponent from './components/user/delete-user-modal.vue'
 
+import NewPatientModalComponent from './components/patient/new-patient-modal.vue'
+import EditPatientModalComponent from './components/patient/edit-patient-modal.vue'
+import DeletePatientModalComponent from './components/patient/delete-patient-modal.vue'
+
+import NewLocationModalComponent from './components/location/new-location-modal.vue'
+import EditLocationModalComponent from './components/location/edit-location-modal.vue'
+import DeleteLocationModalComponent from './components/location/delete-location-modal.vue'
+
+import NewTypeModalComponent from './components/type/new-type-modal.vue'
+import EditTypeModalComponent from './components/type/edit-type-modal.vue'
+import DeleteTypeModalComponent from './components/type/delete-type-modal.vue'
+
+import NewNormalModalComponent from './components/normal/new-normal-modal.vue'
+import EditNormalModalComponent from './components/normal/edit-normal-modal.vue'
+import DeleteNormalModalComponent from './components/normal/delete-normal-modal.vue'
 
 window.Axios=require('axios').default;
 
@@ -44,13 +58,24 @@ const Listunits=Vue.component('Listunits', require('./components/unit/list-unit.
 const Listroles=Vue.component('Listroles', require('./components/role/list-role.vue'));
 // show the list user template
 const Listusers=Vue.component('Listusers', require('./components/user/list-user.vue'));
+// show the list patient template
+const Listpatients=Vue.component('Listpatients', require('./components/patient/list-patient.vue'));
+// show the list location template
+const Listlocations=Vue.component('Listlocations', require('./components/location/list-location.vue'));
+// show the list type template
+const Listtypes=Vue.component('Listtypes', require('./components/type/list-type.vue'));
+// show the list normal template
+const Listnormals=Vue.component('Listnormals', require('./components/normal/list-normal.vue'));
+// show the list metadata template
+const Listmetadatas=Vue.component('Listmetadatas', require('./components/metadata/list-metadata.vue'));
+// show the list post template
+const Observepatients=Vue.component('Observepatients', require('./components/observe/observe-patient.vue'));
 
 const heartBeat =Vue.component('heart-beat', require('./components/heart-beat.vue'));
 const vmodal =Vue.component('v-modal', require('./components/modal.vue'));
 
 // optional set default imeout, the default is 10000 (10 seconds).
 Vue.use(Toaster, {timeout: 5000})
-
 Vue.use(uiv)
 
 // registering Modules
@@ -73,6 +98,22 @@ Vue.component('new-user-modal', NewUserModalComponent);
 Vue.component('edit-user-modal', EditUserModalComponent);
 Vue.component('delete-user-modal', DeleteUserModalComponent);
 
+Vue.component('new-patient-modal', NewPatientModalComponent);
+Vue.component('edit-patient-modal', EditPatientModalComponent);
+Vue.component('delete-patient-modal', DeletePatientModalComponent);
+
+Vue.component('new-location-modal', NewLocationModalComponent);
+Vue.component('edit-location-modal', EditLocationModalComponent);
+Vue.component('delete-location-modal', DeleteLocationModalComponent);
+
+Vue.component('new-type-modal', NewTypeModalComponent);
+Vue.component('edit-type-modal', EditTypeModalComponent);
+Vue.component('delete-type-modal', DeleteTypeModalComponent);
+
+Vue.component('new-normal-modal', NewNormalModalComponent);
+Vue.component('edit-normal-modal', EditNormalModalComponent);
+Vue.component('delete-normal-modal', DeleteNormalModalComponent);
+
 const routes = [
 {
   name: 'Listposts',
@@ -93,6 +134,36 @@ const routes = [
   name: 'Listusers',
   path: '/user',
   component: Listusers
+},
+{
+  name: 'Listpatients',
+  path: '/patient',
+  component: Listpatients
+},
+{
+  name: 'Listlocations',
+  path: '/location',
+  component: Listlocations
+},
+{
+  name: 'Listtypes',
+  path: '/type',
+  component: Listtypes
+},
+{
+  name: 'Listnormals',
+  path: '/normal',
+  component: Listnormals
+},
+{
+  name: 'Listmetadatas',
+  path: '/metadata',
+  component: Listmetadatas
+},
+{
+  name: 'Observepatients',
+  path: '/observe',
+  component: Observepatients
 }
 ];
 
@@ -100,11 +171,17 @@ const router = new VueRouter({ mode: 'history', routes: routes});
 
 const store = new Vuex.Store({
   state: { 
-    loading: true,
-    posts: {},
-    units: {},
-    roles: {},
-    users: {}
+    loading:  true,
+    posts:    {},
+    units:    {},
+    roles:    {},
+    users:    {},
+    patients: {},
+    locations:{},
+    types:    {},
+    normals:  {},
+    metadatas:{},
+    observe:{}
   },
   getters: {
     loading(state) {
@@ -114,7 +191,7 @@ const store = new Vuex.Store({
       return state.posts
     },
     posts(state, getters) {
-      return getters.postsCollection.data
+      return getters.postsCollection
     },
     //-------------------------units
     unitsCollection(state) {
@@ -137,7 +214,42 @@ const store = new Vuex.Store({
     users(state, getters) {
       return getters.usersCollection.data
     },
-    //-------------------------role
+    //-------------------------patitient
+    patientsCollection(state) {
+      return state.patients
+    },
+    patients(state, getters) {
+      return getters.patientsCollection.data
+    },
+    //-------------------------palocation
+    locationsCollection(state) {
+      return state.locations
+    },
+    locations(state, getters) {
+      return getters.locationsCollection.data
+    },
+     //-------------------------type
+    typesCollection(state) {
+      return state.types
+    },
+    types(state, getters) {
+      return getters.typesCollection.data
+    },
+     //-------------------------normal
+    normalsCollection(state) {
+      return state.normals
+    },
+    normals(state, getters) {
+      return getters.normalsCollection.data
+    },
+    //-------------------------metadata
+    metadatasCollection(state) {
+      return state.metadatas
+    },
+    metadatas(state, getters) {
+      return getters.metadatasCollection.data
+    }
+    //-------------------------
   },
   actions: {
     
@@ -235,6 +347,126 @@ async getUsers({commit, dispatch, state}, data) {
   },
   newUsers({commit}, payload) {
     commit('setUsers', payload)
+  },
+  //--------------------------patient
+async getPatients({commit, dispatch, state}, data) {
+    data = data || {}
+    const axiosOptions = {
+      'url': '/patient/patients',
+      'method': 'get',
+      'params': data
+    }
+    await commit('setLoading', true)
+    let nullData = Object.assign(state.patients, {data: []})
+    await dispatch('newPatients', nullData)
+
+    return await axios(axiosOptions).then(async (response) => {
+      await console.log('getPatients:', response)
+      await dispatch('newPatients', response.data)
+       commit('setLoading', false)
+
+    }).catch(error => { 
+      console.log('error', error); 
+    })
+  },
+  newPatients({commit}, payload) {
+    commit('setPatients', payload)
+  },
+  //--------------------------location
+async getLocations({commit, dispatch, state}, data) {
+    data = data || {}
+    const axiosOptions = {
+      'url': '/location/locations',
+      'method': 'get',
+      'params': data
+    }
+    await commit('setLoading', true)
+    let nullData = Object.assign(state.locations, {data: []})
+    await dispatch('newLocations', nullData)
+
+    return await axios(axiosOptions).then(async (response) => {
+      await console.log('getLocations:', response)
+      await dispatch('newLocations', response.data)
+       commit('setLoading', false)
+
+    }).catch(error => { 
+      console.log('error', error); 
+    })
+  },
+  newLocations({commit}, payload) {
+    commit('setLocations', payload)
+  },
+  //--------------------------type
+async getTypes({commit, dispatch, state}, data) {
+    data = data || {}
+    const axiosOptions = {
+      'url': '/type/types',
+      'method': 'get',
+      'params': data
+    }
+    await commit('setLoading', true)
+    let nullData = Object.assign(state.types, {data: []})
+    await dispatch('newTypes', nullData)
+
+    return await axios(axiosOptions).then(async (response) => {
+      await console.log('getTypes:', response)
+      await dispatch('newTypes', response.data)
+       commit('setLoading', false)
+
+    }).catch(error => { 
+      console.log('error', error); 
+    })
+  },
+  newTypes({commit}, payload) {
+    commit('setTypes', payload)
+  },
+  //--------------------------type
+async getNormals({commit, dispatch, state}, data) {
+    data = data || {}
+    const axiosOptions = {
+      'url': '/normal/normals',
+      'method': 'get',
+      'params': data
+    }
+    await commit('setLoading', true)
+    let nullData = Object.assign(state.normals, {data: []})
+    await dispatch('newNormals', nullData)
+
+    return await axios(axiosOptions).then(async (response) => {
+      await console.log('getNormals:', response)
+      await dispatch('newNormals', response.data)
+       commit('setLoading', false)
+
+    }).catch(error => { 
+      console.log('error', error); 
+    })
+  },
+  newNormals({commit}, payload) {
+    commit('setNormals', payload)
+  },
+   //--------------------------type
+async getMetadatas({commit, dispatch, state}, data) {
+    data = data || {}
+    const axiosOptions = {
+      'url': '/metadata/metadatas',
+      'method': 'get',
+      'params': data
+    }
+    await commit('setLoading', true)
+    // let nullData = Object.assign(state.metadatas, {data: []})
+    // await dispatch('newMetadatas', nullData)
+
+    return await axios(axiosOptions).then(async (response) => {
+      await console.log('getMetadatas:', response)
+      await dispatch('newMetadatas', response.data)
+       commit('setLoading', false)
+
+    }).catch(error => { 
+      console.log('error', error); 
+    })
+  },
+  newMetadatas({commit}, payload) {
+    commit('setMetadatas', payload)
   }
   //-------------------------------------------
 },
@@ -253,6 +485,21 @@ mutations: {
   },
   setUsers(state, payload){
     state.users = payload
+  },
+  setPatients(state, payload){
+    state.patients = payload
+  },
+  setLocations(state, payload){
+    state.locations = payload
+  },
+  setTypes(state, payload){
+    state.types = payload
+  },
+  setNormals(state, payload){
+    state.normals = payload
+  },
+  setMetadatas(state, payload){
+    state.metadatas = payload
   }
 } 
 })

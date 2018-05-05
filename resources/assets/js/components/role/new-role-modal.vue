@@ -1,35 +1,41 @@
 <template>
-  <v-modal v-on:close="$emit('close')">
-    <h3 slot="header">New Role</h3>
-    <div slot="body">
+  <modal  
+  v-model="showModal" 
+  v-on:hide="$emit('close')"
+   title="New Role"
+   :footer="false"
+  >
       <form ref="vForm" v-on:submit.prevent="postNewRole($event)">
-        <template v-if="posting">...posting</template>
+        <template v-if="isbusy"><img class="animated-box profile-patient-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="Patient profile picture" ></template>
         <template v-else>
           <div class="form-group" :class="{'has-error': !role.title}">
             <label>title</label>
             <input type="text" class="form-control" placeholder="..." v-model="role.title"/>
           </div>
-         <div class="form-group" :class="{'has-error': !role.description}">
+          <div class="form-group" >
             <label>description</label>
-            <input type="text" class="form-control" placeholder="..." v-model="role.description"/>
+            <textarea cols="30" rows="5" class="form-control" placeholder="..." v-model="role.description"></textarea>
           </div>
-          <div class="text-right">
-            <button class="btn" :class="{'btn-default': canPost, 'btn-danger': !canPost}" type="submit">SUBMIT</button>
+          <div class="modal-footer text-right" >
+            <div class="row">
+              <button class="btn btn-default pull-left col-md-4" type="button" v-on:click="showModal=false">CANCEL</button>
+               <button class="btn btn-success pull-right col-md-4" :class="{'btn-default': canPost, 'btn-danger': !canPost}" type="submit">SUBMIT</button>
+            </div>
           </div>
         </template>
       </form>
-    </div>
-  </v-modal>
+  </modal>
 </template>
 <script>
 export default {
   name: 'new-role-modal',
   data() {
     return {
-      posting: false,
+      showModal: true,
+      isbusy: false,
       role: {
-        mac_address: ''
-      
+        title: '',
+        description: ''
       }
     }
   },
@@ -49,18 +55,24 @@ export default {
         'method': 'post',
         'data': this.role
       }
-      this.posting = true
+ console.log( this.role); 
+
+      this.isbusy = true
       this.result = {}
       this.message = {}
       return await axios(axiosOptions).then(async (response) => {
         this.$toaster.success(response.data.msg)
-        this.role = {mac_address: ''}
+        this.role = {title: '', description: ''}
         this.$emit('role-created')
         setTimeout(() => this.$emit('close'), 500)
+console.log( this.role); 
+
       }).catch(error => {
         this.$toaster.error(error.response.data.message)
+         console.log( error.response.data.messagee);
+         this.isbusy = false
       })
-      this.posting = false
+      this.isbusy = false
     }
   }
 }

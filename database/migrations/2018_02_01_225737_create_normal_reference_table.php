@@ -13,10 +13,10 @@ class CreateNormalReferenceTable extends Migration
      */
     public function up()
     {
-        Schema::create('normal_reference', function (Blueprint $table) {
+        Schema::create('normals', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('patient_id');
-            $table->string('type',20);
+            $table->integer('patient_id')->unsigned();
+            $table->integer('type_id')->unsigned();
             $table->integer('upper_limit');
             $table->integer('lower_limit');
             $table->timestamps();
@@ -30,6 +30,6 @@ class CreateNormalReferenceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('normal_reference');
+        Schema::dropIfExists('normals');
     }
 }

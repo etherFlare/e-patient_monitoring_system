@@ -11,35 +11,28 @@ class NormalController extends Controller
 	}
 	public function index(Request $request)
 	{
-		$normal = NormalReference::where(function($query) use($request) {
+		$normals = NormalReference::where(function($query) use($request) {
 			if($request->has('search')){
 				$search = trim($request->get('search')); 
-				$query->where('type', 'LIKE', '%'. $search .'%');
+				$query->where('type_id', 'LIKE', '%'. $search .'%');
 			}
 		})
 		->orderBy('created_at', 'desc')
+		->with(['type'])
+        ->with(['patient'])
 		->paginate(10);
-		return $normal;
+		return $normals;
 	}
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-					'type' => 'required',
-		'upper_limit' => 'required',
-		'lower_limit' => 'required'
+		'normal.type_id'	 => 'required',
+		'normal.patient_id'  => 'required',
+		'normal.upper_limit' => 'required',
+		'normal.lower_limit' => 'required'
 		]);
-		$create = NormalReference::create($request->all());
-		return response()->json(['status' => 'success','msg'=>'NormalReference created successfully']);
-	}
-	public function get_store(Request $request)
-	{
-		$this->validate($request, [
-								'type' => 'required',
-		'upper_limit' => 'required',
-		'lower_limit' => 'required'
-		]);
-		$create = NormalReference::create($request->all());
-		return response()->json(['status' => 'success','msg'=>'NormalReference created successfully']);
+		$createdNormal = NormalReference::create($request->get('normal'));
+        return response()->json(['request' => $request->all(), 'normal' => $createdNormal, 'status' => 'success', 'msg' => 'normal refernce updated successfully']);
 	}
 	public function show($id)
 	{
@@ -52,14 +45,15 @@ class NormalController extends Controller
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
-					'type' => 'required',
-		'upper_limit' => 'required',
-		'lower_limit' => 'required'
+		'normal.type_id' 	 => 'required',
+		'normal.patient_id'  => 'required',
+		'normal.upper_limit' => 'required',
+		'normal.lower_limit' => 'required'
 		]);
 		$normal = NormalReference::find($id);
 		if($normal->count()){
-			$normal->update($request->all());
-			return response()->json(['statur'=>'success','msg'=>'NormalReference updated successfully']);
+			$normal->update($request->get('normal'));
+			return response()->json(['request' => $request->all(), 'normal' => $normal, 'status' => 'success', 'msg' => 'normal refernce updated successfully']);
 		} else {
 			return response()->json(['statur'=>'error','msg'=>'error in updating post']);
 		}

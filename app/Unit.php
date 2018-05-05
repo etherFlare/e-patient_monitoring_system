@@ -8,6 +8,7 @@ class Unit extends Model
 {
     protected $table = 'units';
     protected $fillable = [
+        'label',
 		'mac_address',
         'unit_is_active',
         'unit_is_inuse',
@@ -18,5 +19,11 @@ class Unit extends Model
         'bp_delay',
         'thermometer_delay',
         'comment'
+
     ];
+
+    public function patients()
+    {
+        return $this->hasMany('App\Patient'); 
+    }
 }

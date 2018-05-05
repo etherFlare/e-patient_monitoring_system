@@ -14,7 +14,7 @@ class Patient extends Model
         'last_name',
         'gender',
         'age',
-        'location',
+        'location_id',
         'home_address',
         'contact_number',
         'contact_person',
@@ -22,4 +22,22 @@ class Patient extends Model
         'is_archive',
         'comment'
     ];
+        public function location()
+    {
+        return $this->belongsTo('App\Location');
+    }
+    public function unit()
+    {
+        return $this->belongsTo('App\Unit');
+    }
+        public function normal()
+    {
+        return $this->hasMany('App\NormalReference');
+    }
+    public function users()
+    {
+        return $this->belongsToMany('App\User')
+            ->withPivot('context', 'status')
+            ->withTimestamps();
+    }
 }

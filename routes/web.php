@@ -12,40 +12,44 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.home');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 //for post 
-/*Route::get('/post', 'PostController@home');
+Route::get('/post', 'PostController@home');
 Route::resource('/post/posts','PostController');
-Route::get('/post/add-new','PostController@get_store');*/
+//Route::get('/post/add-new','PostController@get_store');
 //for unit
-Route::get('/unit', 'UnitController@home');
+Route::get('/unit', 'UnitController@home') ->name('unit');
 Route::resource('/unit/units','UnitController');
-Route::get('/unit/add-new','UnitController@get_store');
 //for role
-Route::get('/role', 'RoleController@home');
+Route::get('/role', 'RoleController@home') ->name('role');
 Route::resource('/role/roles','RoleController');
-Route::get('/role/add-new','RoleController@get_store');
 //for user
-Route::get('/user', 'UserController@home');
+Route::get('/user', 'UserController@home') ->name('user');
 Route::resource('/user/users','UserController');
-Route::get('/user/add-new','UserController@get_store');
+Route::apiResource('patient.user','PatientUserController');
+Route::apiResource('user.patient','UserPatientController');
+
 //for patient
-Route::get('/patient', 'PatientController@home');
+Route::get('/patient', 'PatientController@home') ->name('patient');
 Route::resource('/patient/patients','PatientController');
-Route::get('/patient/add-new','PatientController@get_store');
 //for metadata
-Route::get('/metadata', 'MetadataController@home');
+Route::get('/metadata', 'MetadataController@home') ->name('metadata');
 Route::resource('/metadata/metadatas','MetadataController');
-Route::get('/metadata/add-new','MetadataController@get_store');
 //for normal
-Route::get('/normal', 'NormalController@home');
+Route::get('/normal', 'NormalController@home') ->name('normal');
 Route::resource('/normal/normals','NormalController');
-Route::get('/normal/add-new','NormalController@get_store');
-
-
+//for location
+Route::get('/location', 'LocationController@home') ->name('location');
+Route::resource('/location/locations','LocationController');
+//for type
+Route::get('/type', 'TypeController@home') ->name('type');
+Route::resource('/type/types','TypeController');
+//for observe patient
+Route::get('/observe', 'ObservePatientController@home') ->name('observe');
+Route::resource('/observe/observes','ObservePatientController');
 
