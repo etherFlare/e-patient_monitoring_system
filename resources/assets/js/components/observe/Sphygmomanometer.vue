@@ -87,6 +87,13 @@ export default {
     }
   },
   watch: {
+    sphygmomanometerData: {
+      handler(state) {
+        if(state){
+          this.evalNormals(state)
+        }
+      }
+    },
     selected: {
       handler(state) {
         this.sphygmomanometerService(Boolean(state))
@@ -95,18 +102,73 @@ export default {
     }
   },
   computed: {
+    sphygmomanometerDelay(){
+     if(this.selectedPatient){
+       if(this.selectedPatient.unit){
+          return  parseInt(this.selectedPatient.unit.bp_delay)
+          
+        }
+      }
+
+      return 60000
+    },
+    normal(){
+      if(this.selectedPatient){
+        if(this.selectedPatient.normal){
+          const norm = _.find(this.selectedPatient.normal, n => { return n.type_id === 2})
+          if(norm){
+            return  norm
+          }
+        }
+
+      }
+
+
+      return {upper_limit: 0, lower_limit: 0}
+    },
     user() {
       return window._user
     }
   },
   methods: {
+     evalNormals(payload){
+      const sphygmomanometerData = _.find(payload.datasets, o => { return o.label === 'Diastole' })
+
+      if(sphygmomanometerData){
+
+        sphygmomanometerData.data.forEach((v)=>{
+         if(v > this.normal.upper_limit){
+
+          this.$notify({
+            title: 'Diastole',
+            content: `high ... ${v}`,
+            duration: 15000,
+            type: 'warning',
+            placement: 'bottom-left'
+          })
+
+        }
+
+        if(v < this.normal.lower_limit) {
+          this.$notify({
+            title: 'Diastole',
+            content: `low ... ${v}`,
+            duration: 15000,
+            type: 'danger',
+            placement: 'bottom-left'
+          })
+        }
+      })
+
+      }
+    },
     sphygmomanometerService(state) {
       state = state || false
       if (state) {
         this.sphygmomanometerProvider();
         this.sphygmomanometerInterval = setInterval(function() {
           this.sphygmomanometerProvider();
-        }.bind(this), this.interval);
+        }.bind(this), this.sphygmomanometerDelay);
       } else {
         clearInterval(this.sphygmomanometerInterval);
         this.sphygmomanometerData = defaultChartData()

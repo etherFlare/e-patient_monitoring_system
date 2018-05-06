@@ -111,7 +111,7 @@ export default {
 
       }
 
-      return 1000
+      return 60000
     },
     normal(){
       if(this.selectedPatient){

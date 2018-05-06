@@ -68,10 +68,18 @@ export default {
   data() {
     return { 
       ...thermometerDeafultData(),
-      interval: 1000
+      interval: 60000
     }
   },
   watch: {
+
+     thermometerData: {
+      handler(state) {
+        if(state){
+          this.evalNormals(state)
+       }
+      }
+    },
     selected: {
       handler(state) {
         this.thermometerService(Boolean(state))
@@ -80,18 +88,73 @@ export default {
     }
   },
   computed: {
+     thermometerDelay(){
+      if(this.selectedPatient){
+        if(this.selectedPatient.unit){
+
+          return  parseInt(this.selectedPatient.unit.thermometer_delay)
+         
+        }
+
+      }
+
+      return 60000
+    },
+    normal(){
+      if(this.selectedPatient){
+        if(this.selectedPatient.normal){
+          const norm = _.find(this.selectedPatient.normal, n => { return n.type_id === 3})
+          if(norm){
+            return  norm
+          }
+        }
+
+     }
+
+
+      return {upper_limit: 0, lower_limit: 0}
+    },
     user() {
       return window._user
     }
   },
   methods: {
+     evalNormals(payload){
+      const thermometerData = _.find(payload.datasets, o => { return o.label === 'Human Temperature' })
+
+     if(thermometerData){
+       thermometerData.data.forEach((v)=>{
+        if(v > this.normal.upper_limit){
+             this.$notify({
+            title: 'Human Temperatur',
+            content: `high ... ${v}`,
+           duration: 30000,
+            type: 'warning',
+           placement: 'bottom-left'
+          })
+
+        }
+
+        if(v < this.normal.lower_limit) {
+          this.$notify({
+            title: 'Human Temperatur',
+            content: `low ... ${v}`,
+            duration: 30000,
+            type: 'danger',
+            placement: 'bottom-left'
+          })
+        }
+      })
+
+     }
+    },
     thermometerService(state) {
       state = state || false
       if (state) {
         this.thermometerProvider();
         this.thermometerInterval = setInterval(function() {
           this.thermometerProvider();
-        }.bind(this), this.interval);
+        }.bind(this), this.thermometerDelay);
       } else {
         clearInterval(this.thermometerInterval);
         this.thermometerData = defaultChartData()

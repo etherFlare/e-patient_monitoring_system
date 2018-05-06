@@ -1,6 +1,8 @@
 <template>
   <section>
-    <div class="box box-solid ">
+    <div class="row">
+      <div class="col-md-7">
+       <div class="box box-solid ">
         <div class="box-header">
           <i class="fa fa-circle"></i>
           <h3 class="box-title">Patients</h3>
@@ -51,35 +53,61 @@
         <i class="fa fa-refresh fa-spin"></i>
       </div>
     </div>
-
-<div class="row">
-      <div class="col-md-4">
-        <oximeter :selected="selected" :selected-patient="selectedPatient"></oximeter>
+  </div>
+  <div class="col-md-5">
+    <div class="box box-solid">
+      <div class="box-header">
+        <i class="fa fa-circle"></i>
+        <h3 class="box-title">Normals</h3>
       </div>
-      <div class="col-md-4">
-        <sphygmomanometer :selected="selected" :selected-patient="selectedPatient"></sphygmomanometer>
-      </div>
-      <div class="col-md-4">
-        <thermometer :selected="selected" :selected-patient="selectedPatient"></thermometer>
-         
-      </div>
+      <div class="box-body">
+        <table class="table" v-if="selectedPatient">
+          <thead>
+            <tr>
+            <td>type</td>
+            <td>high</td>
+            <td>low</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(n, nIdx) in selectedPatient.normal" :key="`n-${nIdx}`">
+              <td>{{n.type_id}}</td>
+              <td>{{n.upper_limit}}</td>
+              <td>{{n.lower_limit}}</td>
+            </tr>
+          </tbody>
+        </table>
+     </div>
+     <div class="overlay" :class="{'hide': selected}">
+      <i class="fa fa-info"></i>
     </div>
-
+  </div>
+</div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <oximeter :selected="selected" :selected-patient="selectedPatient"></oximeter>
+  </div>
+  <div class="col-md-4">
+    <sphygmomanometer :selected="selected" :selected-patient="selectedPatient"></sphygmomanometer>
+  </div>
+  <div class="col-md-4">
+    <thermometer :selected="selected" :selected-patient="selectedPatient"></thermometer>
+  </div>
+</div>
 <modal v-model="showPatientObservationConfigModal"
-  title="Patient"
-  v-on:hide="showPatientObservationConfigModal=false"
-  ref="patientObservationConfig"
-  :footer="false"
-  :keyboard="true"
-  :backdrop="true"
-  size="lg"
-  append-to-body>
-  <pre>{{patientObservationConfig}}</pre>
+title="Patient"
+v-on:hide="showPatientObservationConfigModal=false"
+ref="patientObservationConfig"
+:footer="false"
+:keyboard="true"
+:backdrop="true"
+size="lg"
+append-to-body>
+<pre>{{patientObservationConfig}}</pre>
 </modal>
-  </section>
-   
+</section>
 </template>
-
 <script>
 import _ from 'lodash'
 import LineChart from './line-chart.js'
@@ -88,7 +116,6 @@ import PatientsSelect from './patients.vue'
 import Oximeter from './Oximeter.vue'
 import Sphygmomanometer from './Sphygmomanometer.vue'
 import Thermometer from './Thermometer.vue'
-
 const defaultPatientsPayload = () => {
   return {
     "current_page": 1,
@@ -100,7 +127,6 @@ const defaultPatientsPayload = () => {
     "total": 0
   }
 }
-
 export default {
   name: 'observe-patient',
   components: { PatientsSelect, Oximeter, Sphygmomanometer, Thermometer },

@@ -85602,6 +85602,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -85676,6 +85678,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         getUnits: function getUnits(event) {
+            this.showUnitModal = false;
             return this.$store.dispatch('getUnits', { 'search': this.searchTerm });
         }
     }
@@ -91340,7 +91343,34 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -91360,7 +91390,6 @@ var defaultPatientsPayload = function defaultPatientsPayload() {
     "total": 0
   };
 };
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'observe-patient',
   components: { PatientsSelect: __WEBPACK_IMPORTED_MODULE_3__patients_vue___default.a, Oximeter: __WEBPACK_IMPORTED_MODULE_4__Oximeter_vue___default.a, Sphygmomanometer: __WEBPACK_IMPORTED_MODULE_5__Sphygmomanometer_vue___default.a, Thermometer: __WEBPACK_IMPORTED_MODULE_6__Thermometer_vue___default.a },
@@ -104916,7 +104945,7 @@ var oximeterDeafultData = function oximeterDeafultData() {
         }
       }
 
-      return 1000;
+      return 60000;
     },
     normal: function normal() {
       if (this.selectedPatient) {
@@ -105232,6 +105261,13 @@ var sphygmomanometerDeafultData = function sphygmomanometerDeafultData() {
   },
 
   watch: {
+    sphygmomanometerData: {
+      handler: function handler(state) {
+        if (state) {
+          this.evalNormals(state);
+        }
+      }
+    },
     selected: {
       handler: function handler(state) {
         this.sphygmomanometerService(Boolean(state));
@@ -105241,25 +105277,81 @@ var sphygmomanometerDeafultData = function sphygmomanometerDeafultData() {
     }
   },
   computed: {
+    sphygmomanometerDelay: function sphygmomanometerDelay() {
+      if (this.selectedPatient) {
+        if (this.selectedPatient.unit) {
+          return parseInt(this.selectedPatient.unit.bp_delay);
+        }
+      }
+
+      return 60000;
+    },
+    normal: function normal() {
+      if (this.selectedPatient) {
+        if (this.selectedPatient.normal) {
+          var norm = __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.find(this.selectedPatient.normal, function (n) {
+            return n.type_id === 2;
+          });
+          if (norm) {
+            return norm;
+          }
+        }
+      }
+
+      return { upper_limit: 0, lower_limit: 0 };
+    },
     user: function user() {
       return window._user;
     }
   },
   methods: {
+    evalNormals: function evalNormals(payload) {
+      var _this2 = this;
+
+      var sphygmomanometerData = __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.find(payload.datasets, function (o) {
+        return o.label === 'Diastole';
+      });
+
+      if (sphygmomanometerData) {
+
+        sphygmomanometerData.data.forEach(function (v) {
+          if (v > _this2.normal.upper_limit) {
+
+            _this2.$notify({
+              title: 'Diastole',
+              content: 'high ... ' + v,
+              duration: 15000,
+              type: 'warning',
+              placement: 'bottom-left'
+            });
+          }
+
+          if (v < _this2.normal.lower_limit) {
+            _this2.$notify({
+              title: 'Diastole',
+              content: 'low ... ' + v,
+              duration: 15000,
+              type: 'danger',
+              placement: 'bottom-left'
+            });
+          }
+        });
+      }
+    },
     sphygmomanometerService: function sphygmomanometerService(state) {
       state = state || false;
       if (state) {
         this.sphygmomanometerProvider();
         this.sphygmomanometerInterval = setInterval(function () {
           this.sphygmomanometerProvider();
-        }.bind(this), this.interval);
+        }.bind(this), this.sphygmomanometerDelay);
       } else {
         clearInterval(this.sphygmomanometerInterval);
         this.sphygmomanometerData = defaultChartData();
       }
     },
     sphygmomanometerProvider: function sphygmomanometerProvider() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.selectedPatient) {
         var axiosOptions = {
@@ -105273,10 +105365,10 @@ var sphygmomanometerDeafultData = function sphygmomanometerDeafultData() {
         };
         this.sphygmomanometerProviderConfig.isBusy = true;
         axios(axiosOptions).then(function (response) {
-          _this2.sphygmomanometerData = sphygmomanometerDataFactory(response.data.data);
-          _this2.sphygmomanometerProviderConfig.isBusy = false;
+          _this3.sphygmomanometerData = sphygmomanometerDataFactory(response.data.data);
+          _this3.sphygmomanometerProviderConfig.isBusy = false;
         }).catch(function (error) {
-          _this2.sphygmomanometerProviderConfig.isBusy = false;
+          _this3.sphygmomanometerProviderConfig.isBusy = false;
           return Promise.reject(error.response);
         });
       }
@@ -105486,11 +105578,19 @@ var thermometerDeafultData = function thermometerDeafultData() {
   },
   data: function data() {
     return _extends({}, thermometerDeafultData(), {
-      interval: 1000
+      interval: 60000
     });
   },
 
   watch: {
+
+    thermometerData: {
+      handler: function handler(state) {
+        if (state) {
+          this.evalNormals(state);
+        }
+      }
+    },
     selected: {
       handler: function handler(state) {
         this.thermometerService(Boolean(state));
@@ -105500,25 +105600,80 @@ var thermometerDeafultData = function thermometerDeafultData() {
     }
   },
   computed: {
+    thermometerDelay: function thermometerDelay() {
+      if (this.selectedPatient) {
+        if (this.selectedPatient.unit) {
+
+          return parseInt(this.selectedPatient.unit.thermometer_delay);
+        }
+      }
+
+      return 60000;
+    },
+    normal: function normal() {
+      if (this.selectedPatient) {
+        if (this.selectedPatient.normal) {
+          var norm = __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.find(this.selectedPatient.normal, function (n) {
+            return n.type_id === 3;
+          });
+          if (norm) {
+            return norm;
+          }
+        }
+      }
+
+      return { upper_limit: 0, lower_limit: 0 };
+    },
     user: function user() {
       return window._user;
     }
   },
   methods: {
+    evalNormals: function evalNormals(payload) {
+      var _this2 = this;
+
+      var thermometerData = __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.find(payload.datasets, function (o) {
+        return o.label === 'Human Temperature';
+      });
+
+      if (thermometerData) {
+        thermometerData.data.forEach(function (v) {
+          if (v > _this2.normal.upper_limit) {
+            _this2.$notify({
+              title: 'Human Temperatur',
+              content: 'high ... ' + v,
+              duration: 30000,
+              type: 'warning',
+              placement: 'bottom-left'
+            });
+          }
+
+          if (v < _this2.normal.lower_limit) {
+            _this2.$notify({
+              title: 'Human Temperatur',
+              content: 'low ... ' + v,
+              duration: 30000,
+              type: 'danger',
+              placement: 'bottom-left'
+            });
+          }
+        });
+      }
+    },
     thermometerService: function thermometerService(state) {
       state = state || false;
       if (state) {
         this.thermometerProvider();
         this.thermometerInterval = setInterval(function () {
           this.thermometerProvider();
-        }.bind(this), this.interval);
+        }.bind(this), this.thermometerDelay);
       } else {
         clearInterval(this.thermometerInterval);
         this.thermometerData = defaultChartData();
       }
     },
     thermometerProvider: function thermometerProvider() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.selectedPatient) {
         var axiosOptions = {
@@ -105532,10 +105687,10 @@ var thermometerDeafultData = function thermometerDeafultData() {
         };
         this.thermometerProviderConfig.isBusy = true;
         axios(axiosOptions).then(function (response) {
-          _this2.thermometerData = thermometerDataFactory(response.data.data);
-          _this2.thermometerProviderConfig.isBusy = false;
+          _this3.thermometerData = thermometerDataFactory(response.data.data);
+          _this3.thermometerProviderConfig.isBusy = false;
         }).catch(function (error) {
-          _this2.thermometerProviderConfig.isBusy = false;
+          _this3.thermometerProviderConfig.isBusy = false;
           return Promise.reject(error.response);
         });
       }
@@ -105623,166 +105778,205 @@ var render = function() {
   return _c(
     "section",
     [
-      _c("div", { staticClass: "box box-solid " }, [
-        _c("div", { staticClass: "box-header" }, [
-          _c("i", { staticClass: "fa fa-circle" }),
-          _vm._v(" "),
-          _c("h3", { staticClass: "box-title" }, [_vm._v("Patients")]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "box-tools pull-right" },
-            [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-box-tool",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      _vm.showPatientsModal = true
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fa fa-search" })]
-              ),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-7" }, [
+          _c("div", { staticClass: "box box-solid " }, [
+            _c("div", { staticClass: "box-header" }, [
+              _c("i", { staticClass: "fa fa-circle" }),
+              _vm._v(" "),
+              _c("h3", { staticClass: "box-title" }, [_vm._v("Patients")]),
               _vm._v(" "),
               _c(
-                "modal",
-                {
-                  ref: "patientsModal",
-                  attrs: {
-                    title: "Patients",
-                    footer: false,
-                    keyboard: true,
-                    backdrop: true,
-                    size: "lg",
-                    "append-to-body": ""
-                  },
-                  on: {
-                    hide: function($event) {
-                      _vm.showPatientsModal = false
-                    }
-                  },
-                  model: {
-                    value: _vm.showPatientsModal,
-                    callback: function($$v) {
-                      _vm.showPatientsModal = $$v
-                    },
-                    expression: "showPatientsModal"
-                  }
-                },
+                "div",
+                { staticClass: "box-tools pull-right" },
                 [
-                  _c("patients-select", {
-                    attrs: { patients: _vm.patients },
-                    on: {
-                      "add-patient": _vm.addPatient,
-                      "remove-patient": _vm.removePatient
-                    }
-                  })
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-box-tool",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.showPatientsModal = true
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-search" })]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "modal",
+                    {
+                      ref: "patientsModal",
+                      attrs: {
+                        title: "Patients",
+                        footer: false,
+                        keyboard: true,
+                        backdrop: true,
+                        size: "lg",
+                        "append-to-body": ""
+                      },
+                      on: {
+                        hide: function($event) {
+                          _vm.showPatientsModal = false
+                        }
+                      },
+                      model: {
+                        value: _vm.showPatientsModal,
+                        callback: function($$v) {
+                          _vm.showPatientsModal = $$v
+                        },
+                        expression: "showPatientsModal"
+                      }
+                    },
+                    [
+                      _c("patients-select", {
+                        attrs: { patients: _vm.patients },
+                        on: {
+                          "add-patient": _vm.addPatient,
+                          "remove-patient": _vm.removePatient
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-box-tool",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.patientsProvider()
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fa fa-refresh" })]
+                  )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-box-tool",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      _vm.patientsProvider()
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fa fa-refresh" })]
               )
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "box-body" }, [
-          _c("table", { staticClass: "table table-striped no-margin" }, [
-            _vm._m(1),
+            ]),
             _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(_vm.patients, function(patient, patientIdx) {
-                return _c("tr", { key: patientIdx }, [
-                  _c("td", [_vm._v(_vm._s(patient.first_name))]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(_vm._s(patient.location.name))]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "text-right" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary btn-sm",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.showPatientObservationConfig(patient)
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fa fa-fw fa-wrench" })]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-danger btn-sm",
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            _vm.removePatient(patient.id)
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fa fa-fw fa-times" })]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-sm",
-                        class: {
-                          "btn-default": patient.id !== _vm.selected,
-                          "btn-primary": patient.id === _vm.selected
-                        },
-                        attrs: { type: "button" },
-                        on: {
-                          click: function() {
-                            _vm.selected =
-                              patient.id === _vm.selected ? null : patient.id
-                          }
-                        }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "fa fa-fw",
-                          class: {
-                            "fa-square-o": patient.id !== _vm.selected,
-                            "fa-check-square-o": patient.id === _vm.selected
-                          }
-                        })
-                      ]
-                    )
-                  ])
+            _c("div", { staticClass: "box-body" }, [
+              _c("table", { staticClass: "table table-striped no-margin" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.patients, function(patient, patientIdx) {
+                    return _c("tr", { key: patientIdx }, [
+                      _c("td", [_vm._v(_vm._s(patient.first_name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(patient.location.name))]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "text-right" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary btn-sm",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.showPatientObservationConfig(patient)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-fw fa-wrench" })]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger btn-sm",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                _vm.removePatient(patient.id)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa fa-fw fa-times" })]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm",
+                            class: {
+                              "btn-default": patient.id !== _vm.selected,
+                              "btn-primary": patient.id === _vm.selected
+                            },
+                            attrs: { type: "button" },
+                            on: {
+                              click: function() {
+                                _vm.selected =
+                                  patient.id === _vm.selected
+                                    ? null
+                                    : patient.id
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass: "fa fa-fw",
+                              class: {
+                                "fa-square-o": patient.id !== _vm.selected,
+                                "fa-check-square-o": patient.id === _vm.selected
+                              }
+                            })
+                          ]
+                        )
+                      ])
+                    ])
+                  })
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _vm.patientsProviderIsBusy
+              ? _c("div", { staticClass: "overlay" }, [
+                  _c("i", { staticClass: "fa fa-refresh fa-spin" })
                 ])
-              })
-            )
+              : _vm._e()
           ])
         ]),
         _vm._v(" "),
-        _vm.patientsProviderIsBusy
-          ? _c("div", { staticClass: "overlay" }, [
-              _c("i", { staticClass: "fa fa-refresh fa-spin" })
-            ])
-          : _vm._e()
+        _c("div", { staticClass: "col-md-5" }, [
+          _c("div", { staticClass: "box box-solid" }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "box-body" }, [
+              _vm.selectedPatient
+                ? _c("table", { staticClass: "table" }, [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.selectedPatient.normal, function(n, nIdx) {
+                        return _c("tr", { key: "n-" + nIdx }, [
+                          _c("td", [_vm._v(_vm._s(n.type_id))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(n.upper_limit))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(n.lower_limit))])
+                        ])
+                      })
+                    )
+                  ])
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "overlay", class: { hide: _vm.selected } },
+              [_c("i", { staticClass: "fa fa-info" })]
+            )
+          ])
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
@@ -105885,6 +106079,30 @@ var staticRenderFns = [
         _c("th", [_vm._v("Location")]),
         _vm._v(" "),
         _c("th", [_vm._v("...")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "box-header" }, [
+      _c("i", { staticClass: "fa fa-circle" }),
+      _vm._v(" "),
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Normals")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("td", [_vm._v("type")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("high")]),
+        _vm._v(" "),
+        _c("td", [_vm._v("low")])
       ])
     ])
   }
