@@ -8,7 +8,7 @@
 <div class="wrapper">
  <header class="main-header">
     <a href="#" class="logo">
-      <span class="logo-mini"><b>E</b>Pt</span>
+      <span class="logo-mini"><b>E</b>P-l</span>
       <span class="logo-lg"><b>e-Patient</b>-local</span>
     </a>
     <nav class="navbar navbar-static-top">

@@ -15,12 +15,10 @@
     </div>
   </div>
 </template>
-
 <script>
 import _ from 'lodash'
 import LineChart from './line-chart.js'
 import moment from 'moment'
-
 const defaultChartData = () => {
   return {
     labels: ['.'],
@@ -34,28 +32,28 @@ const defaultChartData = () => {
 const sphygmomanometerDataFactory = (d) => {
   d = d || []
   const data = _.reverse(d)
-  return { 
+  return {
     datasets: [
     {
       borderColor: '#3c763d',
       data: data.map(payload => parseFloat(JSON.parse(payload.sensor_value).systole)),
       fill: false,
-      lineTension: 0,   
+      lineTension: 0,
       label: 'Systole'
     },
     {
       borderColor: '#1f648b',
       data: data.map(payload => parseFloat(JSON.parse(payload.sensor_value).diastole)),
       fill: false,
-      lineTension: 0,   
+      lineTension: 0,
       label: 'Diastole'
     },
     {
       borderColor: '#FF0000',
       borderDash: [5, 5],
       data: data.map(payload => parseFloat(JSON.parse(payload.sensor_value).pulserate)),
-      fill: false, 
-      lineTension: 0,   
+      fill: false,
+      lineTension: 0,
       label: 'Pulse Rate'
     }
     ],
@@ -81,7 +79,7 @@ export default {
     clearInterval(this.sphygmomanometerInterval)
   },
   data() {
-    return { 
+    return {
       ...sphygmomanometerDeafultData(),
       interval: 5000
     }
@@ -103,13 +101,11 @@ export default {
   },
   computed: {
     sphygmomanometerDelay(){
-     if(this.selectedPatient){
-       if(this.selectedPatient.unit){
+      if(this.selectedPatient){
+        if(this.selectedPatient.unit){
           return  parseInt(this.selectedPatient.unit.bp_delay)
-          
         }
       }
-
       return 60000
     },
     normal(){
@@ -120,10 +116,7 @@ export default {
             return  norm
           }
         }
-
       }
-
-
       return {upper_limit: 0, lower_limit: 0}
     },
     user() {
@@ -131,35 +124,29 @@ export default {
     }
   },
   methods: {
-     evalNormals(payload){
+    evalNormals(payload){
       const sphygmomanometerData = _.find(payload.datasets, o => { return o.label === 'Diastole' })
-
       if(sphygmomanometerData){
-
         sphygmomanometerData.data.forEach((v)=>{
-         if(v > this.normal.upper_limit){
-
-          this.$notify({
-            title: 'Diastole',
-            content: `high ... ${v}`,
-            duration: 15000,
-            type: 'warning',
-            placement: 'bottom-left'
-          })
-
-        }
-
-        if(v < this.normal.lower_limit) {
-          this.$notify({
-            title: 'Diastole',
-            content: `low ... ${v}`,
-            duration: 15000,
-            type: 'danger',
-            placement: 'bottom-left'
-          })
-        }
-      })
-
+          if(v > this.normal.upper_limit){
+            this.$notify({
+              title: 'Diastole',
+              content: `high ... ${v}`,
+              duration: 30000,
+              type: 'warning',
+              placement: 'bottom-left'
+            })
+          }
+          if(v < this.normal.lower_limit) {
+            this.$notify({
+              title: 'Diastole',
+              content: `low ... ${v}`,
+              duration: 30000,
+              type: 'danger',
+              placement: 'bottom-left'
+            })
+          }
+        })
       }
     },
     sphygmomanometerService(state) {

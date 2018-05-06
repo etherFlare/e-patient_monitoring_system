@@ -46,6 +46,7 @@ class MetadataController extends Controller
             }
         })
             ->orderBy('created_at', 'desc')
+            ->with(['type'])
             ->paginate($request->get('per_page', 100));
         return $metadata;
     }

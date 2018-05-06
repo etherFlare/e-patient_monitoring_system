@@ -15,12 +15,10 @@
     </div>
   </div>
 </template>
-
 <script>
 import _ from 'lodash'
 import LineChart from './line-chart.js'
 import moment from 'moment'
-
 const defaultChartData = () => {
   return {
     labels: ['.'],
@@ -34,27 +32,27 @@ const defaultChartData = () => {
 const oximeterDataFactory = (d) => {
   d = d || []
   const data = _.reverse(d)
-  return { 
+  return {
     datasets: [
     {
       borderColor: '#3c763d',
       data: data.map(payload => parseFloat(JSON.parse(payload.sensor_value).SpO2)),
       fill: false,
-      lineTension: 0,   
+      lineTension: 0,
       label: 'Oxygen Saturation'
     },
     {
       borderColor: '#1f648b',
       data: data.map(payload => parseFloat(JSON.parse(payload.sensor_value).HR)),
       fill: false,
-      lineTension: 0,   
+      lineTension: 0,
       label: 'Hearth Rate'
     },
     {
       borderColor: '#FF0000',
       borderDash: [5, 5],
       data: data.map(payload => parseFloat(JSON.parse(payload.sensor_value).ST)),
-      fill: false, 
+      fill: false,
       label: 'Sensor Temperature'
     }
     ],
@@ -80,7 +78,7 @@ export default {
     clearInterval(this.oximeterInterval)
   },
   data() {
-    return { 
+    return {
       ...oximeterDeafultData(),
       interval: 1000
     }
@@ -104,13 +102,9 @@ export default {
     oximeterDelay(){
       if(this.selectedPatient){
         if(this.selectedPatient.unit){
-
           return  parseInt(this.selectedPatient.unit.oximeter_delay)
-          
         }
-
       }
-
       return 60000
     },
     normal(){
@@ -121,10 +115,7 @@ export default {
             return  norm
           }
         }
-
       }
-
-
       return {upper_limit: 0, lower_limit: 0}
     },
     user() {
@@ -134,33 +125,27 @@ export default {
   methods: {
     evalNormals(payload){
       const oximeterData = _.find(payload.datasets, o => { return o.label === 'Oxygen Saturation' })
-
       if(oximeterData){
-
         oximeterData.data.forEach((v)=>{
-         if(v > this.normal.upper_limit){
-
-          this.$notify({
-            title: 'Oxygen Saturation',
-            content: `high ... ${v}`,
-            duration: 15000,
-            type: 'warning',
-            placement: 'bottom-left'
-          })
-
-        }
-
-        if(v < this.normal.lower_limit) {
-          this.$notify({
-            title: 'Oxygen Saturation',
-            content: `low ... ${v}`,
-            duration: 15000,
-            type: 'danger',
-            placement: 'bottom-left'
-          })
-        }
-      })
-
+          if(v > this.normal.upper_limit){
+            this.$notify({
+              title: 'Oxygen Saturation',
+              content: `high ... ${v}`,
+              duration: 30000,
+              type: 'warning',
+              placement: 'bottom-left'
+            })
+          }
+          if(v < this.normal.lower_limit) {
+            this.$notify({
+              title: 'Oxygen Saturation',
+              content: `low ... ${v}`,
+              duration: 30000,
+              type: 'danger',
+              placement: 'bottom-left'
+            })
+          }
+        })
       }
     },
     oximeterService(state) {

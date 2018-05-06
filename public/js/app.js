@@ -87367,7 +87367,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -87396,14 +87395,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     userCanEdit: function userCanEdit() {
       var roles = this.$store.getters.user.roles;
-
       var editRole = _.find(roles, function (role) {
         return role.label === 'editor';
       });
       if (editRole) {
         return editRole;
       }
-
+      return false;
+    },
+    userCanDelete: function userCanDelete() {
+      var roles = this.$store.getters.user.roles;
+      var deleteRole = _.find(roles, function (role) {
+        return role.label === 'cleaner';
+      });
+      if (deleteRole) {
+        return deleteRole;
+      }
+      return false;
+    },
+    userIsAdmin: function userIsAdmin() {
+      var roles = this.$store.getters.user.roles;
+      var adminRole = _.find(roles, function (role) {
+        return role.label === 'administrator';
+      });
+      if (adminRole) {
+        return adminRole;
+      }
       return false;
     },
     loading: function loading() {
@@ -87454,6 +87471,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       });
     },
     getUsers: function getUsers(event) {
+      this.showUserModal = false;
       return this.$store.dispatch('getUsers', { 'search': this.searchTerm });
     }
   }
@@ -87476,6 +87494,23 @@ var render = function() {
           _c("div", { staticClass: "box-header" }, [
             _c("div", { staticClass: "pull-right" }, [
               _c("div", { staticClass: "form-group" }, [
+                _vm.userIsAdmin
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-xs btn-default",
+                        attrs: { href: "print/patient", target: "_blank" }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "glyphicon glyphicon-print"
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("PRINT")])
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
                 _c(
                   "a",
                   {
@@ -87895,27 +87930,29 @@ var render = function() {
                             )
                           : _vm._e(),
                         _vm._v(" "),
-                        _c(
-                          "btn",
-                          {
-                            attrs: { type: "danger" },
-                            on: {
-                              click: function($event) {
-                                _vm.showDeleteUserModalComponent(
-                                  $event,
-                                  _vm.user
-                                )
-                              }
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "fa fa-trash-o",
-                              attrs: { "aria-hidden": "true" }
-                            }),
-                            _vm._v(" Delete")
-                          ]
-                        ),
+                        _vm.userCanDelete
+                          ? _c(
+                              "btn",
+                              {
+                                attrs: { type: "danger" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.showDeleteUserModalComponent(
+                                      $event,
+                                      _vm.user
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-trash-o",
+                                  attrs: { "aria-hidden": "true" }
+                                }),
+                                _vm._v(" Delete")
+                              ]
+                            )
+                          : _vm._e(),
                         _vm._v(" "),
                         _c(
                           "btn",
@@ -88162,7 +88199,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -88189,6 +88225,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   computed: {
+    userCanEdit: function userCanEdit() {
+      var roles = this.$store.getters.user.roles;
+      var editRole = _.find(roles, function (role) {
+        return role.label === 'editor';
+      });
+      if (editRole) {
+        return editRole;
+      }
+      return false;
+    },
+    userCanDelete: function userCanDelete() {
+      var roles = this.$store.getters.user.roles;
+      var deleteRole = _.find(roles, function (role) {
+        return role.label === 'cleaner';
+      });
+      if (deleteRole) {
+        return deleteRole;
+      }
+      return false;
+    },
+    userIsAdmin: function userIsAdmin() {
+      var roles = this.$store.getters.user.roles;
+      var adminRole = _.find(roles, function (role) {
+        return role.label === 'administrator';
+      });
+      if (adminRole) {
+        return adminRole;
+      }
+      return false;
+    },
     loading: function loading() {
       return this.$store.getters.loading;
     },
@@ -88240,7 +88306,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.patient) {
         this.patient = event.patient;
       }
-
+      this.showPatientModal = false;
       return this.$store.dispatch('getPatients', { 'search': this.searchTerm });
     }
   }
@@ -88263,7 +88329,22 @@ var render = function() {
           _c("div", { staticClass: "box-header" }, [
             _c("div", { staticClass: "pull-right" }, [
               _c("div", { staticClass: "form-group" }, [
-                _vm._m(0),
+                _vm.userIsAdmin
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-xs btn-default",
+                        attrs: { href: "print/patient", target: "_blank" }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "glyphicon glyphicon-print"
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("PRINT")])
+                      ]
+                    )
+                  : _vm._e(),
                 _vm._v(" "),
                 _c(
                   "a",
@@ -88320,7 +88401,7 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm._m(1)
+                      _vm._m(0)
                     ])
                   ])
                 ]),
@@ -88340,7 +88421,7 @@ var render = function() {
                       attrs: { id: "ex1" }
                     },
                     [
-                      _vm._m(2),
+                      _vm._m(1),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -88724,49 +88805,53 @@ var render = function() {
                     "div",
                     { attrs: { slot: "footer" }, slot: "footer" },
                     [
-                      _c(
-                        "btn",
-                        {
-                          attrs: { type: "warning" },
-                          on: {
-                            click: function($event) {
-                              _vm.showEditPatientModalComponent(
-                                $event,
-                                _vm.patient
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-pencil",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" Edit")
-                        ]
-                      ),
+                      _vm.userCanDelete
+                        ? _c(
+                            "btn",
+                            {
+                              attrs: { type: "warning" },
+                              on: {
+                                click: function($event) {
+                                  _vm.showEditPatientModalComponent(
+                                    $event,
+                                    _vm.patient
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-pencil",
+                                attrs: { "aria-hidden": "true" }
+                              }),
+                              _vm._v(" Edit")
+                            ]
+                          )
+                        : _vm._e(),
                       _vm._v(" "),
-                      _c(
-                        "btn",
-                        {
-                          attrs: { type: "danger" },
-                          on: {
-                            click: function($event) {
-                              _vm.showDeletePatientModalComponent(
-                                $event,
-                                _vm.patient
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-trash-o",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" Delete")
-                        ]
-                      ),
+                      _vm.userCanEdit
+                        ? _c(
+                            "btn",
+                            {
+                              attrs: { type: "danger" },
+                              on: {
+                                click: function($event) {
+                                  _vm.showDeletePatientModalComponent(
+                                    $event,
+                                    _vm.patient
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-trash-o",
+                                attrs: { "aria-hidden": "true" }
+                              }),
+                              _vm._v(" Delete")
+                            ]
+                          )
+                        : _vm._e(),
                       _vm._v(" "),
                       _c(
                         "btn",
@@ -88793,23 +88878,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "btn btn-xs btn-default",
-        attrs: { href: "print/patient", target: "_blank" }
-      },
-      [
-        _c("span", { staticClass: "glyphicon glyphicon-print" }),
-        _vm._v(" "),
-        _c("span", [_vm._v("PRINT")])
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -90149,6 +90217,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -90173,6 +90242,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   computed: {
+    userCanEdit: function userCanEdit() {
+      var roles = this.$store.getters.user.roles;
+      var editRole = _.find(roles, function (role) {
+        return role.label === 'editor';
+      });
+      if (editRole) {
+        return editRole;
+      }
+      return false;
+    },
+    userCanDelete: function userCanDelete() {
+      var roles = this.$store.getters.user.roles;
+      var deleteRole = _.find(roles, function (role) {
+        return role.label === 'cleaner';
+      });
+      if (deleteRole) {
+        return deleteRole;
+      }
+      return false;
+    },
+    userIsAdmin: function userIsAdmin() {
+      var roles = this.$store.getters.user.roles;
+      var adminRole = _.find(roles, function (role) {
+        return role.label === 'administrator';
+      });
+      if (adminRole) {
+        return adminRole;
+      }
+      return false;
+    },
     loading: function loading() {
       return this.$store.getters.loading;
     },
@@ -90243,6 +90342,23 @@ var render = function() {
           _c("div", { staticClass: "box-header" }, [
             _c("div", { staticClass: "pull-right" }, [
               _c("div", { staticClass: "form-group" }, [
+                _vm.userIsAdmin
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-xs btn-default",
+                        attrs: { href: "print/normal", target: "_blank" }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "glyphicon glyphicon-print"
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("PRINT")])
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
                 _c(
                   "a",
                   {
@@ -90559,49 +90675,53 @@ var render = function() {
                     "div",
                     { attrs: { slot: "footer" }, slot: "footer" },
                     [
-                      _c(
-                        "btn",
-                        {
-                          attrs: { type: "warning" },
-                          on: {
-                            click: function($event) {
-                              _vm.showEditNormalModalComponent(
-                                $event,
-                                _vm.normal
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-pencil",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" Edit")
-                        ]
-                      ),
+                      _vm.userCaneEdit
+                        ? _c(
+                            "btn",
+                            {
+                              attrs: { type: "warning" },
+                              on: {
+                                click: function($event) {
+                                  _vm.showEditNormalModalComponent(
+                                    $event,
+                                    _vm.normal
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-pencil",
+                                attrs: { "aria-hidden": "true" }
+                              }),
+                              _vm._v(" Edit")
+                            ]
+                          )
+                        : _vm._e(),
                       _vm._v(" "),
-                      _c(
-                        "btn",
-                        {
-                          attrs: { type: "danger" },
-                          on: {
-                            click: function($event) {
-                              _vm.showDeleteNormalModalComponent(
-                                $event,
-                                _vm.normal
-                              )
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fa fa-trash-o",
-                            attrs: { "aria-hidden": "true" }
-                          }),
-                          _vm._v(" Delete")
-                        ]
-                      ),
+                      _vm.userCanDelete
+                        ? _c(
+                            "btn",
+                            {
+                              attrs: { type: "danger" },
+                              on: {
+                                click: function($event) {
+                                  _vm.showDeleteNormalModalComponent(
+                                    $event,
+                                    _vm.normal
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fa fa-trash-o",
+                                attrs: { "aria-hidden": "true" }
+                              }),
+                              _vm._v(" Delete")
+                            ]
+                          )
+                        : _vm._e(),
                       _vm._v(" "),
                       _c(
                         "btn",
@@ -90831,6 +90951,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   computed: {
+    userIsDeveloper: function userIsDeveloper() {
+      var roles = this.$store.getters.user.roles;
+      var developerRole = _.find(roles, function (role) {
+        return role.label === 'developer';
+      });
+      if (developerRole) {
+        return developerRole;
+      }
+      return false;
+    },
+    userIsAdmin: function userIsAdmin() {
+      var roles = this.$store.getters.user.roles;
+      var adminRole = _.find(roles, function (role) {
+        return role.label === 'administrator';
+      });
+      if (adminRole) {
+        return adminRole;
+      }
+      return false;
+    },
     loading: function loading() {
       return this.$store.getters.loading;
     },
@@ -90889,6 +91029,31 @@ var render = function() {
         { staticClass: "box" },
         [
           _c("div", { staticClass: "box-header" }, [
+            _c("div", { staticClass: "pull-right" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _vm.on_load
+                  ? _c("i", { staticClass: "fa fa-spin fa-refresh" })
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.userIsAdmin
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "btn btn-xs btn-default",
+                        attrs: { href: "print/patient", target: "_blank" }
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "glyphicon glyphicon-print"
+                        }),
+                        _vm._v(" "),
+                        _c("span", [_vm._v("PRINT")])
+                      ]
+                    )
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
             _c(
               "form",
               {
@@ -90947,23 +91112,17 @@ var render = function() {
                     [
                       _c("thead", [
                         _c("tr", [
-                          _c("th", [_vm._v("unit_id")]),
+                          _vm.userIsAdmin ? _c("th", [_vm._v("id")]) : _vm._e(),
                           _vm._v(" "),
                           _c("th", [_vm._v("mac")]),
                           _vm._v(" "),
-                          _c("th", [_vm._v("sensor_type")]),
+                          _vm.userIsAdmin
+                            ? _c("th", [_vm._v("sensor_type")])
+                            : _vm._e(),
                           _vm._v(" "),
                           _c("th", [_vm._v("sensor_value")]),
                           _vm._v(" "),
-                          _c("th", [_vm._v("Date Created")]),
-                          _vm._v(" "),
-                          _c("th", [
-                            _vm.on_load
-                              ? _c("i", {
-                                  staticClass: "fa fa-spin fa-refresh"
-                                })
-                              : _vm._e()
-                          ])
+                          _c("th", [_vm._v("Date Created")])
                         ])
                       ]),
                       _vm._v(" "),
@@ -90972,20 +91131,22 @@ var render = function() {
                         [
                           _vm._l(_vm.metadatas, function(metadata, index) {
                             return _c("tr", [
-                              _c(
-                                "td",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showMetadataModalComponent(
-                                        $event,
-                                        metadata
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._v(_vm._s(metadata.unit_id))]
-                              ),
+                              _vm.userIsAdmin
+                                ? _c(
+                                    "td",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          _vm.showMetadataModalComponent(
+                                            $event,
+                                            metadata
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(metadata.id))]
+                                  )
+                                : _vm._e(),
                               _vm._v(" "),
                               _c(
                                 "td",
@@ -91002,20 +91163,22 @@ var render = function() {
                                 [_vm._v(_vm._s(metadata.mac))]
                               ),
                               _vm._v(" "),
-                              _c(
-                                "td",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showMetadataModalComponent(
-                                        $event,
-                                        metadata
-                                      )
-                                    }
-                                  }
-                                },
-                                [_vm._v(_vm._s(metadata.sensor_type))]
-                              ),
+                              _vm.userIsAdmin
+                                ? _c(
+                                    "td",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          _vm.showMetadataModalComponent(
+                                            $event,
+                                            metadata
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(metadata.sensor_type))]
+                                  )
+                                : _vm._e(),
                               _vm._v(" "),
                               _c(
                                 "td",
@@ -91058,9 +91221,7 @@ var render = function() {
                                     )
                                   )
                                 ]
-                              ),
-                              _vm._v(" "),
-                              _c("td")
+                              )
                             ])
                           }),
                           _vm._v(" "),
@@ -91133,14 +91294,18 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "box-body" }, [
-                    _c("strong", [
-                      _c("i", { staticClass: "fa fa-circle-o margin-r-5" }),
-                      _vm._v(" Unit id")
-                    ]),
+                    _vm.userIsAdmin
+                      ? _c("strong", [
+                          _c("i", { staticClass: "fa fa-circle-o margin-r-5" }),
+                          _vm._v(" Unit id")
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c("p", { staticClass: "text-muted" }, [
-                      _vm._v(_vm._s(_vm.metadata.unit_id))
-                    ]),
+                    _vm.userIsAdmin
+                      ? _c("p", { staticClass: "text-muted" }, [
+                          _vm._v(_vm._s(_vm.metadata.unit_id))
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
                     _c("hr"),
                     _vm._v(" "),
@@ -91155,20 +91320,24 @@ var render = function() {
                     _vm._v(" "),
                     _c("hr"),
                     _vm._v(" "),
-                    _c("strong", [
-                      _c("i", { staticClass: "fa fa-circle-o margin-r-5" }),
-                      _vm._v(" Unit id")
-                    ]),
+                    _vm.userIsAdmin
+                      ? _c("strong", [
+                          _c("i", { staticClass: "fa fa-circle-o margin-r-5" }),
+                          _vm._v(" Sensor type")
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c("p", { staticClass: "text-muted" }, [
-                      _vm._v(_vm._s(_vm.metadata.sensor_type))
-                    ]),
+                    _vm.userIsAdmin
+                      ? _c("p", { staticClass: "text-muted" }, [
+                          _vm._v(_vm._s(_vm.metadata.sensor_type))
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
                     _c("hr"),
                     _vm._v(" "),
                     _c("strong", [
                       _c("i", { staticClass: "fa fa-circle-o margin-r-5" }),
-                      _vm._v(" Unit id")
+                      _vm._v("Biometric")
                     ]),
                     _vm._v(" "),
                     _c("p", { staticClass: "text-muted" }, [
@@ -91432,6 +91601,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -91472,6 +91644,16 @@ var defaultPatientsPayload = function defaultPatientsPayload() {
   },
 
   computed: {
+    userCanDevelop: function userCanDevelop() {
+      var roles = this.$store.getters.user.roles;
+      var developerRole = __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.find(roles, function (role) {
+        return role.label === 'developer';
+      });
+      if (developerRole) {
+        return developerRole;
+      }
+      return false;
+    },
     patients: function patients() {
       return this.patientsPayload.data;
     },
@@ -91494,13 +91676,13 @@ var defaultPatientsPayload = function defaultPatientsPayload() {
           return 'Oxygen Level';
           break;
         case 1:
-          return 'Oxygen Level';
+          return 'Diastole';
           break;
         case 1:
-          return 'Oxygen Level';
+          return 'Human Temperature';
           break;
       }
-      return 'op';
+      return 'unkwon normal';
     },
     showPatientObservationConfig: function showPatientObservationConfig(patient) {
       this.patientObservationConfig = patient;
@@ -104921,8 +105103,6 @@ var _this = this;
 //
 //
 //
-//
-
 
 
 
@@ -105015,11 +105195,9 @@ var oximeterDeafultData = function oximeterDeafultData() {
     oximeterDelay: function oximeterDelay() {
       if (this.selectedPatient) {
         if (this.selectedPatient.unit) {
-
           return parseInt(this.selectedPatient.unit.oximeter_delay);
         }
       }
-
       return 60000;
     },
     normal: function normal() {
@@ -105033,7 +105211,6 @@ var oximeterDeafultData = function oximeterDeafultData() {
           }
         }
       }
-
       return { upper_limit: 0, lower_limit: 0 };
     },
     user: function user() {
@@ -105047,26 +105224,22 @@ var oximeterDeafultData = function oximeterDeafultData() {
       var oximeterData = __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.find(payload.datasets, function (o) {
         return o.label === 'Oxygen Saturation';
       });
-
       if (oximeterData) {
-
         oximeterData.data.forEach(function (v) {
           if (v > _this2.normal.upper_limit) {
-
             _this2.$notify({
               title: 'Oxygen Saturation',
               content: 'high ... ' + v,
-              duration: 15000,
+              duration: 30000,
               type: 'warning',
               placement: 'bottom-left'
             });
           }
-
           if (v < _this2.normal.lower_limit) {
             _this2.$notify({
               title: 'Oxygen Saturation',
               content: 'low ... ' + v,
-              duration: 15000,
+              duration: 30000,
               type: 'danger',
               placement: 'bottom-left'
             });
@@ -105260,8 +105433,6 @@ var _this = this;
 //
 //
 //
-//
-
 
 
 
@@ -105358,7 +105529,6 @@ var sphygmomanometerDeafultData = function sphygmomanometerDeafultData() {
           return parseInt(this.selectedPatient.unit.bp_delay);
         }
       }
-
       return 60000;
     },
     normal: function normal() {
@@ -105372,7 +105542,6 @@ var sphygmomanometerDeafultData = function sphygmomanometerDeafultData() {
           }
         }
       }
-
       return { upper_limit: 0, lower_limit: 0 };
     },
     user: function user() {
@@ -105386,26 +105555,22 @@ var sphygmomanometerDeafultData = function sphygmomanometerDeafultData() {
       var sphygmomanometerData = __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.find(payload.datasets, function (o) {
         return o.label === 'Diastole';
       });
-
       if (sphygmomanometerData) {
-
         sphygmomanometerData.data.forEach(function (v) {
           if (v > _this2.normal.upper_limit) {
-
             _this2.$notify({
               title: 'Diastole',
               content: 'high ... ' + v,
-              duration: 15000,
+              duration: 30000,
               type: 'warning',
               placement: 'bottom-left'
             });
           }
-
           if (v < _this2.normal.lower_limit) {
             _this2.$notify({
               title: 'Diastole',
               content: 'low ... ' + v,
-              duration: 15000,
+              duration: 30000,
               type: 'danger',
               placement: 'bottom-left'
             });
@@ -105599,8 +105764,6 @@ var _this = this;
 //
 //
 //
-//
-
 
 
 
@@ -105658,7 +105821,6 @@ var thermometerDeafultData = function thermometerDeafultData() {
   },
 
   watch: {
-
     thermometerData: {
       handler: function handler(state) {
         if (state) {
@@ -105678,11 +105840,9 @@ var thermometerDeafultData = function thermometerDeafultData() {
     thermometerDelay: function thermometerDelay() {
       if (this.selectedPatient) {
         if (this.selectedPatient.unit) {
-
           return parseInt(this.selectedPatient.unit.thermometer_delay);
         }
       }
-
       return 60000;
     },
     normal: function normal() {
@@ -105696,7 +105856,6 @@ var thermometerDeafultData = function thermometerDeafultData() {
           }
         }
       }
-
       return { upper_limit: 0, lower_limit: 0 };
     },
     user: function user() {
@@ -105710,7 +105869,6 @@ var thermometerDeafultData = function thermometerDeafultData() {
       var thermometerData = __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.find(payload.datasets, function (o) {
         return o.label === 'Human Temperature';
       });
-
       if (thermometerData) {
         thermometerData.data.forEach(function (v) {
           if (v > _this2.normal.upper_limit) {
@@ -105722,7 +105880,6 @@ var thermometerDeafultData = function thermometerDeafultData() {
               placement: 'bottom-left'
             });
           }
-
           if (v < _this2.normal.lower_limit) {
             _this2.$notify({
               title: 'Human Temperatur',
@@ -105949,19 +106106,21 @@ var render = function() {
                       _c("td", [_vm._v(_vm._s(patient.location.name))]),
                       _vm._v(" "),
                       _c("td", { staticClass: "text-right" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn btn-primary btn-sm",
-                            attrs: { type: "button" },
-                            on: {
-                              click: function($event) {
-                                _vm.showPatientObservationConfig(patient)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fa fa-fw fa-wrench" })]
-                        ),
+                        _vm.userCanDevelop
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-primary btn-sm",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.showPatientObservationConfig(patient)
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-fw fa-wrench" })]
+                            )
+                          : _vm._e(),
                         _vm._v(" "),
                         _c(
                           "button",
@@ -106166,7 +106325,18 @@ var staticRenderFns = [
     return _c("div", { staticClass: "box-header" }, [
       _c("i", { staticClass: "fa fa-circle" }),
       _vm._v(" "),
-      _c("h3", { staticClass: "box-title" }, [_vm._v("Normals")])
+      _c("h3", { staticClass: "box-title" }, [_vm._v("Normals")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "box-tools pull-right" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-box-tool",
+            attrs: { type: "button", "data-widget": "collapse" }
+          },
+          [_c("i", { staticClass: "fa fa-minus" })]
+        )
+      ])
     ])
   },
   function() {

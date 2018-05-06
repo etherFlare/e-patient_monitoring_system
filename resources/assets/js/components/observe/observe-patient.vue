@@ -2,109 +2,112 @@
   <section>
     <div class="row">
       <div class="col-md-7">
-       <div class="box box-solid ">
-        <div class="box-header">
-          <i class="fa fa-circle"></i>
-          <h3 class="box-title">Patients</h3>
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" v-on:click="showPatientsModal=true"><i class="fa fa-search"></i></button>
-            <modal v-model="showPatientsModal"
-            title="Patients"
-            v-on:hide="showPatientsModal=false"
-            ref="patientsModal"
-            :footer="false"
-            :keyboard="true"
-            :backdrop="true"
-            size="lg"
-            append-to-body>
-            <patients-select :patients="patients" v-on:add-patient="addPatient" v-on:remove-patient="removePatient"></patients-select>
-          </modal>
-          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-          <button type="button" class="btn btn-box-tool" v-on:click="patientsProvider()"><i class="fa fa-refresh"></i></button>
+        <div class="box box-solid ">
+          <div class="box-header">
+            <i class="fa fa-circle"></i>
+            <h3 class="box-title">Patients</h3>
+            <div class="box-tools pull-right">
+              <button type="button" class="btn btn-box-tool" v-on:click="showPatientsModal=true"><i class="fa fa-search"></i></button>
+              <modal v-model="showPatientsModal"
+              title="Patients"
+              v-on:hide="showPatientsModal=false"
+              ref="patientsModal"
+              :footer="false"
+              :keyboard="true"
+              :backdrop="true"
+              size="lg"
+              append-to-body>
+              <patients-select :patients="patients" v-on:add-patient="addPatient" v-on:remove-patient="removePatient"></patients-select>
+            </modal>
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <button type="button" class="btn btn-box-tool" v-on:click="patientsProvider()"><i class="fa fa-refresh"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+          <table class="table table-striped no-margin">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(patient, patientIdx) in patients" :key="patientIdx">
+                <td>{{patient.first_name}}</td>
+                <td>{{patient.location.name}}</td>
+                <td class="text-right">
+                  <button v-if="userCanDevelop"  type="button" class="btn btn-primary btn-sm" v-on:click="showPatientObservationConfig(patient)"><i class="fa fa-fw fa-wrench"></i></button>
+                  <button type="button" class="btn btn-danger btn-sm" v-on:click="removePatient(patient.id)"><i class="fa fa-fw fa-times"></i></button>
+                  <button type="button" class="btn btn-sm"
+                  :class="{'btn-default':  patient.id !== selected, 'btn-primary': patient.id === selected}"
+                  v-on:click="()=>{ selected = (patient.id === selected)?null:patient.id;  }"><i
+                  :class="{'fa-square-o':  patient.id !== selected, 'fa-check-square-o': patient.id === selected}"
+                  class="fa fa-fw"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="overlay" v-if="patientsProviderIsBusy">
+          <i class="fa fa-refresh fa-spin"></i>
         </div>
       </div>
-      <div class="box-body">
-        <table class="table table-striped no-margin">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Location</th>
-              <th>...</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(patient, patientIdx) in patients" :key="patientIdx">
-              <td>{{patient.first_name}}</td>
-              <td>{{patient.location.name}}</td>
-              <td class="text-right">
-                <button type="button" class="btn btn-primary btn-sm" v-on:click="showPatientObservationConfig(patient)"><i class="fa fa-fw fa-wrench"></i></button>
-                <button type="button" class="btn btn-danger btn-sm" v-on:click="removePatient(patient.id)"><i class="fa fa-fw fa-times"></i></button>
-                <button type="button" class="btn btn-sm"
-                :class="{'btn-default':  patient.id !== selected, 'btn-primary': patient.id === selected}"
-                v-on:click="()=>{ selected = (patient.id === selected)?null:patient.id;  }"><i
-                :class="{'fa-square-o':  patient.id !== selected, 'fa-check-square-o': patient.id === selected}"
-                class="fa fa-fw"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="overlay" v-if="patientsProviderIsBusy">
-        <i class="fa fa-refresh fa-spin"></i>
+    </div>
+    <div class="col-md-5">
+      <div class="box box-solid">
+        <div class="box-header">
+          <i class="fa fa-circle"></i>
+          <h3 class="box-title">Normals</h3>
+          <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+          </div>
+        </div>
+        <div class="box-body">
+          <table class="table" v-if="selectedPatient">
+            <thead>
+              <tr>
+                <td>type</td>
+                <td>high</td>
+                <td>low</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(n, nIdx) in selectedPatient.normal" :key="`n-${nIdx}`">
+                <td>{{typeToString(n.type_id)}}</td>
+                <td>{{n.upper_limit}}</td>
+                <td>{{n.lower_limit}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="overlay" :class="{'hide': selected}">
+          <i class="fa fa-info"></i>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col-md-5">
-    <div class="box box-solid">
-      <div class="box-header">
-        <i class="fa fa-circle"></i>
-        <h3 class="box-title">Normals</h3>
-      </div>
-      <div class="box-body">
-        <table class="table" v-if="selectedPatient">
-          <thead>
-            <tr>
-            <td>type</td>
-            <td>high</td>
-            <td>low</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(n, nIdx) in selectedPatient.normal" :key="`n-${nIdx}`">
-              <td>{{typeToString(n.type_id)}}</td>
-              <td>{{n.upper_limit}}</td>
-              <td>{{n.lower_limit}}</td>
-            </tr>
-          </tbody>
-        </table>
-     </div>
-     <div class="overlay" :class="{'hide': selected}">
-      <i class="fa fa-info"></i>
+  <div class="row">
+    <div class="col-md-4">
+      <oximeter :selected="selected" :selected-patient="selectedPatient"></oximeter>
+    </div>
+    <div class="col-md-4">
+      <sphygmomanometer :selected="selected" :selected-patient="selectedPatient"></sphygmomanometer>
+    </div>
+    <div class="col-md-4">
+      <thermometer :selected="selected" :selected-patient="selectedPatient"></thermometer>
     </div>
   </div>
-</div>
-</div>
-<div class="row">
-  <div class="col-md-4">
-    <oximeter :selected="selected" :selected-patient="selectedPatient"></oximeter>
-  </div>
-  <div class="col-md-4">
-    <sphygmomanometer :selected="selected" :selected-patient="selectedPatient"></sphygmomanometer>
-  </div>
-  <div class="col-md-4">
-    <thermometer :selected="selected" :selected-patient="selectedPatient"></thermometer>
-  </div>
-</div>
-<modal v-model="showPatientObservationConfigModal"
-title="Patient"
-v-on:hide="showPatientObservationConfigModal=false"
-ref="patientObservationConfig"
-:footer="false"
-:keyboard="true"
-:backdrop="true"
-size="lg"
-append-to-body>
-<pre>{{patientObservationConfig}}</pre>
+  <modal v-model="showPatientObservationConfigModal"
+  title="Patient"
+  v-on:hide="showPatientObservationConfigModal=false"
+  ref="patientObservationConfig"
+  :footer="false"
+  :keyboard="true"
+  :backdrop="true"
+  size="lg"
+  append-to-body>
+  <pre>{{patientObservationConfig}}</pre>
 </modal>
 </section>
 </template>
@@ -147,6 +150,14 @@ export default {
     }
   },
   computed: {
+     userCanDevelop(){
+      const roles = this.$store.getters.user.roles
+      const developerRole = _.find(roles, function(role) { return role.label === 'developer'; });
+      if(developerRole){
+        return developerRole
+      }
+      return false
+    },
     patients() {
       return this.patientsPayload.data
     },
@@ -165,13 +176,13 @@ export default {
         return 'Oxygen Level'
         break;
         case 1:
-        return 'Oxygen Level'
+        return 'Diastole'
         break;
         case 1:
-        return 'Oxygen Level'
+        return 'Human Temperature'
         break;
-      } 
-      return 'op'
+      }
+      return 'unkwon normal'
     },
     showPatientObservationConfig(patient) {
       this.patientObservationConfig = patient

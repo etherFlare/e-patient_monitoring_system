@@ -5,6 +5,7 @@
         <div class="box-header">
           <div class="pull-right">
             <div class="form-group">
+               <a href="print/patient" v-if="userIsAdmin" target="_blank" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-print"></span> <span>PRINT</span></a>
               <a href="javascript:;" class="btn btn-xs btn-primary" v-on:click="showCreateUserModalComponent($event)"><span class="glyphicon glyphicon-plus"></span> Add new User</a>
             </div>
           </div>
@@ -57,48 +58,46 @@
           </div>
         </div>
         <div class="box-footer">
-       <!--    <pagination v-model="currentPage" :total-page="totalPage" align="center" :max-size="3"/> -->
+          <!--    <pagination v-model="currentPage" :total-page="totalPage" align="center" :max-size="3"/> -->
         </div>
         <new-user-modal ref="showCreateUserModal" v-if="showCreateUserModal" v-on:close="showCreateUserModal = false" v-on:user-created="userCreated" ></new-user-modal>
         <edit-user-modal v-if="showEditUserModal" v-on:close="showEditUserModal = false" :edit-user="user" v-on:user-updated="getUsers"></edit-user-modal>
         <delete-user-modal ref="showDeleteUserModal" :delete-user="user" v-if="showDeleteUserModal" v-on:user-deleted="getUsers" v-on:close="showDeleteUserModal = false"  v-on:deleted="showUserModal = false" ></delete-user-modal>
         <modal ref="showUserModal" v-model="showUserModal" auto-focus v-on:hide="$emit('close')">
           <template v-if="user">
-          <div slot="title" >
-            <div class="box-profile row">
-              <img class="animated-box profile-user-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="User profile picture" style="margin-right:50px">
-              <h3 class="profile-username text-center"> {{ user.last_name }}, {{ user.first_name }} {{ user.middle_name }}</h3>
-              <p class="text-muted text-center">{{ Object.keys(user.roles).map(key=>user.roles[key].title).join(' | ') }}</p>
+            <div slot="title" >
+              <div class="box-profile row">
+                <img class="animated-box profile-user-img img-responsive img-circle pull-right " src="/img/heart-beat.png" alt="User profile picture" style="margin-right:50px">
+                <h3 class="profile-username text-center"> {{ user.last_name }}, {{ user.first_name }} {{ user.middle_name }}</h3>
+                <p class="text-muted text-center">{{ Object.keys(user.roles).map(key=>user.roles[key].title).join(' | ') }}</p>
+              </div>
             </div>
-          </div>
-          <div class="box-body">
-            <strong><i class="fa fa-mobile-phone margin-r-5"></i> Contact Number</strong>
-            <p class="text-muted">{{ user.contact_number }}</p>
-            <hr>
-            <strong><i class="fa  fa-user-plus margin-r-5"></i>Account Created Since</strong>
-            <div class="text-muted">{{user.created_at | moment('LLLL')}}</div>
-            <code>{{user.created_at | moment('from')}}</code>
-            <hr>
-            <strong><i class="fa fa-calendar-check-o margin-r-5"></i>Date Updated </strong>
-            <div class="text-muted">{{user.updated_at | moment('LLLL')}}</div>
-            <code>{{user.updated_at | moment('from')}}</code>
-            <hr>
-            <strong><i class="fa fa-file-text-o margin-r-5"></i> Comment</strong>
-            <p>{{ user.comment }}</p>
-          </div>
-          <div slot="footer">
-            <btn type="warning" v-if="userCanEdit" v-on:click="showEditUserModalComponent($event, user)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
-            <btn type="danger"  class="" v-on:click="showDeleteUserModalComponent($event, user)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</btn>
-            <btn  v-on:click="showUserModal=false" data-action="auto-focus">Cancel</btn>
-          </div>
-        
+            <div class="box-body">
+              <strong><i class="fa fa-mobile-phone margin-r-5"></i> Contact Number</strong>
+              <p class="text-muted">{{ user.contact_number }}</p>
+              <hr>
+              <strong><i class="fa  fa-user-plus margin-r-5"></i>Account Created Since</strong>
+              <div class="text-muted">{{user.created_at | moment('LLLL')}}</div>
+              <code>{{user.created_at | moment('from')}}</code>
+              <hr>
+              <strong><i class="fa fa-calendar-check-o margin-r-5"></i>Date Updated </strong>
+              <div class="text-muted">{{user.updated_at | moment('LLLL')}}</div>
+              <code>{{user.updated_at | moment('from')}}</code>
+              <hr>
+              <strong><i class="fa fa-file-text-o margin-r-5"></i> Comment</strong>
+              <p>{{ user.comment }}</p>
+            </div>
+            <div slot="footer">
+              <btn type="warning" v-if="userCanEdit" v-on:click="showEditUserModalComponent($event, user)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
+              <btn type="danger"  v-if="userCanDelete" v-on:click="showDeleteUserModalComponent($event, user)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</btn>
+              <btn  v-on:click="showUserModal=false" data-action="auto-focus">Cancel</btn>
+            </div>
           </template>
         </modal>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -123,15 +122,29 @@ export default {
   },
   computed: {
     userCanEdit(){
-     const roles = this.$store.getters.user.roles
-
-     const editRole = _.find(roles, function(role) { return role.label === 'editor'; });
-     if(editRole){
-      return editRole
-    }
-
-    return false
-  },
+      const roles = this.$store.getters.user.roles
+      const editRole = _.find(roles, function(role) { return role.label === 'editor'; });
+      if(editRole){
+        return editRole
+      }
+      return false
+    },
+    userCanDelete(){
+      const roles = this.$store.getters.user.roles
+      const deleteRole = _.find(roles, function(role) { return role.label === 'cleaner'; });
+      if(deleteRole){
+        return deleteRole
+      }
+      return false
+    },
+    userIsAdmin(){
+      const roles = this.$store.getters.user.roles
+      const adminRole = _.find(roles, function(role) { return role.label === 'administrator'; });
+      if(adminRole){
+        return adminRole
+      }
+      return false
+    },
     loading() {
       return this.$store.getters.loading
     },
@@ -173,6 +186,7 @@ export default {
       })
     },
     getUsers(event) {
+      this.showUserModal = false
       return this.$store.dispatch('getUsers', { 'search': this.searchTerm })
     }
   }

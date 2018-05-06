@@ -5,6 +5,7 @@
         <div class="box-header">
           <div class="pull-right">
             <div class="form-group">
+               <a href="print/normal" v-if="userIsAdmin"  target="_blank" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-print"></span> <span>PRINT</span></a>
               <a href="javascript:;" class="btn btn-xs btn-primary" v-on:click="showCreateNormalModalComponent($event)"><span class="glyphicon glyphicon-plus"></span>
               Add new Normal</a>
             </div>
@@ -92,8 +93,8 @@
             </div>
           </div>
           <div slot="footer">
-            <btn type="warning"  class="" v-on:click="showEditNormalModalComponent($event, normal)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
-            <btn type="danger"  class="" v-on:click="showDeleteNormalModalComponent($event, normal)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</btn>
+            <btn type="warning"  v-if="userCaneEdit" v-on:click="showEditNormalModalComponent($event, normal)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
+            <btn type="danger"  v-if="userCanDelete"v-on:click="showDeleteNormalModalComponent($event, normal)"><i class="fa fa-trash-o"  aria-hidden="true"></i> Delete</btn>
             <btn  v-on:click="showNormalModal=false" data-action="auto-focus">Cancel</btn>
           </div>
         </modal>
@@ -122,6 +123,30 @@ export default {
     })
   },
   computed: {
+      userCanEdit(){
+      const roles = this.$store.getters.user.roles
+      const editRole = _.find(roles, function(role) { return role.label === 'editor'; });
+      if(editRole){
+        return editRole
+      }
+      return false
+    },
+    userCanDelete(){
+      const roles = this.$store.getters.user.roles
+      const deleteRole = _.find(roles, function(role) { return role.label === 'cleaner'; });
+      if(deleteRole){
+        return deleteRole
+      }
+      return false
+    },
+     userIsAdmin(){
+      const roles = this.$store.getters.user.roles
+      const adminRole = _.find(roles, function(role) { return role.label === 'administrator'; });
+      if(adminRole){
+        return adminRole
+      }
+      return false
+    },
     loading() {
       return this.$store.getters.loading
     },

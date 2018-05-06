@@ -15,12 +15,10 @@
     </div>
   </div>
 </template>
-
 <script>
 import _ from 'lodash'
 import LineChart from './line-chart.js'
 import moment from 'moment'
-
 const defaultChartData = () => {
   return {
     labels: ['.'],
@@ -34,13 +32,13 @@ const defaultChartData = () => {
 const thermometerDataFactory = (d) => {
   d = d || []
   const data = _.reverse(d)
-  return { 
-    datasets: [ 
+  return {
+    datasets: [
     {
       borderColor: '#FF0000',
       data: data.map(payload => parseFloat(JSON.parse(payload.sensor_value).HT)),
-      fill: false, 
-      lineTension: 0,   
+      fill: false,
+      lineTension: 0,
       label: 'Human Temperature'
     }
     ],
@@ -66,18 +64,17 @@ export default {
     clearInterval(this.thermometerInterval)
   },
   data() {
-    return { 
+    return {
       ...thermometerDeafultData(),
       interval: 60000
     }
   },
   watch: {
-
-     thermometerData: {
+    thermometerData: {
       handler(state) {
         if(state){
           this.evalNormals(state)
-       }
+        }
       }
     },
     selected: {
@@ -88,16 +85,12 @@ export default {
     }
   },
   computed: {
-     thermometerDelay(){
+    thermometerDelay(){
       if(this.selectedPatient){
         if(this.selectedPatient.unit){
-
           return  parseInt(this.selectedPatient.unit.thermometer_delay)
-         
         }
-
       }
-
       return 60000
     },
     normal(){
@@ -108,10 +101,7 @@ export default {
             return  norm
           }
         }
-
-     }
-
-
+      }
       return {upper_limit: 0, lower_limit: 0}
     },
     user() {
@@ -119,34 +109,30 @@ export default {
     }
   },
   methods: {
-     evalNormals(payload){
+    evalNormals(payload){
       const thermometerData = _.find(payload.datasets, o => { return o.label === 'Human Temperature' })
-
-     if(thermometerData){
-       thermometerData.data.forEach((v)=>{
-        if(v > this.normal.upper_limit){
-             this.$notify({
-            title: 'Human Temperatur',
-            content: `high ... ${v}`,
-           duration: 30000,
-            type: 'warning',
-           placement: 'bottom-left'
-          })
-
-        }
-
-        if(v < this.normal.lower_limit) {
-          this.$notify({
-            title: 'Human Temperatur',
-            content: `low ... ${v}`,
-            duration: 30000,
-            type: 'danger',
-            placement: 'bottom-left'
-          })
-        }
-      })
-
-     }
+      if(thermometerData){
+        thermometerData.data.forEach((v)=>{
+          if(v > this.normal.upper_limit){
+            this.$notify({
+              title: 'Human Temperatur',
+              content: `high ... ${v}`,
+              duration: 30000,
+              type: 'warning',
+              placement: 'bottom-left'
+            })
+          }
+          if(v < this.normal.lower_limit) {
+            this.$notify({
+              title: 'Human Temperatur',
+              content: `low ... ${v}`,
+              duration: 30000,
+              type: 'danger',
+              placement: 'bottom-left'
+            })
+          }
+        })
+      }
     },
     thermometerService(state) {
       state = state || false
