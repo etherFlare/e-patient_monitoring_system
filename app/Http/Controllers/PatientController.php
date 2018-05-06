@@ -7,10 +7,40 @@ use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
+    public function print(Request $request){
+
+        $patients = Patient::where(function ($query) use ($request) {
+            if ($request->has('user_id')) {
+                $query->whereHas('users', function ($_q) use ($request)  {
+                    $_q->where('user_id', $request->get('user_id'));
+                });
+            }
+        });
+
+        $patients = $patients->where(function ($query) use ($request) {
+            if ($request->has('search')) {
+                $search = trim($request->get('search'));
+                $query->where('first_name', 'LIKE', '%' . $search . '%');
+            }
+        });
+
+        $patients = $patients->orderBy('created_at', 'desc')
+            ->with(['location'])
+            ->with(['unit'])
+            ->paginate($request->get('per_page', 10));
+
+         
+    
+
+            return view('patient.print', compact('patients'));
+    }
+
+
     public function home()
     {
         return view('patient.index');
     }
+    
     public function index(Request $request)
     {
         $patients = Patient::where(function ($query) use ($request) {

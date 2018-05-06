@@ -87,7 +87,7 @@
             <p>{{ user.comment }}</p>
           </div>
           <div slot="footer">
-            <btn type="warning"  class="" v-on:click="showEditUserModalComponent($event, user)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
+            <btn type="warning" v-if="userCanEdit" v-on:click="showEditUserModalComponent($event, user)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
             <btn type="danger"  class="" v-on:click="showDeleteUserModalComponent($event, user)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</btn>
             <btn  v-on:click="showUserModal=false" data-action="auto-focus">Cancel</btn>
           </div>
@@ -122,6 +122,16 @@ export default {
     })
   },
   computed: {
+    userCanEdit(){
+     const roles = this.$store.getters.user.roles
+
+     const editRole = _.find(roles, function(role) { return role.label === 'editor'; });
+     if(editRole){
+      return editRole
+    }
+
+    return false
+  },
     loading() {
       return this.$store.getters.loading
     },

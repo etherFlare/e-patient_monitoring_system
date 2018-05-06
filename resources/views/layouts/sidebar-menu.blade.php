@@ -4,8 +4,7 @@
   </div>
   <div class="pull-left info">
    
-  
-    <a href="#"><i class="fa fa-circle text-success"></i> Online?</a>
+   <a href="#"><i class="fa fa-circle text-success"></i> Online?</a>
   </div>
 </div>
 <ul class="sidebar-menu" data-widget="tree">
@@ -22,6 +21,8 @@
       <li><a href="{{ route('observe') }}"><i class="fa fa-circle-o"></i>Observer List</a></li>
     </ul>
   </li>
+  @if(is_user('administrator'))
+  
   <li>
     <a href="{{ route('user') }}">
       <i class="fa fa-calendar"></i> <span>Accounts</span>
@@ -29,6 +30,7 @@
       </span>
     </a>
   </li>
+  @endif
   <li>
     <a href="{{ route('patient') }}">
       <i class="fa fa-calendar"></i> <span>Patients</span>

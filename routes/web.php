@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+   
 Route::get('/home', 'HomeController@index')->name('home');
 //for post 
 Route::get('/post', 'PostController@home');
@@ -52,4 +52,11 @@ Route::resource('/type/types','TypeController');
 //for observe patient
 Route::get('/observe', 'ObservePatientController@home') ->name('observe');
 Route::resource('/observe/observes','ObservePatientController');
+
+
+
+Route::prefix('print')->group(function () {
+     Route::get('patient', 'PatientController@print'); 
+});
+
 

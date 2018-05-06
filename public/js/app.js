@@ -48265,6 +48265,13 @@ var store = new Vuex.Store({
     observe: {}
   },
   getters: {
+    user: function user() {
+      var roles = window._user.roles.map(function (role) {
+        return { label: role.title, value: role.id };
+      });
+
+      return Object.assign({}, window._user, { roles: roles });
+    },
     loading: function loading(state) {
       return state.loading;
     },
@@ -77468,7 +77475,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       showModal: true,
       isbusy: false,
       user: function () {
-        return Object.assign({}, _this.editUser);
+        var roles = _this.editUser.roles.map(function (role) {
+          return role.id;
+        });
+
+        return Object.assign({}, _this.editUser, { roles: roles });
       }(),
       isBusy: false,
       roles: null,
@@ -77477,6 +77488,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   },
 
   computed: {
+    userCanEdit: function userCanEdit() {
+      var roles = this.$store.getters.user.roles;
+
+      var editRole = _.find(roles, function (role) {
+        return role.label === 'editor';
+      });
+      if (editRole) {
+        return editRole;
+      }
+
+      return false;
+    },
     emailHasError: function emailHasError() {
       return this.hasError('user.email');
     },
@@ -87371,6 +87394,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   computed: {
+    userCanEdit: function userCanEdit() {
+      var roles = this.$store.getters.user.roles;
+
+      var editRole = _.find(roles, function (role) {
+        return role.label === 'editor';
+      });
+      if (editRole) {
+        return editRole;
+      }
+
+      return false;
+    },
     loading: function loading() {
       return this.$store.getters.loading;
     },
@@ -87836,24 +87871,29 @@ var render = function() {
                       "div",
                       { attrs: { slot: "footer" }, slot: "footer" },
                       [
-                        _c(
-                          "btn",
-                          {
-                            attrs: { type: "warning" },
-                            on: {
-                              click: function($event) {
-                                _vm.showEditUserModalComponent($event, _vm.user)
-                              }
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass: "fa fa-pencil",
-                              attrs: { "aria-hidden": "true" }
-                            }),
-                            _vm._v(" Edit")
-                          ]
-                        ),
+                        _vm.userCanEdit
+                          ? _c(
+                              "btn",
+                              {
+                                attrs: { type: "warning" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.showEditUserModalComponent(
+                                      $event,
+                                      _vm.user
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fa fa-pencil",
+                                  attrs: { "aria-hidden": "true" }
+                                }),
+                                _vm._v(" Edit")
+                              ]
+                            )
+                          : _vm._e(),
                         _vm._v(" "),
                         _c(
                           "btn",
@@ -88121,6 +88161,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -88221,6 +88263,8 @@ var render = function() {
           _c("div", { staticClass: "box-header" }, [
             _c("div", { staticClass: "pull-right" }, [
               _c("div", { staticClass: "form-group" }, [
+                _vm._m(0),
+                _vm._v(" "),
                 _c(
                   "a",
                   {
@@ -88276,7 +88320,7 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm._m(0)
+                      _vm._m(1)
                     ])
                   ])
                 ]),
@@ -88296,7 +88340,7 @@ var render = function() {
                       attrs: { id: "ex1" }
                     },
                     [
-                      _vm._m(1),
+                      _vm._m(2),
                       _vm._v(" "),
                       _c(
                         "tbody",
@@ -88749,6 +88793,23 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-xs btn-default",
+        attrs: { href: "print/patient", target: "_blank" }
+      },
+      [
+        _c("span", { staticClass: "glyphicon glyphicon-print" }),
+        _vm._v(" "),
+        _c("span", [_vm._v("PRINT")])
+      ]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -91427,6 +91488,20 @@ var defaultPatientsPayload = function defaultPatientsPayload() {
     }
   },
   methods: {
+    typeToString: function typeToString(id) {
+      switch (id) {
+        case 1:
+          return 'Oxygen Level';
+          break;
+        case 1:
+          return 'Oxygen Level';
+          break;
+        case 1:
+          return 'Oxygen Level';
+          break;
+      }
+      return 'op';
+    },
     showPatientObservationConfig: function showPatientObservationConfig(patient) {
       this.patientObservationConfig = patient;
       this.showPatientObservationConfigModal = true;
@@ -105958,7 +106033,9 @@ var render = function() {
                       "tbody",
                       _vm._l(_vm.selectedPatient.normal, function(n, nIdx) {
                         return _c("tr", { key: "n-" + nIdx }, [
-                          _c("td", [_vm._v(_vm._s(n.type_id))]),
+                          _c("td", [
+                            _vm._v(_vm._s(_vm.typeToString(n.type_id)))
+                          ]),
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(n.upper_limit))]),
                           _vm._v(" "),

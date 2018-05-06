@@ -8,6 +8,8 @@
         <div class="box-header">
           <div class="pull-right">
             <div class="form-group">
+              <a href="print/patient" target="_blank" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-print"></span> <span>PRINT</span></a>
+
               <a href="javascript:;" class="btn btn-xs btn-primary" v-on:click="showCreatePatientModalComponent($event)"><span class="glyphicon glyphicon-plus"></span>
               Add new Patient</a>
             </div>

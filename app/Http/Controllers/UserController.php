@@ -75,7 +75,7 @@ class UserController extends Controller
         if ($user->count()) {
             $user->update($request->get('user'));
 
-            // $user->roles()->sync($request->get('user')['roles']);
+             $user->roles()->sync($request->get('user')['roles']);
             return response()->json(['request' => $request->all(), 'user' => $user, 'status' => 'success', 'msg' => 'User created successfully']);
             //return response()->json(['status' => 'success', 'msg' => 'User updated successfully']);
         } else {

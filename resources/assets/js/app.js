@@ -184,6 +184,11 @@ const store = new Vuex.Store({
     observe:{}
   },
   getters: {
+    user() {
+      const roles = window._user.roles.map(role => { return {label: role.title, value: role.id} } )
+
+      return Object.assign({}, window._user, {roles})
+    },
     loading(state) {
       return state.loading
     }, 

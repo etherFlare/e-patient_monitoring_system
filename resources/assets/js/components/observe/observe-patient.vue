@@ -71,7 +71,7 @@
           </thead>
           <tbody>
             <tr v-for="(n, nIdx) in selectedPatient.normal" :key="`n-${nIdx}`">
-              <td>{{n.type_id}}</td>
+              <td>{{typeToString(n.type_id)}}</td>
               <td>{{n.upper_limit}}</td>
               <td>{{n.lower_limit}}</td>
             </tr>
@@ -159,6 +159,20 @@ export default {
     }
   },
   methods: {
+    typeToString(id){
+      switch(id){
+        case 1:
+        return 'Oxygen Level'
+        break;
+        case 1:
+        return 'Oxygen Level'
+        break;
+        case 1:
+        return 'Oxygen Level'
+        break;
+      } 
+      return 'op'
+    },
     showPatientObservationConfig(patient) {
       this.patientObservationConfig = patient
       this.showPatientObservationConfigModal = true
