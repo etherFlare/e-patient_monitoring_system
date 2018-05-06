@@ -6,6 +6,19 @@ use Illuminate\Http\Request;
 use App\NormalReference;
 class NormalController extends Controller
 {
+	 public function print(Request $request){
+        $normals = NormalReference::where(function($query) use($request) {
+			if($request->has('search')){
+				$search = trim($request->get('search')); 
+				$query->where('type_id', 'LIKE', '%'. $search .'%');
+			}
+		})
+		->orderBy('created_at', 'desc')
+		->with(['type'])
+        ->with(['patient'])
+		->paginate();
+        return view('normal.print', compact('normals'));
+    }
     public function home(){
 		return view('normal.index');
 	}

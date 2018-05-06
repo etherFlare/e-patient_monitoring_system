@@ -5,7 +5,7 @@
         <div class="box-header">
           <div class="pull-right">
             <div class="form-group">
-               <a href="print/patient" v-if="userIsAdmin" target="_blank" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-print"></span> <span>PRINT</span></a>
+               <a href="print/user" v-if="userIsAdmin" target="_blank" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-print"></span> <span>PRINT</span></a>
               <a href="javascript:;" class="btn btn-xs btn-primary" v-on:click="showCreateUserModalComponent($event)"><span class="glyphicon glyphicon-plus"></span> Add new User</a>
             </div>
           </div>

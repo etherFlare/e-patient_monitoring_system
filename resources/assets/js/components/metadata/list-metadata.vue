@@ -6,7 +6,7 @@
           <div class="pull-right">
             <div class="form-group">
               <i class="fa fa-spin fa-refresh" v-if="on_load"></i>
-              <a href="print/patient" v-if="userIsAdmin"  target="_blank" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-print"></span> <span>PRINT</span></a>
+              <a href="print/metadata" v-if="userIsAdmin"  target="_blank" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-print"></span> <span>PRINT</span></a>
             </div>
           </div>
           <form v-on:submit.prevent="getMetadatas($event)">

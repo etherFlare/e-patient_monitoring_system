@@ -1,12 +1,24 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\User;
 use Illuminate\Http\Request;
-
 class UserController extends Controller
 {
+    public function print(Request $request){
+        $users = User::where(function ($query) use ($request) {
+            if ($request->has('search')) {
+                $search = trim($request->get('search'));
+                $query->where('first_name', 'LIKE', '%' . $search . '%')
+                ->orWhere('last_name', 'LIKE', '%' . $search . '%')
+                ->orWhere('middle_name', 'LIKE', '%' . $search . '%')
+                ->orWhere('email', 'LIKE', '%' . $search . '%');
+            }
+        })
+        ->orderBy('created_at', 'desc')
+        ->with(['roles'])
+        ->paginate(100);
+        return view('user.print', compact('users'));
+    }
     public function home()
     {
         return view('user.index');
@@ -17,20 +29,18 @@ class UserController extends Controller
             if ($request->has('search')) {
                 $search = trim($request->get('search'));
                 $query->where('first_name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('last_name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('middle_name', 'LIKE', '%' . $search . '%')
-                    ->orWhere('email', 'LIKE', '%' . $search . '%');
+                ->orWhere('last_name', 'LIKE', '%' . $search . '%')
+                ->orWhere('middle_name', 'LIKE', '%' . $search . '%')
+                ->orWhere('email', 'LIKE', '%' . $search . '%');
             }
         })
-
-            ->orderBy('created_at', 'desc')
-            ->with(['roles'])
-            ->paginate(100);
+        ->orderBy('created_at', 'desc')
+        ->with(['roles'])
+        ->paginate(100);
         return $user;
     }
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'user.first_name'     => 'required|string|max:255',
             'user.middle_name'    => 'required|string|max:255',
@@ -50,10 +60,8 @@ class UserController extends Controller
             'comment'        => $params_['comment'],
         ]);
         $createdUser->roles()->sync($request->get('user')['roles']);
-
         return response()->json(['request' => $request->all(), 'user' => $createdUser, 'status' => 'success', 'msg' => 'User created successfully']);
     }
-
     public function show($id)
     {
         return User::findOrFail($id);
@@ -74,10 +82,9 @@ class UserController extends Controller
         $user = User::find($id);
         if ($user->count()) {
             $user->update($request->get('user'));
-
-             $user->roles()->sync($request->get('user')['roles']);
+            $user->roles()->sync($request->get('user')['roles']);
             return response()->json(['request' => $request->all(), 'user' => $user, 'status' => 'success', 'msg' => 'User created successfully']);
-            //return response()->json(['status' => 'success', 'msg' => 'User updated successfully']);
+//return response()->json(['status' => 'success', 'msg' => 'User updated successfully']);
         } else {
             return response()->json(['status' => 'error', 'msg' => 'error in updating user ']);
         }

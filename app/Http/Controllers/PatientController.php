@@ -1,14 +1,10 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Patient;
 use Illuminate\Http\Request;
-
 class PatientController extends Controller
 {
     public function print(Request $request){
-
         $patients = Patient::where(function ($query) use ($request) {
             if ($request->has('user_id')) {
                 $query->whereHas('users', function ($_q) use ($request)  {
@@ -16,31 +12,22 @@ class PatientController extends Controller
                 });
             }
         });
-
         $patients = $patients->where(function ($query) use ($request) {
             if ($request->has('search')) {
                 $search = trim($request->get('search'));
                 $query->where('first_name', 'LIKE', '%' . $search . '%');
             }
         });
-
         $patients = $patients->orderBy('created_at', 'desc')
-            ->with(['location'])
-            ->with(['unit'])
-            ->paginate($request->get('per_page', 10));
-
-         
-    
-
-            return view('patient.print', compact('patients'));
+        ->with(['location'])
+        ->with(['unit'])
+        ->paginate();
+        return view('patient.print', compact('patients'));
     }
-
-
     public function home()
     {
         return view('patient.index');
     }
-    
     public function index(Request $request)
     {
         $patients = Patient::where(function ($query) use ($request) {
@@ -50,19 +37,16 @@ class PatientController extends Controller
                 });
             }
         });
-
         $patients = $patients->where(function ($query) use ($request) {
             if ($request->has('search')) {
                 $search = trim($request->get('search'));
                 $query->where('first_name', 'LIKE', '%' . $search . '%');
             }
         });
-
         $patients = $patients->orderBy('created_at', 'desc')
-            ->with(['location'])
-            ->with(['unit'])
-            ->paginate($request->get('per_page', 10));
-
+        ->with(['location'])
+        ->with(['unit'])
+        ->paginate($request->get('per_page', 10));
         return $patients;
     }
     public function store(Request $request)
@@ -81,10 +65,8 @@ class PatientController extends Controller
         ]);
         $createdPatient = Patient::create($request->get('patient'));
         $createdPatient->unit()->update(['unit_is_inuse'=>1]);
-
         return response()->json(['request' => $request->all(), 'patient' => $createdPatient, 'status' => 'success', 'msg' => 'Patient Created successfully']);
     }
-
     public function show($id)
     {
         return Patient::find($id);

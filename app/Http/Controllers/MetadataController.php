@@ -7,6 +7,26 @@ use Illuminate\Http\Request;
 
 class MetadataController extends Controller
 {
+      public function print(Request $request){
+        $metadatas = UnitPatientMetadata::where(function ($query) use ($request) {
+
+            if ($request->has('unit_id')) {
+                $query->where('unit_id', $request->get('unit_id'));
+            }
+            if ($request->has('type')) {
+                $query->where('sensor_type', $request->get('type'));
+            }
+            if ($request->has('search')) {
+                $search = trim($request->get('search'));
+                $query->where('mac', 'LIKE', '%' . $search . '%');
+            }
+        })
+            ->orderBy('created_at', 'desc')
+            ->with(['type'])
+            ->with(['unit'])
+            ->paginate();
+        return view('metadata.print', compact('metadatas'));
+    }
     public function home()
     {
         return view('metadata.index');

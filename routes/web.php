@@ -57,6 +57,11 @@ Route::resource('/observe/observes','ObservePatientController');
 
 Route::prefix('print')->group(function () {
      Route::get('patient', 'PatientController@print'); 
+     Route::get('user', 'UserController@print'); 
+     Route::get('normal', 'NormalController@print'); 
+     Route::get('metadata', 'MetadataController@print');
 });
+
+
 
 

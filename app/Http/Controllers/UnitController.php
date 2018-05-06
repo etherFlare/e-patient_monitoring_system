@@ -26,7 +26,7 @@ class UnitController extends Controller
         })
             ->orderBy('created_at', 'desc')
             ->with(['patients'])
-            ->paginate(10);
+            ->paginate(100);
         return $units;
     }
      public function get_update(Request $request){

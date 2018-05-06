@@ -87499,7 +87499,7 @@ var render = function() {
                       "a",
                       {
                         staticClass: "btn btn-xs btn-default",
-                        attrs: { href: "print/patient", target: "_blank" }
+                        attrs: { href: "print/user", target: "_blank" }
                       },
                       [
                         _c("span", {
@@ -91040,7 +91040,7 @@ var render = function() {
                       "a",
                       {
                         staticClass: "btn btn-xs btn-default",
-                        attrs: { href: "print/patient", target: "_blank" }
+                        attrs: { href: "print/metadata", target: "_blank" }
                       },
                       [
                         _c("span", {

@@ -26,4 +26,8 @@ class Unit extends Model
     {
         return $this->hasMany('App\Patient'); 
     }
+    public function unit()
+    {
+        return $this->hasOne('App\Unit'); 
+    }
 }

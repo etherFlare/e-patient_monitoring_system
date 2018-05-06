@@ -17,7 +17,7 @@ class RoleController extends Controller
             }
         })
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(100);
         return $role;
     }
     public function create()

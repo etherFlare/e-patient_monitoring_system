@@ -115,7 +115,7 @@
 
           </div>
           <div slot="footer">
-            <btn type="warning" v-if="userCanDelete"v-on:click="showEditPatientModalComponent($event, patient)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
+            <btn type="warning" v-if="userCanDelete" v-on:click="showEditPatientModalComponent($event, patient)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
             <btn type="danger"  v-if="userCanEdit" v-on:click="showDeletePatientModalComponent($event, patient)"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</btn>
             <btn  v-on:click="showPatientModal=false" data-action="auto-focus">Cancel</btn>
           </div>

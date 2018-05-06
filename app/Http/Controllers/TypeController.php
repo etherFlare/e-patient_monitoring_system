@@ -18,7 +18,7 @@ class TypeController extends Controller
 			}
 		})
 		->orderBy('created_at', 'desc')
-		->paginate($request->get('per_page', 10));
+		->paginate($request->get('per_page', 100));
 		return $types;
 	}
 	public function create()

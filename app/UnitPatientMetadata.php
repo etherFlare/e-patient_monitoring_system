@@ -14,4 +14,8 @@ class UnitPatientMetadata extends Model
 	{
 		return $this->belongsTo('App\Type');
 	}
+	 public function unit()
+    {
+        return $this->belongsTo('App\Unit');
+    }
 }
