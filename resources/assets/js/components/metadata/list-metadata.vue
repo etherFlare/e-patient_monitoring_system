@@ -106,7 +106,7 @@ export default {
       this.getMetadatas().then((response)=>{
         this.on_load = false
       })
-    }, 5000)
+    }, 3000)
   },
   computed: {
     userIsDeveloper(){

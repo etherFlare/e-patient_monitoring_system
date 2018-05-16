@@ -47,14 +47,15 @@ const oximeterDataFactory = (d) => {
       fill: false,
       lineTension: 0,
       label: 'Hearth Rate'
-    },
-    {
-      borderColor: '#FF0000',
-      borderDash: [5, 5],
-      data: data.map(payload => parseFloat(JSON.parse(payload.sensor_value).ST)),
-      fill: false,
-      label: 'Sensor Temperature'
-    }
+     }
+     //,
+    // {
+    //   borderColor: '#FF0000',
+    //   borderDash: [5, 5],
+    //   data: data.map(payload => parseFloat(JSON.parse(payload.sensor_value).ST)),
+    //   fill: false,
+    //   label: 'Sensor Temperature'
+    // }
     ],
     labels: data.map(payload => moment(payload.created_at).format('lll'))
   }
@@ -131,7 +132,7 @@ export default {
             this.$notify({
               title: 'Oxygen Saturation',
               content: `high ... ${v}`,
-              duration: 30000,
+              duration: 3000,
               type: 'warning',
               placement: 'bottom-left'
             })
@@ -140,7 +141,7 @@ export default {
             this.$notify({
               title: 'Oxygen Saturation',
               content: `low ... ${v}`,
-              duration: 30000,
+              duration: 3000,
               type: 'danger',
               placement: 'bottom-left'
             })

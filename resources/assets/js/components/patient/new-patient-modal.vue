@@ -40,10 +40,16 @@
                         <input type="text" class="form-control" placeholder="..." v-model="patient.contact_person"/>
                     </div>
                     <div class="form-group " :class="{'has-error': !patient.gender}">
-                        <label >gender</label>
-                        <div class="radio">
-                            <label class="radio-inline"><input type="radio" name="patient[gender]" value="Male" v-model="patient.gender"> Male</label>
-                            <label class="radio-inline"><input type="radio" name="patient[gender]" value="Female" v-model="patient.gender"> Female</label>
+                        <div class="col-md-6">
+                        <label >Gender</label>
+                            <div class="radio">
+                                <label class="radio-inline"><input type="radio" name="patient[gender]" value="Male" v-model="patient.gender"> Male</label>
+                                <label class="radio-inline"><input type="radio" name="patient[gender]" value="Female" v-model="patient.gender"> Female</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Age</label>
+                            <input type="text" class="form-control" placeholder="..." v-model="patient.age"/>
                         </div>
                     </div>
                 </div>

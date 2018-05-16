@@ -175,10 +175,10 @@ export default {
         case 1:
         return 'Oxygen Level'
         break;
-        case 1:
+        case 2:
         return 'Diastole'
         break;
-        case 1:
+        case 3:
         return 'Human Temperature'
         break;
       }

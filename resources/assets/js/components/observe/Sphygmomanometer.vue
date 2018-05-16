@@ -132,7 +132,7 @@ export default {
             this.$notify({
               title: 'Diastole',
               content: `high ... ${v}`,
-              duration: 30000,
+              duration: 3000,
               type: 'warning',
               placement: 'bottom-left'
             })
@@ -141,7 +141,7 @@ export default {
             this.$notify({
               title: 'Diastole',
               content: `low ... ${v}`,
-              duration: 30000,
+              duration: 3000,
               type: 'danger',
               placement: 'bottom-left'
             })

@@ -33,7 +33,7 @@ class NormalController extends Controller
 		->orderBy('created_at', 'desc')
 		->with(['type'])
         ->with(['patient'])
-		->paginate(10);
+		->paginate(100);
 		return $normals;
 	}
 	public function store(Request $request)

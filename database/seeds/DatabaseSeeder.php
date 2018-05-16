@@ -201,32 +201,32 @@ class DatabaseSeeder extends Seeder
 		'created_at' => Carbon\Carbon::now() ,
 			'updated_at' => Carbon\Carbon::now()
 		]);
-		// App\UserRole::create([
-		// 	'user_id'=> 1,
-		// 	'role_id'=> 2,
-		// 	'created_at' => Carbon\Carbon::now() ,
-		// 	'updated_at' => Carbon\Carbon::now()
-		// ]);
-		// App\UserRole::create([
-		// 	'user_id'=> 1,
-		// 	'role_id'=> 3,
-		// 	'created_at' => Carbon\Carbon::now() ,
-		// 	'updated_at' => Carbon\Carbon::now()
-		// ]);
-		// App\UserRole::create([
-		// 	'user_id'=> 1,
-		// 	'role_id'=> 4,
-		// 	'created_at' => Carbon\Carbon::now() ,
-		// 	'updated_at' => Carbon\Carbon::now()
-		// ]);
-		// App\UserRole::create([
-		// 	'user_id'=> 1,
-		// 	'role_id'=> 5,
-		// 	'created_at' => Carbon\Carbon::now() ,
-		// 	'updated_at' => Carbon\Carbon::now()
-		// ]);
+		App\UserRole::create([
+			'user_id'=> 1,
+			'role_id'=> 2,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		App\UserRole::create([
+			'user_id'=> 1,
+			'role_id'=> 3,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		App\UserRole::create([
+			'user_id'=> 1,
+			'role_id'=> 4,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
+		App\UserRole::create([
+			'user_id'=> 1,
+			'role_id'=> 5,
+			'created_at' => Carbon\Carbon::now() ,
+			'updated_at' => Carbon\Carbon::now()
+		]);
 		App\Role::create([
-			'title'=> 'Observer',
+			'title'=> 'observer',
 			'description'=> 'Can Observe patient',
 			'created_at' => Carbon\Carbon::now() ,
 			'updated_at' => Carbon\Carbon::now()
@@ -238,19 +238,19 @@ class DatabaseSeeder extends Seeder
 			'updated_at' => Carbon\Carbon::now()
 		]);
 		App\Role::create([
-			'title'=> 'Administrator',
+			'title'=> 'administrator',
 			'description'=> 'admin Access Mode',
 			'created_at' => Carbon\Carbon::now() ,
 			'updated_at' => Carbon\Carbon::now()
 		]);
 		App\Role::create([
-			'title'=> 'Editor',
+			'title'=> 'editor',
 			'description'=> 'Can modify',
 			'created_at' => Carbon\Carbon::now() ,
 			'updated_at' => Carbon\Carbon::now()
 		]);
 		App\Role::create([
-			'title'=> 'Cleaner',
+			'title'=> 'cleaner',
 			'description'=> 'Can delete',
 			'created_at' => Carbon\Carbon::now() ,
 			'updated_at' => Carbon\Carbon::now()

@@ -93,7 +93,7 @@
             </div>
           </div>
           <div slot="footer">
-            <btn type="warning"  v-if="userCaneEdit" v-on:click="showEditNormalModalComponent($event, normal)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
+            <btn type="warning"  v-if="userCanEdit" v-on:click="showEditNormalModalComponent($event, normal)"><i class="fa fa-pencil" aria-hidden="true"></i> Edit</btn>
             <btn type="danger"  v-if="userCanDelete"v-on:click="showDeleteNormalModalComponent($event, normal)"><i class="fa fa-trash-o"  aria-hidden="true"></i> Delete</btn>
             <btn  v-on:click="showNormalModal=false" data-action="auto-focus">Cancel</btn>
           </div>

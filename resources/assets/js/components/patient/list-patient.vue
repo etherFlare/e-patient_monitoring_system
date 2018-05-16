@@ -84,20 +84,20 @@
                 <strong><i class="fa fa-mobile-phone margin-r-5"></i> Contact Number</strong>
                 <p class="text-muted">{{ patient.contact_number }}</p>
                 <hr>
-                <strong><i class="fa fa-map-o margin-r-5"></i> home Address</strong>
+                <strong><i class="fa fa-map-o margin-r-5"></i> Home Address</strong>
                 <p class="text-muted">{{ patient.home_address }}</p>
                 <hr>
                 <strong><i class="fa fa-user margin-r-5"></i> Contact Person</strong>
                 <p class="text-muted">{{ patient.contact_person }}</p>
                 <hr>
-                <strong><i class="fa fa-user margin-r-5"></i> gender</strong>
+                <strong><i class="fa fa-user margin-r-5"></i> Gender</strong>
                 <p class="text-muted">{{ patient.gender }}</p>
               </div>
               <div class="col-md-6">
                 <strong><i class="fa fa-circle margin-r-5"></i> Unit</strong>
                 <p class="text-muted"><span v-if="patient.unit">{{ patient.unit.label }}</span></p>
                 <hr>
-                <strong><i class="fa fa-file-circle-o margin-r-5"></i> age</strong>
+                <strong><i class="fa fa-file-circle-o margin-r-5"></i> Age</strong>
                 <p>{{ patient.age }}</p>
                 <hr>
                 <strong><i class="fa  fa-patient-plus margin-r-5"></i>Account Created Since</strong>

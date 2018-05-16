@@ -78494,6 +78494,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 var blankPatientData = function blankPatientData() {
     return {
@@ -78978,62 +78984,94 @@ var render = function() {
                         class: { "has-error": !_vm.patient.gender }
                       },
                       [
-                        _c("label", [_vm._v("gender")]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "radio" }, [
-                          _c("label", { staticClass: "radio-inline" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.patient.gender,
-                                  expression: "patient.gender"
-                                }
-                              ],
-                              attrs: {
-                                type: "radio",
-                                name: "patient[gender]",
-                                value: "Male"
-                              },
-                              domProps: {
-                                checked: _vm._q(_vm.patient.gender, "Male")
-                              },
-                              on: {
-                                change: function($event) {
-                                  _vm.$set(_vm.patient, "gender", "Male")
-                                }
-                              }
-                            }),
-                            _vm._v(" Male")
-                          ]),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("label", [_vm._v("Gender")]),
                           _vm._v(" "),
-                          _c("label", { staticClass: "radio-inline" }, [
-                            _c("input", {
-                              directives: [
-                                {
-                                  name: "model",
-                                  rawName: "v-model",
-                                  value: _vm.patient.gender,
-                                  expression: "patient.gender"
+                          _c("div", { staticClass: "radio" }, [
+                            _c("label", { staticClass: "radio-inline" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.patient.gender,
+                                    expression: "patient.gender"
+                                  }
+                                ],
+                                attrs: {
+                                  type: "radio",
+                                  name: "patient[gender]",
+                                  value: "Male"
+                                },
+                                domProps: {
+                                  checked: _vm._q(_vm.patient.gender, "Male")
+                                },
+                                on: {
+                                  change: function($event) {
+                                    _vm.$set(_vm.patient, "gender", "Male")
+                                  }
                                 }
-                              ],
-                              attrs: {
-                                type: "radio",
-                                name: "patient[gender]",
-                                value: "Female"
-                              },
-                              domProps: {
-                                checked: _vm._q(_vm.patient.gender, "Female")
-                              },
-                              on: {
-                                change: function($event) {
-                                  _vm.$set(_vm.patient, "gender", "Female")
+                              }),
+                              _vm._v(" Male")
+                            ]),
+                            _vm._v(" "),
+                            _c("label", { staticClass: "radio-inline" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.patient.gender,
+                                    expression: "patient.gender"
+                                  }
+                                ],
+                                attrs: {
+                                  type: "radio",
+                                  name: "patient[gender]",
+                                  value: "Female"
+                                },
+                                domProps: {
+                                  checked: _vm._q(_vm.patient.gender, "Female")
+                                },
+                                on: {
+                                  change: function($event) {
+                                    _vm.$set(_vm.patient, "gender", "Female")
+                                  }
                                 }
-                              }
-                            }),
-                            _vm._v(" Female")
+                              }),
+                              _vm._v(" Female")
+                            ])
                           ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-md-6" }, [
+                          _c("label", [_vm._v("Age")]),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.patient.age,
+                                expression: "patient.age"
+                              }
+                            ],
+                            staticClass: "form-control",
+                            attrs: { type: "text", placeholder: "..." },
+                            domProps: { value: _vm.patient.age },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.patient,
+                                  "age",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
                         ])
                       ]
                     )
@@ -79373,6 +79411,12 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -80000,84 +80044,119 @@ var render = function() {
                                   class: { "has-error": !_vm.patient.gender }
                                 },
                                 [
-                                  _c("label", [_vm._v("gender")]),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "radio" }, [
-                                    _c(
-                                      "label",
-                                      { staticClass: "radio-inline" },
-                                      [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.patient.gender,
-                                              expression: "patient.gender"
-                                            }
-                                          ],
-                                          attrs: {
-                                            type: "radio",
-                                            name: "patient[gender]",
-                                            value: "Male"
-                                          },
-                                          domProps: {
-                                            checked: _vm._q(
-                                              _vm.patient.gender,
-                                              "Male"
-                                            )
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              _vm.$set(
-                                                _vm.patient,
-                                                "gender",
+                                  _c("div", { staticClass: "col-md-6" }, [
+                                    _c("label", [_vm._v("gender")]),
+                                    _vm._v(" "),
+                                    _c("div", { staticClass: "radio" }, [
+                                      _c(
+                                        "label",
+                                        { staticClass: "radio-inline" },
+                                        [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.patient.gender,
+                                                expression: "patient.gender"
+                                              }
+                                            ],
+                                            attrs: {
+                                              type: "radio",
+                                              name: "patient[gender]",
+                                              value: "Male"
+                                            },
+                                            domProps: {
+                                              checked: _vm._q(
+                                                _vm.patient.gender,
                                                 "Male"
                                               )
+                                            },
+                                            on: {
+                                              change: function($event) {
+                                                _vm.$set(
+                                                  _vm.patient,
+                                                  "gender",
+                                                  "Male"
+                                                )
+                                              }
                                             }
-                                          }
-                                        }),
-                                        _vm._v(" Male")
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "label",
-                                      { staticClass: "radio-inline" },
-                                      [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.patient.gender,
-                                              expression: "patient.gender"
-                                            }
-                                          ],
-                                          attrs: {
-                                            type: "radio",
-                                            name: "patient[gender]",
-                                            value: "Female"
-                                          },
-                                          domProps: {
-                                            checked: _vm._q(
-                                              _vm.patient.gender,
-                                              "Female"
-                                            )
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              _vm.$set(
-                                                _vm.patient,
-                                                "gender",
+                                          }),
+                                          _vm._v(" Male")
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "label",
+                                        { staticClass: "radio-inline" },
+                                        [
+                                          _c("input", {
+                                            directives: [
+                                              {
+                                                name: "model",
+                                                rawName: "v-model",
+                                                value: _vm.patient.gender,
+                                                expression: "patient.gender"
+                                              }
+                                            ],
+                                            attrs: {
+                                              type: "radio",
+                                              name: "patient[gender]",
+                                              value: "Female"
+                                            },
+                                            domProps: {
+                                              checked: _vm._q(
+                                                _vm.patient.gender,
                                                 "Female"
                                               )
+                                            },
+                                            on: {
+                                              change: function($event) {
+                                                _vm.$set(
+                                                  _vm.patient,
+                                                  "gender",
+                                                  "Female"
+                                                )
+                                              }
                                             }
+                                          }),
+                                          _vm._v(" Female")
+                                        ]
+                                      )
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "col-md-6" }, [
+                                    _c("label", [_vm._v("Age")]),
+                                    _vm._v(" "),
+                                    _c("input", {
+                                      directives: [
+                                        {
+                                          name: "model",
+                                          rawName: "v-model",
+                                          value: _vm.patient.age,
+                                          expression: "patient.age"
+                                        }
+                                      ],
+                                      staticClass: "form-control",
+                                      attrs: {
+                                        type: "text",
+                                        placeholder: "..."
+                                      },
+                                      domProps: { value: _vm.patient.age },
+                                      on: {
+                                        input: function($event) {
+                                          if ($event.target.composing) {
+                                            return
                                           }
-                                        }),
-                                        _vm._v(" Female")
-                                      ]
-                                    )
+                                          _vm.$set(
+                                            _vm.patient,
+                                            "age",
+                                            $event.target.value
+                                          )
+                                        }
+                                      }
+                                    })
                                   ])
                                 ]
                               )
@@ -88682,7 +88761,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("strong", [
                           _c("i", { staticClass: "fa fa-map-o margin-r-5" }),
-                          _vm._v(" home Address")
+                          _vm._v(" Home Address")
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "text-muted" }, [
@@ -88704,7 +88783,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("strong", [
                           _c("i", { staticClass: "fa fa-user margin-r-5" }),
-                          _vm._v(" gender")
+                          _vm._v(" Gender")
                         ]),
                         _vm._v(" "),
                         _c("p", { staticClass: "text-muted" }, [
@@ -88732,7 +88811,7 @@ var render = function() {
                           _c("i", {
                             staticClass: "fa fa-file-circle-o margin-r-5"
                           }),
-                          _vm._v(" age")
+                          _vm._v(" Age")
                         ]),
                         _vm._v(" "),
                         _c("p", [_vm._v(_vm._s(_vm.patient.age))]),
@@ -90675,7 +90754,7 @@ var render = function() {
                     "div",
                     { attrs: { slot: "footer" }, slot: "footer" },
                     [
-                      _vm.userCaneEdit
+                      _vm.userCanEdit
                         ? _c(
                             "btn",
                             {
@@ -90947,7 +91026,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       _this.getMetadatas().then(function (response) {
         _this.on_load = false;
       });
-    }, 5000);
+    }, 3000);
   },
 
   computed: {
@@ -91675,10 +91754,10 @@ var defaultPatientsPayload = function defaultPatientsPayload() {
         case 1:
           return 'Oxygen Level';
           break;
-        case 1:
+        case 2:
           return 'Diastole';
           break;
-        case 1:
+        case 3:
           return 'Human Temperature';
           break;
       }
@@ -105137,14 +105216,14 @@ var oximeterDataFactory = function oximeterDataFactory(d) {
       fill: false,
       lineTension: 0,
       label: 'Hearth Rate'
-    }, {
-      borderColor: '#FF0000',
-      borderDash: [5, 5],
-      data: data.map(function (payload) {
-        return parseFloat(JSON.parse(payload.sensor_value).ST);
-      }),
-      fill: false,
-      label: 'Sensor Temperature'
+      //,
+      // {
+      //   borderColor: '#FF0000',
+      //   borderDash: [5, 5],
+      //   data: data.map(payload => parseFloat(JSON.parse(payload.sensor_value).ST)),
+      //   fill: false,
+      //   label: 'Sensor Temperature'
+      // }
     }],
     labels: data.map(function (payload) {
       return __WEBPACK_IMPORTED_MODULE_2_moment___default()(payload.created_at).format('lll');
@@ -105230,7 +105309,7 @@ var oximeterDeafultData = function oximeterDeafultData() {
             _this2.$notify({
               title: 'Oxygen Saturation',
               content: 'high ... ' + v,
-              duration: 30000,
+              duration: 3000,
               type: 'warning',
               placement: 'bottom-left'
             });
@@ -105239,7 +105318,7 @@ var oximeterDeafultData = function oximeterDeafultData() {
             _this2.$notify({
               title: 'Oxygen Saturation',
               content: 'low ... ' + v,
-              duration: 30000,
+              duration: 3000,
               type: 'danger',
               placement: 'bottom-left'
             });
@@ -105561,7 +105640,7 @@ var sphygmomanometerDeafultData = function sphygmomanometerDeafultData() {
             _this2.$notify({
               title: 'Diastole',
               content: 'high ... ' + v,
-              duration: 30000,
+              duration: 3000,
               type: 'warning',
               placement: 'bottom-left'
             });
@@ -105570,7 +105649,7 @@ var sphygmomanometerDeafultData = function sphygmomanometerDeafultData() {
             _this2.$notify({
               title: 'Diastole',
               content: 'low ... ' + v,
-              duration: 30000,
+              duration: 3000,
               type: 'danger',
               placement: 'bottom-left'
             });
@@ -105875,7 +105954,7 @@ var thermometerDeafultData = function thermometerDeafultData() {
             _this2.$notify({
               title: 'Human Temperatur',
               content: 'high ... ' + v,
-              duration: 30000,
+              duration: 3000,
               type: 'warning',
               placement: 'bottom-left'
             });
@@ -105884,7 +105963,7 @@ var thermometerDeafultData = function thermometerDeafultData() {
             _this2.$notify({
               title: 'Human Temperatur',
               content: 'low ... ' + v,
-              duration: 30000,
+              duration: 3000,
               type: 'danger',
               placement: 'bottom-left'
             });
